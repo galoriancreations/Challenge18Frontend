@@ -1,0 +1,83 @@
+[
+    {
+        "title": "The Team",
+        "members": [
+            {
+                "name": "Sharon Gal-Or",
+                "image": "sharon.png",
+                "role": "Founder",
+                "description": "Israeli ambassador for USTP, a writer, author, futurist, an innovation management & gamification specialist, advisor in the fields of education, community management, entrepreneurship & sustainability.",
+                "link": "http://hk.linkedin.com/in/sharongalor"
+            },
+            {
+                "name": "Joseph Mufutu",
+                "image": "joseph.jpeg",
+                "role": "Community-Led Developer",
+                "description": "Ting Global Cultural Ambassador and community Led Developer specializing in Localizing Sustainable Development Goals (SDGs), finding pathways of transition into sustainability & self-sufficiency.",
+                "link": "https://www.linkedin.com/in/joseph-mufutu-12107461"
+            },
+            {
+                "name": "Itay Tzukerman",
+                "image": "itay.jpg",
+                "role": "Resource Development",
+                "description": ""
+            },
+            {
+                "name": "Kate Breeze-Raz",
+                "image": "",
+                "role": "Designer",
+                "description": "Digital designer, creating graphics and using digital art to enhance Challenge 18 and making it fun for everyone to play and enjoy!"
+            },
+            {
+                "name": "Yinon Hever",
+                "image": "yinon.jpg",
+                "role": "Developer",
+                "description": "Full-stack web developer, specializing in planning and building modern websites and web applications, with advanced designs and optimized user experience.",
+                "link": "https://yinonhever.com/"
+            },
+            {
+                "name": "Nadav Raz",
+                "image": "nadav.jpeg",
+                "role": "Developer",
+                "description": "Game developer, programming in C# in Unity and Blueprint in Unreal Engine. Developing modern games for all platforms both online and offline while maintaining high quality code documentation."
+            },
+            {
+                "name": "Ido Herzmann",
+                "image": "",
+                "role": "Developer",
+                "description": "Applications and Games Programmer, Using Unity.sys to improve the world a bit by bit. Specializing in networking and solving problems with simple SOLID solutions."
+            },
+            {
+                "name": "Ori Baruch",
+                "image": "",
+                "role": "Developer",
+                "description": "Program Developer and Game Designer, designing applications and games on multiple platforms, specializing in Player and User experience."
+            }
+        ]
+    },
+    {
+        "title": "Advisors",
+        "members": [
+            {
+                "name": "David Hanson Jr.",
+                "image": "hanson.png",
+                "description": "American roboticist who is the founder and Chief Executive Officer (CEO) of Hanson Robotics, a Hong Kong-based robotics company founded in 2013."
+            },
+            {
+                "name": "Lawrence Yee",
+                "image": "yee.png",
+                "description": "Co-President (2017-), President (2015-16), Board Director and founder of Cradle Program of AAMA-PRD chapter since 2015.  He also sits on the board of BIIA (Business Information Industry Association) since its inception in 2006."
+            },
+            {
+                "name": "Newton Lee",
+                "image": "lee.png",
+                "description": "Computer scientist who is an author and administrator in the field of education and technology commercialization. He is known for his total information awareness book series."
+            },
+            {
+                "name": "Prof. Shai Dekel",
+                "image": "dekel.png",
+                "description": "Visiting associate professor at the school of mathematics, Tel-Aviv University. He also serves as a principal scientist in GE Global Research and as Angel Investor in TLVseed and as a member of Akban. His research interests are theoretical approximation theory, harmonic analysis and their applications in data science."
+            }
+        ]
+    }
+]

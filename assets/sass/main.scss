@@ -1,0 +1,432 @@
+@import "./base.scss";
+
+// GENERAL STYLES
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+
+  @include respond(desktop-lg) {
+    font-size: 11px;
+  }
+}
+
+#__nuxt {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.6rem;
+  overflow: hidden;
+  position: relative;
+  min-height: 100vh;
+
+  @include respond(mobile) {
+    font-size: 1.5rem;
+  }
+}
+
+::selection {
+  background-color: $color-gold-4;
+  color: #000;
+}
+
+// PAGE TRANSITION
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.45s;
+}
+
+.page-enter-to,
+.page-leave-from {
+  opacity: 1;
+}
+
+// TYPOGRAPHY
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Spartan", sans-serif;
+}
+
+p {
+  line-height: 1.6;
+  font-size: 1.75rem;
+
+  @include respond(mobile) {
+    line-height: 1.7;
+    font-size: 1.55rem;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+// RESULTS TABLE
+.results-table {
+  max-width: 90rem;
+  margin: auto;
+
+  * {
+    text-align: center !important;
+    font-size: 1.6rem;
+
+    @include respond(mobile) {
+      font-size: 1.5rem;
+    }
+  }
+
+  .total-column {
+    &,
+    button {
+      font-weight: 700 !important;
+      color: $color-blue-1 !important;
+    }
+
+    span {
+      position: relative;
+      z-index: 10;
+    }
+  }
+}
+
+// AGILE SLIDER
+.agile {
+  &__actions {
+    margin-top: 2.5rem;
+
+    @include respond(mobile) {
+      margin-top: 1.5rem;
+    }
+
+    button {
+      background-color: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font: inherit;
+      font-size: 3rem;
+      font-weight: 800;
+      color: $color-blue-2;
+      transition: color 0.5s;
+
+      @include respond(mobile) {
+        font-size: 2.5rem;
+      }
+
+      &:hover {
+        color: $color-azure;
+      }
+    }
+  }
+
+  &__dot {
+    margin: 0 0.5rem;
+
+    button {
+      background-color: rgba($color-azure-light, 0.8);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: block;
+      height: 1rem;
+      width: 1rem;
+      font-size: 0;
+      line-height: 0;
+      transition: all 0.5s;
+    }
+
+    &--current button {
+      background-color: $color-blue-2;
+    }
+
+    &:hover button {
+      @media (hover: hover) {
+        background-color: $color-blue-2;
+      }
+    }
+  }
+}
+
+// FORMS
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 70rem;
+  margin: auto;
+  text-align: initial;
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2.5rem;
+
+    @include respond(mobile) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__label {
+    font-weight: 500;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+    @include respond(mobile) {
+      font-size: 1.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    i {
+      display: block;
+      font-size: 1.8rem;
+
+      @include respond(mobile) {
+        font-size: 1.7rem;
+      }
+    }
+  }
+
+  &__input {
+    font: inherit;
+    font-size: 1.65rem;
+    line-height: 1.6;
+    padding: 1.2rem 1.2rem;
+    border: 0.2rem solid #ccc;
+    outline: none;
+    border-radius: 0.8rem;
+    transition: all 0.4s;
+    width: 100%;
+    background-color: #fff !important;
+
+    @include respond(mobile) {
+      font-size: 1.5rem;
+    }
+
+    &:focus {
+      border-color: $color-azure;
+    }
+  }
+
+  &__textarea {
+    resize: none;
+    height: 15rem;
+  }
+
+  .button {
+    margin-top: 1rem;
+    font-weight: 600;
+    width: 100%;
+    padding: 1.25rem;
+
+    @include respond(mobile) {
+      padding: 1.1rem;
+    }
+  }
+
+  .language-selector {
+    max-width: 100%;
+    border-radius: 0.8rem;
+    border: 0.2rem solid #ccc;
+    padding: 0 1rem;
+    height: 5.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: border 0.5s;
+
+    @include respond(mobile) {
+      height: 5.2rem;
+    }
+
+    &.vs--open {
+      border-color: $color-azure;
+    }
+
+    * {
+      border: none;
+    }
+
+    .vs__dropdown-toggle {
+      margin-left: -6px;
+
+      @include respond(mobile) {
+        margin-left: -5.75px;
+      }
+    }
+  }
+
+  &__plans {
+    margin-bottom: 3.5rem;
+  }
+
+  &__plans-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+
+    @include respond(mobile-land) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__plan-input {
+    display: none;
+  }
+
+  &__plan-box {
+    border: 0.3rem solid transparent;
+    box-shadow: $boxshadow2;
+    border-radius: 0.8rem;
+    display: block;
+    text-align: center;
+    padding: 2rem;
+    height: 100%;
+    cursor: pointer;
+    transition: all 0.5s;
+
+    &:hover {
+      background-color: rgba($color-azure-light, 0.4);
+    }
+  }
+
+  &__plan-input:checked + &__plan-box {
+    border-color: $color-azure;
+    background-color: rgba($color-azure-light, 0.4);
+  }
+
+  &__plan-text {
+    font-size: 1.8rem;
+    font-weight: 500;
+
+    @include respond(mobile) {
+      font-size: 1.7rem;
+    }
+  }
+
+  &__plan-price {
+    font-size: 3rem;
+    color: $color-blue-2;
+    margin: 1.5rem 0 0;
+
+    @include respond(mobile) {
+      font-size: 2.9rem;
+    }
+  }
+}
+
+// LANGUAGE SELECTOR
+.language-selector {
+  width: 100%;
+  max-width: 37rem;
+  margin: auto;
+
+  * {
+    font: inherit;
+  }
+}
+
+// MODAL
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s;
+  z-index: 9999;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(#fff, 0.7);
+  }
+
+  &__container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: calc(100% - 2 * #{$padding-sides-mobile});
+    max-width: 45rem;
+    background-color: #fff;
+    padding: 3rem 3rem 4rem;
+    text-align: center;
+    box-shadow: $boxshadow2;
+    border-radius: 1rem;
+    transition: all 0.5s;
+    z-index: 99999;
+  }
+
+  &.active &__container {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  &__close {
+    font-size: 2rem;
+    color: $color-blue-1;
+    margin-bottom: 2.5rem;
+    transition: color 0.5s;
+    cursor: pointer;
+
+    &:hover {
+      color: $color-azure;
+    }
+
+    @include respond(mobile) {
+      font-size: 1.8rem;
+    }
+  }
+
+  &.error &__close {
+    color: $color-error;
+
+    &:hover {
+      color: $color-azure;
+    }
+  }
+
+  &__heading {
+    color: $color-blue-2;
+    letter-spacing: initial;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    font-size: 2.5rem;
+  }
+
+  &.error &__heading {
+    color: $color-error;
+  }
+
+  &__text {
+    font-size: 1.65rem;
+
+    @include respond(mobile) {
+      font-size: 1.5rem;
+    }
+  }
+}

@@ -1,0 +1,567 @@
+[
+    {
+        "code": "af",
+        "name": "Afrikaans",
+        "label": "Afrikaans"
+    },
+    {
+        "code": "sq",
+        "name": "Albanian",
+        "label": "Albanian – shqip"
+    },
+    {
+        "code": "am",
+        "name": "Amharic",
+        "label": "Amharic – አማርኛ"
+    },
+    {
+        "code": "ar",
+        "name": "Arabic",
+        "label": "Arabic – العربية"
+    },
+    {
+        "code": "an",
+        "name": "Aragonese",
+        "label": "Aragonese – aragonés"
+    },
+    {
+        "code": "hy",
+        "name": "Armenian",
+        "label": "Armenian – հայերեն"
+    },
+    {
+        "code": "ast",
+        "name": "Asturian",
+        "label": "Asturian – asturianu"
+    },
+    {
+        "code": "az",
+        "name": "Azerbaijani",
+        "label": "Azerbaijani – azərbaycan dili"
+    },
+    {
+        "code": "eu",
+        "name": "Basque",
+        "label": "Basque – euskara"
+    },
+    {
+        "code": "be",
+        "name": "Belarusian",
+        "label": "Belarusian – беларуская"
+    },
+    {
+        "code": "bn",
+        "name": "Bengali",
+        "label": "Bengali – বাংলা"
+    },
+    {
+        "code": "bs",
+        "name": "Bosnian",
+        "label": "Bosnian – bosanski"
+    },
+    {
+        "code": "br",
+        "name": "Breton",
+        "label": "Breton – brezhoneg"
+    },
+    {
+        "code": "bg",
+        "name": "Bulgarian",
+        "label": "Bulgarian – български"
+    },
+    {
+        "code": "ca",
+        "name": "Catalan",
+        "label": "Catalan – català"
+    },
+    {
+        "code": "ckb",
+        "name": "Central Kurdish",
+        "label": "Central Kurdish – کوردی (دەستنوسی عەرەبی)"
+    },
+    {
+        "code": "zh",
+        "name": "Chinese",
+        "label": "Chinese – 中文"
+    },
+    {
+        "code": "co",
+        "name": "Corsican",
+        "label": "Corsican"
+    },
+    {
+        "code": "hr",
+        "name": "Croatian",
+        "label": "Croatian – hrvatski"
+    },
+    {
+        "code": "cs",
+        "name": "Czech",
+        "label": "Czech – čeština"
+    },
+    {
+        "code": "da",
+        "name": "Danish",
+        "label": "Danish – dansk"
+    },
+    {
+        "code": "nl",
+        "name": "Dutch",
+        "label": "Dutch – Nederlands"
+    },
+    {
+        "code": "en",
+        "name": "English",
+        "label": "English"
+    },
+    {
+        "code": "eo",
+        "name": "Esperanto",
+        "label": "Esperanto – esperanto"
+    },
+    {
+        "code": "et",
+        "name": "Estonian",
+        "label": "Estonian – eesti"
+    },
+    {
+        "code": "fo",
+        "name": "Faroese",
+        "label": "Faroese – føroyskt"
+    },
+    {
+        "code": "fil",
+        "name": "Filipino",
+        "label": "Filipino"
+    },
+    {
+        "code": "fi",
+        "name": "Finnish",
+        "label": "Finnish – suomi"
+    },
+    {
+        "code": "fr",
+        "name": "French",
+        "label": "French – français"
+    },
+    {
+        "code": "gl",
+        "name": "Galician",
+        "label": "Galician – galego"
+    },
+    {
+        "code": "ka",
+        "name": "Georgian",
+        "label": "Georgian – ქართული"
+    },
+    {
+        "code": "de",
+        "name": "German",
+        "label": "German – Deutsch"
+    },
+    {
+        "code": "el",
+        "name": "Greek",
+        "label": "Greek – Ελληνικά"
+    },
+    {
+        "code": "gn",
+        "name": "Guarani",
+        "label": "Guarani"
+    },
+    {
+        "code": "gu",
+        "name": "Gujarati",
+        "label": "Gujarati – ગુજરાતી"
+    },
+    {
+        "code": "ha",
+        "name": "Hausa",
+        "label": "Hausa"
+    },
+    {
+        "code": "haw",
+        "name": "Hawaiian",
+        "label": "Hawaiian – ʻŌlelo Hawaiʻi"
+    },
+    {
+        "code": "he",
+        "name": "Hebrew",
+        "label": "Hebrew – עברית"
+    },
+    {
+        "code": "hi",
+        "name": "Hindi",
+        "label": "Hindi – हिन्दी"
+    },
+    {
+        "code": "hu",
+        "name": "Hungarian",
+        "label": "Hungarian – magyar"
+    },
+    {
+        "code": "is",
+        "name": "Icelandic",
+        "label": "Icelandic – íslenska"
+    },
+    {
+        "code": "id",
+        "name": "Indonesian",
+        "label": "Indonesian – Indonesia"
+    },
+    {
+        "code": "ia",
+        "name": "Interlingua",
+        "label": "Interlingua"
+    },
+    {
+        "code": "ga",
+        "name": "Irish",
+        "label": "Irish – Gaeilge"
+    },
+    {
+        "code": "it",
+        "name": "Italian",
+        "label": "Italian – italiano"
+    },
+    {
+        "code": "ja",
+        "name": "Japanese",
+        "label": "Japanese – 日本語"
+    },
+    {
+        "code": "kn",
+        "name": "Kannada",
+        "label": "Kannada – ಕನ್ನಡ"
+    },
+    {
+        "code": "kk",
+        "name": "Kazakh",
+        "label": "Kazakh – қазақ тілі"
+    },
+    {
+        "code": "km",
+        "name": "Khmer",
+        "label": "Khmer – ខ្មែរ"
+    },
+    {
+        "code": "ko",
+        "name": "Korean",
+        "label": "Korean – 한국어"
+    },
+    {
+        "code": "ku",
+        "name": "Kurdish",
+        "label": "Kurdish – Kurdî"
+    },
+    {
+        "code": "ky",
+        "name": "Kyrgyz",
+        "label": "Kyrgyz – кыргызча"
+    },
+    {
+        "code": "lo",
+        "name": "Lao",
+        "label": "Lao – ລາວ"
+    },
+    {
+        "code": "la",
+        "name": "Latin",
+        "label": "Latin"
+    },
+    {
+        "code": "lv",
+        "name": "Latvian",
+        "label": "Latvian – latviešu"
+    },
+    {
+        "code": "ln",
+        "name": "Lingala",
+        "label": "Lingala – lingála"
+    },
+    {
+        "code": "lt",
+        "name": "Lithuanian",
+        "label": "Lithuanian – lietuvių"
+    },
+    {
+        "code": "mk",
+        "name": "Macedonian",
+        "label": "Macedonian – македонски"
+    },
+    {
+        "code": "ms",
+        "name": "Malay",
+        "label": "Malay – Bahasa Melayu"
+    },
+    {
+        "code": "ml",
+        "name": "Malayalam",
+        "label": "Malayalam – മലയാളം"
+    },
+    {
+        "code": "mt",
+        "name": "Maltese",
+        "label": "Maltese – Malti"
+    },
+    {
+        "code": "mr",
+        "name": "Marathi",
+        "label": "Marathi – मराठी"
+    },
+    {
+        "code": "mn",
+        "name": "Mongolian",
+        "label": "Mongolian – монгол"
+    },
+    {
+        "code": "ne",
+        "name": "Nepali",
+        "label": "Nepali – नेपाली"
+    },
+    {
+        "code": "no",
+        "name": "Norwegian",
+        "label": "Norwegian – norsk"
+    },
+    {
+        "code": "oc",
+        "name": "Occitan",
+        "label": "Occitan"
+    },
+    {
+        "code": "or",
+        "name": "Oriya",
+        "label": "Oriya – ଓଡ଼ିଆ"
+    },
+    {
+        "code": "om",
+        "name": "Oromo",
+        "label": "Oromo – Oromoo"
+    },
+    {
+        "code": "ps",
+        "name": "Pashto",
+        "label": "Pashto – پښتو"
+    },
+    {
+        "code": "fa",
+        "name": "Persian",
+        "label": "Persian – فارسی"
+    },
+    {
+        "code": "pl",
+        "name": "Polish",
+        "label": "Polish – polski"
+    },
+    {
+        "code": "pt",
+        "name": "Portuguese",
+        "label": "Portuguese – português"
+    },
+    {
+        "code": "pa",
+        "name": "Punjabi",
+        "label": "Punjabi – ਪੰਜਾਬੀ"
+    },
+    {
+        "code": "qu",
+        "name": "Quechua",
+        "label": "Quechua"
+    },
+    {
+        "code": "ro",
+        "name": "Romanian",
+        "label": "Romanian – română"
+    },
+    {
+        "code": "rm",
+        "name": "Romansh",
+        "label": "Romansh – rumantsch"
+    },
+    {
+        "code": "ru",
+        "name": "Russian",
+        "label": "Russian – русский"
+    },
+    {
+        "code": "gd",
+        "name": "Scottish Gaelic",
+        "label": "Scottish Gaelic"
+    },
+    {
+        "code": "sr",
+        "name": "Serbian",
+        "label": "Serbian – српски"
+    },
+    {
+        "code": "sh",
+        "name": "Serbo-Croatian",
+        "label": "Serbo-Croatian – Srpskohrvatski"
+    },
+    {
+        "code": "sn",
+        "name": "Shona",
+        "label": "Shona – chiShona"
+    },
+    {
+        "code": "sd",
+        "name": "Sindhi",
+        "label": "Sindhi"
+    },
+    {
+        "code": "si",
+        "name": "Sinhala",
+        "label": "Sinhala – සිංහල"
+    },
+    {
+        "code": "sk",
+        "name": "Slovak",
+        "label": "Slovak – slovenčina"
+    },
+    {
+        "code": "sl",
+        "name": "Slovenian",
+        "label": "Slovenian – slovenščina"
+    },
+    {
+        "code": "so",
+        "name": "Somali",
+        "label": "Somali – Soomaali"
+    },
+    {
+        "code": "st",
+        "name": "Southern Sotho",
+        "label": "Southern Sotho"
+    },
+    {
+        "code": "es",
+        "name": "Spanish",
+        "label": "Spanish – español"
+    },
+    {
+        "code": "su",
+        "name": "Sundanese",
+        "label": "Sundanese"
+    },
+    {
+        "code": "sw",
+        "name": "Swahili",
+        "label": "Swahili – Kiswahili"
+    },
+    {
+        "code": "sv",
+        "name": "Swedish",
+        "label": "Swedish – svenska"
+    },
+    {
+        "code": "tg",
+        "name": "Tajik",
+        "label": "Tajik – тоҷикӣ"
+    },
+    {
+        "code": "ta",
+        "name": "Tamil",
+        "label": "Tamil – தமிழ்"
+    },
+    {
+        "code": "tt",
+        "name": "Tatar",
+        "label": "Tatar"
+    },
+    {
+        "code": "te",
+        "name": "Telugu",
+        "label": "Telugu – తెలుగు"
+    },
+    {
+        "code": "th",
+        "name": "Thai",
+        "label": "Thai – ไทย"
+    },
+    {
+        "code": "ti",
+        "name": "Tigrinya",
+        "label": "Tigrinya – ትግርኛ"
+    },
+    {
+        "code": "to",
+        "name": "Tongan",
+        "label": "Tongan – lea fakatonga"
+    },
+    {
+        "code": "tr",
+        "name": "Turkish",
+        "label": "Turkish – Türkçe"
+    },
+    {
+        "code": "tk",
+        "name": "Turkmen",
+        "label": "Turkmen"
+    },
+    {
+        "code": "tw",
+        "name": "Twi",
+        "label": "Twi"
+    },
+    {
+        "code": "uk",
+        "name": "Ukrainian",
+        "label": "Ukrainian – українська"
+    },
+    {
+        "code": "ur",
+        "name": "Urdu",
+        "label": "Urdu – اردو"
+    },
+    {
+        "code": "ug",
+        "name": "Uyghur",
+        "label": "Uyghur"
+    },
+    {
+        "code": "uz",
+        "name": "Uzbek",
+        "label": "Uzbek – o‘zbek"
+    },
+    {
+        "code": "vi",
+        "name": "Vietnamese",
+        "label": "Vietnamese – Tiếng Việt"
+    },
+    {
+        "code": "wa",
+        "name": "Walloon",
+        "label": "Walloon – wa"
+    },
+    {
+        "code": "cy",
+        "name": "Welsh",
+        "label": "Welsh – Cymraeg"
+    },
+    {
+        "code": "fy",
+        "name": "Western Frisian",
+        "label": "Western Frisian"
+    },
+    {
+        "code": "xh",
+        "name": "Xhosa",
+        "label": "Xhosa"
+    },
+    {
+        "code": "yi",
+        "name": "Yiddish",
+        "label": "Yiddish"
+    },
+    {
+        "code": "yo",
+        "name": "Yoruba",
+        "label": "Yoruba – Èdè Yorùbá"
+    },
+    {
+        "code": "zu",
+        "name": "Zulu",
+        "label": "Zulu – isiZulu"
+    }
+]
