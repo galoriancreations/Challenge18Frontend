@@ -34,7 +34,7 @@ export const actions = {
     async auth(context, { mode, data }) {
         const authData = await this.$axios.$post("/api", { [mode]: data });
         const { access_token: token, user, exp } = authData;
-        this.$axios.setToken(token, "Bearer");
+        context.dispatch("setAxiosDefaults", { token, user });
         await context.dispatch("loadTemplates", { user });
         context.commit("setUser", { user, token });
 
@@ -55,11 +55,17 @@ export const actions = {
 
         if (process.server) {
             context.commit("setUser", { user: { id: userId }, token });
-            this.$axios.setToken(token, "Bearer");
+            context.dispatch("setAxiosDefaults", { token, user });
         } else {
             clearTimeout(logoutTimer);
             logoutTimer = setTimeout(() => context.dispatch("logout"), timeLeft);
         }
+    },
+    setAxiosDefaults(_, { token, user }) {
+        this.$axios.setToken(token, "Bearer");
+        this.$axios.defaults.transformRequest = [
+            data => ({ ...data, userID: user.id })
+        ];
     },
     logout(context) {
         context.commit("removeUser");

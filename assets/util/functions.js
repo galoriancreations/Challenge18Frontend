@@ -67,6 +67,13 @@ export const initialSelections = options =>
     day.tasks.map(task => task.options[0]?.text)
   );
 
+export const existingSelections = (options, selections = []) =>
+  options.map((day, dayIndex) =>
+    day.tasks.map((_, taskIndex) =>
+      selections[dayIndex] && [selections][dayIndex][taskIndex]
+    )
+  );
+
 export const stripHTML = text => text.replace(/(<([^>]+)>)/ig, "");
 
 export const convertTaskText = text => {

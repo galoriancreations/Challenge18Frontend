@@ -81,7 +81,7 @@ export default {
   }
 
   &--white:hover {
-    background-color: rgba($color-azure-light, 0.8);
+    background-color: #cce4fc;
     color: $color-blue-2;
   }
 
