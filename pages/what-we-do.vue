@@ -4,15 +4,16 @@
       <section class="our-goals">
         <SectionHeading small>Our Goals</SectionHeading>
         <p class="our-goals__text">
-          On August 2, 2015, 193 UN member states agreed on THE 17 GOALS for the
-          sustainable development of humanity, achieved by 2030. Goals that we,
-          as human beings, must achieve together, if we want to improve the
-          condition of the planet and of all life on it. We have about a decade,
-          until 2030, to completely change the way we consume energy, maintain
-          agriculture, manage water, talk to our neighbors and more. This is not
-          a passing trend, but a global change in our habits, eating habits,
-          consumption habits, the way we do business, social responsibility, and
-          long-term thinking.
+          On August 2, 2015, 193 UN member states agreed on
+          <strong>THE 17 GOALS</strong> for the sustainable development of
+          humanity, achieved by 2030. Goals that we, as human beings, must
+          achieve together, if we want to improve the condition of the planet
+          and of all life on it. We have about a decade, until 2030, to
+          completely change the way we consume energy, maintain agriculture,
+          manage water, talk to our neighbors and more. This is not a passing
+          trend, but a global change in our habits, eating habits, consumption
+          habits, the way we do business, social responsibility, and long-term
+          thinking.
         </p>
       </section>
       <section class="days-18">
@@ -161,6 +162,10 @@ export default {
 
   @include respond(mobile) {
     margin-bottom: 6rem;
+  }
+
+  strong {
+    font-weight: 600;
   }
 }
 

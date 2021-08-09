@@ -10,7 +10,7 @@
 <script>
 export default {
   props: {
-    link: String,
+    link: [String, Object],
     variant: String
   },
   computed: {
@@ -66,18 +66,10 @@ export default {
     color: $color-blue-2;
   }
 
-  &:not(.action-button):hover {
+  &:hover {
     background-color: #fff;
     color: $color-azure;
     box-shadow: rgba(62, 57, 107, 0.3) 0px 6px 16px 0px;
-  }
-
-  &:hover {
-    @media (hover: hover) {
-      background-color: #fff;
-      color: $color-azure;
-      box-shadow: rgba(62, 57, 107, 0.3) 0px 6px 16px 0px;
-    }
   }
 
   &--white:hover {
@@ -91,8 +83,9 @@ export default {
     border: 1.5px solid $color-blue-3;
 
     &:hover {
-      background-color: $color-blue-3;
-      color: #fff;
+      background-color: #cce4fc;
+      color: $color-blue-2;
+      border-color: #cce4fc;
     }
   }
 

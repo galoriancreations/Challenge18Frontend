@@ -39,7 +39,7 @@
 <script>
 export default {
   props: {
-    link: String,
+    link: [String, Object],
     text: String,
     reverse: Boolean,
     button: Boolean,

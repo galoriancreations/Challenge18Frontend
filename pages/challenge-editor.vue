@@ -4,6 +4,11 @@
       <ErrorMessage v-if="errorLoading" :error="errorLoading" />
       <div v-else class="challenge-options__container">
         <ChallengeOptionsInfo :active="showInfoModal" />
+        <ConfirmModal
+          :active="showConfirmModal"
+          :text="confirmText"
+          @confirm="confirmAction"
+        />
         <section class="challenge-options__top">
           <div class="challenge-options__top-field">
             <h3 class="challenge-options__top-label">Challenge name</h3>
@@ -188,7 +193,7 @@
               variant="blue"
               @click="submitHandler"
             >
-              Publish challenge
+              {{ editedChallengeId ? "Update" : "Publish" }} challenge
             </BaseButton>
           </div>
         </TransitionGroup>
@@ -237,9 +242,10 @@ export default {
       const draftId = app.$cookies.get("draftId");
       const { selectedTemplate, user } = store.getters;
       const { challengeId } = route.query;
+      console.log(challengeId);
 
       if (challengeId) {
-        const { template, selections } = await $axios.post("/xapi", {
+        const { template, selections } = await $axios.$post("/xapi", {
           userID: user.id,
           getChallengeConfig: challengeId
         });
@@ -311,6 +317,9 @@ export default {
       saveTimeout: null,
       transitionName: null,
       showInfoModal: false,
+      showConfirmModal: false,
+      confirmText: "",
+      confirmAction: () => {},
       lastAutoSave: null,
       isTemplatePublic: false
     };
@@ -361,7 +370,7 @@ export default {
       return rtlLanguages.includes(this.language) ? "rtl" : null;
     },
     user() {
-      return this.$store.getters.user;
+      return this.$store.getters.user || {};
     },
     showVisibilitySelector() {
       return this.user?.accountType === "admin";
@@ -378,7 +387,7 @@ export default {
     },
     finalTemplateData() {
       return {
-        id: templateId,
+        id: this.templateId,
         name: this.name,
         language: this.language,
         days: this.options
@@ -408,14 +417,19 @@ export default {
       this.templateId = templateId;
     },
     autoSave() {
-      clearTimeout(this.saveTimeout);
-      this.saveTimeout = setTimeout(async () => {
-        if (!this.editedChallengeId) {
-          await this.saveTemplate();
-        }
-        await this.saveDraft();
-        this.lastAutoSave = new Date();
-      }, 3000);
+      // clearTimeout(this.saveTimeout);
+      // this.saveTimeout = setTimeout(async () => {
+      //   if (!this.editedChallengeId) {
+      //     await this.saveTemplate();
+      //   }
+      //   await this.saveDraft();
+      //   this.lastAutoSave = new Date();
+      // }, 3000);
+    },
+    setConfirmModal(text, action) {
+      this.showConfirmModal = true;
+      this.confirmText = text;
+      this.confirmAction = action;
     },
     enterKeyHandler(event) {
       if (event.key === "Enter") {
@@ -496,17 +510,15 @@ export default {
       this.extraInputs[this.dayIndex].push("");
     },
     deleteTask(taskIndex) {
-      const confirmed =
-        !this.options[this.dayIndex].tasks[taskIndex].options.length ||
-        window.confirm(
-          "Are you sure you want to delete this task and all its options? This action is irreversible."
-        );
-      if (confirmed) {
-        this.transitionName = "task";
-        this.options[this.dayIndex].tasks.splice(taskIndex, 1);
-        this.selections[this.dayIndex].splice(taskIndex, 1);
-        this.extraInputs[this.dayIndex].splice(taskIndex, 1);
-      }
+      this.setConfirmModal(
+        "Are you sure you want to delete this task and all its options? This action is irreversible.",
+        () => {
+          this.transitionName = "task";
+          this.options[this.dayIndex].tasks.splice(taskIndex, 1);
+          this.selections[this.dayIndex].splice(taskIndex, 1);
+          this.extraInputs[this.dayIndex].splice(taskIndex, 1);
+        }
+      );
     },
     toggleTaskAsBonus(taskIndex) {
       const task = this.options[this.dayIndex].tasks[taskIndex];
@@ -526,37 +538,38 @@ export default {
       this.currentDay = this.options.length;
     },
     deleteDay() {
-      const confirmed =
-        !this.options[this.dayIndex].tasks.length ||
-        window.confirm(
-          "Are you sure you want to delete this day and all its tasks? This action is irreversible."
-        );
-      if (confirmed) {
-        this.options.splice(this.dayIndex, 1);
-        this.selections.splice(this.dayIndex, 1);
-        this.extraInputs.splice(this.dayIndex, 1);
-        this.transitionName = "task";
-        if (this.currentDay > this.options.length) {
-          this.currentDay -= 1;
+      this.setConfirmModal(
+        "Are you sure you want to delete this day and all its tasks? This action is irreversible.",
+        () => {
+          this.options.splice(this.dayIndex, 1);
+          this.selections.splice(this.dayIndex, 1);
+          this.extraInputs.splice(this.dayIndex, 1);
+          this.transitionName = "task";
+          if (this.currentDay > this.options.length) {
+            this.currentDay -= 1;
+          }
         }
-      }
+      );
     },
     closeModal() {
       this.dayTitleEdited = false;
       this.showInfoModal = false;
+      this.showConfirmModal = false;
     },
     selectRandomOptions() {
-      const confirmed = window.confirm(
-        "Do you want to select a random option for each task? All your selections would be overwritten."
+      this.setConfirmModal(
+        "Do you want to select a random option for each task? All your selections would be overwritten.",
+        () => {
+          this.selections = this.options.map(day =>
+            day.tasks.map(task => {
+              const optionIndex = Math.floor(
+                Math.random() * task.options.length
+              );
+              return task.options[optionIndex]?.text;
+            })
+          );
+        }
       );
-      if (confirmed) {
-        this.selections = this.options.map(day =>
-          day.tasks.map(task => {
-            const optionIndex = Math.floor(Math.random() * task.options.length);
-            return task.options[optionIndex].text;
-          })
-        );
-      }
     },
     isSelectionMatching(dayIndex, taskIndex) {
       for (let option of this.options[dayIndex].tasks[taskIndex]) {
@@ -609,10 +622,10 @@ export default {
       });
       this.$router.replace(`/challenges/${challenge.id}`);
     },
-    async editChallenge() {
+    async updateChallenge() {
       await this.$axios.$post("/xapi", {
         userID: this.user.id,
-        editChallenge: {
+        updateChallenge: {
           challengeId: this.editedChallengeId,
           draftId: this.draftId,
           draftData: this.draftData
@@ -626,7 +639,7 @@ export default {
       this.submitting = true;
       try {
         if (this.editedChallengeId) {
-          await this.editChallenge();
+          await this.updateChallenge();
         } else {
           await this.createNewChallenge();
         }

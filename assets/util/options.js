@@ -11,7 +11,7 @@ export const membershipFeatures = [
     "Mentorship",
     "Customised challenge templates",
     "Unlimited games alone & with other clubs"
-]
+];
 
 export const planOptions = [
     {
@@ -80,8 +80,3 @@ export const taskTranslations = {
     "Russian": "Задание",
     "Arabic": "مهمة"
 };
-
-export const redirects = [
-    { from: "/challenge-options", to: "/challenge-editor" },
-    { from: "/about-us", to: "/about" }
-];
