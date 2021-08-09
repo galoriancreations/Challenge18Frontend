@@ -6,6 +6,11 @@
       <MyChallenges />
       <MyDrafts />
     </WhiteSection>
+    <ConfirmModal
+      :active="showConfirmModal"
+      :text="confirmText"
+      @confirm="confirmAction"
+    />
   </Page>
 </template>
 
@@ -20,10 +25,32 @@ export default {
   meta: {
     requiresAuth: true
   },
+  data() {
+    return {
+      showConfirmModal: false,
+      confirmText: "",
+      confirmAction: () => {}
+    };
+  },
   computed: {
     isOrganization() {
       return this.$store.getters.user?.accountType === "organization";
     }
+  },
+  methods: {
+    setConfirmModal(text, action) {
+      this.showConfirmModal = true;
+      this.confirmText = text;
+      this.confirmAction = action;
+    }
+  },
+  provide() {
+    return {
+      setConfirmModal: this.setConfirmModal,
+      closeModal: () => {
+        this.showConfirmModal = false;
+      }
+    };
   }
 };
 </script>

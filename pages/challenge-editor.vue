@@ -417,19 +417,23 @@ export default {
       this.templateId = templateId;
     },
     autoSave() {
-      // clearTimeout(this.saveTimeout);
-      // this.saveTimeout = setTimeout(async () => {
-      //   if (!this.editedChallengeId) {
-      //     await this.saveTemplate();
-      //   }
-      //   await this.saveDraft();
-      //   this.lastAutoSave = new Date();
-      // }, 3000);
+      clearTimeout(this.saveTimeout);
+      this.saveTimeout = setTimeout(async () => {
+        if (!this.editedChallengeId) {
+          await this.saveTemplate();
+        }
+        await this.saveDraft();
+        this.lastAutoSave = new Date();
+      }, 3000);
     },
-    setConfirmModal(text, action) {
-      this.showConfirmModal = true;
-      this.confirmText = text;
-      this.confirmAction = action;
+    setConfirmModal(text, action, altCondition) {
+      if (altCondition) {
+        action();
+      } else {
+        this.showConfirmModal = true;
+        this.confirmText = text;
+        this.confirmAction = action;
+      }
     },
     enterKeyHandler(event) {
       if (event.key === "Enter") {
@@ -517,7 +521,8 @@ export default {
           this.options[this.dayIndex].tasks.splice(taskIndex, 1);
           this.selections[this.dayIndex].splice(taskIndex, 1);
           this.extraInputs[this.dayIndex].splice(taskIndex, 1);
-        }
+        },
+        !this.options[this.dayIndex].tasks[taskIndex].options.length
       );
     },
     toggleTaskAsBonus(taskIndex) {
@@ -548,7 +553,8 @@ export default {
           if (this.currentDay > this.options.length) {
             this.currentDay -= 1;
           }
-        }
+        },
+        !this.options[this.dayIndex].tasks.length
       );
     },
     closeModal() {
