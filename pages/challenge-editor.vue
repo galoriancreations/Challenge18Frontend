@@ -428,12 +428,11 @@ export default {
     },
     setConfirmModal(text, action, altCondition) {
       if (altCondition) {
-        action();
-      } else {
-        this.showConfirmModal = true;
-        this.confirmText = text;
-        this.confirmAction = action;
+        return action();
       }
+      this.showConfirmModal = true;
+      this.confirmText = text;
+      this.confirmAction = action;
     },
     enterKeyHandler(event) {
       if (event.key === "Enter") {
@@ -498,11 +497,15 @@ export default {
       }
     },
     deleteOption(taskIndex, optionIndex) {
-      this.options[this.dayIndex].tasks[taskIndex].options.splice(
-        optionIndex,
-        1
+      const { options } = this.options[this.dayIndex].tasks[taskIndex];
+      this.setConfirmModal(
+        "Are you sure you want to delete this option? This action is irreversible.",
+        () => {
+          options.splice(optionIndex, 1);
+          this.transitionName = "task";
+        },
+        options[optionIndex].text.length < 50
       );
-      this.transitionName = "task";
     },
     addTask() {
       this.options[this.dayIndex].tasks.push({
@@ -514,15 +517,16 @@ export default {
       this.extraInputs[this.dayIndex].push("");
     },
     deleteTask(taskIndex) {
+      const { tasks } = this.options[this.dayIndex];
       this.setConfirmModal(
         "Are you sure you want to delete this task and all its options? This action is irreversible.",
         () => {
           this.transitionName = "task";
-          this.options[this.dayIndex].tasks.splice(taskIndex, 1);
+          tasks.splice(taskIndex, 1);
           this.selections[this.dayIndex].splice(taskIndex, 1);
           this.extraInputs[this.dayIndex].splice(taskIndex, 1);
         },
-        !this.options[this.dayIndex].tasks[taskIndex].options.length
+        !tasks[taskIndex].options.length
       );
     },
     toggleTaskAsBonus(taskIndex) {
@@ -551,10 +555,9 @@ export default {
           this.extraInputs.splice(this.dayIndex, 1);
           this.transitionName = "task";
           if (this.currentDay > this.options.length) {
-            this.currentDay -= 1;
+            this.currentDay--;
           }
-        },
-        !this.options[this.dayIndex].tasks.length
+        }
       );
     },
     closeModal() {
