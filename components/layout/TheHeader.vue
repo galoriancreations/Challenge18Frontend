@@ -136,7 +136,7 @@ export default {
   &.sticky {
     position: fixed;
     background-color: rgba(#fff, 0.9);
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 13px 1px;
+    box-shadow: $boxshadow2;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }

@@ -1,5 +1,6 @@
 import uniqid from "uniqid";
 import { languageOptions } from "./options";
+import moment from "moment";
 
 export const usersArray = users => {
   const data = [];
@@ -86,7 +87,7 @@ export const convertTaskText = text => {
     }
   });
   return chars.join("");
-}
+};
 
 export const textInputKeys = labels => {
   const keys = [];
@@ -112,7 +113,7 @@ export const numbersArray = n =>
 export const defaultLanguage = () => {
   const matchingLanguage = languageOptions.find(language => language.code === navigator.language);
   return matchingLanguage?.name || "English";
-}
+};
 
 export const dataArrayFromObject = data =>
   Object.keys(data).map(id => ({ id, ...data[id] }));

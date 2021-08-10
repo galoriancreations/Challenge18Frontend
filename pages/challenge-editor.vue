@@ -9,6 +9,11 @@
           :text="confirmText"
           @confirm="confirmAction"
         />
+        <AutoSaveNote
+          :date="lastAutoSave"
+          :saving="saving"
+          :error="errorAutoSave"
+        />
         <section class="challenge-options__top">
           <div class="challenge-options__top-field">
             <h3 class="challenge-options__top-label">Challenge name</h3>
@@ -230,9 +235,10 @@ import {
 } from "../assets/util/options";
 import uniqid from "uniqid";
 import ChallengeOptionsInfo from "../components/content/ChallengeOptionsInfo";
+import AutoSaveNote from "../components/UI/AutoSaveNote";
 
 export default {
-  components: { ChallengeOptionsInfo },
+  components: { ChallengeOptionsInfo, AutoSaveNote },
   // meta: {
   //   requiresAuth: true,
   //   forOrganizations: true
@@ -242,7 +248,6 @@ export default {
       const draftId = app.$cookies.get("draftId");
       const { selectedTemplate, user } = store.getters;
       const { challengeId } = route.query;
-      console.log(challengeId);
 
       if (challengeId) {
         const { template, selections } = await $axios.$post("/xapi", {
@@ -320,7 +325,9 @@ export default {
       showConfirmModal: false,
       confirmText: "",
       confirmAction: () => {},
-      lastAutoSave: null,
+      lastAutoSave: new Date(),
+      saving: false,
+      errorAutoSave: false,
       isTemplatePublic: false
     };
   },
@@ -419,11 +426,18 @@ export default {
     autoSave() {
       clearTimeout(this.saveTimeout);
       this.saveTimeout = setTimeout(async () => {
-        if (!this.editedChallengeId) {
-          await this.saveTemplate();
+        this.saving = true;
+        try {
+          if (!this.editedChallengeId) {
+            await this.saveTemplate();
+          }
+          await this.saveDraft();
+          this.lastAutoSave = new Date();
+          this.errorAutoSave = false;
+        } catch {
+          this.errorAutoSave = true;
         }
-        await this.saveDraft();
-        this.lastAutoSave = new Date();
+        this.saving = false;
       }, 3000);
     },
     setConfirmModal(text, action, altCondition) {
@@ -626,7 +640,8 @@ export default {
         userID: this.user.id,
         createChallenge: {
           draftId: this.draftId,
-          draftData: this.draftData
+          draftData: this.draftData,
+          templateId: this.templateId
         }
       });
       this.$router.replace(`/challenges/${challenge.id}`);
