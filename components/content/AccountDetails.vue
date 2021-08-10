@@ -27,12 +27,12 @@
       </div>
     </div>
     <template slot="button">
-      <ActionButton color="blue" @click="editProfileMode = true">
+      <ActionButton color="blue" @click="showModal = true">
         <i class="fas fa-edit" />
       </ActionButton>
     </template>
     <template slot="modal">
-      <EditProfile :active="editProfileMode" />
+      <EditProfile :active="showModal" />
     </template>
   </DashboardSection>
 </template>
@@ -44,14 +44,11 @@ import {
   languageOptions,
   planOptions
 } from "../../assets/util/options";
+import dashboardModal from "../../mixins/dashboard-modal";
 
 export default {
   components: { EditProfile },
-  data() {
-    return {
-      editProfileMode: false
-    };
-  },
+  mixins: [dashboardModal],
   computed: {
     user() {
       return this.$store.getters.user;
@@ -80,15 +77,9 @@ export default {
       return `${label} / $${price}`;
     }
   },
-  methods: {
-    closeModal() {
-      this.editProfileMode = false;
-    }
-  },
   provide() {
     return {
-      labels: this.labels,
-      closeModal: this.closeModal
+      labels: this.labels
     };
   }
 };

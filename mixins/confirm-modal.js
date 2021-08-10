@@ -7,8 +7,8 @@ export default {
         };
     },
     methods: {
-        setConfirmModal(text, action, altCondition) {
-            if (altCondition) {
+        setConfirmModal(text, action, preCondition) {
+            if (preCondition) {
                 return action();
             }
             this.showConfirmModal = true;

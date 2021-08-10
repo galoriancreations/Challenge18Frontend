@@ -22,7 +22,6 @@
               class="challenge-options__name"
               :placeholder="challengeNamePlaceholder"
               :rows="1"
-              ref="name"
             />
           </div>
           <div class="challenge-options__top-field">
@@ -465,7 +464,7 @@ export default {
       this.selections[this.dayIndex][taskIndex] = stripHTML(value);
     },
     finishEditOnEnter(event) {
-      if (event.key === "Enter") {
+      if (event.key === "Enter" || event.key === "Escape") {
         event.preventDefault();
         this.checkForEmptyOption();
         this.editedOption = null;
@@ -576,7 +575,7 @@ export default {
       );
     },
     isSelectionMatching(dayIndex, taskIndex) {
-      for (let option of this.options[dayIndex].tasks[taskIndex]) {
+      for (let option of this.options[dayIndex].tasks[taskIndex].options) {
         if (option.text === this.selections[dayIndex][taskIndex]) {
           return true;
         }
@@ -689,11 +688,15 @@ export default {
   },
   mounted() {
     if (this.errorLoading) return;
+    document.addEventListener("click", this.finishEditOnClick);
     if (!this.user?.drafts) {
       setTimeout(() => {
         this.showInfoModal = true;
       }, 1500);
     }
+  },
+  beforeDestroy() {
+    document.removeEventListener("click", this.finishEditOnClick);
   }
 };
 </script>
