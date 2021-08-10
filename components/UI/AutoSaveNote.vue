@@ -2,7 +2,7 @@
   <FloatingNote v-if="showNote" class="auto-save-note">
     <strong>Last auto-save:</strong>
     <span>{{ text }}</span>
-    <i v-if="showIcon" :class="iconClasses" />
+    <i :class="iconClasses" />
   </FloatingNote>
 </template>
 
@@ -21,9 +21,6 @@ export default {
     },
     text() {
       return this.date ? moment(this.date).format("lll") : "Failed to save";
-    },
-    showIcon() {
-      return !!this.date || this.saving || this.error;
     },
     iconClasses() {
       return {
@@ -75,10 +72,6 @@ export default {
 
     &.fa-times {
       color: $color-danger;
-    }
-
-    &.fa-circle-notch {
-      color: #ccc;
     }
   }
 }

@@ -325,7 +325,7 @@ export default {
       showConfirmModal: false,
       confirmText: "",
       confirmAction: () => {},
-      lastAutoSave: new Date(),
+      lastAutoSave: null,
       saving: false,
       errorAutoSave: false,
       isTemplatePublic: false
@@ -451,14 +451,16 @@ export default {
     enterKeyHandler(event) {
       if (event.key === "Enter") {
         event.preventDefault();
-        if (this.dayTitleEdited) {
-          this.closeModal();
+        if (this.showConfirmModal) {
+          this.confirmAction();
         }
+        this.closeModal();
+      } else if (event.key === "Escape") {
+        this.closeModal();
       }
     },
     addOptionOnEnter(event, taskIndex) {
       if (event.key === "Enter") {
-        event.preventDefault();
         const newOptionText = stripHTML(
           this.extraInputs[this.dayIndex][taskIndex]
         ).trim();
@@ -709,11 +711,8 @@ export default {
   mounted() {
     if (this.errorLoading) return;
 
-    setTimeout(() => {
-      this.$refs.name.$el.addEventListener("keydown", this.enterKeyHandler);
-      this.$refs.dayTitle.$el.addEventListener("keydown", this.enterKeyHandler);
-      document.addEventListener("click", this.finishEditOnClick);
-    }, 1000);
+    document.addEventListener("keydown", this.enterKeyHandler);
+    document.addEventListener("click", this.finishEditOnClick);
 
     if (!this.user?.drafts) {
       setTimeout(() => {
@@ -722,6 +721,7 @@ export default {
     }
   },
   beforeDestroy() {
+    document.removeEventListener("keydown", this.enterKeyHandler);
     document.removeEventListener("click", this.finishEditOnClick);
   },
   provide() {

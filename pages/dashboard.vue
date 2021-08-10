@@ -33,8 +33,11 @@ export default {
     };
   },
   computed: {
+    user() {
+      return this.$store.getters.user;
+    },
     isOrganization() {
-      return this.$store.getters.user?.accountType === "organization";
+      return this.user?.accountType === "organization";
     }
   },
   methods: {
@@ -42,7 +45,24 @@ export default {
       this.showConfirmModal = true;
       this.confirmText = text;
       this.confirmAction = action;
+    },
+    enterKeyHandler(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        if (this.showConfirmModal) {
+          this.confirmAction();
+        }
+        this.showConfirmModal = false;
+      } else if (event.key === "Escape") {
+        this.showConfirmModal = false;
+      }
     }
+  },
+  mounted() {
+    document.addEventListener("keydown", this.enterKeyHandler);
+  },
+  beforeDestroy() {
+    document.removeEventListener("keydown", this.enterKeyHandler);
   },
   provide() {
     return {
