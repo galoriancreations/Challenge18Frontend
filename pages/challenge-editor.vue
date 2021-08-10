@@ -236,9 +236,11 @@ import {
 import uniqid from "uniqid";
 import ChallengeOptionsInfo from "../components/content/ChallengeOptionsInfo";
 import AutoSaveNote from "../components/UI/AutoSaveNote";
+import confirmModal from "../mixins/confirm-modal";
 
 export default {
   components: { ChallengeOptionsInfo, AutoSaveNote },
+  mixins: [confirmModal],
   // meta: {
   //   requiresAuth: true,
   //   forOrganizations: true
@@ -322,9 +324,6 @@ export default {
       saveTimeout: null,
       transitionName: null,
       showInfoModal: false,
-      showConfirmModal: false,
-      confirmText: "",
-      confirmAction: () => {},
       lastAutoSave: null,
       saving: false,
       errorAutoSave: false,
@@ -439,25 +438,6 @@ export default {
         }
         this.saving = false;
       }, 3000);
-    },
-    setConfirmModal(text, action, altCondition) {
-      if (altCondition) {
-        return action();
-      }
-      this.showConfirmModal = true;
-      this.confirmText = text;
-      this.confirmAction = action;
-    },
-    enterKeyHandler(event) {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        if (this.showConfirmModal) {
-          this.confirmAction();
-        }
-        this.closeModal();
-      } else if (event.key === "Escape") {
-        this.closeModal();
-      }
     },
     addOptionOnEnter(event, taskIndex) {
       if (event.key === "Enter") {
@@ -576,10 +556,9 @@ export default {
         }
       );
     },
-    closeModal() {
+    closeAllModals() {
       this.dayTitleEdited = false;
       this.showInfoModal = false;
-      this.showConfirmModal = false;
     },
     selectRandomOptions() {
       this.setConfirmModal(
@@ -710,24 +689,11 @@ export default {
   },
   mounted() {
     if (this.errorLoading) return;
-
-    document.addEventListener("keydown", this.enterKeyHandler);
-    document.addEventListener("click", this.finishEditOnClick);
-
     if (!this.user?.drafts) {
       setTimeout(() => {
         this.showInfoModal = true;
       }, 1500);
     }
-  },
-  beforeDestroy() {
-    document.removeEventListener("keydown", this.enterKeyHandler);
-    document.removeEventListener("click", this.finishEditOnClick);
-  },
-  provide() {
-    return {
-      closeModal: this.closeModal
-    };
   }
 };
 </script>
