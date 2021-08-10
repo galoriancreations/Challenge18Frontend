@@ -84,15 +84,17 @@
                 />
               </DashboardModal>
               <div class="challenge-options__day-actions">
-                <i
-                  class="fas fa-pen options-action-button"
-                  @click="dayTitleEdited = true"
-                />
-                <i
-                  v-if="days.length > 1"
-                  class="fas fa-trash-alt options-action-button"
-                  @click="deleteDay"
-                />
+                <div class="challenge-options__day-actions-wrapper">
+                  <i
+                    class="fas fa-pen options-action-button"
+                    @click="dayTitleEdited = true"
+                  />
+                  <i
+                    v-if="days.length > 1"
+                    class="fas fa-trash-alt options-action-button"
+                    @click="deleteDay"
+                  />
+                </div>
               </div>
               <TransitionGroup
                 tag="div"
@@ -907,6 +909,12 @@ export default {
       }
     }
 
+    &:first-child:last-child label {
+      @include respond(desktop) {
+        border-radius: 0.8rem;
+      }
+    }
+
     input:checked + label {
       background-color: rgba($color-azure-light, 0.8);
       border-color: $color-azure;
@@ -956,17 +964,20 @@ export default {
   }
 
   &__day-actions {
-    display: grid;
-    grid-template-columns: repeat(2, min-content);
-    justify-content: center;
-    gap: 2rem;
     margin: -1rem 0 6rem;
 
     @include respond(mobile) {
       margin: -0.5rem 0 4.5rem;
     }
+  }
+
+  &__day-actions-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 0 -1rem;
 
     .options-action-button {
+      margin: 0 1rem;
       font-size: 2rem;
 
       @include respond(mobile) {

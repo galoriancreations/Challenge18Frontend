@@ -63,7 +63,6 @@ export default {
 
     @include respond(mobile) {
       flex-direction: column;
-      align-items: center;
     }
 
     & > * {

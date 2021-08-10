@@ -1,4 +1,7 @@
+import ConfirmModal from "../components/layout/ConfirmModal";
+
 export default {
+    components: { ConfirmModal },
     data() {
         return {
             showConfirmModal: false,
