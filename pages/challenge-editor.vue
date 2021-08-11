@@ -235,7 +235,7 @@ import {
   taskTranslations
 } from "../assets/util/options";
 import uniqid from "uniqid";
-import ChallengeOptionsInfo from "../components/content/ChallengeOptionsInfo";
+import ChallengeOptionsInfo from "../components/dashboard/ChallengeOptionsInfo";
 import AutoSaveNote from "../components/UI/AutoSaveNote";
 import confirmModal from "../mixins/confirm-modal";
 

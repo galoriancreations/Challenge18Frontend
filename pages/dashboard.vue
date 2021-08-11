@@ -15,10 +15,10 @@
 </template>
 
 <script>
-import AccountDetails from "../components/content/AccountDetails";
-import ClubPlayers from "../components/content/ClubPlayers";
-import MyChallenges from "../components/content/MyChallenges";
-import MyDrafts from "../components/content/MyDrafts";
+import AccountDetails from "../components/dashboard/AccountDetails";
+import ClubPlayers from "../components/dashboard/ClubPlayers";
+import MyChallenges from "../components/dashboard/MyChallenges";
+import MyDrafts from "../components/dashboard/MyDrafts";
 import confirmModal from "../mixins/confirm-modal";
 
 export default {

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import TeamResults from "../components/content/TeamResults";
+import TeamResults from "../components/scores/TeamResults";
 
 export default {
   components: { TeamResults }

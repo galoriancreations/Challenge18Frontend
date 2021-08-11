@@ -15,8 +15,8 @@
 
 <script>
 import ImageWithText from "../components/layout/ImageWithText";
-import Partners from "../components/content/Partners";
-import TeamSection from "../components/content/TeamSection";
+import Partners from "../components/about/Partners";
+import TeamSection from "../components/about/TeamSection";
 import mainImg from "../assets/images/about-img.jpg";
 import teams from "../assets/data/teams";
 

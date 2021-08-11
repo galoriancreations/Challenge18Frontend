@@ -14,11 +14,11 @@
 </template>
 
 <script>
-import Intro from "../components/content/Intro";
-import RecentResults from "../components/content/RecentResults";
-import Testimonials from "../components/content/Testimonials";
-import LatestNews from "../components/content/LatestNews";
-import Partners from "../components/content/Partners";
+import Intro from "../components/home/Intro";
+import RecentResults from "../components/home/RecentResults";
+import Testimonials from "../components/home/Testimonials";
+import LatestNews from "../components/home/LatestNews";
+import Partners from "../components/about/Partners";
 
 export default {
   components: { Intro, RecentResults, Testimonials, LatestNews, Partners }

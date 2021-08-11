@@ -85,6 +85,14 @@ export default {
     },
     logout() {
       this.$store.dispatch("logout");
+    },
+    adjustNavOpen() {
+      if (window.innerWidth > 1100 && this.navOpen) {
+        this.navOpen = false;
+      }
+    },
+    adjustStickyHeader() {
+      this.sticky = window.scrollY > 0 && !this.active;
     }
   },
   watch: {
@@ -93,17 +101,13 @@ export default {
     }
   },
   mounted() {
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 1100 && this.navOpen) {
-        this.navOpen = false;
-      }
-    });
-    window.addEventListener("scroll", () => {
-      this.sticky = window.scrollY > 0 && !this.active;
-    });
+    window.addEventListener("resize", this.adjustNavOpen);
+    window.addEventListener("scroll", this.adjustStickyHeader);
   },
   beforeDestroy() {
     document.querySelector("body").style.overflow = null;
+    window.removeEventListener("resize", this.adjustNavOpen);
+    window.removeEventListener("scroll", this.adjustStickyHeader);
   },
   provide() {
     return {

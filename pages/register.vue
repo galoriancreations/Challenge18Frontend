@@ -13,7 +13,7 @@
 
 <script>
 import RegisterNote from "../components/UI/RegisterNote";
-import RegistrationForm from "../components/content/RegistrationForm";
+import RegistrationForm from "../components/auth/RegistrationForm";
 
 export default {
   components: { RegistrationForm, RegisterNote },
