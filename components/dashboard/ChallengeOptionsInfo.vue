@@ -59,8 +59,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .challenge-options-intro {
   &__title {
     color: $color-blue-2;

@@ -5,8 +5,6 @@
 </template>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .floating-note {
   position: fixed;
   bottom: 3rem;

@@ -22,8 +22,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .button {
   display: block;
   width: 25rem;

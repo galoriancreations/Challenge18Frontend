@@ -42,8 +42,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .team-member {
   display: flex;
   flex-direction: column;

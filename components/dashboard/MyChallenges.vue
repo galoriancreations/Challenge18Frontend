@@ -107,8 +107,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .my-challenges {
   &__empty {
     p {

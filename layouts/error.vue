@@ -26,8 +26,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .notfound {
   display: flex;
   justify-content: center;

@@ -3,8 +3,6 @@
 </template>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .section-seperator {
   width: 100%;
   height: 1px;

@@ -43,8 +43,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .videos {
   &__intro {
     max-width: 80rem;

@@ -19,8 +19,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .plans-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

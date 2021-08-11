@@ -63,8 +63,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../assets/sass/base.scss";
-
 .contact {
   .section-heading {
     margin-bottom: 6rem;

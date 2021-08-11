@@ -39,8 +39,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .confirm-modal {
   .modal__wrapper {
     max-width: 65rem;

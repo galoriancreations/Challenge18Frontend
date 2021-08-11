@@ -77,8 +77,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .dashboard-modal {
   .modal {
     display: flex;

@@ -16,8 +16,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .header {
   &__login {
     display: none;

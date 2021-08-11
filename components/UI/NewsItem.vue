@@ -50,8 +50,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .news-item {
   text-align: center;
 

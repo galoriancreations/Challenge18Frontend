@@ -119,8 +119,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .header {
   position: absolute;
   top: 0;

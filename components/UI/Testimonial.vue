@@ -49,8 +49,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .testimonial {
   display: flex;
   flex-direction: column;

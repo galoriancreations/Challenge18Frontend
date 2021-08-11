@@ -37,8 +37,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .auto-save-note {
   font-size: 1.5rem;
   text-align: center;

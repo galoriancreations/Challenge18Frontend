@@ -22,8 +22,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .error-message {
   color: $color-error;
   font-weight: 500;

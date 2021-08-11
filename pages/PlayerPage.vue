@@ -43,8 +43,6 @@
 </template>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .player {
   display: flex;
   align-items: stretch;

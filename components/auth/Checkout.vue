@@ -138,8 +138,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .checkout {
   max-width: 70rem;
   margin: auto;

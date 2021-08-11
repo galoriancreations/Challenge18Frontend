@@ -5,8 +5,6 @@
 </template>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .logo-bg {
   position: fixed;
   top: 50%;

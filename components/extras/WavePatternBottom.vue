@@ -15,8 +15,6 @@
 </template>
 
 <style lang="scss" scoped>
-@import "@/assets/sass/base.scss";
-
 .custom-shape-divider-bottom-1613003167 {
   position: absolute;
   bottom: 0;

@@ -24,8 +24,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .team-section {
   &:not(:last-child) {
     margin-bottom: 9rem;

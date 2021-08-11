@@ -54,8 +54,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .inner-section {
   .section-heading {
     margin-bottom: 7rem;

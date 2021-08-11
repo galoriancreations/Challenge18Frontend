@@ -131,8 +131,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .new-challenge-modal {
   &__section {
     &:not(:last-child) {

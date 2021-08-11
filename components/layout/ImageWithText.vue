@@ -1,11 +1,16 @@
 <template>
   <component :is="tag" :class="classes">
-    <img class="image-with-text__img" :src="image" :alt="alt" />
+    <img class="image-with-text__img" :src="image.src" :alt="image.alt" />
     <div class="image-with-text__content">
       <h3 v-if="title" class="image-with-text__title">
         {{ title }}
       </h3>
-      <slot />
+      <p v-for="paragraph in paragraphs" :key="paragraph">
+        {{ paragraph }}
+      </p>
+      <BaseButton v-if="button" :link="button.link" :variant="button.variant">
+        {{ button.text }}
+      </BaseButton>
     </div>
   </component>
 </template>
@@ -17,9 +22,17 @@ export default {
       type: String,
       default: "div"
     },
-    image: String,
-    alt: String,
+    image: {
+      src: String,
+      alt: String
+    },
     title: String,
+    text: String,
+    button: {
+      link: String,
+      variant: String,
+      text: String
+    },
     reverse: Boolean
   },
   computed: {
@@ -28,14 +41,15 @@ export default {
         "image-with-text": true,
         "image-with-text--reverse": this.reverse
       };
+    },
+    paragraphs() {
+      return this.text.split("\n");
     }
   }
 };
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .image-with-text {
   display: flex;
   align-items: center;
@@ -80,6 +94,20 @@ export default {
       &:not(:last-child) {
         margin-bottom: 1.5rem;
       }
+    }
+  }
+
+  .button {
+    width: 20rem;
+    margin-top: 2.5rem;
+    font-weight: 600;
+
+    @include respond(tablet-land) {
+      margin-top: 3.5rem;
+    }
+
+    @include respond(mobile) {
+      margin-top: 3rem;
     }
   }
 }

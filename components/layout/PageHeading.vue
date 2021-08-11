@@ -14,8 +14,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .page-heading {
   height: 50rem;
   position: relative;

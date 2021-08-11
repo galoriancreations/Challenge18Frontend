@@ -193,13 +193,13 @@
               </TransitionGroup>
             </section>
           </div>
-          <div key="publish-button">
+          <div key="submit-button">
             <BaseButton
-              class="publish-button"
+              class="submit-button"
               variant="blue"
               @click="submitHandler"
             >
-              {{ editedChallengeId ? "Update" : "Publish" }} challenge
+              {{ submitButtonText }}
             </BaseButton>
           </div>
         </TransitionGroup>
@@ -322,7 +322,7 @@ export default {
       editedOption: null,
       submitting: false,
       errorSubmitting: null,
-      saveTimeout: null,
+      autoSaveTimeout: null,
       transitionName: null,
       showInfoModal: false,
       lastAutoSave: null,
@@ -334,6 +334,10 @@ export default {
   computed: {
     editedChallengeId() {
       return this.$route.query.challengeId;
+    },
+    templateOnlyMode() {
+      const { templateOnly, challengeId } = this.$route.query;
+      return templateOnly === "true" && !challengeId;
     },
     days() {
       return numbersArray(this.options.length);
@@ -366,6 +370,13 @@ export default {
           : "Enter new option here..."
         : null;
     },
+    submitButtonText() {
+      return this.templateOnlyMode
+        ? "Finish editing"
+        : this.editedChallengeId
+        ? "Update challenge"
+        : "Create challenge";
+    },
     convertedOptions() {
       return this.options.map(day =>
         day.tasks.map(task =>
@@ -397,7 +408,8 @@ export default {
         id: this.templateId,
         name: this.name,
         language: this.language,
-        days: this.options
+        days: this.options,
+        isPublic: this.isTemplatePublic
       };
     }
   },
@@ -424,8 +436,8 @@ export default {
       this.templateId = templateId;
     },
     autoSave() {
-      clearTimeout(this.saveTimeout);
-      this.saveTimeout = setTimeout(async () => {
+      clearTimeout(this.autoSaveTimeout);
+      this.autoSaveTimeout = setTimeout(async () => {
         this.saving = true;
         try {
           if (!this.editedChallengeId) {
@@ -639,12 +651,22 @@ export default {
       });
       this.$router.push(`/challenges/${this.editedChallengeId}`);
     },
+    async saveTemplateAndRedirect() {
+      await this.saveTemplate();
+      this.$router.push({
+        path: "/dashboard",
+        hash: this.isTemplatePublic ? "#public-templates" : "#my-templates"
+      });
+    },
     async submitHandler() {
       if (!this.validateData()) return;
       this.errorSubmitting = null;
       this.submitting = true;
+      clearTimeout(this.autoSaveTimeout);
       try {
-        if (this.editedChallengeId) {
+        if (this.templateOnlyMode) {
+          await this.saveTemplateAndRedirect();
+        } else if (this.editedChallengeId) {
           await this.updateChallenge();
         } else {
           await this.createNewChallenge();
@@ -704,8 +726,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .challenge-options {
   &__top {
     text-align: center;
@@ -1017,7 +1037,7 @@ export default {
     }
   }
 
-  .publish-button {
+  .submit-button {
     font-weight: 600;
     margin-top: 9rem;
     width: 100%;

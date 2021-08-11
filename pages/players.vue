@@ -67,8 +67,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .players__grid {
   margin: auto;
   display: grid;

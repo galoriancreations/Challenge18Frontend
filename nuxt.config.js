@@ -22,6 +22,10 @@ export default {
     "@/assets/sass/main.scss"
   ],
 
+  styleResources: {
+    scss: "@/assets/sass/base.scss"
+  },
+
   plugins: [
     "@/plugins/main.js"
   ],
@@ -29,6 +33,7 @@ export default {
   components: true,
 
   buildModules: [
+    "@nuxtjs/style-resources"
   ],
 
   modules: [

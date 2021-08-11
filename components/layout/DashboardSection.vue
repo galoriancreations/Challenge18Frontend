@@ -22,8 +22,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .dashboard-section {
   max-width: 85rem;
   margin: auto;

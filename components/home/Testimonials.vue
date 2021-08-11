@@ -52,8 +52,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .testimonials {
   &__slider {
     margin: 0 -5rem;

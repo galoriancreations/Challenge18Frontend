@@ -71,8 +71,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .footer {
   background-color: $color-blue-2;
   background-image: url(../../assets/images/Kissing-Silhouette.svg);

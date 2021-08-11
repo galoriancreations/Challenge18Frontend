@@ -11,8 +11,6 @@
 </template>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .register-note {
   margin: auto;
   max-width: 75rem;

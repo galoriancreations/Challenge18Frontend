@@ -224,8 +224,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .selected-plan {
   text-align: center;
   margin-top: -1rem;

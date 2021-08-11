@@ -25,8 +25,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .button.action-button {
   padding: 0;
   width: 7.5rem;

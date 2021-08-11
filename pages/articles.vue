@@ -37,8 +37,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .articles {
   &__grid {
     display: grid;

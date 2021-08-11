@@ -25,8 +25,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .section-heading-wrapper {
   text-align: center;
 }

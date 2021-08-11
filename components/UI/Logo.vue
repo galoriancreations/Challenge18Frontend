@@ -15,8 +15,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .logo {
   height: 10rem;
   width: auto;

@@ -51,8 +51,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .partners {
   &__img {
     width: 100%;

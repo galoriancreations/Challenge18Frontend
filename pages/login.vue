@@ -30,8 +30,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .auth-switch {
   text-align: center;
   display: flex;

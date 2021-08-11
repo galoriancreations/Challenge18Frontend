@@ -44,8 +44,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/sass/base.scss";
-
 .card__container {
   border-radius: 1rem;
   box-shadow: $boxshadow2;

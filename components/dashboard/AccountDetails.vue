@@ -86,8 +86,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .account-details {
   &__grid {
     width: 100%;

@@ -1,12 +1,12 @@
 <template>
   <Page title="About Us" name="about">
     <WhiteSection tag="main" class="about">
-      <ImageWithText tag="section" class="about-main" :image="mainImg">
-        <p v-for="paragraph in aboutText.split('\n')" :key="paragraph">
-          {{ paragraph }}
-        </p>
-        <BaseButton link="/membership" variant="gold">Join Us</BaseButton>
-      </ImageWithText>
+      <ImageWithText
+        tag="section"
+        :image="{ src: mainImg, alt: 'Challenge 18 players' }"
+        :text="aboutText"
+        :button="{ link: '/membership', variant: 'gold', text: 'Join Us' }"
+      />
       <Partners small />
       <TeamSection v-for="team in teams" :key="team.title" v-bind="team" />
     </WhiteSection>
@@ -44,30 +44,12 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .about {
   .partners {
     margin: 10.5rem 0 8.5rem;
 
     @include respond(mobile) {
       margin: 7rem 0 5.5rem;
-    }
-  }
-}
-
-.about-main {
-  .button {
-    width: 20rem;
-    margin-top: 2.5rem;
-    font-weight: 600;
-
-    @include respond(tablet-land) {
-      margin-top: 3.5rem;
-    }
-
-    @include respond(mobile) {
-      margin-top: 3rem;
     }
   }
 }
