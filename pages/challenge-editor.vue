@@ -1,8 +1,8 @@
 <template>
-  <Page title="Challenge Editor" name="challenge-options">
-    <WhiteSection tag="main" class="challenge-options">
+  <Page title="Challenge Editor" name="challenge-editor">
+    <WhiteSection tag="main" class="challenge-editor">
       <ErrorMessage v-if="errorLoading" :error="errorLoading" />
-      <div v-else class="challenge-options__container">
+      <div v-else class="challenge-editor__container">
         <ChallengeOptionsInfo :active="showInfoModal" />
         <ConfirmModal
           :active="showConfirmModal"
@@ -16,127 +16,47 @@
             :error="errorAutoSave"
           />
         </FloatingNotes>
-        <section class="challenge-options__top">
-          <div class="challenge-options__top-field">
-            <h3 class="challenge-options__top-label">Challenge name</h3>
-            <textarea-autosize
-              v-model.trim="name"
-              class="challenge-options__name"
-              :placeholder="challengeNamePlaceholder"
-              :rows="1"
-            />
-          </div>
-          <div class="challenge-options__top-field">
-            <h3 class="challenge-options__top-label">Challenge language</h3>
-            <v-select
-              v-model="language"
-              :options="languageOptions"
-              :reduce="option => option.name"
-              class="language-selector"
-            />
-          </div>
-          <div
-            class="challenge-options__top-field"
+        <section class="challenge-editor__top">
+          <ChallengeNameField v-model.trim="name" />
+          <ChallengeLanguageField v-model="language" />
+          <TemplateAvailabilityField
             v-if="showVisibilitySelector"
-          >
-            <h3 class="challenge-options__top-label">Template availability</h3>
-            <div class="challenge-options__visibility-options">
-              <div class="challenge-options__visibility-option">
-                <input
-                  type="radio"
-                  v-model="isTemplatePublic"
-                  :value="true"
-                  class="radio-input"
-                  id="option-public"
-                />
-                <label for="option-public" class="radio-label">
-                  <span class="radio-button" />
-                </label>
-                <label
-                  for="option-public"
-                  class="challenge-options__visibility-label"
-                >
-                  Public
-                </label>
-              </div>
-              <div class="challenge-options__visibility-option">
-                <input
-                  type="radio"
-                  v-model="isTemplatePublic"
-                  :value="false"
-                  class="radio-input"
-                  id="option-private"
-                />
-                <label for="option-private" class="radio-label">
-                  <span class="radio-button" />
-                </label>
-                <label
-                  for="option-private"
-                  class="challenge-options__visibility-label"
-                >
-                  Private
-                </label>
-              </div>
-            </div>
-          </div>
+            v-model="isTemplatePublic"
+          />
         </section>
         <SectionSeperator />
         <TransitionGroup
           tag="div"
-          class="challenge-options__wrapper"
+          class="challenge-editor__wrapper"
           :name="transitionName"
         >
           <div
-            class="challenge-options__layout"
+            class="challenge-editor__layout"
             :style="{ direction }"
             key="layout"
           >
-            <section class="challenge-options__tabs">
-              <div class="challenge-options__tabs-list">
-                <div
-                  v-for="day in days"
-                  :key="options[day - 1].id"
-                  class="challenge-options__tab"
-                >
-                  <input
-                    type="radio"
-                    v-model="currentDay"
-                    :value="day"
-                    :id="`day${day}`"
-                  />
-                  <label :for="`day${day}`">{{ dayLabel }} {{ day }}</label>
-                </div>
-              </div>
+            <section class="challenge-editor__tabs">
+              <DayTabs v-model="currentDay" />
               <ActionButton color="white" @click="addDay">
                 <i class="fas fa-plus" />
               </ActionButton>
             </section>
-            <section class="challenge-options__main" ref="container">
+            <section class="challenge-editor__main" ref="container">
               <SectionHeading small>
                 {{ dayTitle }}
               </SectionHeading>
-              <DashboardModal
-                class="edit-day-title"
+              <EditDayTitleModal
+                v-model.trim="options[dayIndex].title"
                 :active="dayTitleEdited"
-                :scrollbar="false"
-              >
-                <h3 class="challenge-options__top-label">Day title</h3>
-                <textarea-autosize
-                  v-model.trim="options[dayIndex].title"
-                  class="edit-day-title__input section-heading"
-                  placeholder="Enter title here"
-                  :rows="1"
-                  ref="dayTitle"
-                />
-              </DashboardModal>
-              <div class="challenge-options__day-actions">
-                <div class="challenge-options__day-actions-wrapper">
+              />
+              <div class="challenge-editor__day-actions">
+                <div class="challenge-editor__day-actions-wrapper">
                   <i
                     class="fas fa-pen options-action-button"
                     @click="dayTitleEdited = true"
                   />
                   <i
-                    v-if="days.length > 1"
+                    v-if="options.length > 1"
                     class="fas fa-trash-alt options-action-button"
                     @click="deleteDay"
                   />
@@ -144,7 +64,7 @@
               </div>
               <TransitionGroup
                 tag="div"
-                class="challenge-options__content"
+                class="challenge-editor__content"
                 :name="transitionName"
               >
                 <div
@@ -226,14 +146,10 @@
                       />
                     </form>
                   </div>
-                  <form @keydown="addOptionOnEnter($event, taskIndex)">
-                    <textarea-autosize
-                      v-model.trim="extraInputs[dayIndex][taskIndex]"
-                      class="task-form__extra"
-                      :placeholder="newOptionPlaceholder"
-                      :rows="1"
-                    />
-                  </form>
+                  <TaskExtraInput
+                    @keydown.native="addOptionOnEnter($event, taskIndex)"
+                    v-model.trim="extraInputs[dayIndex][taskIndex]"
+                  />
                 </div>
                 <div key="button">
                   <ActionButton color="white" @click="addTask">
@@ -255,7 +171,7 @@
         </TransitionGroup>
         <BaseSpinner v-if="submitting" />
         <ErrorMessage v-else-if="errorSubmitting" :error="errorSubmitting" />
-        <div class="challenge-options__floating-buttons">
+        <div class="challenge-editor__floating-buttons">
           <ActionButton color="white" @click="showInfoModal = true">
             <i class="fas fa-info" />
           </ActionButton>
@@ -274,21 +190,26 @@ import {
   initialOptions,
   initialSelections,
   initialExtraInputs,
-  numbersArray,
   stripHTML,
   convertTaskText
 } from "../assets/util/functions";
 import {
-  languageOptions,
   rtlLanguages,
   dayTranslations,
   taskTranslations
 } from "../assets/util/options";
 import uniqid from "uniqid";
+
 import ChallengeOptionsInfo from "../components/challenge-editor/ChallengeOptionsInfo";
 import FloatingNotes from "../components/layout/FloatingNotes";
 import AutoSaveNote from "../components/challenge-editor/AutoSaveNote";
-import EditorModeNote from "../components/challenge-editor/EditorModeNote";
+import ChallengeNameField from "../components/challenge-editor/ChallengeNameField";
+import ChallengeLanguageField from "../components/challenge-editor/ChallengeLanguageField";
+import TemplateAvailabilityField from "../components/challenge-editor/TemplateAvailabilityField";
+import DayTabs from "../components/challenge-editor/DayTabs";
+import TaskExtraInput from "../components/challenge-editor/TaskExtraInput";
+import EditDayTitleModal from "../components/challenge-editor/EditDayTitleModal";
+
 import confirmModal from "../mixins/confirm-modal";
 
 export default {
@@ -296,7 +217,12 @@ export default {
     ChallengeOptionsInfo,
     FloatingNotes,
     AutoSaveNote,
-    EditorModeNote
+    ChallengeNameField,
+    ChallengeLanguageField,
+    TemplateAvailabilityField,
+    DayTabs,
+    EditDayTitleModal,
+    TaskExtraInput
   },
   mixins: [confirmModal],
   // meta: {
@@ -373,7 +299,6 @@ export default {
   },
   data() {
     return {
-      languageOptions,
       currentDay: 1,
       dayTitleEdited: false,
       editedOption: null,
@@ -396,9 +321,6 @@ export default {
       const { templateOnly, challengeId } = this.$route.query;
       return templateOnly === "true" && !challengeId;
     },
-    days() {
-      return numbersArray(this.options.length);
-    },
     dayIndex() {
       return this.currentDay - 1;
     },
@@ -412,20 +334,6 @@ export default {
     },
     taskLabel() {
       return taskTranslations[this.language] || "Task";
-    },
-    challengeNamePlaceholder() {
-      return process.client
-        ? window.innerWidth > 600
-          ? "Enter challenge name here"
-          : "Type name here"
-        : null;
-    },
-    newOptionPlaceholder() {
-      return process.client
-        ? window.innerWidth > 600
-          ? "Type and press Enter to add a new option..."
-          : "Enter new option here..."
-        : null;
     },
     submitButtonText() {
       return this.templateOnlyMode
@@ -448,7 +356,8 @@ export default {
       return this.$store.getters.user || {};
     },
     showVisibilitySelector() {
-      return this.user?.accountType === "admin";
+      // return this.user?.accountType === "admin";
+      return true;
     },
     draftData() {
       return {
@@ -764,11 +673,6 @@ export default {
     },
     draftId(value) {
       this.$cookies.set("draftId", value);
-    },
-    dayTitleEdited(value) {
-      if (value) {
-        setTimeout(() => this.$refs.dayTitle.$el.focus(), 100);
-      }
     }
   },
   mounted() {
@@ -786,92 +690,19 @@ export default {
   provide() {
     return {
       templateOnlyMode: this.templateOnlyMode,
-      editedChallengeId: this.editedChallengeId
+      editedChallengeId: this.editedChallengeId,
+      options: this.options,
+      getDayLabel: () => this.dayLabel,
+      getCurrentDay: () => this.currentDay
     };
   }
 };
 </script>
 
 <style lang="scss">
-.challenge-options {
+.challenge-editor {
   &__top {
     text-align: center;
-  }
-
-  &__top-field {
-    display: flex;
-    flex-direction: column;
-
-    &:not(:last-child) {
-      margin-bottom: 4rem;
-
-      @include respond(mobile) {
-        margin-bottom: 3.5rem;
-      }
-    }
-
-    input {
-      text-align: center;
-      border: none;
-      outline: none;
-    }
-  }
-
-  &__top-label {
-    font-weight: 500;
-    font-size: 1.85rem;
-    margin-bottom: 1.2rem;
-
-    @include respond(mobile) {
-      font-size: 1.65rem;
-    }
-  }
-
-  &__name {
-    font: inherit;
-    font-size: 5rem;
-    font-family: "Spartan", sans-serif;
-    letter-spacing: -0.5px;
-    font-weight: 600;
-    color: $color-blue-2;
-    border: none;
-    outline: none;
-    text-align: center;
-
-    @include respond(mobile) {
-      font-size: 3rem;
-    }
-  }
-
-  &__language {
-    font: inherit;
-    font-size: 2.5rem;
-
-    @include respond(mobile) {
-      font-size: 2rem;
-    }
-  }
-
-  &__visibility-options {
-    margin: auto;
-    display: grid;
-    grid-template-columns: repeat(2, min-content);
-    gap: 4rem;
-  }
-
-  &__visibility-option {
-    display: grid;
-    grid-template-columns: repeat(2, min-content);
-    align-items: center;
-    gap: 0.8rem;
-  }
-
-  &__visibility-label {
-    font-size: 1.7rem;
-
-    @include respond(mobile) {
-      font-size: 1.55rem;
-    }
   }
 
   .section-seperator {
@@ -1032,7 +863,7 @@ export default {
   }
 
   &__layout[style="direction: rtl;"] {
-    .challenge-options__tab {
+    .challenge-editor__tab {
       &:not(:nth-child(6n)) {
         border-right: none;
 
@@ -1290,50 +1121,6 @@ export default {
       border-color: $color-azure;
     }
   }
-
-  &__extra {
-    font: inherit;
-    outline: none;
-    width: 100%;
-    padding: 1rem 2rem;
-    border: 0.2rem solid #ccc;
-    border-radius: 100px;
-    margin-top: 1rem;
-    transition: all 0.5s;
-
-    @include respond(tablet-sm) {
-      margin-top: 0.5rem;
-    }
-
-    &:focus {
-      border-color: $color-azure;
-    }
-  }
-}
-
-.challenge-options .language-selector {
-  font-weight: 600;
-  font-size: 2.2rem;
-  height: 4.2rem;
-
-  @include respond(mobile) {
-    font-size: 1.9rem;
-    height: 3.8rem;
-  }
-
-  .vs__clear {
-    display: none;
-  }
-
-  ul {
-    * {
-      font-size: 1.6rem;
-
-      @include respond(mobile) {
-        font-size: 1.45rem;
-      }
-    }
-  }
 }
 
 .options-action-button {
@@ -1361,25 +1148,6 @@ export default {
   }
 }
 
-.edit-day-title {
-  &__input {
-    border: none;
-    outline: none;
-    font-family: "Spartan", sans-serif;
-    display: block;
-    width: 100%;
-    text-align: center;
-    border-bottom: 0.2rem solid #ccc;
-    padding: 1rem 0;
-    margin-bottom: 0 !important;
-    margin-top: 0.5rem;
-
-    @include respond(mobile) {
-      margin-top: 0;
-    }
-  }
-}
-
 .task-leave-from {
   transform: translateX(0);
 }
@@ -1388,7 +1156,7 @@ export default {
   transform: translateX(100vw);
 }
 
-.challenge-options__layout[style="direction: rtl;"] .task-leave-to {
+.challenge-editor__layout[style="direction: rtl;"] .task-leave-to {
   transform: translateX(-100vw);
 }
 

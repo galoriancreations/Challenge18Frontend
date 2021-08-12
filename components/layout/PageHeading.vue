@@ -135,13 +135,13 @@ export default {
       url(../../assets/images/membership-bg.jpeg);
   }
 
-  &#challenge-options {
+  &#challenge-editor {
     background-image: linear-gradient(
         to right,
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/images/challenge-options-bg.jpeg);
+      url(../../assets/images/challenge-editor-bg.jpeg);
   }
 
   &#notfound {
