@@ -9,11 +9,14 @@
           :text="confirmText"
           @confirm="confirmAction"
         />
-        <AutoSaveNote
-          :date="lastAutoSave"
-          :saving="saving"
-          :error="errorAutoSave"
-        />
+        <FloatingNotes>
+          <AutoSaveNote
+            :date="lastAutoSave"
+            :saving="saving"
+            :error="errorAutoSave"
+          />
+          <!-- <EditorModeNote /> -->
+        </FloatingNotes>
         <section class="challenge-options__top">
           <div class="challenge-options__top-field">
             <h3 class="challenge-options__top-label">Challenge name</h3>
@@ -139,7 +142,15 @@
                       :id="option.id"
                       class="task-form__radio-input"
                     />
-                    <label :for="option.id" class="task-form__radio-label">
+                    <i
+                      v-if="templateOnlyMode"
+                      class="task-form__option-icon fas fa-gem"
+                    />
+                    <label
+                      v-else
+                      :for="option.id"
+                      class="task-form__radio-label"
+                    >
                       <span class="task-form__radio-button" />
                     </label>
                     <label
@@ -235,12 +246,19 @@ import {
   taskTranslations
 } from "../assets/util/options";
 import uniqid from "uniqid";
-import ChallengeOptionsInfo from "../components/dashboard/ChallengeOptionsInfo";
-import AutoSaveNote from "../components/UI/AutoSaveNote";
+import ChallengeOptionsInfo from "../components/challenge-editor/ChallengeOptionsInfo";
+import FloatingNotes from "../components/layout/FloatingNotes";
+import AutoSaveNote from "../components/challenge-editor/AutoSaveNote";
+import EditorModeNote from "../components/challenge-editor/EditorModeNote";
 import confirmModal from "../mixins/confirm-modal";
 
 export default {
-  components: { ChallengeOptionsInfo, AutoSaveNote },
+  components: {
+    ChallengeOptionsInfo,
+    FloatingNotes,
+    AutoSaveNote,
+    EditorModeNote
+  },
   mixins: [confirmModal],
   // meta: {
   //   requiresAuth: true,
@@ -375,7 +393,7 @@ export default {
         ? "Finish editing"
         : this.editedChallengeId
         ? "Update challenge"
-        : "Create challenge";
+        : "Publish challenge";
     },
     convertedOptions() {
       return this.options.map(day =>
@@ -400,7 +418,8 @@ export default {
         days: this.options,
         selections: this.selections,
         templateId: this.templateId,
-        challengeId: this.editedChallengeId
+        challengeId: this.editedChallengeId,
+        templateOnly: this.templateOnlyMode
       };
     },
     finalTemplateData() {
@@ -424,13 +443,14 @@ export default {
       });
       this.draftId = draftId;
     },
-    async saveTemplate() {
+    async saveTemplate(finishEditing = false) {
       const { templateId } = await this.$axios.$post("/xapi", {
         userID: this.user.id,
         saveTemplate: {
           templateId: this.templateId,
           templateData: this.finalTemplateData,
-          isTemplatePublic: this.isTemplatePublic
+          draftId: this.draftId,
+          finishEditing
         }
       });
       this.templateId = templateId;
@@ -620,10 +640,12 @@ export default {
             this.errorSubmitting = "One or more tasks was left empty";
             return false;
           }
-          const taskIndex = day.tasks.indexOf(task);
-          if (!this.isSelectionMatching(dayIndex, taskIndex)) {
-            this.errorSubmitting = "One or more tasks was left empty";
-            return false;
+          if (!this.templateOnlyMode) {
+            const taskIndex = day.tasks.indexOf(task);
+            if (!this.isSelectionMatching(dayIndex, taskIndex)) {
+              this.errorSubmitting = "One or more tasks was left empty";
+              return false;
+            }
           }
         }
       }
@@ -652,7 +674,7 @@ export default {
       this.$router.push(`/challenges/${this.editedChallengeId}`);
     },
     async saveTemplateAndRedirect() {
-      await this.saveTemplate();
+      await this.saveTemplate(true);
       this.$router.push({
         path: "/dashboard",
         hash: this.isTemplatePublic ? "#public-templates" : "#my-templates"
@@ -721,6 +743,12 @@ export default {
   },
   beforeDestroy() {
     document.removeEventListener("click", this.finishEditOnClick);
+  },
+  provide() {
+    return {
+      templateOnlyMode: this.templateOnlyMode,
+      editedChallengeId: this.editedChallengeId
+    };
   }
 };
 </script>
@@ -1163,6 +1191,11 @@ export default {
 
   &__radio-input:checked + &__radio-label &__radio-button::after {
     opacity: 1;
+  }
+
+  &__option-icon {
+    color: $color-azure;
+    font-size: 2.4rem;
   }
 
   &__text {

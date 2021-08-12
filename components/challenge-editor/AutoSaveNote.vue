@@ -38,13 +38,7 @@ export default {
 
 <style lang="scss">
 .auto-save-note {
-  font-size: 1.5rem;
-  text-align: center;
   animation: fadeFromLeft 0.5s;
-
-  @include respond(mobile) {
-    font-size: 1.35rem;
-  }
 
   strong {
     margin-right: 0.5rem;

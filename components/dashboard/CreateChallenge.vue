@@ -84,6 +84,7 @@ export default {
     },
     selectTemplate(template) {
       this.$store.dispatch("selectTemplate", template);
+      this.$router.push("/challenge-editor");
     }
   },
   watch: {

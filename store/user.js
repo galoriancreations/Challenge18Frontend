@@ -89,7 +89,6 @@ export const actions = {
     selectTemplate(context, template) {
         context.commit("setSelectedTemplate", template);
         this.$cookies.remove("draftId");
-        this.$router.push("/challenge-options");
     }
 };
 

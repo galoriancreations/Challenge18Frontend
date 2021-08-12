@@ -49,6 +49,10 @@ export default {
   methods: {
     startNewTemplate() {
       this.$store.dispatch("selectTemplate", null);
+      this.$router.push({
+        path: "/challenge-editor",
+        query: { templateOnly: true }
+      });
     }
   }
 };
