@@ -430,3 +430,46 @@ a {
     }
   }
 }
+
+// CUSTOM RADIO INPUT
+.radio-input {
+  display: none;
+}
+
+.radio-button {
+  display: block;
+  height: 2.8rem;
+  width: 2.8rem;
+  border: 0.5rem solid $color-azure;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+
+  @include respond(mobile) {
+    height: 2.6rem;
+    width: 2.6rem;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 1.3rem;
+    height: 1.3rem;
+    background-color: $color-azure;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.5s;
+
+    @include respond(mobile) {
+      height: 1.1rem;
+      width: 1.1rem;
+    }
+  }
+}
+
+.radio-input:checked + .radio-label .radio-button::after {
+  opacity: 1;
+}

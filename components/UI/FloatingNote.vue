@@ -18,8 +18,24 @@
     text-align: center;
   }
 
-  p {
+  &:not(:last-child) {
+    margin-bottom: 1.5rem;
+
+    @include respond(mobile) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  & > p {
     font-size: inherit;
+
+    &:not(:last-child) {
+      margin-bottom: 1.5rem;
+
+      @include respond(mobile) {
+        margin-bottom: 1rem;
+      }
+    }
   }
 }
 </style>

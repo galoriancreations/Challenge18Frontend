@@ -15,7 +15,6 @@
             :saving="saving"
             :error="errorAutoSave"
           />
-          <!-- <EditorModeNote /> -->
         </FloatingNotes>
         <section class="challenge-options__top">
           <div class="challenge-options__top-field">
@@ -35,6 +34,50 @@
               :reduce="option => option.name"
               class="language-selector"
             />
+          </div>
+          <div
+            class="challenge-options__top-field"
+            v-if="showVisibilitySelector"
+          >
+            <h3 class="challenge-options__top-label">Template availability</h3>
+            <div class="challenge-options__visibility-options">
+              <div class="challenge-options__visibility-option">
+                <input
+                  type="radio"
+                  v-model="isTemplatePublic"
+                  :value="true"
+                  class="radio-input"
+                  id="option-public"
+                />
+                <label for="option-public" class="radio-label">
+                  <span class="radio-button" />
+                </label>
+                <label
+                  for="option-public"
+                  class="challenge-options__visibility-label"
+                >
+                  Public
+                </label>
+              </div>
+              <div class="challenge-options__visibility-option">
+                <input
+                  type="radio"
+                  v-model="isTemplatePublic"
+                  :value="false"
+                  class="radio-input"
+                  id="option-private"
+                />
+                <label for="option-private" class="radio-label">
+                  <span class="radio-button" />
+                </label>
+                <label
+                  for="option-private"
+                  class="challenge-options__visibility-label"
+                >
+                  Private
+                </label>
+              </div>
+            </div>
           </div>
         </section>
         <SectionSeperator />
@@ -140,18 +183,14 @@
                       v-model="selections[dayIndex][taskIndex]"
                       :value="option.text"
                       :id="option.id"
-                      class="task-form__radio-input"
+                      class="radio-input"
                     />
                     <i
                       v-if="templateOnlyMode"
                       class="task-form__option-icon fas fa-gem"
                     />
-                    <label
-                      v-else
-                      :for="option.id"
-                      class="task-form__radio-label"
-                    >
-                      <span class="task-form__radio-button" />
+                    <label v-else :for="option.id" class="radio-label">
+                      <span class="radio-button" />
                     </label>
                     <label
                       v-if="editedOption !== `${task.id}-${option.id}`"
@@ -813,6 +852,28 @@ export default {
     }
   }
 
+  &__visibility-options {
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2, min-content);
+    gap: 4rem;
+  }
+
+  &__visibility-option {
+    display: grid;
+    grid-template-columns: repeat(2, min-content);
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  &__visibility-label {
+    font-size: 1.7rem;
+
+    @include respond(mobile) {
+      font-size: 1.55rem;
+    }
+  }
+
   .section-seperator {
     margin: 8.5rem 0 9.5rem;
 
@@ -1149,48 +1210,6 @@ export default {
         margin-bottom: 1.5rem;
       }
     }
-  }
-
-  &__radio-input {
-    display: none;
-  }
-
-  &__radio-button {
-    display: block;
-    height: 2.8rem;
-    width: 2.8rem;
-    border: 0.5rem solid $color-azure;
-    border-radius: 50%;
-    cursor: pointer;
-    position: relative;
-
-    @include respond(mobile) {
-      height: 2.6rem;
-      width: 2.6rem;
-    }
-
-    &::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 1.3rem;
-      height: 1.3rem;
-      background-color: $color-azure;
-      border-radius: 50%;
-      opacity: 0;
-      transition: opacity 0.5s;
-
-      @include respond(mobile) {
-        height: 1.1rem;
-        width: 1.1rem;
-      }
-    }
-  }
-
-  &__radio-input:checked + &__radio-label &__radio-button::after {
-    opacity: 1;
   }
 
   &__option-icon {

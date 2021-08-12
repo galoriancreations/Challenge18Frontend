@@ -20,15 +20,5 @@
     left: 1.5rem;
     width: calc(100% - 3rem);
   }
-
-  & > * {
-    &:not(:last-child) {
-      margin-bottom: 1.5rem;
-
-      @include respond(mobile) {
-        margin-bottom: 1rem;
-      }
-    }
-  }
 }
 </style>

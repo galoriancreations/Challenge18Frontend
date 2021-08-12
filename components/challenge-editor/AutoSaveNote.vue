@@ -1,8 +1,10 @@
 <template>
   <FloatingNote v-if="showNote" class="auto-save-note">
-    <strong>Last auto-save:</strong>
-    <span>{{ text }}</span>
-    <i :class="iconClasses" />
+    <p>
+      <strong>Last auto-save:</strong>
+      <span>{{ text }}</span>
+      <i :class="iconClasses" />
+    </p>
   </FloatingNote>
 </template>
 
@@ -15,6 +17,7 @@ export default {
     saving: Boolean,
     error: Boolean
   },
+  inject: ["templateOnlyMode", "editedChallengeId"],
   computed: {
     showNote() {
       return !!this.date || this.error;
