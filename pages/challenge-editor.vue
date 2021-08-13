@@ -51,13 +51,10 @@
               />
               <div class="challenge-editor__day-actions">
                 <div class="challenge-editor__day-actions-wrapper">
-                  <i
-                    class="fas fa-pen editor-action-button"
-                    @click="dayTitleEdited = true"
-                  />
-                  <i
+                  <IconButton type="edit" @click="dayTitleEdited = true" />
+                  <IconButton
                     v-if="options.length > 1"
-                    class="fas fa-trash-alt editor-action-button"
+                    type="delete"
                     @click="deleteDay"
                   />
                 </div>
@@ -171,6 +168,7 @@ export default {
           selections,
           extraInputs: initialExtraInputs(template.days),
           draftId: null,
+          isTemplatePublic: false,
           errorLoading: null
         };
       } else if (draftId) {
@@ -185,6 +183,7 @@ export default {
           selections: draft.selections,
           extraInputs: initialExtraInputs(draft.days),
           draftId,
+          isTemplatePublic: draft.isTemplatePublic,
           templateId: draft.templateId,
           errorLoading: null
         };
@@ -200,6 +199,7 @@ export default {
           selections: initialSelections(template.days),
           extraInputs: initialExtraInputs(template.days),
           draftId: null,
+          isTemplatePublic: template.isPublic && user?.accountType === "admin",
           templateId: template.id,
           errorLoading: null
         };
@@ -211,6 +211,7 @@ export default {
           selections: initialSelections(emptyDays()),
           extraInputs: initialExtraInputs(emptyDays()),
           draftId: null,
+          isTemplatePublic: user?.accountType === "admin",
           templateId: null,
           errorLoading: null
         };
@@ -233,8 +234,7 @@ export default {
       showInfoModal: false,
       lastAutoSave: null,
       saving: false,
-      errorAutoSave: false,
-      isTemplatePublic: false
+      errorAutoSave: false
     };
   },
   computed: {
@@ -259,13 +259,6 @@ export default {
     taskLabel() {
       return taskTranslations[this.language] || "Task";
     },
-    extraInputPlaceholder() {
-      return process.client
-        ? window.innerWidth > 600
-          ? "Type and press Enter to add a new option..."
-          : "Enter new option here..."
-        : null;
-    },
     submitButtonText() {
       return this.templateOnlyMode
         ? "Finish editing"
@@ -284,10 +277,10 @@ export default {
       return rtlLanguages.includes(this.language) ? "rtl" : null;
     },
     user() {
-      return this.$store.getters.user || {};
+      return this.$store.getters.user;
     },
     showVisibilitySelector() {
-      return this.user?.accountType === "admin";
+      return this.user?.accountType === "admin" && !this.editedChallengeId;
     },
     draftData() {
       return {
@@ -295,6 +288,7 @@ export default {
         language: this.language,
         days: this.options,
         selections: this.selections,
+        isTemplatePublic: this.isTemplatePublic,
         templateId: this.templateId,
         challengeId: this.editedChallengeId,
         templateOnly: this.templateOnlyMode
@@ -350,18 +344,11 @@ export default {
         this.saving = false;
       }, 5000);
     },
-    updateExtraInput(value, taskIndex) {
-      this.extraInputs = this.extraInputs.map((day, dayIndex) =>
+    updateValue(key, newValue, taskIndex) {
+      this[key] = this[key].map((day, dayIndex) =>
         dayIndex === this.dayIndex
-          ? day.map((input, index) => (index === taskIndex ? value : input))
-          : day
-      );
-    },
-    updateSelection(value, taskIndex) {
-      this.selections = this.selections.map((day, dayIndex) =>
-        dayIndex === this.dayIndex
-          ? day.map((selection, index) =>
-              index === taskIndex ? value : selection
+          ? day.map((oldValue, index) =>
+              index === taskIndex ? newValue : oldValue
             )
           : day
       );
@@ -371,9 +358,9 @@ export default {
         const newOptionText = stripHTML(
           this.extraInputs[this.dayIndex][taskIndex]
         ).trim();
-        this.updateExtraInput("", taskIndex);
+        this.updateValue("extraInputs", "", taskIndex);
         if (newOptionText) {
-          this.updateSelection(newOptionText, taskIndex);
+          this.updateValue("selections", newOptionText, taskIndex);
           this.options[this.dayIndex].tasks[taskIndex].options.push({
             id: uniqid(),
             text: newOptionText
@@ -389,7 +376,7 @@ export default {
       this.options[this.dayIndex].tasks[taskIndex].options[
         optionIndex
       ].text = stripHTML(value);
-      this.updateSelection(stripHTML(value), taskIndex);
+      this.updateValue("selections", stripHTML(value), taskIndex);
     },
     finishEditOnEnter(event) {
       if (event.key === "Enter" || event.key === "Escape") {
@@ -400,7 +387,7 @@ export default {
     },
     finishEditOnClick(event) {
       if (
-        !event.target.classList.contains("editor-action-button") &&
+        !event.target.classList.contains("icon-button") &&
         !event.target.classList.contains("task-form__option-edit")
       ) {
         this.checkForEmptyOption();
@@ -714,7 +701,7 @@ export default {
     justify-content: center;
     margin: 0 -1rem;
 
-    .editor-action-button {
+    .icon-button {
       margin: 0 1rem;
       font-size: 2rem;
 
@@ -763,31 +750,6 @@ export default {
 
     @include respond(mobile) {
       margin-top: 6rem;
-    }
-  }
-}
-
-.editor-action-button {
-  cursor: pointer;
-  transition: all 0.5s;
-  font-size: 1.7rem;
-
-  @include respond(mobile) {
-    font-size: 1.55rem;
-  }
-
-  &.fa-pen,
-  &.fa-star {
-    color: $color-blue-3;
-  }
-
-  &.fa-trash-alt {
-    color: $color-blue-2;
-  }
-
-  &:hover {
-    @media (hover: hover) {
-      color: $color-azure;
     }
   }
 }

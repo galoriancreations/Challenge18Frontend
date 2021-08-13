@@ -2,23 +2,15 @@
   <div class="task-form">
     <div class="task-form__top">
       <h3 class="task-form__title">
-        {{ `${taskLabel} ${taskIndex + 1}` }}
-        <span v-if="task.isBonus">(bonus)</span>
+        {{ taskTitle }}
       </h3>
       <div class="task-form__top-icons">
-        <i
-          :class="{
-            'editor-action-button': true,
-            fas: task.isBonus,
-            far: !task.isBonus,
-            'fa-star': true
-          }"
+        <IconButton
+          type="mark"
+          :filled="task.isBonus"
           @click="toggleTaskAsBonus(taskIndex)"
         />
-        <i
-          class="fas fa-trash-alt editor-action-button"
-          @click="deleteTask(taskIndex)"
-        />
+        <IconButton type="delete" @click="deleteTask(taskIndex)" />
       </div>
     </div>
     <div
@@ -50,12 +42,12 @@
         />
         <div class="task-form__option-actions">
           <div class="task-form__option-actions-wrapper">
-            <i
-              class="fas fa-pen editor-action-button"
+            <IconButton
+              type="edit"
               @click="setEditedOption(task.id, option.id)"
             />
-            <i
-              class="fas fa-trash-alt editor-action-button"
+            <IconButton
+              type="delete"
               @click="deleteOption(taskIndex, optionIndex)"
             />
           </div>
@@ -76,7 +68,7 @@
         :value="extraInput"
         @input="$emit('update:extraInput', $event)"
         class="task-form__extra"
-        placeholder="Type and press Enter to add a new option..."
+        :placeholder="extraInputPlaceholder"
         :rows="1"
       />
     </form>
@@ -121,6 +113,20 @@ export default {
     },
     convertedOptions() {
       return this.getConvertedOptions();
+    },
+    taskTitle() {
+      let title = `${this.taskLabel} ${this.taskIndex + 1}`;
+      if (this.task.isBonus) {
+        title += " (bonus)";
+      }
+      return title;
+    },
+    extraInputPlaceholder() {
+      return process.client
+        ? window.innerWidth > 600
+          ? "Type and press Enter to add a new option..."
+          : "Enter new option here..."
+        : null;
     }
   }
 };
