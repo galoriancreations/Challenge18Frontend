@@ -3,19 +3,6 @@
     <WhiteSection tag="main" class="challenge-editor">
       <ErrorMessage v-if="errorLoading" :error="errorLoading" />
       <div v-else class="challenge-editor__container">
-        <ChallengeOptionsInfo :active="showInfoModal" />
-        <ConfirmModal
-          :active="showConfirmModal"
-          :text="confirmText"
-          @confirm="confirmAction"
-        />
-        <FloatingNotes>
-          <AutoSaveNote
-            :date="lastAutoSave"
-            :saving="saving"
-            :error="errorAutoSave"
-          />
-        </FloatingNotes>
         <section class="challenge-editor__top">
           <ChallengeNameField v-model.trim="name" />
           <ChallengeLanguageField v-model="language" />
@@ -100,6 +87,19 @@
             @click="selectRandomOptions"
           />
         </div>
+        <FloatingNotes>
+          <AutoSaveNote
+            :date="lastAutoSave"
+            :saving="saving"
+            :error="errorAutoSave"
+          />
+        </FloatingNotes>
+        <ChallengeOptionsInfo :active="showInfoModal" />
+        <ConfirmModal
+          :active="showConfirmModal"
+          :text="confirmText"
+          @confirm="confirmAction"
+        />
       </div>
     </WhiteSection>
   </Page>

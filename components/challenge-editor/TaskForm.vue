@@ -58,6 +58,7 @@
           :value="option.text"
           @input="editOption($event, taskIndex, optionIndex)"
           class="task-form__option-edit"
+          :id="`edit-${option.id}`"
           placeholder="Start typing here..."
           :rows="1"
         />
@@ -121,12 +122,27 @@ export default {
       }
       return title;
     },
+    editOptionInput() {
+      if (!this.editedOption) return;
+      const optionId = this.editedOption.split("-")[1];
+      return this.$el.querySelector(`#edit-${optionId}`);
+    },
     extraInputPlaceholder() {
       return process.client
         ? window.innerWidth > 600
           ? "Type and press Enter to add a new option..."
           : "Enter new option here..."
         : null;
+    }
+  },
+  watch: {
+    editedOption(value) {
+      if (value) {
+        const [taskId] = value.split("-");
+        if (taskId === this.task.id) {
+          setTimeout(() => this.editOptionInput.focus(), 10);
+        }
+      }
     }
   }
 };
