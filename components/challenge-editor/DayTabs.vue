@@ -5,7 +5,13 @@
       :key="options[day - 1].id"
       class="challenge-editor__tab"
     >
-      <input type="radio" v-model="selection" :value="day" :id="`day${day}`" />
+      <input
+        type="radio"
+        :id="`day${day}`"
+        :value="day"
+        :checked="modelValue === day"
+        @change="$emit('change', day)"
+      />
       <label :for="`day${day}`">{{ dayLabel }} {{ day }}</label>
     </div>
   </div>
@@ -14,32 +20,20 @@
 <script>
 import { numbersArray } from "../../assets/util/functions";
 export default {
+  model: {
+    prop: "modelValue",
+    event: "change"
+  },
   props: {
-    value: Number
+    modelValue: Number
   },
-  inject: ["options", "getDayLabel", "getCurrentDay"],
-  data() {
-    return {
-      selection: this.value
-    };
-  },
+  inject: ["options", "getDayLabel"],
   computed: {
     days() {
       return numbersArray(this.options.length);
     },
     dayLabel() {
       return this.getDayLabel();
-    },
-    currentDay() {
-      return this.getCurrentDay();
-    }
-  },
-  watch: {
-    selection(value) {
-      this.$emit("input", value);
-    },
-    currentDay(value) {
-      this.selection = value;
     }
   }
 };

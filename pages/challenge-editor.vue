@@ -52,12 +52,12 @@
               <div class="challenge-editor__day-actions">
                 <div class="challenge-editor__day-actions-wrapper">
                   <i
-                    class="fas fa-pen options-action-button"
+                    class="fas fa-pen editor-action-button"
                     @click="dayTitleEdited = true"
                   />
                   <i
                     v-if="options.length > 1"
-                    class="fas fa-trash-alt options-action-button"
+                    class="fas fa-trash-alt editor-action-button"
                     @click="deleteDay"
                   />
                 </div>
@@ -67,90 +67,14 @@
                 class="challenge-editor__content"
                 :name="transitionName"
               >
-                <div
-                  class="task-form"
+                <TaskForm
                   v-for="(task, taskIndex) in options[dayIndex].tasks"
                   :key="task.id"
-                >
-                  <div class="task-form__top">
-                    <h3 class="task-form__title">
-                      {{ `${taskLabel} ${taskIndex + 1}` }}
-                      <span v-if="task.isBonus">(bonus)</span>
-                    </h3>
-                    <div class="task-form__top-icons">
-                      <i
-                        :class="{
-                          'options-action-button': true,
-                          fas: task.isBonus,
-                          far: !task.isBonus,
-                          'fa-star': true
-                        }"
-                        @click="toggleTaskAsBonus(taskIndex)"
-                      />
-                      <i
-                        class="fas fa-trash-alt options-action-button"
-                        @click="deleteTask(taskIndex)"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    v-for="(option, optionIndex) in task.options"
-                    :key="option.id"
-                    class="task-form__option"
-                  >
-                    <input
-                      type="radio"
-                      v-model="selections[dayIndex][taskIndex]"
-                      :value="option.text"
-                      :id="option.id"
-                      class="radio-input"
-                    />
-                    <i
-                      v-if="templateOnlyMode"
-                      class="task-form__option-icon fas fa-gem"
-                    />
-                    <label v-else :for="option.id" class="radio-label">
-                      <span class="radio-button" />
-                    </label>
-                    <label
-                      v-if="editedOption !== `${task.id}-${option.id}`"
-                      :for="option.id"
-                      class="task-form__text"
-                    >
-                      <span
-                        v-html="
-                          convertedOptions[dayIndex][taskIndex][optionIndex]
-                        "
-                        v-linkified
-                      />
-                      <div class="task-form__option-actions">
-                        <div class="task-form__option-actions-wrapper">
-                          <i
-                            class="fas fa-pen options-action-button"
-                            @click="setEditedOption(task.id, option.id)"
-                          />
-                          <i
-                            class="fas fa-trash-alt options-action-button"
-                            @click="deleteOption(taskIndex, optionIndex)"
-                          />
-                        </div>
-                      </div>
-                    </label>
-                    <form v-else @keydown="finishEditOnEnter">
-                      <textarea-autosize
-                        :value="option.text"
-                        @input="editOption($event, taskIndex, optionIndex)"
-                        class="task-form__option-edit"
-                        placeholder="Start typing here..."
-                        :rows="1"
-                      />
-                    </form>
-                  </div>
-                  <TaskExtraInput
-                    @keydown.native="addOptionOnEnter($event, taskIndex)"
-                    v-model.trim="extraInputs[dayIndex][taskIndex]"
-                  />
-                </div>
+                  :task="task"
+                  :taskIndex="taskIndex"
+                  v-model="selections[dayIndex][taskIndex]"
+                  :extraInput.sync="extraInputs[dayIndex][taskIndex]"
+                />
                 <div key="button">
                   <ActionButton color="white" @click="addTask">
                     <i class="fas fa-plus" />
@@ -207,7 +131,7 @@ import ChallengeNameField from "../components/challenge-editor/ChallengeNameFiel
 import ChallengeLanguageField from "../components/challenge-editor/ChallengeLanguageField";
 import TemplateAvailabilityField from "../components/challenge-editor/TemplateAvailabilityField";
 import DayTabs from "../components/challenge-editor/DayTabs";
-import TaskExtraInput from "../components/challenge-editor/TaskExtraInput";
+import TaskForm from "../components/challenge-editor/TaskForm";
 import EditDayTitleModal from "../components/challenge-editor/EditDayTitleModal";
 
 import confirmModal from "../mixins/confirm-modal";
@@ -222,7 +146,7 @@ export default {
     TemplateAvailabilityField,
     DayTabs,
     EditDayTitleModal,
-    TaskExtraInput
+    TaskForm
   },
   mixins: [confirmModal],
   // meta: {
@@ -335,6 +259,13 @@ export default {
     taskLabel() {
       return taskTranslations[this.language] || "Task";
     },
+    extraInputPlaceholder() {
+      return process.client
+        ? window.innerWidth > 600
+          ? "Type and press Enter to add a new option..."
+          : "Enter new option here..."
+        : null;
+    },
     submitButtonText() {
       return this.templateOnlyMode
         ? "Finish editing"
@@ -356,8 +287,7 @@ export default {
       return this.$store.getters.user || {};
     },
     showVisibilitySelector() {
-      // return this.user?.accountType === "admin";
-      return true;
+      return this.user?.accountType === "admin";
     },
     draftData() {
       return {
@@ -418,21 +348,37 @@ export default {
           this.errorAutoSave = true;
         }
         this.saving = false;
-      }, 3000);
+      }, 5000);
+    },
+    updateExtraInput(value, taskIndex) {
+      this.extraInputs = this.extraInputs.map((day, dayIndex) =>
+        dayIndex === this.dayIndex
+          ? day.map((input, index) => (index === taskIndex ? value : input))
+          : day
+      );
+    },
+    updateSelection(value, taskIndex) {
+      this.selections = this.selections.map((day, dayIndex) =>
+        dayIndex === this.dayIndex
+          ? day.map((selection, index) =>
+              index === taskIndex ? value : selection
+            )
+          : day
+      );
     },
     addOptionOnEnter(event, taskIndex) {
       if (event.key === "Enter") {
         const newOptionText = stripHTML(
           this.extraInputs[this.dayIndex][taskIndex]
         ).trim();
+        this.updateExtraInput("", taskIndex);
         if (newOptionText) {
+          this.updateSelection(newOptionText, taskIndex);
           this.options[this.dayIndex].tasks[taskIndex].options.push({
             id: uniqid(),
             text: newOptionText
           });
-          this.selections[this.dayIndex][taskIndex] = newOptionText;
         }
-        this.extraInputs[this.dayIndex][taskIndex] = "";
       }
     },
     setEditedOption(taskId, optionId) {
@@ -443,7 +389,7 @@ export default {
       this.options[this.dayIndex].tasks[taskIndex].options[
         optionIndex
       ].text = stripHTML(value);
-      this.selections[this.dayIndex][taskIndex] = stripHTML(value);
+      this.updateSelection(stripHTML(value), taskIndex);
     },
     finishEditOnEnter(event) {
       if (event.key === "Enter" || event.key === "Escape") {
@@ -454,7 +400,7 @@ export default {
     },
     finishEditOnClick(event) {
       if (
-        !event.target.classList.contains("options-action-button") &&
+        !event.target.classList.contains("editor-action-button") &&
         !event.target.classList.contains("task-form__option-edit")
       ) {
         this.checkForEmptyOption();
@@ -689,11 +635,20 @@ export default {
   },
   provide() {
     return {
-      templateOnlyMode: this.templateOnlyMode,
-      editedChallengeId: this.editedChallengeId,
       options: this.options,
+      getDayIndex: () => this.dayIndex,
       getDayLabel: () => this.dayLabel,
-      getCurrentDay: () => this.currentDay
+      getTaskLabel: () => this.taskLabel,
+      toggleTaskAsBonus: this.toggleTaskAsBonus,
+      deleteTask: this.deleteTask,
+      templateOnlyMode: this.templateOnlyMode,
+      getEditedOption: () => this.editedOption,
+      setEditedOption: this.setEditedOption,
+      getConvertedOptions: () => this.convertedOptions,
+      deleteOption: this.deleteOption,
+      editOption: this.editOption,
+      finishEditOnEnter: this.finishEditOnEnter,
+      addOptionOnEnter: this.addOptionOnEnter
     };
   }
 };
@@ -701,10 +656,6 @@ export default {
 
 <style lang="scss">
 .challenge-editor {
-  &__top {
-    text-align: center;
-  }
-
   .section-seperator {
     margin: 8.5rem 0 9.5rem;
 
@@ -916,7 +867,7 @@ export default {
     justify-content: center;
     margin: 0 -1rem;
 
-    .options-action-button {
+    .editor-action-button {
       margin: 0 1rem;
       font-size: 2rem;
 
@@ -969,161 +920,7 @@ export default {
   }
 }
 
-.task-form {
-  border-radius: 1rem;
-  box-shadow: $boxshadow2;
-  padding: 3.5rem 3rem;
-  width: 100%;
-  overflow: hidden;
-
-  @include respond(mobile) {
-    padding: 3rem 2rem;
-  }
-
-  &:not(:last-child) {
-    margin-bottom: 4rem;
-
-    @include respond(mobile) {
-      margin-bottom: 3rem;
-    }
-  }
-
-  &__top {
-    margin-bottom: 2.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  &__top-icons {
-    transition: all 0.5s;
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(2, min-content);
-
-    @media (hover: hover) {
-      opacity: 0;
-      visibility: hidden;
-    }
-  }
-
-  &:hover &__top-icons {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  &__title {
-    color: $color-blue-2;
-    font-size: 2.8rem;
-
-    @include respond(mobile) {
-      font-size: 2.2rem;
-    }
-  }
-
-  &__option {
-    line-height: 1.7;
-    display: grid;
-    grid-template-columns: 2.8rem 1fr;
-    gap: 1.5rem;
-    align-items: center;
-
-    @include respond(mobile) {
-      line-height: 1.6;
-      grid-template-columns: 2.6rem 1fr;
-      gap: 1.2rem;
-    }
-
-    &:not(:last-child) {
-      margin-bottom: 2.5rem;
-
-      @media (hover: hover) {
-        margin-bottom: 1.5rem;
-      }
-    }
-  }
-
-  &__option-icon {
-    color: $color-azure;
-    font-size: 2.4rem;
-  }
-
-  &__text {
-    word-wrap: break-word;
-    flex: 1;
-    position: relative;
-
-    @include respond(mobile) {
-      font-size: 1.45rem;
-    }
-
-    span {
-      display: block;
-    }
-
-    a {
-      color: $color-blue-2;
-      transition: color 0.5s;
-
-      &:hover {
-        color: $color-gold-3;
-      }
-    }
-  }
-
-  &__option-actions {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba($color-azure-light, 0.6);
-    border-radius: 0.4rem;
-    padding: 0.5rem;
-    margin-top: 0.75rem;
-    transition: all 0.5s;
-
-    @media (hover: hover) {
-      position: absolute;
-      width: 10rem;
-      height: 100%;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      padding: 0;
-      opacity: 0;
-      margin-top: 0;
-      visibility: hidden;
-    }
-  }
-
-  &__text:hover &__option-actions {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  &__option-actions-wrapper {
-    display: grid;
-    grid-template-columns: repeat(2, min-content);
-    justify-content: center;
-    gap: 2rem;
-  }
-
-  &__option-edit {
-    display: block;
-    width: 100%;
-    font: inherit;
-    outline: none;
-    padding: 0.8rem;
-    border: 0.1rem solid #ccc;
-    border-radius: 0.5rem;
-    transition: all 0.5s;
-
-    &:focus {
-      border-color: $color-azure;
-    }
-  }
-}
-
-.options-action-button {
+.editor-action-button {
   cursor: pointer;
   transition: all 0.5s;
   font-size: 1.7rem;

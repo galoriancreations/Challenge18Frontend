@@ -1,34 +1,24 @@
 <template>
   <EditorTopField label="Template availability">
     <div class="challenge-editor__visibility-options">
-      <div class="challenge-editor__visibility-option">
+      <div
+        v-for="option in options"
+        :key="option.id"
+        class="challenge-editor__visibility-option"
+      >
         <input
           type="radio"
-          v-model="selection"
-          :value="true"
           class="radio-input"
-          id="option-public"
+          :id="option.id"
+          :value="option.value"
+          :checked="modelValue === option.value"
+          @change="$emit('change', option.value)"
         />
-        <label for="option-public" class="radio-label">
+        <label :for="option.id" class="radio-label">
           <span class="radio-button" />
         </label>
-        <label for="option-public" class="challenge-editor__visibility-label">
-          Public
-        </label>
-      </div>
-      <div class="challenge-editor__visibility-option">
-        <input
-          type="radio"
-          v-model="selection"
-          :value="false"
-          class="radio-input"
-          id="option-private"
-        />
-        <label for="option-private" class="radio-label">
-          <span class="radio-button" />
-        </label>
-        <label for="option-private" class="challenge-editor__visibility-label">
-          Private
+        <label :for="option.id" class="challenge-editor__visibility-label">
+          {{ option.label }}
         </label>
       </div>
     </div>
@@ -40,18 +30,20 @@ import EditorTopField from "./EditorTopField";
 
 export default {
   components: { EditorTopField },
+  model: {
+    prop: "modelValue",
+    event: "change"
+  },
   props: {
-    value: Boolean
+    modelValue: Boolean
   },
   data() {
     return {
-      selection: this.value
+      options: [
+        { value: true, id: "option-public", label: "Public" },
+        { value: false, id: "option-private", label: "Private" }
+      ]
     };
-  },
-  watch: {
-    selection(value) {
-      this.$emit("input", value);
-    }
   }
 };
 </script>

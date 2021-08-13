@@ -20,6 +20,7 @@ export default {
   &__top-field {
     display: flex;
     flex-direction: column;
+    text-align: center;
 
     &:not(:last-child) {
       margin-bottom: 4rem;

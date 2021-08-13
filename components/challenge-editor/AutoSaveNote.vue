@@ -17,7 +17,6 @@ export default {
     saving: Boolean,
     error: Boolean
   },
-  inject: ["templateOnlyMode", "editedChallengeId"],
   computed: {
     showNote() {
       return !!this.date || this.error;
