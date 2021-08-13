@@ -65,4 +65,18 @@ export default {
     margin-top: -3rem;
   }
 }
+
+.challenge-editor .action-button {
+  width: 6.5rem;
+  height: 6.5rem;
+  font-size: 1.9rem;
+  position: relative;
+  z-index: 5;
+
+  @include respond(mobile) {
+    width: 6rem;
+    height: 6rem;
+    font-size: 1.6rem;
+  }
+}
 </style>

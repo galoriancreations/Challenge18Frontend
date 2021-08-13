@@ -1,6 +1,6 @@
 import uniqid from "uniqid";
+import cloneDeep from "clone-deep";
 import { languageOptions } from "./options";
-import moment from "moment";
 
 export const usersArray = users => {
   const data = [];
@@ -56,7 +56,9 @@ export const initialOptions = options =>
       options: task.options.map(option => ({
         ...option,
         id: option.id || uniqid()
-      }))
+      })),
+      selection: task.selection || task.options[0]?.text,
+      extraInput: task.extraInput || ""
     }))
   }));
 
@@ -66,13 +68,6 @@ export const initialExtraInputs = options =>
 export const initialSelections = options =>
   options.map(day =>
     day.tasks.map(task => task.options[0]?.text)
-  );
-
-export const existingSelections = (options, selections = []) =>
-  options.map((day, dayIndex) =>
-    day.tasks.map((_, taskIndex) =>
-      selections[dayIndex] && [selections][dayIndex][taskIndex]
-    )
   );
 
 export const stripHTML = text => text.replace(/(<([^>]+)>)/ig, "");
@@ -88,6 +83,27 @@ export const convertTaskText = text => {
   });
   return chars.join("");
 };
+
+export const newTask = () => ({
+  id: uniqid(),
+  options: [],
+  isBonus: false,
+  selection: null,
+  extraInput: ""
+});
+
+export const clearedOptions = (options, removeSelections = true) => {
+  const optionsClone = cloneDeep(options, true);
+  optionsClone.forEach(day => {
+    day.tasks.forEach(task => {
+      if (removeSelections) {
+        delete task.selection;
+      }
+      delete task.extraInput;
+    })
+  })
+  return optionsClone;
+}
 
 export const textInputKeys = labels => {
   const keys = [];

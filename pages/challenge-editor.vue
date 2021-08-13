@@ -3,6 +3,12 @@
     <WhiteSection tag="main" class="challenge-editor">
       <ErrorMessage v-if="errorLoading" :error="errorLoading" />
       <div v-else class="challenge-editor__container">
+        <ChallengeOptionsInfo :active="showInfoModal" />
+        <ConfirmModal
+          :active="showConfirmModal"
+          :text="confirmText"
+          @confirm="confirmAction"
+        />
         <section class="challenge-editor__top">
           <ChallengeNameField v-model.trim="name" />
           <ChallengeLanguageField v-model="language" />
@@ -54,8 +60,8 @@
                   :key="task.id"
                   :task="task"
                   :taskIndex="taskIndex"
-                  v-model="selections[dayIndex][taskIndex]"
-                  :extraInput.sync="extraInputs[dayIndex][taskIndex]"
+                  v-model="task.selection"
+                  :extraInput.sync="task.extraInput"
                 />
                 <div key="button">
                   <ActionButton type="add" color="white" @click="addTask" />
@@ -65,7 +71,7 @@
           </div>
           <div key="submit-button">
             <BaseButton
-              class="submit-button"
+              class="challenge-editor__submit-button"
               variant="blue"
               @click="submitHandler"
             >
@@ -94,12 +100,6 @@
             :error="errorAutoSave"
           />
         </FloatingNotes>
-        <ChallengeOptionsInfo :active="showInfoModal" />
-        <ConfirmModal
-          :active="showConfirmModal"
-          :text="confirmText"
-          @confirm="confirmAction"
-        />
       </div>
     </WhiteSection>
   </Page>
@@ -109,10 +109,10 @@
 import {
   emptyDays,
   initialOptions,
-  initialSelections,
-  initialExtraInputs,
   stripHTML,
-  convertTaskText
+  convertTaskText,
+  newTask,
+  clearedOptions
 } from "../assets/util/functions";
 import {
   rtlLanguages,
@@ -120,7 +120,6 @@ import {
   taskTranslations
 } from "../assets/util/options";
 import uniqid from "uniqid";
-
 import ChallengeOptionsInfo from "../components/challenge-editor/ChallengeOptionsInfo";
 import FloatingNotes from "../components/layout/FloatingNotes";
 import AutoSaveNote from "../components/challenge-editor/AutoSaveNote";
@@ -130,7 +129,6 @@ import TemplateAvailabilityField from "../components/challenge-editor/TemplateAv
 import DayTabs from "../components/challenge-editor/DayTabs";
 import TaskForm from "../components/challenge-editor/TaskForm";
 import EditDayTitleModal from "../components/challenge-editor/EditDayTitleModal";
-
 import confirmModal from "../mixins/confirm-modal";
 
 export default {
@@ -157,17 +155,15 @@ export default {
       const { challengeId } = route.query;
 
       if (challengeId) {
-        const { template, selections } = await $axios.$post("/xapi", {
+        const { challenge, configId } = await $axios.$post("/xapi", {
           userID: user.id,
           getChallengeConfig: challengeId
         });
         return {
-          name: template.name,
-          language: template.language,
-          options: template.days,
-          selections,
-          extraInputs: initialExtraInputs(template.days),
-          draftId: null,
+          name: challenge.name,
+          language: challenge.language,
+          options: challenge.days,
+          draftId: configId,
           isTemplatePublic: false,
           errorLoading: null
         };
@@ -180,8 +176,6 @@ export default {
           name: draft.name,
           language: draft.language,
           options: draft.days,
-          selections: draft.selections,
-          extraInputs: initialExtraInputs(draft.days),
           draftId,
           isTemplatePublic: draft.isTemplatePublic,
           templateId: draft.templateId,
@@ -196,8 +190,6 @@ export default {
           name: template.name,
           language: template.language,
           options: initialOptions(template.days),
-          selections: initialSelections(template.days),
-          extraInputs: initialExtraInputs(template.days),
           draftId: null,
           isTemplatePublic: template.isPublic && user?.accountType === "admin",
           templateId: template.id,
@@ -208,8 +200,6 @@ export default {
           name: "",
           language: user?.language || "English",
           options: initialOptions(emptyDays()),
-          selections: initialSelections(emptyDays()),
-          extraInputs: initialExtraInputs(emptyDays()),
           draftId: null,
           isTemplatePublic: user?.accountType === "admin",
           templateId: null,
@@ -227,14 +217,14 @@ export default {
       currentDay: 1,
       dayTitleEdited: false,
       editedOption: null,
-      submitting: false,
-      errorSubmitting: null,
       autoSaveTimeout: null,
-      transitionName: null,
-      showInfoModal: false,
       lastAutoSave: null,
       saving: false,
-      errorAutoSave: false
+      errorAutoSave: false,
+      submitting: false,
+      errorSubmitting: null,
+      showInfoModal: false,
+      transitionName: null
     };
   },
   computed: {
@@ -287,7 +277,6 @@ export default {
         name: this.name,
         language: this.language,
         days: this.options,
-        selections: this.selections,
         isTemplatePublic: this.isTemplatePublic,
         templateId: this.templateId,
         challengeId: this.editedChallengeId,
@@ -296,11 +285,17 @@ export default {
     },
     finalTemplateData() {
       return {
-        id: this.templateId,
         name: this.name,
         language: this.language,
-        days: this.options,
+        days: clearedOptions(this.options),
         isPublic: this.isTemplatePublic
+      };
+    },
+    finalChallengeConfig() {
+      return {
+        name: this.name,
+        language: this.language,
+        days: clearedOptions(this.options, false)
       };
     }
   },
@@ -344,27 +339,14 @@ export default {
         this.saving = false;
       }, 5000);
     },
-    updateValue(key, newValue, taskIndex) {
-      this[key] = this[key].map((day, dayIndex) =>
-        dayIndex === this.dayIndex
-          ? day.map((oldValue, index) =>
-              index === taskIndex ? newValue : oldValue
-            )
-          : day
-      );
-    },
     addOptionOnEnter(event, taskIndex) {
       if (event.key === "Enter") {
-        const newOptionText = stripHTML(
-          this.extraInputs[this.dayIndex][taskIndex]
-        ).trim();
-        this.updateValue("extraInputs", "", taskIndex);
+        const task = this.options[this.dayIndex].tasks[taskIndex];
+        const newOptionText = stripHTML(task.extraInput).trim();
+        task.extraInput = "";
         if (newOptionText) {
-          this.updateValue("selections", newOptionText, taskIndex);
-          this.options[this.dayIndex].tasks[taskIndex].options.push({
-            id: uniqid(),
-            text: newOptionText
-          });
+          task.selection = newOptionText;
+          task.options.push({ id: uniqid(), text: newOptionText });
         }
       }
     },
@@ -373,10 +355,9 @@ export default {
       this.transitionName = null;
     },
     editOption(value, taskIndex, optionIndex) {
-      this.options[this.dayIndex].tasks[taskIndex].options[
-        optionIndex
-      ].text = stripHTML(value);
-      this.updateValue("selections", stripHTML(value), taskIndex);
+      const task = this.options[this.dayIndex].tasks[taskIndex];
+      task.options[optionIndex].text = stripHTML(value);
+      task.selection = stripHTML(value);
     },
     finishEditOnEnter(event) {
       if (event.key === "Enter" || event.key === "Escape") {
@@ -386,9 +367,10 @@ export default {
       }
     },
     finishEditOnClick(event) {
+      const { classList } = event.target;
       if (
-        !event.target.classList.contains("icon-button") &&
-        !event.target.classList.contains("task-form__option-edit")
+        !classList.contains("icon-button") &&
+        !classList.contains("task-form__option-edit")
       ) {
         this.checkForEmptyOption();
         this.editedOption = null;
@@ -418,13 +400,7 @@ export default {
       );
     },
     addTask() {
-      this.options[this.dayIndex].tasks.push({
-        id: uniqid(),
-        options: [],
-        isBonus: false
-      });
-      this.selections[this.dayIndex].push("");
-      this.extraInputs[this.dayIndex].push("");
+      this.options[this.dayIndex].tasks.push(newTask());
     },
     deleteTask(taskIndex) {
       const { tasks } = this.options[this.dayIndex];
@@ -433,8 +409,6 @@ export default {
         () => {
           this.transitionName = "task";
           tasks.splice(taskIndex, 1);
-          this.selections[this.dayIndex].splice(taskIndex, 1);
-          this.extraInputs[this.dayIndex].splice(taskIndex, 1);
         },
         !tasks[taskIndex].options.length
       );
@@ -447,13 +421,8 @@ export default {
       this.options.push({
         id: uniqid(),
         title: "",
-        tasks: [
-          { id: uniqid(), options: [] },
-          { id: uniqid(), options: [] }
-        ]
+        tasks: [newTask(), newTask()]
       });
-      this.selections.push(["", ""]);
-      this.extraInputs.push(["", ""]);
       this.currentDay = this.options.length;
     },
     deleteDay() {
@@ -461,8 +430,6 @@ export default {
         "Are you sure you want to delete this day and all its tasks? This action is irreversible.",
         () => {
           this.options.splice(this.dayIndex, 1);
-          this.selections.splice(this.dayIndex, 1);
-          this.extraInputs.splice(this.dayIndex, 1);
           this.transitionName = "task";
           if (this.currentDay > this.options.length) {
             this.currentDay--;
@@ -478,20 +445,25 @@ export default {
       this.setConfirmModal(
         "Do you want to select a random option for each task? All your selections would be overwritten.",
         () => {
-          this.selections = this.options.map(day =>
-            day.tasks.map(task => {
+          this.options = this.options.map(day => ({
+            ...day,
+            tasks: day.tasks.map(task => {
               const optionIndex = Math.floor(
                 Math.random() * task.options.length
               );
-              return task.options[optionIndex]?.text;
+              return {
+                ...task,
+                selection: task.options[optionIndex]?.text
+              };
             })
-          );
+          }));
         }
       );
     },
     isSelectionMatching(dayIndex, taskIndex) {
-      for (let option of this.options[dayIndex].tasks[taskIndex].options) {
-        if (option.text === this.selections[dayIndex][taskIndex]) {
+      const task = this.options[dayIndex].tasks[taskIndex];
+      for (let option of task.options) {
+        if (option.text === task.selection) {
           return true;
         }
       }
@@ -537,7 +509,7 @@ export default {
         userID: this.user.id,
         createChallenge: {
           draftId: this.draftId,
-          draftData: this.draftData,
+          challengeData: this.finalChallengeConfig,
           templateId: this.templateId
         }
       });
@@ -549,7 +521,7 @@ export default {
         updateChallenge: {
           challengeId: this.editedChallengeId,
           draftId: this.draftId,
-          draftData: this.draftData
+          challengeData: this.finalChallengeConfig
         }
       });
       this.$router.push(`/challenges/${this.editedChallengeId}`);
@@ -593,12 +565,6 @@ export default {
       this.autoSave();
     },
     options: {
-      handler() {
-        this.autoSave();
-      },
-      deep: true
-    },
-    selections: {
       handler() {
         this.autoSave();
       },
@@ -652,37 +618,23 @@ export default {
   }
 
   &__layout {
-    display: flex;
+    display: grid;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: start;
+    grid-template-columns: 15% 72.5%;
     position: relative;
 
     @include respond(tablet) {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-
-  &__tabs {
-    width: 15%;
-
-    @include respond(tablet) {
-      margin-bottom: 9rem;
-      width: 100%;
+      grid-template-columns: 1fr;
+      gap: 9rem;
     }
 
     @include respond(mobile) {
-      margin-bottom: 7rem;
+      gap: 7rem;
     }
   }
 
   &__main {
-    width: 72.75%;
-
-    @include respond(tablet) {
-      width: 100%;
-    }
-
     .section-heading {
       max-width: 100%;
     }
@@ -711,21 +663,6 @@ export default {
     }
   }
 
-  .action-button {
-    box-shadow: $boxshadow2;
-    width: 6.5rem;
-    height: 6.5rem;
-    font-size: 1.9rem;
-    position: relative;
-    z-index: 5;
-
-    @include respond(mobile) {
-      width: 6rem;
-      height: 6rem;
-      font-size: 1.6rem;
-    }
-  }
-
   &__floating-buttons {
     position: fixed;
     bottom: 3rem;
@@ -742,7 +679,7 @@ export default {
     }
   }
 
-  .submit-button {
+  &__submit-button {
     font-weight: 600;
     margin-top: 9rem;
     width: 100%;
@@ -769,6 +706,10 @@ export default {
 .task-leave-active {
   transition: all 0.5s;
   position: absolute;
+}
+
+.challenge-editor__layout[style="direction: rtl;"] .task-leave-active {
+  position: relative;
 }
 
 .task-move {
