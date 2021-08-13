@@ -299,4 +299,11 @@ export default {
     }
   }
 }
+
+.challenge-editor__layout[style="direction: rtl;"] {
+  .task-form__option-actions {
+    right: initial;
+    left: 0;
+  }
+}
 </style>
