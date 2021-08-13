@@ -37,9 +37,7 @@
           >
             <section class="challenge-editor__tabs">
               <DayTabs v-model="currentDay" />
-              <ActionButton color="white" @click="addDay">
-                <i class="fas fa-plus" />
-              </ActionButton>
+              <ActionButton type="add" color="white" @click="addDay" />
             </section>
             <section class="challenge-editor__main" ref="container">
               <SectionHeading small>
@@ -73,9 +71,7 @@
                   :extraInput.sync="extraInputs[dayIndex][taskIndex]"
                 />
                 <div key="button">
-                  <ActionButton color="white" @click="addTask">
-                    <i class="fas fa-plus" />
-                  </ActionButton>
+                  <ActionButton type="add" color="white" @click="addTask" />
                 </div>
               </TransitionGroup>
             </section>
@@ -93,12 +89,16 @@
         <BaseSpinner v-if="submitting" />
         <ErrorMessage v-else-if="errorSubmitting" :error="errorSubmitting" />
         <div class="challenge-editor__floating-buttons">
-          <ActionButton color="white" @click="showInfoModal = true">
-            <i class="fas fa-info" />
-          </ActionButton>
-          <ActionButton color="white" @click="selectRandomOptions">
-            <i class="fas fa-random" />
-          </ActionButton>
+          <ActionButton
+            type="info"
+            color="white"
+            @click="showInfoModal = true"
+          />
+          <ActionButton
+            type="shuffle"
+            color="white"
+            @click="selectRandomOptions"
+          />
         </div>
       </div>
     </WhiteSection>

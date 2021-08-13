@@ -1,6 +1,7 @@
 <template>
-  <BaseButton :variant="color" :class="classes" @click="$emit('click')">
-    <slot />
+  <BaseButton :variant="color" :class="buttonClasses" @click="$emit('click')">
+    <i v-if="type" :class="iconClasses" />
+    <slot v-else />
   </BaseButton>
 </template>
 
@@ -11,13 +12,23 @@ export default {
       type: String,
       required: true
     },
-    size: String
+    size: String,
+    type: String
   },
   computed: {
-    classes() {
+    buttonClasses() {
       return {
         "action-button": true,
         [`action-button--${this.size}`]: !!this.size
+      };
+    },
+    iconClasses() {
+      return {
+        fas: true,
+        "fa-edit": this.type === "edit",
+        "fa-plus": this.type === "add",
+        "fa-info": this.type === "info",
+        "fa-random": this.type === "shuffle"
       };
     }
   }

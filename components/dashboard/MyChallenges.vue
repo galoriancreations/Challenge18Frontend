@@ -17,9 +17,7 @@
       />
     </div>
     <template slot="button">
-      <ActionButton color="blue" @click="modalOpen = true">
-        <i class="fas fa-plus" />
-      </ActionButton>
+      <ActionButton type="add" color="blue" @click="modalOpen = true" />
     </template>
     <template slot="modal">
       <JoinChallenge v-if="isIndividual" :active="modalOpen" />

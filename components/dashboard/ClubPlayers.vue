@@ -5,9 +5,7 @@
       <p>Start adding your players to keep track of their scores and skills.</p>
     </div>
     <template slot="button">
-      <ActionButton color="blue" @click="showAddModal = true">
-        <i class="fas fa-plus" />
-      </ActionButton>
+      <ActionButton type="add" color="blue" @click="showAddModal = true" />
     </template>
     <template slot="modal">
       <AddPlayer :active="showAddModal" />

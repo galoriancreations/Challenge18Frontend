@@ -18,9 +18,7 @@
       />
     </div>
     <template slot="button">
-      <ActionButton color="blue" @click="startNewTemplate">
-        <i class="fas fa-plus" />
-      </ActionButton>
+      <ActionButton type="add" color="blue" @click="startNewTemplate" />
     </template>
   </DashboardSection>
 </template>

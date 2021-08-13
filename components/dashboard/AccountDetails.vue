@@ -27,9 +27,7 @@
       </div>
     </div>
     <template slot="button">
-      <ActionButton color="blue" @click="showModal = true">
-        <i class="fas fa-edit" />
-      </ActionButton>
+      <ActionButton type="edit" color="blue" @click="showModal = true" />
     </template>
     <template slot="modal">
       <EditProfile :active="showModal" />
