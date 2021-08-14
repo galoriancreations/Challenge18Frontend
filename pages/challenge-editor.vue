@@ -78,9 +78,13 @@
               {{ submitButtonText }}
             </BaseButton>
           </div>
+          <BaseSpinner key="spinner" v-if="submitting" />
+          <ErrorMessage
+            key="errorMessage"
+            v-else-if="errorSubmitting"
+            :error="errorSubmitting"
+          />
         </TransitionGroup>
-        <BaseSpinner v-if="submitting" />
-        <ErrorMessage v-else-if="errorSubmitting" :error="errorSubmitting" />
         <div class="challenge-editor__floating-buttons">
           <ActionButton
             type="info"
@@ -148,11 +152,10 @@ export default {
   //   requiresAuth: true,
   //   forOrganizations: true
   // },
-  async asyncData({ app, store, route, $axios }) {
+  async asyncData({ app, store, $axios }) {
     try {
-      const draftId = app.$cookies.get("draftId");
-      const { selectedTemplate, user } = store.getters;
-      const { challengeId } = route.query;
+      const { draftId, challengeId, selectedTemplate } = app.$cookies.getAll();
+      const { user } = store.getters;
 
       if (challengeId) {
         const { challenge, configId } = await $axios.$post("/xapi", {
@@ -229,11 +232,11 @@ export default {
   },
   computed: {
     editedChallengeId() {
-      return this.$route.query.challengeId;
+      return this.$cookies.challengeId;
     },
     templateOnlyMode() {
-      const { templateOnly, challengeId } = this.$route.query;
-      return templateOnly === "true" && !challengeId;
+      const { templateOnly } = this.$route.query;
+      return templateOnly === "true" && !this.editedChallengeId;
     },
     dayIndex() {
       return this.currentDay - 1;
@@ -267,7 +270,7 @@ export default {
       return rtlLanguages.includes(this.language) ? "rtl" : null;
     },
     user() {
-      return this.$store.getters.user;
+      return this.$store.getters.user || {};
     },
     showVisibilitySelector() {
       return this.user?.accountType === "admin" && !this.editedChallengeId;
@@ -347,6 +350,7 @@ export default {
         if (newOptionText) {
           task.selection = newOptionText;
           task.options.push({ id: uniqid(), text: newOptionText });
+          this.transitionName = null;
         }
       }
     },
@@ -401,6 +405,7 @@ export default {
     },
     addTask() {
       this.options[this.dayIndex].tasks.push(newTask());
+      this.transitionName = null;
     },
     deleteTask(taskIndex) {
       const { tasks } = this.options[this.dayIndex];

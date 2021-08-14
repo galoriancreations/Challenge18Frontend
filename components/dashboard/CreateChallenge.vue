@@ -82,8 +82,14 @@ export default {
         this.selectedLanguage = this.userLanguage;
       }
     },
-    selectTemplate(template) {
-      this.$store.dispatch("selectTemplate", template);
+    selectTemplate(templateId) {
+      if (templateId) {
+        this.$cookies.set("selectedTemplate", templateId);
+      } else {
+        this.$cookies.remove("selectedTemplate");
+      }
+      this.$cookies.remove("draftId");
+      this.$cookies.remove("challengeId");
       this.$router.push("/challenge-editor");
     }
   },

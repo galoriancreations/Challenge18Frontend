@@ -18,7 +18,7 @@
       />
     </div>
     <template slot="button">
-      <ActionButton type="add" color="blue" @click="startNewTemplate" />
+      <ActionButton type="add" color="blue" @click="selectTemplate" />
     </template>
   </DashboardSection>
 </template>
@@ -45,8 +45,14 @@ export default {
     }
   },
   methods: {
-    startNewTemplate() {
-      this.$store.dispatch("selectTemplate", null);
+    selectTemplate(templateId) {
+      if (templateId) {
+        this.$cookies.set("selectedTemplate", templateId);
+      } else {
+        this.$cookies.remove("selectedTemplate");
+      }
+      this.$cookies.remove("draftId");
+      this.$cookies.remove("challengeId");
       this.$router.push({
         path: "/challenge-editor",
         query: { templateOnly: true }

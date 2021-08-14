@@ -67,7 +67,7 @@
     <form @keydown="addOptionOnEnter($event, taskIndex)">
       <textarea-autosize
         :value="extraInput"
-        @input="$emit('update:extraInput', $event)"
+        @input="updateExtraInput"
         class="task-form__extra"
         :placeholder="extraInputPlaceholder"
         :rows="1"
@@ -77,6 +77,8 @@
 </template>
 
 <script>
+import { stripHTML } from "../../assets/util/functions";
+
 export default {
   model: {
     prop: "modelValue",
@@ -133,6 +135,11 @@ export default {
           ? "Type and press Enter to add a new option..."
           : "Enter new option here..."
         : null;
+    }
+  },
+  methods: {
+    updateExtraInput(value) {
+      this.$emit("update:extraInput", stripHTML(value));
     }
   },
   watch: {

@@ -5,8 +5,7 @@ export const namespaced = false;
 export const state = () => ({
     user: null,
     token: null,
-    templates: {},
-    selectedTemplate: null
+    templates: {}
 });
 
 export const mutations = {
@@ -60,12 +59,6 @@ export const actions = {
             logoutTimer = setTimeout(() => context.dispatch("logout"), timeLeft);
         }
     },
-    setAxiosDefaults(_, { token, user }) {
-        this.$axios.setToken(token, "Bearer");
-        this.$axios.defaults.transformRequest = [
-            data => ({ ...data, userID: user.id })
-        ];
-    },
     logout(context) {
         context.commit("removeUser");
         this.$axios.setToken(false);
@@ -86,10 +79,12 @@ export const actions = {
         );
         context.commit("setTemplates", templates);
     },
-    selectTemplate(context, template) {
-        context.commit("setSelectedTemplate", template);
-        this.$cookies.remove("draftId");
-    }
+    setAxiosDefaults(_, { token, user }) {
+        this.$axios.setToken(token, "Bearer");
+        this.$axios.defaults.transformRequest = [
+            data => ({ ...data, userID: user.id })
+        ];
+    },
 };
 
 export const getters = {
@@ -104,8 +99,5 @@ export const getters = {
     },
     templates(state) {
         return state.templates;
-    },
-    selectedTemplate(state) {
-        return state.selectedTemplate;
     }
 };
