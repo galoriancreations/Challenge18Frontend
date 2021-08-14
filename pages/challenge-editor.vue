@@ -120,6 +120,7 @@ import {
   taskTranslations
 } from "../assets/util/options";
 import uniqid from "uniqid";
+import confirmModal from "../mixins/confirm-modal";
 import ChallengeOptionsInfo from "../components/challenge-editor/ChallengeOptionsInfo";
 import FloatingNotes from "../components/layout/FloatingNotes";
 import AutoSaveNote from "../components/challenge-editor/AutoSaveNote";
@@ -129,7 +130,6 @@ import TemplateAvailabilityField from "../components/challenge-editor/TemplateAv
 import DayTabs from "../components/challenge-editor/DayTabs";
 import TaskForm from "../components/challenge-editor/TaskForm";
 import EditDayTitleModal from "../components/challenge-editor/EditDayTitleModal";
-import confirmModal from "../mixins/confirm-modal";
 
 export default {
   components: {
@@ -667,7 +667,7 @@ export default {
     position: fixed;
     bottom: 3rem;
     right: 3rem;
-    z-index: 5;
+    z-index: 15;
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -679,7 +679,7 @@ export default {
     }
   }
 
-  &__submit-button {
+  & &__submit-button {
     font-weight: 600;
     margin-top: 9rem;
     width: 100%;

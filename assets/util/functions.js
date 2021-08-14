@@ -1,6 +1,5 @@
 import uniqid from "uniqid";
 import cloneDeep from "clone-deep";
-import { languageOptions } from "./options";
 
 export const usersArray = users => {
   const data = [];
@@ -62,14 +61,6 @@ export const initialOptions = options =>
     }))
   }));
 
-export const initialExtraInputs = options =>
-  options.map(day => day.tasks.map(() => ""));
-
-export const initialSelections = options =>
-  options.map(day =>
-    day.tasks.map(task => task.options[0]?.text)
-  );
-
 export const stripHTML = text => text.replace(/(<([^>]+)>)/ig, "");
 
 export const convertTaskText = text => {
@@ -125,11 +116,6 @@ export const initialData = labels => {
 
 export const numbersArray = n =>
   Array.from({ length: n }, (_, i) => i + 1);
-
-export const defaultLanguage = () => {
-  const matchingLanguage = languageOptions.find(language => language.code === navigator.language);
-  return matchingLanguage?.name || "English";
-};
 
 export const dataArrayFromObject = data =>
   Object.keys(data).map(id => ({ id, ...data[id] }));
