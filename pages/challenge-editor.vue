@@ -29,7 +29,7 @@
             key="layout"
           >
             <section class="challenge-editor__tabs">
-              <DayTabs v-model="currentDay" />
+              <DayTabs v-model="selectedDay" />
               <ActionButton type="add" color="white" @click="addDay" />
             </section>
             <section class="challenge-editor__main" ref="container">
@@ -198,7 +198,7 @@ export default {
   },
   data() {
     return {
-      currentDay: 1,
+      selectedDay: 1,
       dayTitleEdited: false,
       editedOption: null,
       autoSave: {
@@ -222,15 +222,15 @@ export default {
       return templateOnly === "true" && !this.editedChallengeId;
     },
     dayIndex() {
-      return this.currentDay - 1;
+      return this.selectedDay - 1;
     },
     dayLabel() {
       return dayTranslations[this.language] || "Day";
     },
     dayTitle() {
-      const { dayLabel, currentDay, options, dayIndex } = this;
+      const { dayLabel, selectedDay, options, dayIndex } = this;
       const { title } = options[dayIndex];
-      return `${dayLabel} ${currentDay} – ${title || "(Edit day title)"}`;
+      return `${dayLabel} ${selectedDay} – ${title || "(Edit day title)"}`;
     },
     taskLabel() {
       return taskTranslations[this.language] || "Task";
@@ -242,7 +242,6 @@ export default {
         ? "Update challenge"
         : "Publish challenge";
     },
-
     direction() {
       return rtlLanguages.includes(this.language) ? "rtl" : null;
     },
@@ -319,16 +318,14 @@ export default {
         this.autoSave.saving = false;
       }, 5000);
     },
-    addOptionOnEnter(event, taskIndex) {
-      if (event.key === "Enter") {
-        const task = this.options[this.dayIndex].tasks[taskIndex];
-        const newOptionText = stripHTML(task.extraInput).trim();
-        task.extraInput = "";
-        if (newOptionText) {
-          task.selection = newOptionText;
-          task.options.push({ id: uniqid(), text: newOptionText });
-          this.transitionName = null;
-        }
+    addOption(taskIndex) {
+      const task = this.options[this.dayIndex].tasks[taskIndex];
+      const newOptionText = stripHTML(task.extraInput).trim();
+      task.extraInput = "";
+      if (newOptionText) {
+        task.selection = newOptionText;
+        task.options.push({ id: uniqid(), text: newOptionText });
+        this.transitionName = null;
       }
     },
     setEditedOption(taskId, optionId) {
@@ -340,12 +337,20 @@ export default {
       task.options[optionIndex].text = stripHTML(value);
       task.selection = stripHTML(value);
     },
-    finishEditOnEnter(event) {
-      if (event.key === "Enter" || event.key === "Escape") {
-        event.preventDefault();
-        this.checkForEmptyOption();
-        this.editedOption = null;
-      }
+    finishEditOption() {
+      this.checkForEmptyOption();
+      this.editedOption = null;
+    },
+    checkForEmptyOption() {
+      if (!this.editedOption) return;
+      const [taskId] = this.editedOption.split("-");
+      const taskIndex = this.options[this.dayIndex].tasks.findIndex(
+        task => task.id == taskId
+      );
+      const { options } = this.options[this.dayIndex].tasks[taskIndex];
+      this.options[this.dayIndex].tasks[taskIndex].options = options.filter(
+        option => !!option.text.trim()
+      );
     },
     finishEditOnClick(event) {
       const { classList } = event.target;
@@ -353,20 +358,7 @@ export default {
         !classList.contains("icon-button") &&
         !classList.contains("task-form__option-edit")
       ) {
-        this.checkForEmptyOption();
-        this.editedOption = null;
-      }
-    },
-    checkForEmptyOption() {
-      if (this.editedOption) {
-        const [taskId] = this.editedOption.split("-");
-        const taskIndex = this.options[this.dayIndex].tasks.findIndex(
-          task => task.id == taskId
-        );
-        const { options } = this.options[this.dayIndex].tasks[taskIndex];
-        this.options[this.dayIndex].tasks[taskIndex].options = options.filter(
-          option => !!option.text.trim()
-        );
+        this.finishEditOption();
       }
     },
     deleteOption(taskIndex, optionIndex) {
@@ -405,7 +397,7 @@ export default {
         title: "",
         tasks: [newTask(), newTask()]
       });
-      this.currentDay = this.options.length;
+      this.selectedDay = this.options.length;
     },
     deleteDay() {
       this.setConfirmModal(
@@ -413,8 +405,8 @@ export default {
         () => {
           this.options.splice(this.dayIndex, 1);
           this.transitionName = "task";
-          if (this.currentDay > this.options.length) {
-            this.currentDay--;
+          if (this.selectedDay > this.options.length) {
+            this.selectedDay--;
           }
         }
       );
@@ -484,6 +476,7 @@ export default {
           }
         }
       }
+      this.errorSubmitting = null;
       return true;
     },
     async createNewChallenge() {
@@ -517,9 +510,8 @@ export default {
     },
     async submitHandler() {
       if (!this.validateData()) return;
-      this.errorSubmitting = null;
-      this.submitting = true;
       clearTimeout(this.autoSave.timeout);
+      this.submitting = true;
       try {
         if (this.templateOnlyMode) {
           await this.saveTemplateAndRedirect();
@@ -535,7 +527,7 @@ export default {
     }
   },
   watch: {
-    currentDay() {
+    selectedDay() {
       this.transitionName = null;
       const optionsTop = this.$refs.container.getBoundingClientRect().top;
       window.scrollTo(0, window.scrollY + optionsTop - 150);
@@ -558,15 +550,12 @@ export default {
   },
   mounted() {
     if (this.errorLoading) return;
-    document.addEventListener("click", this.finishEditOnClick);
+    this.$el.addEventListener("click", this.finishEditOnClick);
     if (!this.user?.drafts) {
       setTimeout(() => {
         this.showInfoModal = true;
       }, 1500);
     }
-  },
-  beforeDestroy() {
-    document.removeEventListener("click", this.finishEditOnClick);
   },
   provide() {
     return {
@@ -585,8 +574,8 @@ export default {
       setEditedOption: this.setEditedOption,
       deleteOption: this.deleteOption,
       editOption: this.editOption,
-      finishEditOnEnter: this.finishEditOnEnter,
-      addOptionOnEnter: this.addOptionOnEnter,
+      finishEditOption: this.finishEditOption,
+      addOption: this.addOption,
       autoSave: this.autoSave
     };
   }

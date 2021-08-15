@@ -50,7 +50,11 @@
           </div>
         </div>
       </label>
-      <form v-else @keydown="finishEditOnEnter">
+      <form
+        v-else
+        @keydown.enter="finishEditOption"
+        @keydown.esc="finishEditOption"
+      >
         <textarea-autosize
           :value="option.text"
           @input="editOption($event, taskIndex, optionIndex)"
@@ -61,7 +65,7 @@
         />
       </form>
     </div>
-    <form @keydown="addOptionOnEnter($event, taskIndex)">
+    <form @keydown.enter="addOption(taskIndex)">
       <textarea-autosize
         :value="extraInput"
         @input="updateExtraInput"
@@ -96,8 +100,8 @@ export default {
     "setEditedOption",
     "deleteOption",
     "editOption",
-    "finishEditOnEnter",
-    "addOptionOnEnter"
+    "finishEditOption",
+    "addOption"
   ],
   computed: {
     taskLabel() {
@@ -118,8 +122,10 @@ export default {
     },
     editOptionInput() {
       if (!this.editedOption) return;
-      const optionId = this.editedOption.split("-")[1];
-      return this.$el.querySelector(`#edit-${optionId}`);
+      const [taskId, optionId] = this.editedOption.split("-");
+      return taskId === this.task.id
+        ? this.$el.querySelector(`#edit-${optionId}`)
+        : null;
     },
     extraInputPlaceholder() {
       return process.client
@@ -137,10 +143,7 @@ export default {
   watch: {
     editedOption(value) {
       if (value) {
-        const [taskId] = value.split("-");
-        if (taskId === this.task.id) {
-          setTimeout(() => this.editOptionInput.focus(), 10);
-        }
+        setTimeout(() => this.editOptionInput?.focus(), 10);
       }
     }
   }
