@@ -19,7 +19,8 @@ export default {
         far: !this.filled,
         "fa-pen": this.type === "edit",
         "fa-trash-alt": this.type === "delete",
-        "fa-star": this.type === "mark"
+        "fa-star": this.type === "mark",
+        "fa-times": this.type === "close"
       };
     }
   }

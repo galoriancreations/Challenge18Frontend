@@ -63,4 +63,8 @@ export default {
     border-top: 0.5rem solid $color-blue-3;
   }
 }
+
+.challenge-editor .section-heading {
+  max-width: 100%;
+}
 </style>

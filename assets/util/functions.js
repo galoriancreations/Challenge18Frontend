@@ -45,7 +45,7 @@ export const emptyDays = (days = 6, tasks = 2) =>
     tasks: numbersArray(tasks).map(() => ({ options: [], isBonus: false }))
   }));
 
-export const initialOptions = options =>
+export const initialOptions = (options = emptyDays()) =>
   options.map(day => ({
     ...day,
     id: day.id || uniqid(),

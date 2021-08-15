@@ -24,7 +24,7 @@
         :id="option.id"
         class="radio-input"
         :value="option.text"
-        :checked="modelValue === option.text"
+        :checked="selectedOption === option.text"
         @change="$emit('change', option.text)"
       />
       <i v-if="templateOnlyMode" class="task-form__option-icon fas fa-gem" />
@@ -81,13 +81,13 @@ import { stripHTML } from "../../assets/util/functions";
 
 export default {
   model: {
-    prop: "modelValue",
+    prop: "selectedOption",
     event: "change"
   },
   props: {
     task: Object,
     taskIndex: Number,
-    modelValue: String,
+    selectedOption: String,
     extraInput: String
   },
   inject: [

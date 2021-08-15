@@ -1,5 +1,5 @@
 <template>
-  <FloatingNote class="editor-mode-note">
+  <Notification class="editor-mode-note">
     <p v-if="templateOnlyMode">
       You're on a <strong>template-only</strong> mode: you're not creating a
       challenge, but only building a template for later use.
@@ -10,8 +10,11 @@
       ID: <strong>{{ editedChallengeId }}</strong
       >).
     </p>
-    <p v-else>You're currently building a <strong>new challenge</strong>.</p>
-  </FloatingNote>
+    <p v-else>
+      You're currently building a <strong>new challenge</strong>. You can also
+      build your own custom template here.
+    </p>
+  </Notification>
 </template>
 
 <script>
@@ -23,8 +26,7 @@ export default {
 <style lang="scss">
 .editor-mode-note {
   @include respond(mobile) {
-    // display: none;
-    max-width: 60%;
+    max-width: 65%;
   }
 }
 </style>

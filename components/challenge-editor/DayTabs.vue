@@ -9,7 +9,7 @@
         type="radio"
         :id="`day${day}`"
         :value="day"
-        :checked="modelValue === day"
+        :checked="selectedDay === day"
         @change="$emit('change', day)"
       />
       <label :for="`day${day}`">{{ dayLabel }} {{ day }}</label>
@@ -21,11 +21,11 @@
 import { numbersArray } from "../../assets/util/functions";
 export default {
   model: {
-    prop: "modelValue",
+    prop: "selectedDay",
     event: "change"
   },
   props: {
-    modelValue: Number
+    selectedDay: Number
   },
   inject: ["options", "getDayLabel"],
   computed: {

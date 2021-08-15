@@ -40,16 +40,7 @@
                 v-model.trim="options[dayIndex].title"
                 :active="dayTitleEdited"
               />
-              <div class="challenge-editor__day-actions">
-                <div class="challenge-editor__day-actions-wrapper">
-                  <IconButton type="edit" @click="dayTitleEdited = true" />
-                  <IconButton
-                    v-if="options.length > 1"
-                    type="delete"
-                    @click="deleteDay"
-                  />
-                </div>
-              </div>
+              <DayActionButtons />
               <TransitionGroup
                 tag="div"
                 class="challenge-editor__content"
@@ -97,13 +88,7 @@
             @click="selectRandomOptions"
           />
         </div>
-        <FloatingNotes>
-          <AutoSaveNote
-            :date="lastAutoSave"
-            :saving="saving"
-            :error="errorAutoSave"
-          />
-        </FloatingNotes>
+        <EditorNotifications />
       </div>
     </WhiteSection>
   </Page>
@@ -111,7 +96,6 @@
 
 <script>
 import {
-  emptyDays,
   initialOptions,
   stripHTML,
   convertTaskText,
@@ -125,27 +109,28 @@ import {
 } from "../assets/util/options";
 import uniqid from "uniqid";
 import confirmModal from "../mixins/confirm-modal";
+
 import ChallengeOptionsInfo from "../components/challenge-editor/ChallengeOptionsInfo";
-import FloatingNotes from "../components/layout/FloatingNotes";
-import AutoSaveNote from "../components/challenge-editor/AutoSaveNote";
 import ChallengeNameField from "../components/challenge-editor/ChallengeNameField";
 import ChallengeLanguageField from "../components/challenge-editor/ChallengeLanguageField";
 import TemplateAvailabilityField from "../components/challenge-editor/TemplateAvailabilityField";
 import DayTabs from "../components/challenge-editor/DayTabs";
-import TaskForm from "../components/challenge-editor/TaskForm";
+import DayActionButtons from "../components/challenge-editor/DayActionButtons";
 import EditDayTitleModal from "../components/challenge-editor/EditDayTitleModal";
+import TaskForm from "../components/challenge-editor/TaskForm";
+import EditorNotifications from "../components/challenge-editor/EditorNotifications";
 
 export default {
   components: {
     ChallengeOptionsInfo,
-    FloatingNotes,
-    AutoSaveNote,
     ChallengeNameField,
     ChallengeLanguageField,
     TemplateAvailabilityField,
     DayTabs,
+    DayActionButtons,
     EditDayTitleModal,
-    TaskForm
+    TaskForm,
+    EditorNotifications
   },
   mixins: [confirmModal],
   // meta: {
@@ -159,7 +144,6 @@ export default {
 
       if (challengeId) {
         const { challenge, configId } = await $axios.$post("/xapi", {
-          userID: user.id,
           getChallengeConfig: challengeId
         });
         return {
@@ -172,7 +156,6 @@ export default {
         };
       } else if (draftId) {
         const { draft } = await $axios.$post("/xapi", {
-          userID: user.id,
           getDraftData: draftId
         });
         return {
@@ -186,7 +169,6 @@ export default {
         };
       } else if (selectedTemplate) {
         const { template } = await $axios.$post("/xapi", {
-          userID: user.id,
           getTemplateData: selectedTemplate
         });
         return {
@@ -202,7 +184,7 @@ export default {
         return {
           name: "",
           language: user?.language || "English",
-          options: initialOptions(emptyDays()),
+          options: initialOptions(),
           draftId: null,
           isTemplatePublic: user?.accountType === "admin",
           templateId: null,
@@ -220,13 +202,16 @@ export default {
       currentDay: 1,
       dayTitleEdited: false,
       editedOption: null,
-      autoSaveTimeout: null,
-      lastAutoSave: null,
-      saving: false,
-      errorAutoSave: false,
+      autoSave: {
+        timeout: null,
+        date: null,
+        saving: false,
+        error: false
+      },
       submitting: false,
       errorSubmitting: null,
       showInfoModal: false,
+      showModeNote: true,
       transitionName: null
     };
   },
@@ -325,21 +310,21 @@ export default {
       });
       this.templateId = templateId;
     },
-    autoSave() {
-      clearTimeout(this.autoSaveTimeout);
-      this.autoSaveTimeout = setTimeout(async () => {
-        this.saving = true;
+    autoSaveDraft() {
+      clearTimeout(this.autoSave.timeout);
+      this.autoSave.timeout = setTimeout(async () => {
+        this.autoSave.saving = true;
         try {
           if (!this.editedChallengeId) {
             await this.saveTemplate();
           }
           await this.saveDraft();
-          this.lastAutoSave = new Date();
-          this.errorAutoSave = false;
+          this.autoSave.date = new Date();
+          this.autoSave.error = false;
         } catch {
-          this.errorAutoSave = true;
+          this.autoSave.error = true;
         }
-        this.saving = false;
+        this.autoSave.saving = false;
       }, 5000);
     },
     addOptionOnEnter(event, taskIndex) {
@@ -542,7 +527,7 @@ export default {
       if (!this.validateData()) return;
       this.errorSubmitting = null;
       this.submitting = true;
-      clearTimeout(this.autoSaveTimeout);
+      clearTimeout(this.autoSave.timeout);
       try {
         if (this.templateOnlyMode) {
           await this.saveTemplateAndRedirect();
@@ -564,14 +549,14 @@ export default {
       window.scrollTo(0, window.scrollY + optionsTop - 150);
     },
     name() {
-      this.autoSave();
+      this.autoSaveDraft();
     },
     language() {
-      this.autoSave();
+      this.autoSaveDraft();
     },
     options: {
       handler() {
-        this.autoSave();
+        this.autoSaveDraft();
       },
       deep: true
     },
@@ -587,6 +572,12 @@ export default {
         this.showInfoModal = true;
       }, 1500);
     }
+    setTimeout(() => {
+      this.showModeNote = false;
+      setTimeout(() => {
+        this.showModeNote = true;
+      }, 7000);
+    }, 7000);
   },
   beforeDestroy() {
     document.removeEventListener("click", this.finishEditOnClick);
@@ -596,17 +587,23 @@ export default {
       options: this.options,
       getDayIndex: () => this.dayIndex,
       getDayLabel: () => this.dayLabel,
+      editDayTitle: () => {
+        this.dayTitleEdited = true;
+      },
+      deleteDay: this.deleteDay,
       getTaskLabel: () => this.taskLabel,
       toggleTaskAsBonus: this.toggleTaskAsBonus,
       deleteTask: this.deleteTask,
       templateOnlyMode: this.templateOnlyMode,
+      editedChallengeId: this.editedChallengeId,
       getEditedOption: () => this.editedOption,
       setEditedOption: this.setEditedOption,
       getConvertedOptions: () => this.convertedOptions,
       deleteOption: this.deleteOption,
       editOption: this.editOption,
       finishEditOnEnter: this.finishEditOnEnter,
-      addOptionOnEnter: this.addOptionOnEnter
+      addOptionOnEnter: this.addOptionOnEnter,
+      autoSave: this.autoSave
     };
   }
 };
@@ -636,35 +633,6 @@ export default {
 
     @include respond(mobile) {
       gap: 7rem;
-    }
-  }
-
-  &__main {
-    .section-heading {
-      max-width: 100%;
-    }
-  }
-
-  &__day-actions {
-    margin: -1rem 0 6rem;
-
-    @include respond(mobile) {
-      margin: -0.5rem 0 4.5rem;
-    }
-  }
-
-  &__day-actions-wrapper {
-    display: flex;
-    justify-content: center;
-    margin: 0 -1rem;
-
-    .icon-button {
-      margin: 0 1rem;
-      font-size: 2rem;
-
-      @include respond(mobile) {
-        font-size: 1.9rem;
-      }
     }
   }
 
@@ -704,20 +672,22 @@ export default {
   transform: translateX(100vw);
 }
 
-.challenge-editor__layout[style="direction: rtl;"] .task-leave-to {
-  transform: translateX(-100vw);
-}
-
 .task-leave-active {
   transition: all 0.5s;
   position: absolute;
 }
 
-.challenge-editor__layout[style="direction: rtl;"] .task-leave-active {
-  position: relative;
-}
-
 .task-move {
   transition: transform 0.4s 0.4s;
+}
+
+.challenge-editor__layout[style="direction: rtl;"] {
+  .task-leave-to {
+    transform: translateX(-100vw);
+  }
+
+  .task-leave-active {
+    position: relative;
+  }
 }
 </style>

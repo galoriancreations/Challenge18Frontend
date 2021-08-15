@@ -1,11 +1,11 @@
 <template>
-  <FloatingNote v-if="showNote" class="auto-save-note">
+  <Notification class="auto-save-note" :dismissable="false">
     <p>
       <strong>Last auto-save:</strong>
       <span>{{ text }}</span>
       <i :class="iconClasses" />
     </p>
-  </FloatingNote>
+  </Notification>
 </template>
 
 <script>
@@ -18,9 +18,6 @@ export default {
     error: Boolean
   },
   computed: {
-    showNote() {
-      return !!this.date || this.error;
-    },
     text() {
       return this.date ? moment(this.date).format("lll") : "Failed to save";
     },
@@ -40,8 +37,6 @@ export default {
 
 <style lang="scss">
 .auto-save-note {
-  animation: fadeFromLeft 0.5s;
-
   strong {
     margin-right: 0.5rem;
 
@@ -67,15 +62,6 @@ export default {
     &.fa-times {
       color: $color-danger;
     }
-  }
-}
-
-@keyframes fadeFromLeft {
-  0% {
-    transform: translateX(-200%);
-  }
-  100% {
-    transform: translateX(0);
   }
 }
 </style>
