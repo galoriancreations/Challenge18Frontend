@@ -42,7 +42,8 @@ export default {
     color: $color-blue-3;
   }
 
-  &.fa-trash-alt {
+  &.fa-trash-alt,
+  &.fa-times {
     color: $color-blue-2;
   }
 

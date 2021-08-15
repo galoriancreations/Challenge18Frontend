@@ -4,7 +4,7 @@
       <slot />
     </div>
     <div v-if="dismissable" class="notification__close">
-      <IconButton type="dismiss" @click="$emit('dismiss')" />
+      <IconButton type="close" @click="$emit('dismiss')" />
     </div>
   </div>
 </template>
@@ -52,6 +52,22 @@ export default {
 
   &__close {
     position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba($color-azure-light, 0.6);
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.5s;
+  }
+
+  &:hover &__close {
+    visibility: visible;
+    opacity: 1;
   }
 }
 </style>

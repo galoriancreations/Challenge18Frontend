@@ -210,7 +210,6 @@ export default {
       submitting: false,
       errorSubmitting: null,
       showInfoModal: false,
-      showModeNote: true,
       transitionName: null
     };
   },
@@ -565,12 +564,6 @@ export default {
         this.showInfoModal = true;
       }, 1500);
     }
-    setTimeout(() => {
-      this.showModeNote = false;
-      setTimeout(() => {
-        this.showModeNote = true;
-      }, 7000);
-    }, 7000);
   },
   beforeDestroy() {
     document.removeEventListener("click", this.finishEditOnClick);

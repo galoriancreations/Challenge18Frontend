@@ -1,5 +1,5 @@
 <template>
-  <Notification class="editor-mode-note">
+  <Notification class="editor-mode-note" @dismiss="$emit('dismiss')">
     <p v-if="templateOnlyMode">
       You're on a <strong>template-only</strong> mode: you're not creating a
       challenge, but only building a template for later use.
