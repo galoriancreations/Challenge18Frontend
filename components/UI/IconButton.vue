@@ -1,5 +1,5 @@
 <template>
-  <i :class="classes" @click="$emit('click')" />
+  <i :class="classes" v-on="$listeners" />
 </template>
 
 <script>

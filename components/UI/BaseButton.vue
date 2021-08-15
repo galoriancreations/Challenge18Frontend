@@ -2,7 +2,7 @@
   <NuxtLink v-if="link" :to="link" :class="classes">
     <slot />
   </NuxtLink>
-  <button v-else :class="classes" @click="$emit('click')">
+  <button v-else :class="classes" v-on="$listeners">
     <slot />
   </button>
 </template>

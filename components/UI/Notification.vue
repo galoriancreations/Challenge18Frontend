@@ -24,10 +24,10 @@ export default {
 .notification {
   box-shadow: $boxshadow2;
   border-radius: 0.8rem;
-  padding: 1.5rem 2rem;
   background-color: #fff;
   font-size: 1.5rem;
   line-height: 1.6;
+  display: flex;
   position: relative;
   overflow: hidden;
 
@@ -37,6 +37,13 @@ export default {
   }
 
   &__content {
+    padding: 1.5rem 2rem;
+    max-width: 45rem;
+
+    @include respond(mobile) {
+      padding: 1.2rem;
+    }
+
     & > p {
       font-size: inherit;
 
@@ -51,18 +58,26 @@ export default {
   }
 
   &__close {
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
     width: 3.5rem;
+    flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: rgba($color-azure-light, 0.6);
-    visibility: hidden;
-    opacity: 0;
     transition: all 0.5s;
+
+    @media (hover: hover) {
+      position: absolute;
+      height: 100%;
+      right: 0;
+      top: 0;
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    @include respond(mobile) {
+      width: 3rem;
+    }
   }
 
   &:hover &__close {

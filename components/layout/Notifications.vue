@@ -27,7 +27,6 @@ export default {
   bottom: 3rem;
   left: 3rem;
   z-index: 10;
-  max-width: 45rem;
 
   @include respond(mobile) {
     bottom: 1.5rem;

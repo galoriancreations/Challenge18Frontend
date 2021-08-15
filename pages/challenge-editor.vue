@@ -3,7 +3,7 @@
     <WhiteSection tag="main" class="challenge-editor">
       <ErrorMessage v-if="errorLoading" :error="errorLoading" />
       <div v-else class="challenge-editor__container">
-        <ChallengeOptionsInfo :active="showInfoModal" />
+        <EditorIntroModal :active="showIntroModal" />
         <ConfirmModal
           :active="showConfirmModal"
           :text="confirmText"
@@ -80,7 +80,7 @@
           <ActionButton
             type="info"
             color="white"
-            @click="showInfoModal = true"
+            @click="showIntroModal = true"
           />
           <ActionButton
             type="shuffle"
@@ -109,7 +109,7 @@ import {
 import uniqid from "uniqid";
 import confirmModal from "../mixins/confirm-modal";
 
-import ChallengeOptionsInfo from "../components/challenge-editor/ChallengeOptionsInfo";
+import EditorIntroModal from "../components/challenge-editor/EditorIntroModal";
 import ChallengeNameField from "../components/challenge-editor/ChallengeNameField";
 import ChallengeLanguageField from "../components/challenge-editor/ChallengeLanguageField";
 import TemplateAvailabilityField from "../components/challenge-editor/TemplateAvailabilityField";
@@ -121,7 +121,7 @@ import EditorNotifications from "../components/challenge-editor/EditorNotificati
 
 export default {
   components: {
-    ChallengeOptionsInfo,
+    EditorIntroModal,
     ChallengeNameField,
     ChallengeLanguageField,
     TemplateAvailabilityField,
@@ -209,7 +209,7 @@ export default {
       },
       submitting: false,
       errorSubmitting: null,
-      showInfoModal: false,
+      showIntroModal: false,
       transitionName: null
     };
   },
@@ -354,10 +354,10 @@ export default {
     },
     finishEditOnClick(event) {
       const { classList } = event.target;
-      if (
+      const isOutOfElement =
         !classList.contains("icon-button") &&
-        !classList.contains("task-form__option-edit")
-      ) {
+        !classList.contains("task-form__option-edit");
+      if (isOutOfElement) {
         this.finishEditOption();
       }
     },
@@ -413,7 +413,7 @@ export default {
     },
     closeAllModals() {
       this.dayTitleEdited = false;
-      this.showInfoModal = false;
+      this.showIntroModal = false;
     },
     selectRandomOptions() {
       this.setConfirmModal(
@@ -553,7 +553,7 @@ export default {
     this.$el.addEventListener("click", this.finishEditOnClick);
     if (!this.user?.drafts) {
       setTimeout(() => {
-        this.showInfoModal = true;
+        this.showIntroModal = true;
       }, 1500);
     }
   },

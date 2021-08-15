@@ -1,5 +1,5 @@
 <template>
-  <BaseButton :variant="color" :class="buttonClasses" @click="$emit('click')">
+  <BaseButton :variant="color" :class="buttonClasses" v-on="$listeners">
     <i v-if="type" :class="iconClasses" />
     <slot v-else />
   </BaseButton>
