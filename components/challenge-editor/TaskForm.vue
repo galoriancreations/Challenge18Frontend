@@ -36,10 +36,7 @@
         :for="option.id"
         class="task-form__text"
       >
-        <span
-          v-html="convertedOptions[dayIndex][taskIndex][optionIndex]"
-          v-linkified
-        />
+        <span v-html="convertedOptions[optionIndex]" v-linkified />
         <div class="task-form__option-actions">
           <div class="task-form__option-actions-wrapper">
             <IconButton
@@ -77,7 +74,7 @@
 </template>
 
 <script>
-import { stripHTML } from "../../assets/util/functions";
+import { convertTaskText, stripHTML } from "../../assets/util/functions";
 
 export default {
   model: {
@@ -91,23 +88,18 @@ export default {
     extraInput: String
   },
   inject: [
-    "getDayIndex",
     "getTaskLabel",
     "toggleTaskAsBonus",
     "deleteTask",
     "templateOnlyMode",
     "getEditedOption",
     "setEditedOption",
-    "getConvertedOptions",
     "deleteOption",
     "editOption",
     "finishEditOnEnter",
     "addOptionOnEnter"
   ],
   computed: {
-    dayIndex() {
-      return this.getDayIndex();
-    },
     taskLabel() {
       return this.getTaskLabel();
     },
@@ -115,7 +107,7 @@ export default {
       return this.getEditedOption();
     },
     convertedOptions() {
-      return this.getConvertedOptions();
+      return this.task.options.map(option => convertTaskText(option.text));
     },
     taskTitle() {
       let title = `${this.taskLabel} ${this.taskIndex + 1}`;

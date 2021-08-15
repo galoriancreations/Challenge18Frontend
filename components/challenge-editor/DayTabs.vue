@@ -19,6 +19,7 @@
 
 <script>
 import { numbersArray } from "../../assets/util/functions";
+
 export default {
   model: {
     prop: "selectedDay",

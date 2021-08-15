@@ -98,7 +98,6 @@
 import {
   initialOptions,
   stripHTML,
-  convertTaskText,
   newTask,
   clearedOptions
 } from "../assets/util/functions";
@@ -244,13 +243,7 @@ export default {
         ? "Update challenge"
         : "Publish challenge";
     },
-    convertedOptions() {
-      return this.options.map(day =>
-        day.tasks.map(task =>
-          task.options.map(option => convertTaskText(option.text))
-        )
-      );
-    },
+
     direction() {
       return rtlLanguages.includes(this.language) ? "rtl" : null;
     },
@@ -585,7 +578,6 @@ export default {
   provide() {
     return {
       options: this.options,
-      getDayIndex: () => this.dayIndex,
       getDayLabel: () => this.dayLabel,
       editDayTitle: () => {
         this.dayTitleEdited = true;
@@ -598,7 +590,6 @@ export default {
       editedChallengeId: this.editedChallengeId,
       getEditedOption: () => this.editedOption,
       setEditedOption: this.setEditedOption,
-      getConvertedOptions: () => this.convertedOptions,
       deleteOption: this.deleteOption,
       editOption: this.editOption,
       finishEditOnEnter: this.finishEditOnEnter,
