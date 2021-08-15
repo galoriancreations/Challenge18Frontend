@@ -17,23 +17,9 @@
 </template>
 
 <script>
-import AccountDetails from "../components/dashboard/AccountDetails";
-import ClubPlayers from "../components/dashboard/ClubPlayers";
-import MyChallenges from "../components/dashboard/MyChallenges";
-import MyTemplates from "../components/dashboard/MyTemplates";
-import PublicTemplates from "../components/dashboard/PublicTemplates";
-import MyDrafts from "../components/dashboard/MyDrafts";
 import confirmModal from "../mixins/confirm-modal";
 
 export default {
-  components: {
-    AccountDetails,
-    MyChallenges,
-    PublicTemplates,
-    MyTemplates,
-    ClubPlayers,
-    MyDrafts
-  },
   mixins: [confirmModal],
   meta: {
     requiresAuth: true

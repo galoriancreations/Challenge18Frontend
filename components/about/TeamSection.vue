@@ -12,10 +12,7 @@
 </template>
 
 <script>
-import TeamMember from "../UI/TeamMember";
-
 export default {
-  components: { TeamMember },
   props: {
     title: String,
     members: Array

@@ -17,13 +17,7 @@
 </template>
 
 <script>
-import Logo from "../UI/Logo";
-import NavToggle from "../UI/NavToggle";
-import LoginIcon from "../UI/LoginIcon";
-import NavItem from "../UI/NavItem";
-
 export default {
-  components: { Logo, NavToggle, LoginIcon, NavItem },
   data() {
     return {
       navOpen: false,

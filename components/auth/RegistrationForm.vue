@@ -70,10 +70,8 @@
 <script>
 import { languageOptions } from "../../assets/util/options";
 import _ from "lodash";
-import CheckIcon from "../UI/CheckIcon";
 
 export default {
-  components: { CheckIcon },
   data() {
     return {
       formData: {

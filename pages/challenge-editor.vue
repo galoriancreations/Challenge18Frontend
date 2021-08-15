@@ -109,28 +109,7 @@ import {
 import uniqid from "uniqid";
 import confirmModal from "../mixins/confirm-modal";
 
-import EditorIntroModal from "../components/challenge-editor/EditorIntroModal";
-import ChallengeNameField from "../components/challenge-editor/ChallengeNameField";
-import ChallengeLanguageField from "../components/challenge-editor/ChallengeLanguageField";
-import TemplateAvailabilityField from "../components/challenge-editor/TemplateAvailabilityField";
-import DayTabs from "../components/challenge-editor/DayTabs";
-import DayActionButtons from "../components/challenge-editor/DayActionButtons";
-import EditDayTitleModal from "../components/challenge-editor/EditDayTitleModal";
-import TaskForm from "../components/challenge-editor/TaskForm";
-import EditorNotifications from "../components/challenge-editor/EditorNotifications";
-
 export default {
-  components: {
-    EditorIntroModal,
-    ChallengeNameField,
-    ChallengeLanguageField,
-    TemplateAvailabilityField,
-    DayTabs,
-    DayActionButtons,
-    EditDayTitleModal,
-    TaskForm,
-    EditorNotifications
-  },
   mixins: [confirmModal],
   // meta: {
   //   requiresAuth: true,

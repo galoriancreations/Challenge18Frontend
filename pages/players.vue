@@ -9,10 +9,7 @@
 </template>
 
 <script>
-import Player from "../components/UI/Player";
-
 export default {
-  components: { Player },
   data() {
     return {
       players: [

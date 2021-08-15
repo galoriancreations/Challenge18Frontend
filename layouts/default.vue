@@ -7,10 +7,8 @@
 
 <script>
 import socket from "socket.io-client";
-import SpinningLogoBg from "../components/extras/SpinningLogoBg";
 
 export default {
-  components: { SpinningLogoBg },
   data() {
     return {
       io: socket(this.$config.axios.baseURL)

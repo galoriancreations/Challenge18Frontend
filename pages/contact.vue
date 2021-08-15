@@ -16,11 +16,8 @@
 
 <script>
 import emailjs from "emailjs-com";
-import ContactForm from "../components/contact/ContactForm";
-import ContactModal from "../components/contact/ContactModal";
 
 export default {
-  components: { ContactForm, ContactModal },
   data() {
     return {
       showModal: false,

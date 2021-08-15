@@ -129,13 +129,10 @@
 </template>
 
 <script>
-import Checkout from "./Checkout";
-import CheckIcon from "../UI/CheckIcon";
 import { languageOptions } from "../../assets/util/options";
 import _ from "lodash";
 
 export default {
-  components: { Checkout, CheckIcon },
   inject: ["getSelectedPlan"],
   data() {
     return {

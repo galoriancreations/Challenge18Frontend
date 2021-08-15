@@ -8,12 +8,7 @@
 </template>
 
 <script>
-import TheHeader from "./TheHeader";
-import PageHeading from "./PageHeading";
-import TheFooter from "./TheFooter";
-
 export default {
-  components: { TheHeader, PageHeading, TheFooter },
   props: {
     title: String,
     name: String,

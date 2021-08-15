@@ -14,10 +14,7 @@
 </template>
 
 <script>
-import AddPlayer from "./AddPlayer";
-
 export default {
-  components: { AddPlayer },
   props: {
     active: Boolean
   },

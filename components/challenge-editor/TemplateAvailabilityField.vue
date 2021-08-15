@@ -26,10 +26,7 @@
 </template>
 
 <script>
-import EditorTopField from "./EditorTopField";
-
 export default {
-  components: { EditorTopField },
   model: {
     prop: "modelValue",
     event: "change"

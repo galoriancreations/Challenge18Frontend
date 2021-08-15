@@ -12,11 +12,7 @@
 </template>
 
 <script>
-import RegisterNote from "../components/UI/RegisterNote";
-import RegistrationForm from "../components/auth/RegistrationForm";
-
 export default {
-  components: { RegistrationForm, RegisterNote },
   meta: {
     forLoggingIn: true
   }

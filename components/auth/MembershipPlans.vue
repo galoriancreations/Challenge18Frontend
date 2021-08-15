@@ -6,10 +6,8 @@
 
 <script>
 import { planOptions } from "../../assets/util/options";
-import PricingColumn from "../UI/PricingColumn";
 
 export default {
-  components: { PricingColumn },
   data() {
     return {
       planOptions

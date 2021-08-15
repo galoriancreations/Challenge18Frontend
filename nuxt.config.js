@@ -30,7 +30,20 @@ export default {
     "@/plugins/main.js"
   ],
 
-  components: true,
+  components: {
+    dirs: [
+      "~/components/layout",
+      "~/components/UI",
+      "~/components/extras",
+      "~/components/challenge-editor",
+      "~/components/about",
+      "~/components/auth",
+      "~/components/contact",
+      "~/components/dashboard",
+      "~/components/home",
+      "~/components/scores"
+    ]
+  },
 
   buildModules: [
     "@nuxtjs/style-resources"

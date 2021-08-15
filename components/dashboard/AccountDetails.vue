@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import EditProfile from "./EditProfile";
 import {
   labels,
   languageOptions,
@@ -45,7 +44,6 @@ import {
 import dashboardModal from "../../mixins/dashboard-modal";
 
 export default {
-  components: { EditProfile },
   mixins: [dashboardModal],
   computed: {
     user() {

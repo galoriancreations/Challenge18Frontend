@@ -27,13 +27,10 @@
 </template>
 
 <script>
-import JoinChallenge from "./JoinChallenge";
-import CreateChallenge from "./CreateChallenge";
 import { dataArrayFromObject } from "../../assets/util/functions";
 import Scrollbar from "smooth-scrollbar";
 
 export default {
-  components: { JoinChallenge, CreateChallenge },
   inject: ["io"],
   data() {
     return {

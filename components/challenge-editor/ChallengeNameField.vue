@@ -11,10 +11,7 @@
 </template>
 
 <script>
-import EditorTopField from "./EditorTopField";
-
 export default {
-  components: { EditorTopField },
   props: {
     value: String
   },

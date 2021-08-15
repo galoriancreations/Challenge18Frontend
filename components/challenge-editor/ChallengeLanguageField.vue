@@ -11,11 +11,9 @@
 </template>
 
 <script>
-import EditorTopField from "./EditorTopField";
 import { languageOptions } from "../../assets/util/options";
 
 export default {
-  components: { EditorTopField },
   props: {
     value: String
   },
