@@ -588,6 +588,10 @@ export default {
     }
   }
 
+  &__main {
+    position: relative;
+  }
+
   &__floating-buttons {
     position: fixed;
     bottom: 3rem;
@@ -624,22 +628,16 @@ export default {
   transform: translateX(100vw);
 }
 
+.challenge-editor__layout[style="direction: rtl;"] .task-leave-to {
+  transform: translateX(-100vw);
+}
+
 .task-leave-active {
-  transition: all 0.5s;
+  transition: transform 0.5s;
   position: absolute;
 }
 
-.task-move {
+.task-move:not(.task-leave-active) {
   transition: transform 0.4s 0.4s;
-}
-
-.challenge-editor__layout[style="direction: rtl;"] {
-  .task-leave-to {
-    transform: translateX(-100vw);
-  }
-
-  .task-leave-active {
-    position: relative;
-  }
 }
 </style>

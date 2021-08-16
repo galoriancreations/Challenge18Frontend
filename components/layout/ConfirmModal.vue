@@ -41,7 +41,7 @@ export default {
 <style lang="scss">
 .confirm-modal {
   .modal__wrapper {
-    max-width: 65rem;
+    max-width: 65rem !important;
   }
 
   &__text {

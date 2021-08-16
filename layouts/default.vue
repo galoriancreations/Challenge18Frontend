@@ -44,7 +44,10 @@ export default {
     },
     initToken() {
       if (this.isLoggedIn) {
-        this.$axios.setToken(this.$store.getters.token, "Bearer");
+        this.$store.dispatch("setAxiosDefaults", {
+          token: this.$store.getters.token,
+          user: this.user
+        });
       }
     }
   },

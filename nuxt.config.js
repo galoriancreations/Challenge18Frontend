@@ -27,7 +27,8 @@ export default {
   },
 
   plugins: [
-    "@/plugins/main.js"
+    "@/plugins/main.js",
+    "@/plugins/axios.js"
   ],
 
   components: {
