@@ -32,7 +32,7 @@ export const actions = {
     async auth(context, { mode, data }) {
         const authData = await this.$axios.$post("/api", { [mode]: data });
         const { access_token: token, user, exp } = authData;
-        context.dispatch("setAxiosDefaults", { token, user });
+        this.$setAxiosDefaults(token, user.id);
         await context.dispatch("loadTemplates", { user });
         context.commit("setUser", { user, token });
 
@@ -53,7 +53,7 @@ export const actions = {
 
         if (process.server) {
             context.commit("setUser", { user: { id: userId }, token });
-            context.dispatch("setAxiosDefaults", { token, user });
+            this.$setAxiosDefaults(token, userId);
         } else {
             clearTimeout(logoutTimer);
             logoutTimer = setTimeout(() => context.dispatch("logout"), timeLeft);
@@ -61,7 +61,7 @@ export const actions = {
     },
     logout(context) {
         context.commit("removeUser");
-        this.$axios.setToken(false);
+        this.$clearAxiosDefaults();
         this.$cookies.removeAll();
         clearTimeout(logoutTimer);
     },
@@ -78,13 +78,7 @@ export const actions = {
             { userID: user.id, getTemplateNames: true }
         );
         context.commit("setTemplates", templates);
-    },
-    setAxiosDefaults(_, { token, user }) {
-        this.$axios.setToken(token, "Bearer");
-        this.$axios.defaults.transformRequest = [
-            data => ({ ...data, userID: user.id })
-        ];
-    },
+    }
 };
 
 export const getters = {

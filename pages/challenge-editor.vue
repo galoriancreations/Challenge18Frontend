@@ -280,7 +280,7 @@ export default {
       });
       this.templateId = templateId;
     },
-    autoSaveDraft() {
+    autoSaveData() {
       clearTimeout(this.autoSave.timeout);
       this.autoSave.timeout = setTimeout(async () => {
         this.autoSave.saving = true;
@@ -321,20 +321,17 @@ export default {
       this.editedOption = null;
     },
     checkForEmptyOption() {
-      if (!this.editedOption) return;
       const [taskId] = this.editedOption.split("-");
-      const taskIndex = this.options[this.dayIndex].tasks.findIndex(
+      const task = this.options[this.dayIndex].tasks.find(
         task => task.id == taskId
       );
-      const { options } = this.options[this.dayIndex].tasks[taskIndex];
-      this.options[this.dayIndex].tasks[taskIndex].options = options.filter(
-        option => !!option.text.trim()
-      );
+      task.options = task.options.filter(option => !!option.text.trim());
     },
     finishEditOnClick(event) {
+      if (!this.editedOption) return;
       const { classList } = event.target;
       const isOutOfElement =
-        !classList.contains("icon-button") &&
+        !classList.contains("task-form__option-button") &&
         !classList.contains("task-form__option-edit");
       if (isOutOfElement) {
         this.finishEditOption();
@@ -512,14 +509,14 @@ export default {
       window.scrollTo(0, window.scrollY + optionsTop - 150);
     },
     name() {
-      this.autoSaveDraft();
+      this.autoSaveData();
     },
     language() {
-      this.autoSaveDraft();
+      this.autoSaveData();
     },
     options: {
       handler() {
-        this.autoSaveDraft();
+        this.autoSaveData();
       },
       deep: true
     },

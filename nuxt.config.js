@@ -7,11 +7,16 @@ export default {
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: "Challenge 18, conducted by Ting Global, is the most important sustainability and leadership games tournament in the world, in which clubs from all over the world collaborate in acheving the SDG’s." }
+      {
+        hid: "description",
+        name: "description",
+        content:
+          "Challenge 18, conducted by Ting Global, is the most important sustainability and leadership games tournament in the world, in which clubs from all over the world collaborate in acheving the SDG’s."
+      }
     ],
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Spartan:wght@300;400;500;600;700;800;900&display=swap" }
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Spartan:wght@500;600;700;800&display=swap" }
     ],
     script: [
       { hid: "fontawesome", src: "https://kit.fontawesome.com/5225b7dab1.js", crossorigin: "anonymous" }
@@ -19,30 +24,30 @@ export default {
   },
 
   css: [
-    "@/assets/sass/main.scss"
+    "~/assets/sass/main.scss"
   ],
 
   styleResources: {
-    scss: "@/assets/sass/base.scss"
+    scss: "~/assets/sass/base.scss"
   },
 
   plugins: [
-    "@/plugins/main.js",
-    "@/plugins/axios.js"
+    "~/plugins/main.js",
+    "~/plugins/axios.js"
   ],
 
   components: {
     dirs: [
-      "@/components/layout",
-      "@/components/UI",
-      "@/components/extras",
-      "@/components/challenge-editor",
-      "@/components/about",
-      "@/components/auth",
-      "@/components/contact",
-      "@/components/dashboard",
-      "@/components/home",
-      "@/components/scores"
+      "~/components/layout",
+      "~/components/UI",
+      "~/components/extras",
+      "~/components/challenge-editor",
+      "~/components/about",
+      "~/components/auth",
+      "~/components/contact",
+      "~/components/dashboard",
+      "~/components/home",
+      "~/components/scores"
     ]
   },
 

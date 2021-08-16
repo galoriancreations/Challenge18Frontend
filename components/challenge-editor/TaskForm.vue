@@ -42,10 +42,12 @@
             <IconButton
               type="edit"
               @click="setEditedOption(task.id, option.id)"
+              class="task-form__option-button"
             />
             <IconButton
               type="delete"
               @click="deleteOption(taskIndex, optionIndex)"
+              class="task-form__option-button"
             />
           </div>
         </div>

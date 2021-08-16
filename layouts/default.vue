@@ -20,6 +20,9 @@ export default {
     },
     user() {
       return this.$store.getters.user;
+    },
+    token() {
+      return this.$store.getters.token;
     }
   },
   methods: {
@@ -44,10 +47,7 @@ export default {
     },
     initToken() {
       if (this.isLoggedIn) {
-        this.$store.dispatch("setAxiosDefaults", {
-          token: this.$store.getters.token,
-          user: this.user
-        });
+        this.$setAxiosDefaults(this.token, this.user.id);
       }
     }
   },
