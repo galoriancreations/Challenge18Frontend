@@ -32,16 +32,16 @@ export default {
 
   components: {
     dirs: [
-      "~/components/layout",
-      "~/components/UI",
-      "~/components/extras",
-      "~/components/challenge-editor",
-      "~/components/about",
-      "~/components/auth",
-      "~/components/contact",
-      "~/components/dashboard",
-      "~/components/home",
-      "~/components/scores"
+      "@/components/layout",
+      "@/components/UI",
+      "@/components/extras",
+      "@/components/challenge-editor",
+      "@/components/about",
+      "@/components/auth",
+      "@/components/contact",
+      "@/components/dashboard",
+      "@/components/home",
+      "@/components/scores"
     ]
   },
 
