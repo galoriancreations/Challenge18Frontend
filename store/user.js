@@ -65,17 +65,15 @@ export const actions = {
         this.$cookies.removeAll();
         clearTimeout(logoutTimer);
     },
-    async updateUser(context, userData = {}) {
-        const { user: { id } } = context.getters;
+    async updateUser(context, data = {}) {
         const { user } = await this.$axios.$post("/xapi",
-            { userID: id, editProfile: userData }
+            { editProfile: data }
         );
         context.commit("updateUser", user);
     },
-    async loadTemplates(context, authData) {
-        const { user } = authData || context.getters;
+    async loadTemplates(context) {
         const { templates } = await this.$axios.$post("/xapi",
-            { userID: user.id, getTemplateNames: true }
+            { getTemplateNames: true }
         );
         context.commit("setTemplates", templates);
     }

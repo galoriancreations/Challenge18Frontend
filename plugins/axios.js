@@ -8,7 +8,7 @@ export default ({ $axios }, inject) => {
     const clearAxiosDefaults = () => {
         $axios.setToken(false);
         $axios.defaults.transformRequest = [];
-    }
+    };
     inject("setAxiosDefaults", setAxiosDefaults);
     inject("clearAxiosDefaults", clearAxiosDefaults);
 };

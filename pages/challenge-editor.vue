@@ -260,7 +260,6 @@ export default {
   methods: {
     async saveDraft() {
       const { draftId } = await this.$axios.$post("/xapi", {
-        userID: this.user.id,
         saveDraft: {
           draftId: this.draftId,
           draftData: this.draftData
@@ -270,7 +269,6 @@ export default {
     },
     async saveTemplate(finishEditing = false) {
       const { templateId } = await this.$axios.$post("/xapi", {
-        userID: this.user.id,
         saveTemplate: {
           templateId: this.templateId,
           templateData: this.finalTemplateData,
@@ -379,8 +377,8 @@ export default {
       this.setConfirmModal(
         "Are you sure you want to delete this day and all its tasks? This action is irreversible.",
         () => {
-          this.options.splice(this.dayIndex, 1);
           this.transitionName = "task";
+          this.options.splice(this.dayIndex, 1);
           if (this.selectedDay > this.options.length) {
             this.selectedDay--;
           }
@@ -457,7 +455,6 @@ export default {
     },
     async createNewChallenge() {
       const { challenge } = await this.$axios.$post("/xapi", {
-        userID: this.user.id,
         createChallenge: {
           draftId: this.draftId,
           challengeData: this.finalChallengeConfig,
@@ -468,7 +465,6 @@ export default {
     },
     async updateChallenge() {
       await this.$axios.$post("/xapi", {
-        userID: this.user.id,
         updateChallenge: {
           challengeId: this.editedChallengeId,
           draftId: this.draftId,
