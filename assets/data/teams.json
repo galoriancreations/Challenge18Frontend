@@ -10,6 +10,13 @@
                 "link": "http://hk.linkedin.com/in/sharongalor"
             },
             {
+                "name": "Joseph Mufutu",
+                "image": "joseph.jpeg",
+                "role": "Community-Led Developer",
+                "description": "Ting Global Cultural Ambassador and community Led Developer specializing in Localizing Sustainable Development Goals (SDGs), finding pathways of transition into sustainability & self-sufficiency.",
+                "link": "https://www.linkedin.com/in/joseph-mufutu-12107461"
+            },
+            {
                 "name": "Itay Tzukerman",
                 "image": "itay.jpg",
                 "role": "Resource Development",
@@ -72,23 +79,16 @@
         "title": "Regional Representatives",
         "members": [
             {
-                "name": "Joseph Mufutu",
-                "image": "joseph.jpeg",
-                "role": "",
-                "description": "Ting Global Cultural Ambassador and community Led Developer specializing in Localizing Sustainable Development Goals (SDGs), finding pathways of transition into sustainability & self-sufficiency.",
-                "link": "https://www.linkedin.com/in/joseph-mufutu-12107461"
+                "name": "Johnny Chong",
+                "image": "chong.jpg",
+                "role": "Hong Kong",
+                "description": "Independent non-executive Director of Yi Hua Holdings in Hong Kong. Director of Stars Capital Partners, a private financial consultancy for global startups for the market in China."
             },
             {
                 "name": "Dr. Ting Ho",
                 "image": "tingho.jpeg",
                 "role": "Malaysia",
                 "description": "Director, Capital Investment Bank Limited. Former First Chief Economist of FedEx Corp."
-            },
-            {
-                "name": "Johnny Chong",
-                "image": "chong.jpg",
-                "role": "Hong Kong",
-                "description": "Independent non-executive Director of Yi Hua Holdings in Hong Kong. Director of Stars Capital Partners, a private financial consultancy for global startups for the market in China."
             },
             {
                 "name": "David Hanson Jr.",
