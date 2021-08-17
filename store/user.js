@@ -33,7 +33,7 @@ export const actions = {
         const authData = await this.$axios.$post("/api", { [mode]: data });
         const { access_token: token, user, exp } = authData;
         this.$setAxiosDefaults(token, user.id);
-        await context.dispatch("loadTemplates", { user });
+        await context.dispatch("loadTemplates");
         context.commit("setUser", { user, token });
 
         this.$cookies.set("userId", user.id);

@@ -10,13 +10,6 @@
                 "link": "http://hk.linkedin.com/in/sharongalor"
             },
             {
-                "name": "Joseph Mufutu",
-                "image": "joseph.jpeg",
-                "role": "Community-Led Developer",
-                "description": "Ting Global Cultural Ambassador and community Led Developer specializing in Localizing Sustainable Development Goals (SDGs), finding pathways of transition into sustainability & self-sufficiency.",
-                "link": "https://www.linkedin.com/in/joseph-mufutu-12107461"
-            },
-            {
                 "name": "Itay Tzukerman",
                 "image": "itay.jpg",
                 "role": "Resource Development",
@@ -56,8 +49,47 @@
         ]
     },
     {
-        "title": "Advisors",
+        "title": "Advisory Board",
         "members": [
+            {
+                "name": "Prof. Shai Dekel",
+                "image": "dekel.png",
+                "description": "Visiting associate professor at the school of mathematics, Tel-Aviv University. He also serves as a principal scientist in GE Global Research and as Angel Investor in TLVseed and as a member of Akban. His research interests are theoretical approximation theory, harmonic analysis and their applications in data science."
+            },
+            {
+                "name": "Dr. Dafna Gan",
+                "image": "",
+                "description": "Co-founder and the director of The Center for Environmental and Sustainability Education, head of the environmental education Master’s program in the Department of Sciences at Kibbutzim College of Education and the Arts."
+            },
+            {
+                "name": "Marcelo Sternberg",
+                "image": "sternberg.jpeg",
+                "description": "Professor, Ecology, School of Plant Sciences & Food Security, Tel Aviv University."
+            }
+        ]
+    },
+    {
+        "title": "Regional Representatives",
+        "members": [
+            {
+                "name": "Joseph Mufutu",
+                "image": "joseph.jpeg",
+                "role": "",
+                "description": "Ting Global Cultural Ambassador and community Led Developer specializing in Localizing Sustainable Development Goals (SDGs), finding pathways of transition into sustainability & self-sufficiency.",
+                "link": "https://www.linkedin.com/in/joseph-mufutu-12107461"
+            },
+            {
+                "name": "Dr. Ting Ho",
+                "image": "tingho.jpeg",
+                "role": "Malaysia",
+                "description": "Director, Capital Investment Bank Limited. Former First Chief Economist of FedEx Corp."
+            },
+            {
+                "name": "Johnny Chong",
+                "image": "chong.jpg",
+                "role": "Hong Kong",
+                "description": "Independent non-executive Director of Yi Hua Holdings in Hong Kong. Director of Stars Capital Partners, a private financial consultancy for global startups for the market in China."
+            },
             {
                 "name": "David Hanson Jr.",
                 "image": "hanson.png",
@@ -72,11 +104,6 @@
                 "name": "Newton Lee",
                 "image": "lee.png",
                 "description": "Computer scientist who is an author and administrator in the field of education and technology commercialization. He is known for his total information awareness book series."
-            },
-            {
-                "name": "Prof. Shai Dekel",
-                "image": "dekel.png",
-                "description": "Visiting associate professor at the school of mathematics, Tel-Aviv University. He also serves as a principal scientist in GE Global Research and as Angel Investor in TLVseed and as a member of Akban. His research interests are theoretical approximation theory, harmonic analysis and their applications in data science."
             }
         ]
     }
