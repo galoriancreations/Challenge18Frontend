@@ -1,7 +1,7 @@
 <template>
   <Notification class="auto-save-note" :dismissable="false">
     <p>
-      <strong>Last draft auto-save:</strong>
+      <strong>Last auto-save:</strong>
       <span>{{ text }}</span>
       <i :class="iconClasses" />
     </p>

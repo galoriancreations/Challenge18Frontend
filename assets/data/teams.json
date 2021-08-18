@@ -85,25 +85,28 @@
                 "description": "Independent non-executive Director of Yi Hua Holdings in Hong Kong. Director of Stars Capital Partners, a private financial consultancy for global startups for the market in China."
             },
             {
-                "name": "Dr. Ting Ho",
-                "image": "tingho.jpeg",
-                "role": "Malaysia",
-                "description": "Director, Capital Investment Bank Limited. Former First Chief Economist of FedEx Corp."
-            },
-            {
                 "name": "David Hanson Jr.",
                 "image": "hanson.png",
+                "role": "Hong Kong",
                 "description": "American roboticist who is the founder and Chief Executive Officer (CEO) of Hanson Robotics, a Hong Kong-based robotics company founded in 2013."
             },
             {
                 "name": "Lawrence Yee",
                 "image": "yee.png",
+                "role": "Hong Kong",
                 "description": "Co-President (2017-), President (2015-16), Board Director and founder of Cradle Program of AAMA-PRD chapter since 2015.  He also sits on the board of BIIA (Business Information Industry Association) since its inception in 2006."
             },
             {
                 "name": "Newton Lee",
                 "image": "lee.png",
+                "role": "Florida",
                 "description": "Computer scientist who is an author and administrator in the field of education and technology commercialization. He is known for his total information awareness book series."
+            },
+            {
+                "name": "Dr. Ting Ho",
+                "image": "tingho.jpeg",
+                "role": "Malaysia",
+                "description": "Director, Capital Investment Bank Limited. Former First Chief Economist of FedEx Corp."
             }
         ]
     }

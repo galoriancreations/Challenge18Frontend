@@ -24,9 +24,9 @@
           :name="transitionName"
         >
           <div
+            key="layout"
             class="challenge-editor__layout"
             :style="{ direction }"
-            key="layout"
           >
             <section class="challenge-editor__tabs">
               <DayTabs v-model="selectedDay" />
@@ -54,7 +54,7 @@
                   v-model="task.selection"
                   :extraInput.sync="task.extraInput"
                 />
-                <div key="button">
+                <div key="add-button">
                   <ActionButton type="add" color="white" @click="addTask" />
                 </div>
               </TransitionGroup>
@@ -71,7 +71,7 @@
           </div>
           <BaseSpinner key="spinner" v-if="submitting" />
           <ErrorMessage
-            key="errorMessage"
+            key="error-message"
             v-else-if="errorSubmitting"
             :error="errorSubmitting"
           />
@@ -97,9 +97,9 @@
 <script>
 import {
   initialOptions,
+  clearedOptions,
   stripHTML,
-  newTask,
-  clearedOptions
+  newTask
 } from "../assets/util/functions";
 import {
   rtlLanguages,
@@ -127,9 +127,8 @@ export default {
         return {
           name: challenge.name,
           language: challenge.language,
-          options: challenge.days,
+          options: initialOptions(challenge.days),
           draftId: configId,
-          isTemplatePublic: false,
           errorLoading: null
         };
       } else if (draftId) {
@@ -229,6 +228,11 @@ export default {
     },
     showVisibilitySelector() {
       return this.user?.accountType === "admin" && !this.editedChallengeId;
+    },
+    isModalOpen() {
+      return (
+        this.showIntroModal || this.dayTitleEdited || this.showConfirmModal
+      );
     },
     draftData() {
       return {
@@ -500,7 +504,7 @@ export default {
   },
   watch: {
     selectedDay() {
-      this.transitionName = null;
+      this.transitionName = "task";
       const optionsTop = this.$refs.container.getBoundingClientRect().top;
       window.scrollTo(0, window.scrollY + optionsTop - 150);
     },
@@ -518,6 +522,11 @@ export default {
     },
     draftId(value) {
       this.$cookies.set("draftId", value);
+    },
+    isModalOpen(value) {
+      if (value) {
+        this.transitionName = null;
+      }
     }
   },
   mounted() {

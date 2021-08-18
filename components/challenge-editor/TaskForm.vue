@@ -159,6 +159,7 @@ export default {
   padding: 3.5rem 3rem;
   width: 100%;
   overflow: hidden;
+  animation: zoomIn 0.5s;
 
   @include respond(mobile) {
     padding: 3rem 2rem;
@@ -330,6 +331,17 @@ export default {
   .task-form__option-actions {
     right: initial;
     left: 0;
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 </style>
