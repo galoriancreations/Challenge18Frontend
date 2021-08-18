@@ -22,9 +22,6 @@ export const mutations = {
     },
     setTemplates(state, payload) {
         state.templates = payload;
-    },
-    setSelectedTemplate(state, payload) {
-        state.selectedTemplate = payload;
     }
 };
 
