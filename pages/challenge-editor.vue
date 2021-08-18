@@ -193,7 +193,7 @@ export default {
   },
   computed: {
     editedChallengeId() {
-      return this.$cookies.challengeId;
+      return this.$cookies.get("challengeId");
     },
     templateOnlyMode() {
       const { templateOnly } = this.$route.query;
@@ -224,7 +224,7 @@ export default {
       return rtlLanguages.includes(this.language) ? "rtl" : null;
     },
     user() {
-      return this.$store.getters.user || {};
+      return this.$store.getters.user;
     },
     showVisibilitySelector() {
       return this.user?.accountType === "admin" && !this.editedChallengeId;

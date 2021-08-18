@@ -32,8 +32,8 @@ export default {
   },
 
   plugins: [
-    "~/plugins/main.js",
-    "~/plugins/axios.js"
+    "~/plugins/main",
+    "~/plugins/axios"
   ],
 
   components: {

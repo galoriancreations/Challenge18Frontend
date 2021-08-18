@@ -49,7 +49,7 @@
             },
             {
                 "name": "Ori Baruch",
-                "image": "",
+                "image": "ori.jpeg",
                 "role": "Developer",
                 "description": "Program Developer and Game Designer, designing applications and games on multiple platforms, specializing in Player and User experience."
             }
@@ -65,7 +65,7 @@
             },
             {
                 "name": "Dr. Dafna Gan",
-                "image": "",
+                "image": "dafnagan.jpg",
                 "description": "Co-founder and the director of The Center for Environmental and Sustainability Education, head of the environmental education Master’s program in the Department of Sciences at Kibbutzim College of Education and the Arts."
             },
             {
@@ -107,6 +107,12 @@
                 "image": "tingho.jpeg",
                 "role": "Malaysia",
                 "description": "Director, Capital Investment Bank Limited. Former First Chief Economist of FedEx Corp."
+            },
+            {
+                "name": "Tom Ross",
+                "image": "tomross.jpg",
+                "role": "United States",
+                "description": "Director of Sentient Rights Advocacy for the United States Transhumanist Party."
             }
         ]
     }
