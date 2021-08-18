@@ -310,6 +310,7 @@ export default {
       }
     },
     setEditedOption(taskId, optionId) {
+      this.checkForEmptyOption();
       this.editedOption = `${taskId}-${optionId}`;
       this.transitionName = null;
     },
@@ -323,6 +324,7 @@ export default {
       this.editedOption = null;
     },
     checkForEmptyOption() {
+      if (!this.editedOption) return;
       const [taskId] = this.editedOption.split("-");
       const task = this.options[this.dayIndex].tasks.find(
         task => task.id == taskId

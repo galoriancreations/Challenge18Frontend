@@ -29,6 +29,7 @@
     "vue-select": "^3.11.2",
     "vue-star-rating": "^1.7.0",
     "vue-textarea-autosize": "^1.1.1",
+    "vue-waypoint": "^4.2.0",
     "vue-youtube": "^1.4.0",
     "vuescroll": "^4.17.3"
   },
