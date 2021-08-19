@@ -188,7 +188,7 @@ export default {
       submitting: false,
       errorSubmitting: null,
       showIntroModal: false,
-      transitionName: "task"
+      transitionName: "task-alt"
     };
   },
   computed: {
