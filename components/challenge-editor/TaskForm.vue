@@ -159,7 +159,6 @@ export default {
   padding: 3.5rem 3rem;
   width: 100%;
   overflow: hidden;
-  animation: zoomIn 0.5s;
 
   @include respond(mobile) {
     padding: 3rem 2rem;

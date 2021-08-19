@@ -188,7 +188,7 @@ export default {
       submitting: false,
       errorSubmitting: null,
       showIntroModal: false,
-      transitionName: "task-alt"
+      transitionName: "task"
     };
   },
   computed: {
@@ -355,14 +355,14 @@ export default {
     },
     addTask() {
       this.options[this.dayIndex].tasks.push(newTask());
-      this.transitionName = "task-alt";
+      this.transitionName = "task";
     },
     deleteTask(taskIndex) {
       const { tasks } = this.options[this.dayIndex];
       this.setConfirmModal(
         "Are you sure you want to delete this task and all its options? This action is irreversible.",
         () => {
-          this.transitionName = "task";
+          this.transitionName = "task-delete";
           tasks.splice(taskIndex, 1);
         },
         !tasks[taskIndex].options.length
@@ -384,7 +384,7 @@ export default {
       this.setConfirmModal(
         "Are you sure you want to delete this day and all its tasks? This action is irreversible.",
         () => {
-          this.transitionName = "task-alt";
+          this.transitionName = "task";
           this.options.splice(this.dayIndex, 1);
           if (this.selectedDay > this.options.length) {
             this.selectedDay--;
@@ -507,7 +507,7 @@ export default {
   },
   watch: {
     selectedDay() {
-      this.transitionName = "task-alt";
+      this.transitionName = "task";
       const optionsTop = this.$refs.container.getBoundingClientRect().top;
       window.scrollTo(0, window.scrollY + optionsTop - 150);
     },
@@ -625,34 +625,33 @@ export default {
   }
 }
 
-.task-leave-from,
-.task-alt-leave-from {
-  transform: translateX(0);
-}
-
 .task-leave-to,
-.task-alt-leave-to {
+.task-delete-leave-to {
   transform: translateX(100vw);
 }
 
 .challenge-editor__layout[style="direction: rtl;"] {
   .task-leave-to,
-  .task-alt-leave-to {
+  .task-delete-leave-to {
     transform: translateX(-100vw);
   }
 }
 
 .task-leave-active,
-.task-alt-leave-active {
+.task-delete-leave-active {
   transition: transform 0.5s;
   position: absolute;
 }
 
-.task-move:not(.task-leave-active) {
-  transition: transform 0.4s 0.4s;
+.task-enter-active {
+  animation: zoomIn 0.5s;
 }
 
-.task-alt-move:not(.task-alt-leave-active) {
+.task-move:not(.task-leave-active) {
   transition: transform 0.35s;
+}
+
+.task-delete-move:not(.task-delete-leave-active) {
+  transition: transform 0.4s 0.4s;
 }
 </style>
