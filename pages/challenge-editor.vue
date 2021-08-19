@@ -188,7 +188,7 @@ export default {
       submitting: false,
       errorSubmitting: null,
       showIntroModal: false,
-      transitionName: null
+      transitionName: "task"
     };
   },
   computed: {
@@ -310,7 +310,9 @@ export default {
       }
     },
     setEditedOption(taskId, optionId) {
-      this.checkForEmptyOption();
+      if (this.editedOption) {
+        this.checkForEmptyOption();
+      }
       this.editedOption = `${taskId}-${optionId}`;
       this.transitionName = null;
     },
@@ -324,7 +326,6 @@ export default {
       this.editedOption = null;
     },
     checkForEmptyOption() {
-      if (!this.editedOption) return;
       const [taskId] = this.editedOption.split("-");
       const task = this.options[this.dayIndex].tasks.find(
         task => task.id == taskId
@@ -354,7 +355,7 @@ export default {
     },
     addTask() {
       this.options[this.dayIndex].tasks.push(newTask());
-      this.transitionName = null;
+      this.transitionName = "task-alt";
     },
     deleteTask(taskIndex) {
       const { tasks } = this.options[this.dayIndex];
@@ -383,7 +384,7 @@ export default {
       this.setConfirmModal(
         "Are you sure you want to delete this day and all its tasks? This action is irreversible.",
         () => {
-          this.transitionName = "task";
+          this.transitionName = "task-alt";
           this.options.splice(this.dayIndex, 1);
           if (this.selectedDay > this.options.length) {
             this.selectedDay--;
@@ -506,7 +507,7 @@ export default {
   },
   watch: {
     selectedDay() {
-      this.transitionName = "task";
+      this.transitionName = "task-alt";
       const optionsTop = this.$refs.container.getBoundingClientRect().top;
       window.scrollTo(0, window.scrollY + optionsTop - 150);
     },
@@ -624,24 +625,34 @@ export default {
   }
 }
 
-.task-leave-from {
+.task-leave-from,
+.task-alt-leave-from {
   transform: translateX(0);
 }
 
-.task-leave-to {
+.task-leave-to,
+.task-alt-leave-to {
   transform: translateX(100vw);
 }
 
-.challenge-editor__layout[style="direction: rtl;"] .task-leave-to {
-  transform: translateX(-100vw);
+.challenge-editor__layout[style="direction: rtl;"] {
+  .task-leave-to,
+  .task-alt-leave-to {
+    transform: translateX(-100vw);
+  }
 }
 
-.task-leave-active {
+.task-leave-active,
+.task-alt-leave-active {
   transition: transform 0.5s;
   position: absolute;
 }
 
 .task-move:not(.task-leave-active) {
   transition: transform 0.4s 0.4s;
+}
+
+.task-alt-move:not(.task-alt-leave-active) {
+  transition: transform 0.35s;
 }
 </style>
