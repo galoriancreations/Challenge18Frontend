@@ -19,13 +19,12 @@
         </section>
         <SectionSeperator />
         <TransitionGroup
-          tag="div"
           class="challenge-editor__wrapper"
           :name="transitionName"
         >
           <div
             key="layout"
-            class="challenge-editor__layout"
+            class="challenge-editor__content"
             :style="{ direction }"
           >
             <section class="challenge-editor__tabs">
@@ -41,23 +40,7 @@
                 :active="dayTitleEdited"
               />
               <DayActionButtons />
-              <TransitionGroup
-                tag="div"
-                class="challenge-editor__content"
-                :name="transitionName"
-              >
-                <TaskForm
-                  v-for="(task, taskIndex) in options[dayIndex].tasks"
-                  :key="task.id"
-                  :task="task"
-                  :taskIndex="taskIndex"
-                  v-model="task.selection"
-                  :extraInput.sync="task.extraInput"
-                />
-                <div key="add-button">
-                  <ActionButton type="add" color="white" @click="addTask" />
-                </div>
-              </TransitionGroup>
+              <EditorTaskList :tasks="options[dayIndex].tasks" />
             </section>
           </div>
           <div key="submit-button">
@@ -98,7 +81,6 @@
 import {
   initialOptions,
   clearedOptions,
-  stripHTML,
   newTask
 } from "../assets/util/functions";
 import {
@@ -299,27 +281,12 @@ export default {
         this.autoSave.saving = false;
       }, 5000);
     },
-    addOption(taskIndex) {
-      const task = this.options[this.dayIndex].tasks[taskIndex];
-      const newOptionText = stripHTML(task.extraInput).trim();
-      task.extraInput = "";
-      if (newOptionText) {
-        task.selection = newOptionText;
-        task.options.push({ id: uniqid(), text: newOptionText });
-        this.transitionName = null;
-      }
-    },
     setEditedOption(taskId, optionId) {
       if (this.editedOption) {
         this.checkForEmptyOption();
       }
       this.editedOption = `${taskId}-${optionId}`;
       this.transitionName = null;
-    },
-    editOption(value, taskIndex, optionIndex) {
-      const task = this.options[this.dayIndex].tasks[taskIndex];
-      task.options[optionIndex].text = stripHTML(value);
-      task.selection = stripHTML(value);
     },
     finishEditOption() {
       this.checkForEmptyOption();
@@ -341,36 +308,6 @@ export default {
       if (isOutOfElement) {
         this.finishEditOption();
       }
-    },
-    deleteOption(taskIndex, optionIndex) {
-      const { options } = this.options[this.dayIndex].tasks[taskIndex];
-      this.setConfirmModal(
-        "Are you sure you want to delete this option? This action is irreversible.",
-        () => {
-          options.splice(optionIndex, 1);
-          this.transitionName = "task";
-        },
-        options[optionIndex].text.length < 50
-      );
-    },
-    addTask() {
-      this.options[this.dayIndex].tasks.push(newTask());
-      this.transitionName = "task";
-    },
-    deleteTask(taskIndex) {
-      const { tasks } = this.options[this.dayIndex];
-      this.setConfirmModal(
-        "Are you sure you want to delete this task and all its options? This action is irreversible.",
-        () => {
-          this.transitionName = "task-delete";
-          tasks.splice(taskIndex, 1);
-        },
-        !tasks[taskIndex].options.length
-      );
-    },
-    toggleTaskAsBonus(taskIndex) {
-      const task = this.options[this.dayIndex].tasks[taskIndex];
-      task.isBonus = !task.isBonus;
     },
     addDay() {
       this.options.push({
@@ -400,9 +337,8 @@ export default {
       this.setConfirmModal(
         "Do you want to select a random option for each task? All your selections would be overwritten.",
         () => {
-          this.options = this.options.map(day => ({
-            ...day,
-            tasks: day.tasks.map(task => {
+          this.options.forEach(day => {
+            day.tasks = day.tasks.map(task => {
               const optionIndex = Math.floor(
                 Math.random() * task.options.length
               );
@@ -410,8 +346,8 @@ export default {
                 ...task,
                 selection: task.options[optionIndex]?.text
               };
-            })
-          }));
+            });
+          });
         }
       );
     },
@@ -544,23 +480,23 @@ export default {
   provide() {
     return {
       options: this.options,
+      selectedDayTasks: () => this.options[this.dayIndex].tasks,
       getDayLabel: () => this.dayLabel,
       editDayTitle: () => {
         this.dayTitleEdited = true;
       },
       deleteDay: this.deleteDay,
       getTaskLabel: () => this.taskLabel,
-      toggleTaskAsBonus: this.toggleTaskAsBonus,
-      deleteTask: this.deleteTask,
       templateOnlyMode: this.templateOnlyMode,
       editedChallengeId: this.editedChallengeId,
       getEditedOption: () => this.editedOption,
       setEditedOption: this.setEditedOption,
-      deleteOption: this.deleteOption,
-      editOption: this.editOption,
       finishEditOption: this.finishEditOption,
-      addOption: this.addOption,
-      autoSave: this.autoSave
+      autoSave: this.autoSave,
+      getTransition: () => this.transitionName,
+      setTransition: value => {
+        this.transitionName = value;
+      }
     };
   }
 };
@@ -576,7 +512,7 @@ export default {
     }
   }
 
-  &__layout {
+  &__content {
     display: grid;
     justify-content: space-between;
     align-items: start;

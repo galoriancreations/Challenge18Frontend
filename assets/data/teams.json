@@ -13,7 +13,7 @@
                 "name": "Joseph Mufutu",
                 "image": "joseph.jpeg",
                 "role": "Community-Led Developer",
-                "description": "Ting Global Cultural Ambassador and community Led Developer specializing in Localizing Sustainable Development Goals (SDGs), finding pathways of transition into sustainability & self-sufficiency.",
+                "description": "Ting Global Cultural Ambassador and Community-Led Developer specializing in Localizing Sustainable Development Goals (SDGs).",
                 "link": "https://www.linkedin.com/in/joseph-mufutu-12107461"
             },
             {
@@ -61,7 +61,7 @@
             {
                 "name": "Prof. Shai Dekel",
                 "image": "dekel.png",
-                "description": "Visiting associate professor at the school of mathematics, Tel-Aviv University. He also serves as a principal scientist in GE Global Research and as Angel Investor in TLVseed and as a member of Akban. His research interests are theoretical approximation theory, harmonic analysis and their applications in data science."
+                "description": "Visiting associate professor at the school of mathematics, Tel-Aviv University. He also serves as a principal scientist in GE Global Research and as Angel Investor in TLVseed and as a member of Akban."
             },
             {
                 "name": "Dr. Dafna Gan",
@@ -113,6 +113,12 @@
                 "image": "tomross.jpg",
                 "role": "United States",
                 "description": "Director of Sentient Rights Advocacy for the United States Transhumanist Party."
+            },
+            {
+                "name": "Josune Moneo Viloria",
+                "image": "josune.jpeg",
+                "role": "Spain",
+                "description": "Effective Social Transformation towards SDG strategist. Holistic thinker & planner and Collaborative Growth specialist"
             }
         ]
     }

@@ -8,7 +8,7 @@
         <IconButton
           type="mark"
           :filled="task.isBonus"
-          @click="toggleTaskAsBonus(taskIndex)"
+          @click="task.isBonus = !task.isBonus"
         />
         <IconButton type="delete" @click="deleteTask(taskIndex)" />
       </div>
@@ -24,8 +24,7 @@
         :id="option.id"
         class="radio-input"
         :value="option.text"
-        :checked="selectedOption === option.text"
-        @change="$emit('change', option.text)"
+        v-model="task.selection"
       />
       <i v-if="templateOnlyMode" class="task-form__option-icon fas fa-gem" />
       <label v-else :for="option.id" class="radio-label">
@@ -46,7 +45,7 @@
             />
             <IconButton
               type="delete"
-              @click="deleteOption(taskIndex, optionIndex)"
+              @click="deleteOption(optionIndex)"
               class="task-form__option-button"
             />
           </div>
@@ -59,7 +58,7 @@
       >
         <textarea-autosize
           :value="option.text"
-          @input="editOption($event, taskIndex, optionIndex)"
+          @input="editOption($event, optionIndex)"
           class="task-form__option-edit"
           :id="`edit-${option.id}`"
           placeholder="Start typing here..."
@@ -67,9 +66,9 @@
         />
       </form>
     </div>
-    <form @keydown.enter="addOption(taskIndex)">
+    <form @keydown.enter="addOption">
       <textarea-autosize
-        :value="extraInput"
+        :value="task.extraInput"
         @input="updateExtraInput"
         class="task-form__extra"
         :placeholder="extraInputPlaceholder"
@@ -81,33 +80,29 @@
 
 <script>
 import { convertTaskText, stripHTML } from "../../assets/util/functions";
+import uniqid from "uniqid";
 
 export default {
-  model: {
-    prop: "selectedOption",
-    event: "change"
-  },
   props: {
-    task: Object,
-    taskIndex: Number,
-    selectedOption: String,
-    extraInput: String
+    task: Object
   },
   inject: [
+    "selectedDayTasks",
     "getTaskLabel",
-    "toggleTaskAsBonus",
     "deleteTask",
     "templateOnlyMode",
     "getEditedOption",
     "setEditedOption",
-    "deleteOption",
-    "editOption",
     "finishEditOption",
-    "addOption"
+    "setConfirmModal",
+    "setTransition"
   ],
   computed: {
     taskLabel() {
       return this.getTaskLabel();
+    },
+    taskIndex() {
+      return this.selectedDayTasks().indexOf(this.task);
     },
     editedOption() {
       return this.getEditedOption();
@@ -122,7 +117,7 @@ export default {
       }
       return title;
     },
-    editOptionInput() {
+    optionInput() {
       if (!this.editedOption) return;
       const [taskId, optionId] = this.editedOption.split("-");
       return taskId === this.task.id
@@ -139,13 +134,36 @@ export default {
   },
   methods: {
     updateExtraInput(value) {
-      this.$emit("update:extraInput", stripHTML(value));
+      this.task.extraInput = stripHTML(value);
+    },
+    addOption() {
+      const newOptionText = stripHTML(this.task.extraInput).trim();
+      this.task.extraInput = "";
+      if (newOptionText) {
+        this.task.selection = newOptionText;
+        this.task.options.push({ id: uniqid(), text: newOptionText });
+        this.setTransition(null);
+      }
+    },
+    editOption(value, optionIndex) {
+      this.task.options[optionIndex].text = stripHTML(value);
+      this.task.selection = stripHTML(value);
+    },
+    deleteOption(optionIndex) {
+      this.setConfirmModal(
+        "Are you sure you want to delete this option? This action is irreversible.",
+        () => {
+          this.task.options.splice(optionIndex, 1);
+          this.setTransition("task");
+        },
+        this.task.options[optionIndex].text.length < 50
+      );
     }
   },
   watch: {
     editedOption(value) {
       if (value) {
-        setTimeout(() => this.editOptionInput?.focus(), 10);
+        setTimeout(() => this.optionInput?.focus(), 10);
       }
     }
   }
@@ -312,7 +330,7 @@ export default {
     width: 100%;
     padding: 1rem 2rem;
     border: 0.2rem solid #ccc;
-    border-radius: 100px;
+    border-radius: 20px;
     margin-top: 1rem;
     transition: all 0.5s;
 
