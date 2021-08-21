@@ -39,7 +39,7 @@ export const challengesArray = challenges => {
   return data;
 };
 
-export const emptyDays = (days = 6, tasks = 2) =>
+export const emptyDays = (days = 12, tasks = 3) =>
   numbersArray(days).map(() => ({
     title: "",
     tasks: numbersArray(tasks).map(() => newTask())

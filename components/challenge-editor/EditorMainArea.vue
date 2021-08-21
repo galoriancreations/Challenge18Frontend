@@ -1,21 +1,30 @@
 <template>
-  <div class="challenge-editor__content" :style="{ direction }">
-    <section class="challenge-editor__tabs">
-      <SideTabs v-model="selectedDay" :tabs="days" />
-      <ActionButton type="add" color="white" @click="addDay" />
-    </section>
-    <section class="challenge-editor__main" ref="container">
-      <SectionHeading small>
-        {{ dayTitle }}
-      </SectionHeading>
-      <EditDayTitleModal
-        v-model.trim="options[dayIndex].title"
-        :active="dayTitleEdited"
-      />
-      <DayActionButtons />
-      <EditorTaskList :tasks="options[dayIndex].tasks" />
-    </section>
-  </div>
+  <TransitionGroup class="challenge-editor__wrapper" :name="transition">
+    <div key="content" class="challenge-editor__content" :style="{ direction }">
+      <section class="challenge-editor__tabs">
+        <SideTabs v-model="selectedDay" :tabs="days" />
+        <ActionButton type="add" color="white" @click="addDay" />
+      </section>
+      <section class="challenge-editor__day" ref="container">
+        <SectionHeading small>
+          {{ dayTitle }}
+        </SectionHeading>
+        <EditDayTitleModal
+          v-model.trim="options[dayIndex].title"
+          :active="dayTitleEdited"
+        />
+        <DayActionButtons />
+        <EditorTaskList :tasks="options[dayIndex].tasks" />
+      </section>
+    </div>
+    <div key="submit" class="challenge-editor__submit-wrapper">
+      <BaseButton variant="blue" @click="submitHandler">
+        {{ submitButtonText }}
+      </BaseButton>
+      <BaseSpinner v-if="submit.loading" />
+      <ErrorMessage :error="submit.error" />
+    </div>
+  </TransitionGroup>
 </template>
 
 <script>
@@ -24,7 +33,17 @@ import { rtlLanguages, dayTranslations } from "../../assets/util/options";
 import uniqid from "uniqid";
 
 export default {
-  inject: ["options", "getLanguage", "setConfirmModal", "setTransition"],
+  inject: [
+    "options",
+    "getLanguage",
+    "templateOnlyMode",
+    "editedChallengeId",
+    "setConfirmModal",
+    "getTransition",
+    "setTransition",
+    "submit",
+    "submitHandler"
+  ],
   data() {
     return {
       selectedDay: 1,
@@ -32,6 +51,9 @@ export default {
     };
   },
   computed: {
+    transition() {
+      return this.getTransition();
+    },
     language() {
       return this.getLanguage();
     },
@@ -55,6 +77,13 @@ export default {
     },
     direction() {
       return rtlLanguages.includes(this.language) ? "rtl" : null;
+    },
+    submitButtonText() {
+      return this.templateOnlyMode
+        ? "Finish editing"
+        : this.editedChallengeId
+        ? "Update challenge"
+        : "Publish challenge";
     }
   },
   methods: {
@@ -106,10 +135,10 @@ export default {
       editDayTitle: () => {
         this.dayTitleEdited = true;
       },
-      deleteDay: this.deleteDay,
       closeModal: () => {
         this.dayTitleEdited = false;
-      }
+      },
+      deleteDay: this.deleteDay
     };
   }
 };
@@ -134,8 +163,52 @@ export default {
     }
   }
 
-  &__main {
+  &__day {
     position: relative;
   }
+
+  &__submit-wrapper {
+    margin-top: 9rem;
+
+    @include respond(mobile) {
+      margin-top: 6rem;
+    }
+
+    .button {
+      font-weight: 600;
+      width: 100%;
+      max-width: 35rem;
+    }
+  }
+}
+
+.task-leave-to,
+.task-delete-leave-to {
+  transform: translateX(100vw);
+}
+
+.challenge-editor__content[style="direction: rtl;"] {
+  .task-leave-to,
+  .task-delete-leave-to {
+    transform: translateX(-100vw);
+  }
+}
+
+.task-leave-active,
+.task-delete-leave-active {
+  transition: transform 0.5s;
+  position: absolute;
+}
+
+.task-enter-active {
+  animation: zoomIn 0.5s;
+}
+
+.task-move:not(.task-leave-active) {
+  transition: transform 0.35s;
+}
+
+.task-delete-move:not(.task-delete-leave-active) {
+  transition: transform 0.4s 0.4s;
 }
 </style>

@@ -14,7 +14,7 @@ import moment from "moment";
 export default {
   props: {
     date: Date,
-    saving: Boolean,
+    loading: Boolean,
     error: Boolean
   },
   computed: {
@@ -25,10 +25,10 @@ export default {
       return {
         "auto-save-note__icon": true,
         fas: true,
-        "fa-check": !this.error && !this.saving,
-        "fa-times": this.error && !this.saving,
-        "fa-circle-notch": this.saving,
-        "fa-spin": this.saving
+        "fa-check": !this.error && !this.loading,
+        "fa-times": this.error && !this.loading,
+        "fa-circle-notch": this.loading,
+        "fa-spin": this.loading
       };
     }
   }

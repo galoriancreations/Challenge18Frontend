@@ -1,5 +1,5 @@
 <template>
-  <TransitionGroup class="challenge-editor__tasks" :name="transitionName">
+  <TransitionGroup class="challenge-editor__tasks" :name="transition">
     <TaskForm v-for="task in tasks" :key="task.id" :task="task" />
     <div key="add-button">
       <ActionButton type="add" color="white" @click="addTask" />
@@ -21,7 +21,7 @@ export default {
     };
   },
   computed: {
-    transitionName() {
+    transition() {
       return this.getTransition();
     }
   },

@@ -18,16 +18,7 @@
           />
         </section>
         <SectionSeperator />
-        <TransitionGroup class="challenge-editor__wrapper" :name="transition">
-          <EditorChallengeContent key="content" />
-          <EditorSubmitButton key="submit-button" />
-          <BaseSpinner key="spinner" v-if="submitting" />
-          <ErrorMessage
-            key="error-message"
-            v-if="errorSubmitting"
-            :error="errorSubmitting"
-          />
-        </TransitionGroup>
+        <EditorMainArea />
         <EditorFloatingButtons />
         <EditorNotifications />
       </div>
@@ -109,11 +100,13 @@ export default {
       autoSave: {
         timeout: null,
         date: null,
-        saving: false,
+        loading: false,
         error: false
       },
-      submitting: false,
-      errorSubmitting: null,
+      submit: {
+        loading: false,
+        error: null
+      },
       showIntroModal: false,
       transition: "task"
     };
@@ -214,38 +207,38 @@ export default {
     },
     validateData() {
       if (!this.name) {
-        this.errorSubmitting = "Challenge name can't be empty";
+        this.submit.error = "Challenge name can't be empty";
         return false;
       }
       if (!this.language) {
-        this.errorSubmitting = "Please choose a language for the template";
+        this.submit.error = "Please choose a language for the template";
         return false;
       }
       for (let day of this.options) {
         if (!day.title) {
-          this.errorSubmitting = "One or more days was left without a title";
+          this.submit.error = "One or more days were left without a title";
           return false;
         }
         if (!day.tasks.length) {
-          this.errorSubmitting = "One or more days was left empty";
+          this.submit.error = "One or more days were left empty";
           return false;
         }
         const dayIndex = this.options.indexOf(day);
         for (let task of day.tasks) {
           if (!task.options.length) {
-            this.errorSubmitting = "One or more tasks was left empty";
+            this.submit.error = "One or more tasks were left empty";
             return false;
           }
           if (!this.templateOnlyMode) {
             const taskIndex = day.tasks.indexOf(task);
             if (!this.isSelectionMatching(dayIndex, taskIndex)) {
-              this.errorSubmitting = "One or more tasks was left empty";
+              this.submit.error = "One or more tasks were left empty";
               return false;
             }
           }
         }
       }
-      this.errorSubmitting = null;
+      this.submit.error = null;
       return true;
     },
     async createNewChallenge() {
@@ -278,7 +271,7 @@ export default {
     async submitHandler() {
       if (!this.validateData()) return;
       clearTimeout(this.autoSave.timeout);
-      this.submitting = true;
+      this.submit.loading = true;
       try {
         if (this.templateOnlyMode) {
           await this.saveTemplateAndRedirect();
@@ -288,8 +281,8 @@ export default {
           await this.createNewChallenge();
         }
       } catch (error) {
-        this.errorSubmitting = error;
-        this.submitting = false;
+        this.submit.error = error;
+        this.submit.loading = false;
       }
     }
   },
@@ -332,6 +325,7 @@ export default {
       templateOnlyMode: this.templateOnlyMode,
       editedChallengeId: this.editedChallengeId,
       autoSave: this.autoSave,
+      submit: this.submit,
       getTransition: () => this.transition,
       setTransition: value => {
         this.transition = value;
@@ -341,35 +335,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-.task-leave-to,
-.task-delete-leave-to {
-  transform: translateX(100vw);
-}
-
-.challenge-editor__content[style="direction: rtl;"] {
-  .task-leave-to,
-  .task-delete-leave-to {
-    transform: translateX(-100vw);
-  }
-}
-
-.task-leave-active,
-.task-delete-leave-active {
-  transition: transform 0.5s;
-  position: absolute;
-}
-
-.task-enter-active {
-  animation: zoomIn 0.5s;
-}
-
-.task-move:not(.task-leave-active) {
-  transition: transform 0.35s;
-}
-
-.task-delete-move:not(.task-delete-leave-active) {
-  transition: transform 0.4s 0.4s;
-}
-</style>

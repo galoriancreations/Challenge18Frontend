@@ -41,7 +41,7 @@ export default {
   }
 
   @include respond(tablet) {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 
   @include respond(mobile-land) {
@@ -63,7 +63,7 @@ export default {
       }
     }
 
-    &:not(:nth-child(6n)) {
+    &:not(:nth-child(4n)) {
       @include respond(tablet) {
         border-right: 0.1rem solid #ccc;
       }
@@ -79,8 +79,8 @@ export default {
       }
     }
 
-    &:nth-child(6n + 1):nth-last-child(-n + 6),
-    &:nth-child(6n + 1):nth-last-child(-n + 6) ~ & {
+    &:nth-child(4n + 1):nth-last-child(-n + 4),
+    &:nth-child(4n + 1):nth-last-child(-n + 4) ~ & {
       @include respond(tablet) {
         border-bottom: none;
       }
@@ -153,7 +153,7 @@ export default {
 
 .challenge-editor__content[style="direction: rtl;"] .side-tabs {
   &__tab {
-    &:not(:nth-child(6n)) {
+    &:not(:nth-child(4n)) {
       border-right: none;
 
       @include respond(tablet) {
