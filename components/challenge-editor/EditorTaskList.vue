@@ -1,9 +1,7 @@
 <template>
   <TransitionGroup class="challenge-editor__tasks" :name="transition">
     <TaskForm v-for="task in tasks" :key="task.id" :task="task" />
-    <div key="add-button">
-      <ActionButton type="add" color="white" @click="addTask" />
-    </div>
+    <ActionButton key="add-button" type="add" color="white" @click="addTask" />
   </TransitionGroup>
 </template>
 
@@ -75,6 +73,7 @@ export default {
   },
   provide() {
     return {
+      selectedDayTasks: () => this.tasks,
       getEditedOption: () => this.editedOption,
       setEditedOption: this.setEditedOption,
       finishEditOption: this.finishEditOption,

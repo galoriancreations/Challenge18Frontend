@@ -1,5 +1,5 @@
 <template>
-  <div class="side-tabs">
+  <div :class="classes">
     <div v-for="tab in tabs" :key="tab.id" class="side-tabs__tab">
       <input
         type="radio"
@@ -21,7 +21,24 @@ export default {
   },
   props: {
     selectedTab: [Number, String],
-    tabs: Array
+    tabs: Array,
+    tabletCols: {
+      type: Number,
+      default: 4
+    },
+    mobileCols: {
+      type: Number,
+      default: 3
+    }
+  },
+  computed: {
+    classes() {
+      return {
+        "side-tabs": true,
+        [`side-tabs--tb-${this.tabletCols}`]: true,
+        [`side-tabs--mb-${this.mobileCols}`]: true
+      };
+    }
   }
 };
 </script>

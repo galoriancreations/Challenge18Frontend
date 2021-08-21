@@ -22,7 +22,7 @@
         {{ submitButtonText }}
       </BaseButton>
       <BaseSpinner v-if="submit.loading" />
-      <ErrorMessage :error="submit.error" />
+      <ErrorMessage v-else-if="submit.error" :error="submit.error" />
     </div>
   </TransitionGroup>
 </template>
@@ -131,7 +131,6 @@ export default {
   },
   provide() {
     return {
-      selectedDayTasks: () => this.options[this.dayIndex].tasks,
       editDayTitle: () => {
         this.dayTitleEdited = true;
       },
