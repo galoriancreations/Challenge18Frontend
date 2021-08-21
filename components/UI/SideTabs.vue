@@ -1,71 +1,55 @@
 <template>
-  <div class="challenge-editor__tabs-list">
-    <div
-      v-for="day in days"
-      :key="options[day - 1].id"
-      class="challenge-editor__tab"
-    >
+  <div class="side-tabs">
+    <div v-for="tab in tabs" :key="tab.id" class="side-tabs__tab">
       <input
         type="radio"
-        :id="`day${day}`"
-        :value="day"
-        :checked="selectedDay === day"
-        @change="$emit('change', day)"
+        :id="tab.id"
+        :value="tab.value"
+        :checked="selectedTab === tab.value"
+        @change="$emit('change', tab.value)"
       />
-      <label :for="`day${day}`">{{ dayLabel }} {{ day }}</label>
+      <label :for="tab.id">{{ tab.label }}</label>
     </div>
   </div>
 </template>
 
 <script>
-import { numbersArray } from "../../assets/util/functions";
-
 export default {
   model: {
-    prop: "selectedDay",
+    prop: "selectedTab",
     event: "change"
   },
   props: {
-    selectedDay: Number
-  },
-  inject: ["options", "getDayLabel"],
-  computed: {
-    days() {
-      return numbersArray(this.options.length);
-    },
-    dayLabel() {
-      return this.getDayLabel();
-    }
+    selectedTab: [Number, String],
+    tabs: Array
   }
 };
 </script>
 
 <style lang="scss">
-.challenge-editor {
-  &__tabs-list {
-    box-shadow: $boxshadow2;
-    display: grid;
-    grid-template-columns: 1fr;
-    overflow: hidden;
-    position: relative;
-    background-color: rgba(#eee, 0.5);
-    margin-bottom: 3.5rem;
+.side-tabs {
+  box-shadow: $boxshadow2;
+  display: grid;
+  grid-template-columns: 1fr;
+  overflow: hidden;
+  position: relative;
+  background-color: rgba(#eee, 0.5);
+  margin-bottom: 3.5rem;
 
-    @include respond(desktop) {
-      border-radius: 0.8rem;
-    }
+  @include respond(desktop) {
+    border-radius: 0.8rem;
+  }
 
-    @include respond(tablet) {
-      grid-template-columns: repeat(6, 1fr);
-    }
+  @include respond(tablet) {
+    grid-template-columns: repeat(6, 1fr);
+  }
 
-    @include respond(mobile-land) {
-      grid-template-columns: repeat(3, 1fr);
-    }
+  @include respond(mobile-land) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 
-    @include respond(mobile) {
-      margin-bottom: 3rem;
-    }
+  @include respond(mobile) {
+    margin-bottom: 3rem;
   }
 
   &__tab {
@@ -165,27 +149,27 @@ export default {
       z-index: 1;
     }
   }
+}
 
-  &__layout[style="direction: rtl;"] {
-    .challenge-editor__tab {
-      &:not(:nth-child(6n)) {
-        border-right: none;
+.challenge-editor__content[style="direction: rtl;"] .side-tabs {
+  &__tab {
+    &:not(:nth-child(6n)) {
+      border-right: none;
 
-        @include respond(tablet) {
-          border-left: 0.1rem solid #ccc;
-        }
-
-        @include respond(mobile-land) {
-          border-left: none;
-        }
+      @include respond(tablet) {
+        border-left: 0.1rem solid #ccc;
       }
 
-      &:not(:nth-child(3n)) {
-        border-right: none;
+      @include respond(mobile-land) {
+        border-left: none;
+      }
+    }
 
-        @include respond(mobile-land) {
-          border-left: 0.1rem solid #ccc;
-        }
+    &:not(:nth-child(3n)) {
+      border-right: none;
+
+      @include respond(mobile-land) {
+        border-left: 0.1rem solid #ccc;
       }
     }
   }

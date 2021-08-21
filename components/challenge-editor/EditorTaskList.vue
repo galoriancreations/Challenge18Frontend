@@ -15,12 +15,43 @@ export default {
     tasks: Array
   },
   inject: ["getTransition", "setTransition", "setConfirmModal"],
+  data() {
+    return {
+      editedOption: null
+    };
+  },
   computed: {
     transitionName() {
       return this.getTransition();
     }
   },
   methods: {
+    setEditedOption(taskId, optionId) {
+      if (this.editedOption) {
+        this.checkForEmptyOption();
+      }
+      this.editedOption = `${taskId}-${optionId}`;
+      this.setTransition(null);
+    },
+    finishEditOption() {
+      this.checkForEmptyOption();
+      this.editedOption = null;
+    },
+    checkForEmptyOption() {
+      const [taskId] = this.editedOption.split("-");
+      const task = this.tasks.find(task => task.id == taskId);
+      task.options = task.options.filter(option => !!option.text.trim());
+    },
+    finishEditOnClick(event) {
+      if (!this.editedOption) return;
+      const { classList } = event.target;
+      const isOutOfElement =
+        !classList.contains("task-form__option-button") &&
+        !classList.contains("task-form__option-edit");
+      if (isOutOfElement) {
+        this.finishEditOption();
+      }
+    },
     addTask() {
       this.tasks.push(newTask());
       this.setTransition("task");
@@ -36,8 +67,17 @@ export default {
       );
     }
   },
+  mounted() {
+    document.addEventListener("click", this.finishEditOnClick);
+  },
+  beforeDestroy() {
+    document.removeEventListener("click", this.finishEditOnClick);
+  },
   provide() {
     return {
+      getEditedOption: () => this.editedOption,
+      setEditedOption: this.setEditedOption,
+      finishEditOption: this.finishEditOption,
       deleteTask: this.deleteTask
     };
   }

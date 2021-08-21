@@ -13,4 +13,12 @@
     margin: 6rem auto;
   }
 }
+
+.challenge-editor .section-seperator {
+  margin: 8.5rem 0 9.5rem;
+
+  @include respond(mobile) {
+    margin: 6rem 0;
+  }
+}
 </style>

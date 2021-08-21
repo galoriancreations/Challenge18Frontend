@@ -80,6 +80,7 @@
 
 <script>
 import { convertTaskText, stripHTML } from "../../assets/util/functions";
+import { taskTranslations } from "../../assets/util/options";
 import uniqid from "uniqid";
 
 export default {
@@ -88,7 +89,7 @@ export default {
   },
   inject: [
     "selectedDayTasks",
-    "getTaskLabel",
+    "getLanguage",
     "deleteTask",
     "templateOnlyMode",
     "getEditedOption",
@@ -99,7 +100,8 @@ export default {
   ],
   computed: {
     taskLabel() {
-      return this.getTaskLabel();
+      const language = this.getLanguage();
+      return taskTranslations[language] || "Task";
     },
     taskIndex() {
       return this.selectedDayTasks().indexOf(this.task);

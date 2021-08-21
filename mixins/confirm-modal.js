@@ -21,7 +21,7 @@ export default {
                 this.closeAllModals();
             }
         },
-        enterKeyHandler(event) {
+        keydownHandler(event) {
             if (event.key === "Enter") {
                 event.preventDefault();
                 if (this.showConfirmModal) {
@@ -34,10 +34,10 @@ export default {
         }
     },
     mounted() {
-        document.addEventListener("keydown", this.enterKeyHandler);
+        document.addEventListener("keydown", this.keydownHandler);
     },
     beforeDestroy() {
-        document.removeEventListener("keydown", this.enterKeyHandler);
+        document.removeEventListener("keydown", this.keydownHandler);
     },
     provide() {
         return {
