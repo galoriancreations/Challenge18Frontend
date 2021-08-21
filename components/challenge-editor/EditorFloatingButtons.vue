@@ -1,27 +1,24 @@
 <template>
   <div class="challenge-editor__floating-buttons">
-    <ActionButton type="info" color="white" @click="displayIntroModal" />
+    <ActionButton type="info" color="white" @click="openIntroModal" />
     <ActionButton type="shuffle" color="white" @click="selectRandomOptions" />
   </div>
 </template>
 
 <script>
 export default {
-  inject: ["options", "displayIntroModal", "setConfirmModal"],
+  inject: ["options", "openIntroModal", "setConfirmModal"],
   methods: {
     selectRandomOptions() {
       this.setConfirmModal(
         "Do you want to select a random option for each task? All your selections would be overwritten.",
         () => {
           this.options.forEach(day => {
-            day.tasks = day.tasks.map(task => {
+            day.tasks.forEach(task => {
               const optionIndex = Math.floor(
                 Math.random() * task.options.length
               );
-              return {
-                ...task,
-                selection: task.options[optionIndex]?.text
-              };
+              task.selection = task.options[optionIndex]?.text;
             });
           });
         }

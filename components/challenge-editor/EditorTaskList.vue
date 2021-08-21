@@ -1,7 +1,9 @@
 <template>
   <TransitionGroup class="challenge-editor__tasks" :name="transition">
     <TaskForm v-for="task in tasks" :key="task.id" :task="task" />
-    <ActionButton key="add-button" type="add" color="white" @click="addTask" />
+    <div key="add" class="challenge-editor__add-task">
+      <ActionButton type="add" color="white" @click="addTask" />
+    </div>
   </TransitionGroup>
 </template>
 

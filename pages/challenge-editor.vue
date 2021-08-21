@@ -156,7 +156,7 @@ export default {
     }
   },
   methods: {
-    closeAllModals() {
+    onCloseModal() {
       this.showIntroModal = false;
     },
     async saveDraft() {
@@ -319,7 +319,7 @@ export default {
     return {
       options: this.options,
       getLanguage: () => this.language,
-      displayIntroModal: () => {
+      openIntroModal: () => {
         this.showIntroModal = true;
       },
       templateOnlyMode: this.templateOnlyMode,

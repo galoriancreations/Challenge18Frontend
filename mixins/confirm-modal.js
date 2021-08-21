@@ -17,8 +17,8 @@ export default {
         },
         closeModal() {
             this.showConfirmModal = false;
-            if (this.closeAllModals) {
-                this.closeAllModals();
+            if (this.onCloseModal) {
+                this.onCloseModal();
             }
         },
         keydownHandler(event) {
