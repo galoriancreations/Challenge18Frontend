@@ -96,7 +96,7 @@ export default {
       this.options.push({
         id: uniqid(),
         title: "",
-        tasks: [newTask(), newTask()]
+        tasks: [newTask(), newTask(), newTask()]
       });
       this.selectedDay = this.options.length;
     },

@@ -1,6 +1,11 @@
 <template>
   <div :class="classes">
-    <div v-for="tab in tabs" :key="tab.id" class="side-tabs__tab">
+    <button
+      v-for="tab in tabs"
+      :key="tab.id"
+      class="side-tabs__tab"
+      @keydown.enter="$emit('change', tab.value)"
+    >
       <input
         type="radio"
         :id="tab.id"
@@ -9,7 +14,7 @@
         @change="$emit('change', tab.value)"
       />
       <label :for="tab.id">{{ tab.label }}</label>
-    </div>
+    </button>
   </div>
 </template>
 
@@ -70,6 +75,10 @@ export default {
   }
 
   &__tab {
+    font: inherit;
+    border: none;
+    outline: none;
+
     @include respond(tablet) {
       border-bottom: 0.1rem solid #ccc;
     }
@@ -135,11 +144,12 @@ export default {
       @include respond(mobile) {
         font-size: 1.6rem;
       }
+    }
 
-      &:hover {
-        background-color: rgba($color-azure-light, 0.8);
-        z-index: 1;
-      }
+    &:hover label,
+    &:focus label {
+      background-color: rgba($color-azure-light, 0.8);
+      z-index: 1;
     }
 
     &:first-child label {
@@ -168,7 +178,7 @@ export default {
   }
 }
 
-.challenge-editor__content[style="direction: rtl;"] .side-tabs {
+*[style="direction: rtl;"] .side-tabs {
   &__tab {
     &:not(:nth-child(4n)) {
       border-right: none;

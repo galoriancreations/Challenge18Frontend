@@ -10,10 +10,10 @@
       {{ text }}
       <i v-if="dropdown" class="fas fa-chevron-down" />
     </NuxtLink>
-    <span v-else :class="linkClasses">
+    <button v-else :class="linkClasses">
       {{ text }}
       <i v-if="dropdown" class="fas fa-chevron-down" />
-    </span>
+    </button>
     <nav
       v-if="dropdown"
       class="header__nav-dropdown"
@@ -82,6 +82,7 @@ export default {
       } else {
         this.closeNav();
       }
+
       if (this.action) {
         this.action();
       }
@@ -138,12 +139,20 @@ export default {
     }
 
     a,
-    span {
+    button {
       transition: all 0.5s;
 
       &.active {
         color: $color-gold-3;
       }
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+      border: none;
+      background: none;
+      cursor: inherit;
     }
 
     i {
@@ -164,7 +173,7 @@ export default {
 
     &:hover {
       & > a,
-      & > span {
+      & > button {
         @include respond(desktop) {
           color: $color-gold-3;
         }

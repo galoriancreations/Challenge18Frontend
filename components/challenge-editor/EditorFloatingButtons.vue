@@ -1,8 +1,8 @@
 <template>
-  <div class="challenge-editor__floating-buttons">
+  <FloatingButtons>
     <ActionButton type="info" color="white" @click="openIntroModal" />
     <ActionButton type="shuffle" color="white" @click="selectRandomOptions" />
-  </div>
+  </FloatingButtons>
 </template>
 
 <script>
@@ -30,19 +30,9 @@ export default {
 
 <style lang="scss">
 .challenge-editor {
-  &__floating-buttons {
-    position: fixed;
-    bottom: 3rem;
-    right: 3rem;
-    z-index: 15;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-
-    @include respond(mobile) {
-      bottom: 1.5rem;
-      right: 1.5rem;
-      gap: 1rem;
+  .floating-buttons {
+    & > .action-button {
+      outline: none;
     }
   }
 }
