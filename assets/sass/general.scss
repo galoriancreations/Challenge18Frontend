@@ -1,0 +1,72 @@
+// GENERAL STYLES
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+
+  @include respond(desktop-lg) {
+    font-size: 11px;
+  }
+}
+
+#__nuxt {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.6rem;
+  overflow: hidden;
+  position: relative;
+  min-height: 100vh;
+
+  @include respond(mobile) {
+    font-size: 1.5rem;
+  }
+}
+
+::selection {
+  background-color: $color-gold-4;
+  color: #000;
+}
+
+// PAGE TRANSITION
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.45s;
+}
+
+.page-enter-to,
+.page-leave-from {
+  opacity: 1;
+}
+
+// TYPOGRAPHY
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Spartan", sans-serif;
+}
+
+p {
+  line-height: 1.6;
+  font-size: 1.75rem;
+
+  @include respond(mobile) {
+    line-height: 1.7;
+    font-size: 1.55rem;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

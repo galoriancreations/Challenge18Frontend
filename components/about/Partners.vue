@@ -1,7 +1,7 @@
 <template>
   <section class="partners">
     <SectionHeading :small="small">In Partnership With</SectionHeading>
-    <agile :options="swiperOptions">
+    <agile :options="sliderOptions">
       <div v-for="image in images" :key="image" class="partners__slide">
         <img class="partners__img" :src="image" />
       </div>
@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       images: [reshet, fers, hanson, hplus, tlvseed, eretzir],
-      swiperOptions: {
+      sliderOptions: {
         autoplay: true,
         autoplaySpeed: 2000,
         slidesToShow: 2,

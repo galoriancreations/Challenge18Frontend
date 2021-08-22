@@ -84,14 +84,15 @@ export default {
   },
   methods: {
     clickHandler(event) {
-      if (this.dropdown && window.innerWidth <= 1100) {
-        if (event.target.getAttribute("href") !== this.$route.path) {
-          this.dropdownOpenMobile = !this.dropdownOpenMobile;
+      if (window.innerWidth <= 1100) {
+        if (this.dropdown) {
+          if (event.target.getAttribute("href") !== this.$route.path) {
+            this.dropdownOpenMobile = !this.dropdownOpenMobile;
+          }
+        } else {
+          this.closeNav();
         }
-      } else {
-        this.closeNav();
       }
-
       if (this.action) {
         this.action();
       }
@@ -103,6 +104,12 @@ export default {
     },
     closeDropdownOnDesktop() {
       this.dropdownOpenDesktop = false;
+    },
+    adjustDropdownOnResize() {
+      if (window.innerWidth > 1100) {
+        this.dropdownMaxHeight = null;
+        this.dropdownOpenMobile = false;
+      }
     }
   },
   watch: {
@@ -118,13 +125,10 @@ export default {
     if (this.dropdown && this.hasActiveSubitem) {
       this.dropdownOpenMobile = true;
     }
-
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 1100) {
-        this.dropdownMaxHeight = null;
-        this.dropdownOpenMobile = false;
-      }
-    });
+    window.addEventListener("resize", this.adjustDropdownOnResize);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.adjustDropdownOnResize);
   }
 };
 </script>

@@ -17,12 +17,13 @@
 
 <script>
 import testimonials from "../../assets/data/testimonials";
-import Testimonial from "../UI/Testimonial";
+import Testimonial from "./Testimonial";
 
 export default {
   components: { Testimonial },
   data() {
     return {
+      testimonials,
       sliderOptions: {
         navButtons: false,
         dots: false,
@@ -34,8 +35,7 @@ export default {
             }
           }
         ]
-      },
-      testimonials
+      }
     };
   },
   mounted() {

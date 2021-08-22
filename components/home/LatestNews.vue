@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import articles from "@/assets/data/articles";
+import articles from "../../assets/data/articles";
 import NewsItem from "../UI/NewsItem";
 
 export default {
