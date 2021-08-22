@@ -1,5 +1,12 @@
 <template>
-  <li :class="classes" @click="clickHandler">
+  <li
+    :class="classes"
+    @click="clickHandler"
+    @mouseenter="openDropdownOnDesktop"
+    @mouseleave="closeDropdownOnDesktop"
+    @keydown.enter="openDropdownOnDesktop"
+    @keydown.esc="closeDropdownOnDesktop"
+  >
     <NuxtLink
       v-if="link"
       :to="link"
@@ -49,6 +56,7 @@ export default {
   inject: ["closeNav"],
   data() {
     return {
+      dropdownOpenDesktop: false,
       dropdownOpenMobile: false,
       dropdownMaxHeight: 0
     };
@@ -58,7 +66,8 @@ export default {
       return {
         "header__nav-item": true,
         reverse: this.reverse,
-        open: this.dropdownOpenMobile
+        "open-desktop": this.dropdownOpenDesktop,
+        "open-mobile": this.dropdownOpenMobile
       };
     },
     linkClasses() {
@@ -75,7 +84,7 @@ export default {
   },
   methods: {
     clickHandler(event) {
-      if (this.dropdown) {
+      if (this.dropdown && window.innerWidth <= 1100) {
         if (event.target.getAttribute("href") !== this.$route.path) {
           this.dropdownOpenMobile = !this.dropdownOpenMobile;
         }
@@ -86,6 +95,14 @@ export default {
       if (this.action) {
         this.action();
       }
+    },
+    openDropdownOnDesktop() {
+      if (window.innerWidth > 1100) {
+        this.dropdownOpenDesktop = true;
+      }
+    },
+    closeDropdownOnDesktop() {
+      this.dropdownOpenDesktop = false;
     }
   },
   watch: {
@@ -121,6 +138,7 @@ export default {
     color: #fff;
     cursor: pointer;
     position: relative;
+    background-color: unset !important;
 
     &:first-child {
       display: none;
@@ -171,7 +189,8 @@ export default {
       padding: 1rem 4rem;
     }
 
-    &:hover {
+    &:hover,
+    &.open-desktop {
       & > a,
       & > button {
         @include respond(desktop) {
@@ -214,7 +233,7 @@ export default {
     transition: all 0.5s 0.1s;
   }
 
-  &__nav-item:hover &__nav-dropdown {
+  &__nav-item.open-desktop &__nav-dropdown {
     @include respond(desktop) {
       visibility: visible;
       opacity: 1;
@@ -281,7 +300,7 @@ export default {
         width: 20rem;
       }
 
-      &.open {
+      &.open-mobile {
         i {
           transform: rotate(180deg);
         }
