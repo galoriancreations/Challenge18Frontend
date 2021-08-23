@@ -1,20 +1,18 @@
 <template>
   <Page title="Login" name="login">
-    <WhiteSection tag="main">
-      <LoginForm />
-      <SectionSeperator />
-      <div class="auth-switch">
-        <p class="auth-switch__text">Don't have an account yet?</p>
-        <div class="auth-switch__links">
-          <BaseButton link="/register" variant="blue">
-            Register for free
-          </BaseButton>
-          <BaseButton link="/membership" variant="gold">
-            Become a member
-          </BaseButton>
-        </div>
+    <LoginForm />
+    <SectionSeperator />
+    <div class="auth-switch">
+      <p class="auth-switch__text">Don't have an account yet?</p>
+      <div class="auth-switch__links">
+        <BaseButton link="/register" variant="blue">
+          Register for free
+        </BaseButton>
+        <BaseButton link="/membership" variant="gold">
+          Become a member
+        </BaseButton>
       </div>
-    </WhiteSection>
+    </div>
   </Page>
 </template>
 

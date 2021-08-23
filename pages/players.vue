@@ -1,10 +1,8 @@
 <template>
   <Page title="Players" name="players">
-    <WhiteSection class="players">
-      <div class="players__grid">
-        <Player v-for="player in players" :key="player.name" :player="player" />
-      </div>
-    </WhiteSection>
+    <div class="players__grid">
+      <Player v-for="player in players" :key="player.name" :player="player" />
+    </div>
   </Page>
 </template>
 

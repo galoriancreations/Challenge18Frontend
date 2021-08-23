@@ -1,28 +1,26 @@
 <template>
   <Page title="Challenge Editor" name="challenge-editor">
-    <WhiteSection tag="main" class="challenge-editor">
-      <ErrorMessage v-if="errorLoading" :error="errorLoading" />
-      <div v-else class="challenge-editor__container">
-        <EditorIntroModal :active="showIntroModal" />
-        <ConfirmModal
-          :active="showConfirmModal"
-          :text="confirmText"
-          @confirm="confirmAction"
+    <ErrorMessage v-if="errorLoading" :error="errorLoading" />
+    <div v-else class="challenge-editor__container">
+      <EditorIntroModal :active="showIntroModal" />
+      <ConfirmModal
+        :active="showConfirmModal"
+        :text="confirmText"
+        @confirm="confirmAction"
+      />
+      <section class="challenge-editor__top">
+        <ChallengeNameField v-model.trim="name" />
+        <ChallengeLanguageField v-model="language" />
+        <TemplateAvailabilityField
+          v-if="showVisibilitySelector"
+          v-model="isTemplatePublic"
         />
-        <section class="challenge-editor__top">
-          <ChallengeNameField v-model.trim="name" />
-          <ChallengeLanguageField v-model="language" />
-          <TemplateAvailabilityField
-            v-if="showVisibilitySelector"
-            v-model="isTemplatePublic"
-          />
-        </section>
-        <SectionSeperator />
-        <EditorMainArea />
-        <EditorFloatingButtons />
-        <EditorNotifications />
-      </div>
-    </WhiteSection>
+      </section>
+      <SectionSeperator />
+      <EditorMainArea />
+      <EditorFloatingButtons />
+      <EditorNotifications />
+    </div>
   </Page>
 </template>
 

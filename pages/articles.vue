@@ -1,14 +1,12 @@
 <template>
-  <Page title="Articles" name="blog">
-    <WhiteSection tag="main" class="articles">
-      <div class="articles__grid">
-        <NewsItem
-          v-for="article in articles"
-          :key="article.link"
-          :article="article"
-        />
-      </div>
-    </WhiteSection>
+  <Page title="Articles" name="articles">
+    <div class="articles__grid">
+      <NewsItem
+        v-for="article in articles"
+        :key="article.link"
+        :article="article"
+      />
+    </div>
   </Page>
 </template>
 

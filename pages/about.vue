@@ -1,15 +1,13 @@
 <template>
   <Page title="About Us" name="about">
-    <WhiteSection tag="main" class="about">
-      <ImageWithText
-        tag="section"
-        :image="{ src: mainImg, alt: 'Challenge 18 players' }"
-        :text="aboutText"
-        :button="{ link: '/membership', variant: 'gold', text: 'Join Us' }"
-      />
-      <Partners small />
-      <TeamSection v-for="team in teams" :key="team.title" v-bind="team" />
-    </WhiteSection>
+    <ImageWithText
+      tag="section"
+      :image="{ src: mainImg, alt: 'Challenge 18 players' }"
+      :text="aboutText"
+      :button="{ link: '/membership', variant: 'gold', text: 'Join Us' }"
+    />
+    <Partners small />
+    <TeamSection v-for="team in teams" :key="team.title" v-bind="team" />
   </Page>
 </template>
 

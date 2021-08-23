@@ -1,44 +1,42 @@
 <template>
-  <Page title="Player" name="Player Page">
-    <WhiteSection>
-      <div class="player">
-        <div class="player__info">
-          <figure class="player__image">
-            <img
-              data-v-518008fc=""
-              src="https://i.imgur.com/MIwbEJr.jpg"
-              alt="Nadia Hassona"
-            />
-            <figcaption class="player__title title">Nadia Hassona</figcaption>
-          </figure>
-          <div class="player__caption">
-            <p><strong>State:</strong> Israel</p>
-            <p><strong>Club:</strong> Eroni Yud-Bet</p>
-            <p><strong>Score:</strong> 1239</p>
-          </div>
+  <Page title="Player" name="player-page">
+    <div class="player">
+      <div class="player__info">
+        <figure class="player__image">
+          <img
+            data-v-518008fc=""
+            src="https://i.imgur.com/MIwbEJr.jpg"
+            alt="Nadia Hassona"
+          />
+          <figcaption class="player__title title">Nadia Hassona</figcaption>
+        </figure>
+        <div class="player__caption">
+          <p><strong>State:</strong> Israel</p>
+          <p><strong>Club:</strong> Eroni Yud-Bet</p>
+          <p><strong>Score:</strong> 1239</p>
         </div>
-        <div class="player__skills">
-          <div class="skills__title title">Tittle</div>
-          <div class="skills__text">
-            <div class="skill__container">
-              <strong>Technologist: </strong><span class="skill"></span>
-            </div>
-            <div class="skill__container">
-              <strong>Influencer: </strong><span class="skill"></span>
-            </div>
-            <div class="skill__container">
-              <strong>Mentor: </strong><span class="skill"></span>
-            </div>
-            <div class="skill__container">
-              <strong>Referee: </strong><span class="skill"></span>
-            </div>
-            <div class="skill__container">
-              <strong>Ideator: </strong><span class="skill"></span>
-            </div>
+      </div>
+      <div class="player__skills">
+        <div class="skills__title title">Tittle</div>
+        <div class="skills__text">
+          <div class="skill__container">
+            <strong>Technologist: </strong><span class="skill"></span>
+          </div>
+          <div class="skill__container">
+            <strong>Influencer: </strong><span class="skill"></span>
+          </div>
+          <div class="skill__container">
+            <strong>Mentor: </strong><span class="skill"></span>
+          </div>
+          <div class="skill__container">
+            <strong>Referee: </strong><span class="skill"></span>
+          </div>
+          <div class="skill__container">
+            <strong>Ideator: </strong><span class="skill"></span>
           </div>
         </div>
       </div>
-    </WhiteSection>
+    </div>
   </Page>
 </template>
 

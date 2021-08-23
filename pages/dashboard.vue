@@ -1,13 +1,11 @@
 <template>
   <Page title="Dashboard" name="dashboard">
-    <WhiteSection tag="main" class="dashboard">
-      <AccountDetails />
-      <ClubPlayers v-if="isOrganization" />
-      <MyChallenges />
-      <PublicTemplates v-if="isAdmin" />
-      <MyTemplates v-if="isOrgnization || isAdmin" />
-      <MyDrafts v-if="isOrgnization || isAdmin" />
-    </WhiteSection>
+    <AccountDetails />
+    <ClubPlayers v-if="isOrganization" />
+    <MyChallenges />
+    <PublicTemplates v-if="isAdmin" />
+    <MyTemplates v-if="isOrgnization || isAdmin" />
+    <MyDrafts v-if="isOrgnization || isAdmin" />
     <ConfirmModal
       :active="showConfirmModal"
       :text="confirmText"

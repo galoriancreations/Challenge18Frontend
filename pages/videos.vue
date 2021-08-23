@@ -1,17 +1,15 @@
 <template>
   <Page title="Videos" name="videos">
-    <WhiteSection tag="main" class="videos">
-      <p class="videos__intro">
-        Watch some of our players and participants talk about the Challenge 18
-        project, what it means to them and how they benefited from it.
-      </p>
-      <div class="videos__seperator" />
-      <section class="videos__grid">
-        <div v-for="videoId in videos" :key="videoId" class="videos__item">
-          <youtube :videoId="videoId" />
-        </div>
-      </section>
-    </WhiteSection>
+    <p class="videos__intro">
+      Watch some of our players and participants talk about the Challenge 18
+      project, what it means to them and how they benefited from it.
+    </p>
+    <div class="videos__seperator" />
+    <section class="videos__grid">
+      <div v-for="videoId in videos" :key="videoId" class="videos__item">
+        <youtube :videoId="videoId" />
+      </div>
+    </section>
   </Page>
 </template>
 

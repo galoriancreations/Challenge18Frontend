@@ -41,7 +41,9 @@ export default {
         {
           text: "About",
           dropdown: [
+            { link: "/how-to-play", text: "How to Play" },
             { link: "/about", text: "Abous Us" },
+            { link: "/why-challenge-18", text: "Why Challenge 18" },
             { link: "/what-we-do", text: "What We Do" },
             { link: "/articles", text: "Articles" },
             { link: "/videos", text: "Videos" }

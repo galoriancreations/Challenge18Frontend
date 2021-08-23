@@ -1,16 +1,14 @@
 <template>
   <Page title="Contact Us" name="contact">
-    <WhiteSection class="contact">
-      <SectionHeading small>Get In Touch</SectionHeading>
-      <p class="contact__text">
-        Have a question about our project? Need assistance or encountering an
-        issue? Interested in collaborating? Leave us a message and we'll get
-        back to you as soon as we can.
-      </p>
-      <ContactForm />
-      <BaseSpinner v-if="sending" />
-      <ContactModal :active="showModal" :error="error" />
-    </WhiteSection>
+    <SectionHeading small>Get In Touch</SectionHeading>
+    <p class="contact__text">
+      Have a question about our project? Need assistance or encountering an
+      issue? Interested in collaborating? Leave us a message and we'll get back
+      to you as soon as we can.
+    </p>
+    <ContactForm />
+    <BaseSpinner v-if="sending" />
+    <ContactModal :active="showModal" :error="error" />
   </Page>
 </template>
 

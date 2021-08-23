@@ -1,5 +1,5 @@
 <template>
-  <Page title="Scores" name="scores">
+  <Page title="Scores" name="scores" :mainSection="false">
     <TeamResults />
   </Page>
 </template>

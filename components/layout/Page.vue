@@ -2,7 +2,10 @@
   <div class="page">
     <TheHeader />
     <PageHeading v-if="showHeading" />
-    <slot />
+    <WhiteSection v-if="mainSection" tag="main" :class="name">
+      <slot />
+    </WhiteSection>
+    <slot v-else />
     <TheFooter />
   </div>
 </template>
@@ -13,6 +16,10 @@ export default {
     title: String,
     name: String,
     showHeading: {
+      type: Boolean,
+      default: true
+    },
+    mainSection: {
       type: Boolean,
       default: true
     }

@@ -57,7 +57,7 @@ export default {
       url(../../assets/images/about-bg.jpg);
   }
 
-  &#blog {
+  &#articles {
     background-image: linear-gradient(
         to right,
         rgba(#4189bd, 0.85),

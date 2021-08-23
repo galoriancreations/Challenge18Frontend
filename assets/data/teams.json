@@ -72,6 +72,11 @@
                 "name": "Marcelo Sternberg",
                 "image": "sternberg.jpeg",
                 "description": "Professor, Ecology, School of Plant Sciences & Food Security, Tel Aviv University."
+            },
+            {
+                "name": "Adi Shmorak",
+                "image": "adi.jpeg",
+                "description": "Product executive and strategist, guiding entrepreneurs on their journey to Product/Market Fit. Works with multiple impact organizations, set to improve our world through education."
             }
         ]
     },
