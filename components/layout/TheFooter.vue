@@ -73,7 +73,7 @@ export default {
 <style lang="scss">
 .footer {
   background-color: $color-blue-2;
-  background-image: url(../../assets/images/Kissing-Silhouette.svg);
+  background-image: url(../../assets/images/backgrounds/Kissing-Silhouette.svg);
   background-size: cover;
   background-position: center;
   color: #fff;

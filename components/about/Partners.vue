@@ -63,9 +63,17 @@ export default {
   }
 }
 
-.about .partners {
-  .section-heading {
-    margin-bottom: 5rem;
+.about {
+  .partners {
+    margin: 9.5rem 0 8.5rem;
+
+    @include respond(mobile) {
+      margin: 7rem 0 5.5rem;
+    }
+
+    .section-heading {
+      margin-bottom: 5rem;
+    }
   }
 }
 </style>

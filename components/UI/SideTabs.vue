@@ -178,7 +178,7 @@ export default {
   }
 }
 
-*[style="direction: rtl;"] .side-tabs {
+[style="direction: rtl;"] .side-tabs {
   &__tab {
     &:not(:nth-child(4n)) {
       border-right: none;

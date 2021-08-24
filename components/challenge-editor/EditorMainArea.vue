@@ -168,6 +168,8 @@ export default {
 
   &__submit-wrapper {
     margin-top: 9rem;
+    position: relative;
+    z-index: 5;
 
     @include respond(mobile) {
       margin-top: 6rem;
@@ -184,12 +186,20 @@ export default {
 .task-leave-to,
 .task-delete-leave-to {
   transform: translateX(100vw);
+
+  @include respond(mobile) {
+    transform: translateX(150vw);
+  }
 }
 
-.challenge-editor__content[style="direction: rtl;"] {
+[style="direction: rtl;"] {
   .task-leave-to,
   .task-delete-leave-to {
     transform: translateX(-100vw);
+
+    @include respond(mobile) {
+      transform: translateX(-150vw);
+    }
   }
 }
 

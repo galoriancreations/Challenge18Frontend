@@ -178,6 +178,9 @@ export default {
       this.templateId = templateId;
     },
     autoSaveData() {
+      if (this.submit.error) {
+        this.validateData();
+      }
       clearTimeout(this.autoSave.timeout);
       this.autoSave.timeout = setTimeout(async () => {
         this.autoSave.saving = true;

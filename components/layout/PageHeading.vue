@@ -36,7 +36,7 @@ export default {
         rgba(#4189bd, 0.85),
         rgba(#4189bd, 0.85)
       ),
-      url(../../assets/images/scores-bg.jpg);
+      url(../../assets/images/backgrounds/scores-bg.jpg);
   }
 
   &#what-we-do {
@@ -45,7 +45,7 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/images/what-we-do-bg.jpg);
+      url(../../assets/images/backgrounds/what-we-do-bg.jpg);
   }
 
   &#about {
@@ -54,7 +54,13 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/images/about-bg.jpg);
+      url(../../assets/images/backgrounds/about-bg.jpg);
+  }
+
+  &#why-challenge-18 {
+  }
+
+  &#how-to-play {
   }
 
   &#articles {
@@ -63,7 +69,7 @@ export default {
         rgba(#4189bd, 0.85),
         rgba(#4189bd, 0.85)
       ),
-      url(../../assets/images/blog-2-bg.jpg);
+      url(../../assets/images/backgrounds/blog-2-bg.jpg);
   }
 
   &#videos {
@@ -72,7 +78,7 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/images/videos-bg.jpg);
+      url(../../assets/images/backgrounds/videos-bg.jpg);
   }
 
   &#players {
@@ -81,7 +87,7 @@ export default {
         rgba(#4189bd, 0.85),
         rgba(#4189bd, 0.85)
       ),
-      url(../../assets/images/players-bg.jpg);
+      url(../../assets/images/backgrounds/players-bg.jpg);
   }
 
   &#contact {
@@ -90,7 +96,7 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/images/contact-2-bg.jpg);
+      url(../../assets/images/backgrounds/contact-2-bg.jpg);
     background-position-y: bottom;
     background-position-x: 10%;
 
@@ -105,7 +111,7 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/images/login-bg.jpg);
+      url(../../assets/images/backgrounds/login-bg.jpg);
   }
 
   &#register {
@@ -114,7 +120,7 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/images/register-bg.jpg);
+      url(../../assets/images/backgrounds/register-bg.jpg);
   }
 
   &#membership {
@@ -123,7 +129,7 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/images/membership-bg.jpeg);
+      url(../../assets/images/backgrounds/membership-bg.jpeg);
   }
 
   &#dashboard {
@@ -132,7 +138,7 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/images/membership-bg.jpeg);
+      url(../../assets/images/backgrounds/membership-bg.jpeg);
   }
 
   &#challenge-editor {
@@ -141,7 +147,7 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/images/challenge-editor-bg.jpeg);
+      url(../../assets/images/backgrounds/challenge-editor-bg.jpeg);
   }
 
   &#notfound {
@@ -150,7 +156,7 @@ export default {
         rgba(#4189bd, 0.6),
         rgba(#4189bd, 0.6)
       ),
-      url(../../assets/images/404-bg.jpg);
+      url(../../assets/images/backgrounds/404-bg.jpg);
   }
 
   &__heading {
