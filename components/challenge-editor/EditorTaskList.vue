@@ -84,3 +84,12 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.challenge-editor {
+  &__add-task {
+    position: relative;
+    z-index: 5;
+  }
+}
+</style>

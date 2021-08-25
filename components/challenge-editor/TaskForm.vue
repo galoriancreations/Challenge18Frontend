@@ -95,8 +95,10 @@
 import { convertTaskText, stripHTML } from "../../assets/util/functions";
 import { taskTranslations } from "../../assets/util/options";
 import uniqid from "uniqid";
+import NumberInput from "@chenfengyuan/vue-number-input";
 
 export default {
+  components: { NumberInput },
   props: {
     task: Object
   },
@@ -416,20 +418,6 @@ export default {
       border-color: $color-azure;
     }
   }
-
-  // .vue-numeric-input {
-  //   display: block;
-  //   margin: auto;
-  //   margin-bottom: 2rem;
-
-  //   * {
-  //     font: inherit;
-  //   }
-
-  //   .btn-icon {
-  //     font-size: 1.8rem !important;
-  //   }
-  // }
 }
 
 [style="direction: rtl;"] {
