@@ -13,6 +13,19 @@
         <IconButton type="delete" @click="deleteTask(taskIndex)" />
       </div>
     </div>
+    <div class="task-form__points-selector">
+      <label>Awarded points</label>
+      <NumberInput
+        v-model="task.points"
+        :min="1"
+        :max="18"
+        :center="true"
+        size="large"
+        :disabled="!task.isBonus"
+        inline
+        controls
+      />
+    </div>
     <div
       v-for="(option, optionIndex) in task.options"
       :key="option.id"
@@ -119,6 +132,9 @@ export default {
       }
       return title;
     },
+    isBonus() {
+      return this.task.isBonus;
+    },
     optionInput() {
       if (!this.editedOption) return;
       const [taskId, optionId] = this.editedOption.split("-");
@@ -163,6 +179,14 @@ export default {
     }
   },
   watch: {
+    taskIndex(value) {
+      if (!this.task.isBonus) {
+        this.task.points = value + 1;
+      }
+    },
+    isBonus(value) {
+      this.task.points = value ? 5 : this.taskIndex + 1;
+    },
     editedOption(value) {
       if (value) {
         setTimeout(() => this.optionInput?.focus(), 10);
@@ -195,8 +219,17 @@ export default {
   &__top {
     margin-bottom: 2.5rem;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+  }
+
+  &__title {
+    color: $color-blue-2;
+    font-size: 2.8rem;
+
+    @include respond(mobile) {
+      font-size: 2.2rem;
+    }
   }
 
   &__top-icons {
@@ -216,12 +249,51 @@ export default {
     visibility: visible;
   }
 
-  &__title {
-    color: $color-blue-2;
-    font-size: 2.8rem;
+  &__points-selector {
+    text-align: center;
+    margin-bottom: 2.5rem;
 
-    @include respond(mobile) {
-      font-size: 2.2rem;
+    label {
+      display: block;
+      text-align: center;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      cursor: initial;
+    }
+
+    .number-input {
+      input {
+        font-family: inherit;
+        font-size: 1.6rem !important;
+
+        @include respond(mobile) {
+          font-size: 1.5rem !important;
+        }
+      }
+
+      button {
+        &:not(:disabled) {
+          cursor: pointer;
+        }
+
+        &::before {
+          height: 1px !important;
+          width: 1.45rem !important;
+
+          @include respond(mobile) {
+            width: 1.4rem !important;
+          }
+        }
+
+        &::after {
+          height: 1.45rem !important;
+          width: 1px !important;
+
+          @include respond(mobile) {
+            height: 1.4rem !important;
+          }
+        }
+      }
     }
   }
 
@@ -344,9 +416,23 @@ export default {
       border-color: $color-azure;
     }
   }
+
+  // .vue-numeric-input {
+  //   display: block;
+  //   margin: auto;
+  //   margin-bottom: 2rem;
+
+  //   * {
+  //     font: inherit;
+  //   }
+
+  //   .btn-icon {
+  //     font-size: 1.8rem !important;
+  //   }
+  // }
 }
 
-.challenge-editor__layout[style="direction: rtl;"] {
+[style="direction: rtl;"] {
   .task-form__option-actions {
     right: initial;
     left: 0;

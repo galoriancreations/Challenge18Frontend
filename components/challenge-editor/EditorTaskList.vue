@@ -53,7 +53,7 @@ export default {
       }
     },
     addTask() {
-      this.tasks.push(newTask());
+      this.tasks.push(newTask(this.tasks.length));
       this.setTransition("task");
     },
     deleteTask(taskIndex) {

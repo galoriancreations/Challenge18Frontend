@@ -1,9 +1,7 @@
 <template>
   <Page :title="title" name="notfound">
-    <WhiteSection tag="main" class="notfound">
-      <p>{{ text }}</p>
-      <BaseButton variant="blue" link="/">Go to homepage</BaseButton>
-    </WhiteSection>
+    <p>{{ text }}</p>
+    <BaseButton variant="blue" link="/">Go to homepage</BaseButton>
   </Page>
 </template>
 

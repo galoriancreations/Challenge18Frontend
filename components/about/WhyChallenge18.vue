@@ -7,10 +7,7 @@
       </div>
       <div class="why-challenge-18__content">
         <div class="why-challenge-18__text">
-          <img
-            class="testimonial__icon"
-            src="../../assets/images/icon-quotes.svg"
-          />
+          <img src="../../assets/images/icon-quotes.svg" />
           <div class="why-challenge-18__text-content">
             <p>
               The problem is that there is a global crisis for all of humanity
@@ -75,6 +72,7 @@
       height: 29vw;
       min-height: 39rem;
       max-height: 42rem;
+      box-shadow: $boxshadow2;
 
       @include respond(tablet-land) {
         height: 65vw;

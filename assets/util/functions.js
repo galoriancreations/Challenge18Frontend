@@ -49,7 +49,7 @@ export const initialOptions = (options = emptyDays()) =>
   options.map(day => ({
     ...day,
     id: day.id || uniqid(),
-    tasks: day.tasks.map(task => ({
+    tasks: day.tasks.map((task, taskIndex) => ({
       ...task,
       id: task.id || uniqid(),
       options: task.options.map(option => ({
@@ -57,6 +57,7 @@ export const initialOptions = (options = emptyDays()) =>
         id: option.id || uniqid()
       })),
       selection: task.selection || task.options[0]?.text,
+      points: task.points || taskIndex + 1,
       extraInput: task.extraInput || ""
     }))
   }));
@@ -75,11 +76,12 @@ export const convertTaskText = text => {
   return chars.join("");
 };
 
-export const newTask = () => ({
+export const newTask = index => ({
   id: uniqid(),
   options: [],
   isBonus: false,
   selection: null,
+  points: index + 1,
   extraInput: ""
 });
 

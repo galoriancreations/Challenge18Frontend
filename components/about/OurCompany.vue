@@ -2,7 +2,6 @@
   <section class="our-company">
     <SectionHeading small>Our Company</SectionHeading>
     <ImageWithText
-      tag="section"
       :image="{ src: mainImg, alt: 'Challenge 18 players' }"
       :text="aboutText"
       :button="{ link: '/membership', variant: 'gold', text: 'Join Us' }"
