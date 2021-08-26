@@ -1,8 +1,8 @@
 <template>
-  <NuxtLink to="/">
+  <NuxtLink to="/" class="header__nav-link">
     <img
       class="logo"
-      src="../../assets/images/logo18-1.png"
+      src="../../assets/images/new-logo.png"
       @click="closeNav"
     />
   </NuxtLink>
@@ -16,20 +16,21 @@ export default {
 
 <style lang="scss">
 .logo {
-  height: 10rem;
+  height: 8.5rem;
   width: auto;
-  transition: height 0.5s;
+  transition: all 0.5s;
 
   @include respond(mobile) {
-    height: 8rem;
+    height: 6.5rem;
+    transition: all 0.3s;
   }
 }
 
 .header.sticky .logo {
-  height: 7rem;
+  height: 6.25rem;
 
   @include respond(mobile) {
-    height: 6rem;
+    height: 5.25rem;
   }
 }
 </style>

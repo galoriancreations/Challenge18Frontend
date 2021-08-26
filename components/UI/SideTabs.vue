@@ -29,7 +29,7 @@ export default {
     tabs: Array,
     tabletCols: {
       type: Number,
-      default: 4
+      default: 6
     },
     mobileCols: {
       type: Number,
@@ -38,11 +38,11 @@ export default {
   },
   computed: {
     classes() {
-      return {
-        "side-tabs": true,
-        [`side-tabs--tb-${this.tabletCols}`]: true,
-        [`side-tabs--mb-${this.mobileCols}`]: true
-      };
+      return [
+        "side-tabs",
+        `side-tabs--tablet-${this.tabletCols}`,
+        `side-tabs--mobile-${this.mobileCols}`
+      ];
     }
   }
 };
@@ -63,7 +63,7 @@ export default {
   }
 
   @include respond(tablet) {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
   }
 
   @include respond(mobile-land) {
@@ -89,7 +89,7 @@ export default {
       }
     }
 
-    &:not(:nth-child(4n)) {
+    &:not(:nth-child(6n)) {
       @include respond(tablet) {
         border-right: 0.1rem solid #ccc;
       }
@@ -105,8 +105,8 @@ export default {
       }
     }
 
-    &:nth-child(4n + 1):nth-last-child(-n + 4),
-    &:nth-child(4n + 1):nth-last-child(-n + 4) ~ & {
+    &:nth-child(6n + 1):nth-last-child(-n + 6),
+    &:nth-child(6n + 1):nth-last-child(-n + 6) ~ & {
       @include respond(tablet) {
         border-bottom: none;
       }
@@ -180,7 +180,7 @@ export default {
 
 [style="direction: rtl;"] .side-tabs {
   &__tab {
-    &:not(:nth-child(4n)) {
+    &:not(:nth-child(6n)) {
       border-right: none;
 
       @include respond(tablet) {

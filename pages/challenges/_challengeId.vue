@@ -9,9 +9,7 @@ export default {
       const { challenge } = await $axios.$post("/api", {
         getChallengeData: route.params.challengeId
       });
-      return {
-        challenge
-      };
+      return { challenge };
     } catch (err) {
       error(err);
     }

@@ -1,7 +1,9 @@
 <template>
-  <Page :title="title" name="notfound">
-    <p>{{ text }}</p>
-    <BaseButton variant="blue" link="/">Go to homepage</BaseButton>
+  <Page :title="title" name="error-page">
+    <p class="error-page__text">{{ errorText }}</p>
+    <BaseButton variant="blue" @click="buttonAction">
+      {{ buttonText }}
+    </BaseButton>
   </Page>
 </template>
 
@@ -10,27 +12,37 @@ export default {
   props: {
     error: null
   },
-  data() {
-    return {
-      title:
-        this.error.statusCode === 404 ? "Page Not Found" : "An Error Occured",
-      text:
-        this.error.statusCode === 404
-          ? "The page you're looking for does not exist."
-          : this.error.message || "Something went wrong."
-    };
+  computed: {
+    title() {
+      return this.error.statusCode === 404
+        ? "Page Not Found"
+        : "An Error Occured";
+    },
+    errorText() {
+      return this.error.statusCode === 404
+        ? "The page you're looking for does not exist."
+        : this.error.message || "Something went wrong.";
+    },
+    buttonText() {
+      return this.error.statusCode === 404 ? "Go to homepage" : "Go back";
+    },
+    buttonAction() {
+      return this.error.statusCode === 404
+        ? () => this.$router.push("/")
+        : () => this.$router.back();
+    }
   }
 };
 </script>
 
 <style lang="scss">
-.notfound {
+.error-page {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 
-  p {
+  &__text {
     font-size: 2rem;
     font-weight: 500;
     text-align: center;

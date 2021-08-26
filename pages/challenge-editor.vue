@@ -1,40 +1,41 @@
 <template>
   <Page title="Challenge Editor" name="challenge-editor">
-    <ErrorMessage v-if="errorLoading" :error="errorLoading" />
-    <div v-else class="challenge-editor__container">
-      <EditorIntroModal :active="showIntroModal" />
-      <ConfirmModal
-        :active="showConfirmModal"
-        :text="confirmText"
-        @confirm="confirmAction"
+    <EditorIntroModal :active="showIntroModal" />
+    <ConfirmModal
+      :active="showConfirmModal"
+      :text="confirmText"
+      @confirm="confirmAction"
+    />
+    <section class="challenge-editor__top">
+      <ChallengeNameField v-model.trim="name" />
+      <ChallengeLanguageField v-model="language" />
+      <TemplateAvailabilityField
+        v-if="showVisibilitySelector"
+        v-model="isTemplatePublic"
       />
-      <section class="challenge-editor__top">
-        <ChallengeNameField v-model.trim="name" />
-        <ChallengeLanguageField v-model="language" />
-        <TemplateAvailabilityField
-          v-if="showVisibilitySelector"
-          v-model="isTemplatePublic"
-        />
-      </section>
-      <SectionSeperator />
-      <EditorMainArea />
-      <EditorFloatingButtons />
-      <EditorNotifications />
-    </div>
+    </section>
+    <SectionSeperator />
+    <EditorMainArea />
+    <EditorFloatingButtons />
+    <EditorNotifications />
   </Page>
 </template>
 
 <script>
-import { initialOptions, clearedOptions } from "../assets/util/functions";
+import {
+  initialOptions,
+  clearedOptions,
+  isSelectionMatching
+} from "../assets/util/functions";
 import confirmModal from "../mixins/confirm-modal";
 
 export default {
   mixins: [confirmModal],
-  // meta: {
-  //   requiresAuth: true,
-  //   forOrganizations: true
-  // },
-  async asyncData({ app, store, $axios }) {
+  meta: {
+    requiresAuth: true,
+    forOrganizations: true
+  },
+  async asyncData({ app, store, $axios, error }) {
     try {
       const { draftId, challengeId, selectedTemplate } = app.$cookies.getAll();
       const { user } = store.getters;
@@ -47,8 +48,7 @@ export default {
           name: challenge.name,
           language: challenge.language,
           options: initialOptions(challenge.days),
-          draftId: configId,
-          errorLoading: null
+          draftId: configId
         };
       } else if (draftId) {
         const { draft } = await $axios.$post("/xapi", {
@@ -60,8 +60,7 @@ export default {
           options: draft.days,
           draftId,
           isTemplatePublic: draft.isTemplatePublic,
-          templateId: draft.templateId,
-          errorLoading: null
+          templateId: draft.templateId
         };
       } else if (selectedTemplate) {
         const { template } = await $axios.$post("/xapi", {
@@ -73,8 +72,7 @@ export default {
           options: initialOptions(template.days),
           draftId: null,
           isTemplatePublic: template.isPublic && user?.accountType === "admin",
-          templateId: template.id,
-          errorLoading: null
+          templateId: template.id
         };
       } else {
         return {
@@ -83,14 +81,11 @@ export default {
           options: initialOptions(),
           draftId: null,
           isTemplatePublic: user?.accountType === "admin",
-          templateId: null,
-          errorLoading: null
+          templateId: null
         };
       }
-    } catch (error) {
-      return {
-        errorLoading: error
-      };
+    } catch (err) {
+      error(err);
     }
   },
   data() {
@@ -183,7 +178,7 @@ export default {
       }
       clearTimeout(this.autoSave.timeout);
       this.autoSave.timeout = setTimeout(async () => {
-        this.autoSave.saving = true;
+        this.autoSave.loading = true;
         try {
           if (!this.editedChallengeId) {
             await this.saveTemplate();
@@ -194,17 +189,8 @@ export default {
         } catch {
           this.autoSave.error = true;
         }
-        this.autoSave.saving = false;
+        this.autoSave.loading = false;
       }, 5000);
-    },
-    isSelectionMatching(dayIndex, taskIndex) {
-      const task = this.options[dayIndex].tasks[taskIndex];
-      for (let option of task.options) {
-        if (option.text === task.selection) {
-          return true;
-        }
-      }
-      return false;
     },
     validateData() {
       if (!this.name) {
@@ -224,18 +210,14 @@ export default {
           this.submit.error = "One or more days were left empty";
           return false;
         }
-        const dayIndex = this.options.indexOf(day);
         for (let task of day.tasks) {
           if (!task.options.length) {
             this.submit.error = "One or more tasks were left empty";
             return false;
           }
-          if (!this.templateOnlyMode) {
-            const taskIndex = day.tasks.indexOf(task);
-            if (!this.isSelectionMatching(dayIndex, taskIndex)) {
-              this.submit.error = "One or more tasks were left empty";
-              return false;
-            }
+          if (!this.templateOnlyMode && !isSelectionMatching(task)) {
+            this.submit.error = "One or more tasks were left with no selection";
+            return false;
           }
         }
       }

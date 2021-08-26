@@ -214,7 +214,7 @@ export default {
 }
 
 .task-move:not(.task-leave-active) {
-  transition: transform 0.35s;
+  transition: transform 0.375s;
 }
 
 .task-delete-move:not(.task-delete-leave-active) {

@@ -150,7 +150,7 @@ export default {
       url(../../assets/images/backgrounds/challenge-editor-bg.jpeg);
   }
 
-  &#notfound {
+  &#error-page {
     background-image: linear-gradient(
         to right,
         rgba(#4189bd, 0.6),

@@ -267,9 +267,14 @@ export default {
       input {
         font-family: inherit;
         font-size: 1.6rem !important;
+        transition: border-color 0.4s !important;
 
         @include respond(mobile) {
           font-size: 1.5rem !important;
+        }
+
+        &:focus {
+          border-color: $color-azure !important;
         }
       }
 
@@ -278,8 +283,14 @@ export default {
           cursor: pointer;
         }
 
+        &:hover {
+          &::before,
+          &::after {
+            background-color: $color-azure !important;
+          }
+        }
+
         &::before {
-          height: 1px !important;
           width: 1.45rem !important;
 
           @include respond(mobile) {
@@ -289,7 +300,6 @@ export default {
 
         &::after {
           height: 1.45rem !important;
-          width: 1px !important;
 
           @include respond(mobile) {
             height: 1.4rem !important;

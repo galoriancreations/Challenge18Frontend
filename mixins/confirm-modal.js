@@ -23,7 +23,9 @@ export default {
         },
         keydownHandler(event) {
             if (event.key === "Enter") {
-                event.preventDefault();
+                if (!event.target.classList.contains("header__nav-link")) {
+                    event.preventDefault();
+                }
                 if (this.showConfirmModal) {
                     this.confirmAction();
                 }

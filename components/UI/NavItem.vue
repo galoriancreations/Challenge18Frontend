@@ -4,7 +4,7 @@
     @click="clickHandler"
     @mouseenter="openDropdownOnDesktop"
     @mouseleave="closeDropdownOnDesktop"
-    @keydown.enter="openDropdownOnDesktop"
+    @keydown.enter="enterKeyHandler"
     @keydown.esc="closeDropdownOnDesktop"
   >
     <NuxtLink
@@ -71,7 +71,11 @@ export default {
       };
     },
     linkClasses() {
-      return this.button ? "button button--gold" : null;
+      return {
+        "header__nav-link": true,
+        button: this.button,
+        "button--gold": this.button
+      };
     },
     hasActiveSubitem() {
       for (let item of this.dropdown) {
@@ -93,6 +97,12 @@ export default {
           this.closeNav();
         }
       }
+      if (this.action) {
+        this.action();
+      }
+    },
+    enterKeyHandler() {
+      this.openDropdownOnDesktop();
       if (this.action) {
         this.action();
       }

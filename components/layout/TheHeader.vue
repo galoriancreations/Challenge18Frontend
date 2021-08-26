@@ -20,17 +20,22 @@
 export default {
   data() {
     return {
-      navOpen: false,
-      sticky: false
+      headerMode: {
+        navOpen: false,
+        sticky: false
+      }
     };
   },
   computed: {
     classes() {
       return {
         header: true,
-        active: this.navOpen,
-        sticky: this.sticky
+        active: this.headerMode.navOpen,
+        sticky: this.headerMode.sticky
       };
+    },
+    navOpen() {
+      return this.headerMode.navOpen;
     },
     isLoggedIn() {
       return this.$store.getters.isAuth;
@@ -73,21 +78,21 @@ export default {
   },
   methods: {
     toggleNav() {
-      this.navOpen = !this.navOpen;
+      this.headerMode.navOpen = !this.headerMode.navOpen;
     },
     closeNav() {
-      this.navOpen = false;
+      this.headerMode.navOpen = false;
     },
     logout() {
       this.$store.dispatch("logout");
     },
     adjustNavOpen() {
-      if (window.innerWidth > 1100 && this.navOpen) {
-        this.navOpen = false;
+      if (window.innerWidth > 1100) {
+        this.closeNav();
       }
     },
     adjustStickyHeader() {
-      this.sticky = window.scrollY > 0 && !this.active;
+      this.headerMode.sticky = window.scrollY > 0 && !this.active;
     }
   },
   watch: {
@@ -107,7 +112,8 @@ export default {
   provide() {
     return {
       toggleNav: this.toggleNav,
-      closeNav: this.closeNav
+      closeNav: this.closeNav,
+      headerMode: this.headerMode
     };
   }
 };
@@ -119,7 +125,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  padding: 1.5rem $padding-sides-desktop;
+  padding: 2rem $padding-sides-desktop;
   z-index: 999;
   display: flex;
   justify-content: space-between;
@@ -127,15 +133,15 @@ export default {
   transition: all 0.5s;
 
   @include respond(mobile) {
-    padding: 1rem $padding-sides-mobile;
+    padding: 1.5rem $padding-sides-mobile;
   }
 
   &.sticky {
     position: fixed;
     background-color: rgba(#fff, 0.9);
     box-shadow: $boxshadow2;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
 
   &__nav-list {

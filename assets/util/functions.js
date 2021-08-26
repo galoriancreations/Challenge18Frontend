@@ -93,10 +93,19 @@ export const clearedOptions = (options, removeSelections = true) => {
         delete task.selection;
       }
       delete task.extraInput;
-    })
-  })
+    });
+  });
   return optionsClone;
-}
+};
+
+export const isSelectionMatching = task => {
+  for (let option of task.options) {
+    if (option.text === task.selection) {
+      return true;
+    }
+  }
+  return false;
+};
 
 export const textInputKeys = labels => {
   const keys = [];
