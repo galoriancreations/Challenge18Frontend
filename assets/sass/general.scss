@@ -70,3 +70,31 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+ul.diamond-bullet-list {
+  li {
+    list-style: none;
+    padding-left: 2.5rem;
+    position: relative;
+
+    @include respond(mobile) {
+      padding-left: 2rem;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 0.8rem;
+      height: 0.8rem;
+      background-color: $color-blue-2;
+      transform: translateY(-50%) rotate(45deg);
+
+      @include respond(mobile) {
+        width: 0.75rem;
+        height: 0.75rem;
+      }
+    }
+  }
+}

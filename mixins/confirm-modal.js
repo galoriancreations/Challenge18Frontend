@@ -23,7 +23,7 @@ export default {
         },
         keydownHandler(event) {
             if (event.key === "Enter") {
-                if (!event.target.classList.contains("header__nav-link")) {
+                if (event.target.nodeName === "TEXTAREA") {
                     event.preventDefault();
                 }
                 if (this.showConfirmModal) {

@@ -279,14 +279,18 @@ export default {
       }
 
       button {
+        transition: all 0.5s;
+
         &:not(:disabled) {
           cursor: pointer;
-        }
 
-        &:hover {
-          &::before,
-          &::after {
-            background-color: $color-azure !important;
+          &:hover {
+            background-color: rgba($color-azure-light, 0.8);
+
+            &::before,
+            &::after {
+              background-color: #111 !important;
+            }
           }
         }
 

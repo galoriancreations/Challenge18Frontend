@@ -70,7 +70,7 @@
         </p>
       </section>
       <section class="days-18__subsection">
-        <ul class="days-18__list">
+        <ul class="days-18__list diamond-bullet-list">
           <li>
             <strong
               >A unique challenge activity through the WhatsApp app to build a
@@ -203,7 +203,6 @@ export default {
 
     @include respond(mobile) {
       margin: 4.5rem auto;
-      margin-left: 1.5rem;
     }
 
     li {

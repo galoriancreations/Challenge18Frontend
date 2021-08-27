@@ -102,8 +102,8 @@ export default {
     };
   },
   methods: {
-    async submitHandler(event) {
-      const success = await this.sendMessage(event.target);
+    async submitHandler() {
+      const success = await this.sendMessage(this.$el);
       if (success) {
         this.resetForm();
       }

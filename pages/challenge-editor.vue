@@ -292,7 +292,7 @@ export default {
     }
   },
   mounted() {
-    if (!this.errorLoading && !this.user?.drafts) {
+    if (!this.user?.drafts) {
       setTimeout(() => {
         this.showIntroModal = true;
       }, 1500);

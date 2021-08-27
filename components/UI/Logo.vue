@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink to="/" class="header__nav-link">
+  <NuxtLink to="/">
     <img
       class="logo"
       src="../../assets/images/new-logo.png"
@@ -18,7 +18,7 @@ export default {
 .logo {
   height: 8.5rem;
   width: auto;
-  transition: all 0.5s;
+  transition: all 0.4s;
 
   @include respond(mobile) {
     height: 6.5rem;

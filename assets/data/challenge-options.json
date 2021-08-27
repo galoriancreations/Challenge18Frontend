@@ -1,6 +1,7 @@
 {
     "name": "International SDG",
     "language": "English",
+    "isPublic": true,
     "days": [
         {
             "id": "1kpy8q99u",

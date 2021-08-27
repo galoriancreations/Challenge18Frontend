@@ -96,6 +96,8 @@ export default {
         } else {
           this.closeNav();
         }
+      } else if (this.dropdown) {
+        this.dropdownOpenDesktop = true;
       }
       if (this.action) {
         this.action();
