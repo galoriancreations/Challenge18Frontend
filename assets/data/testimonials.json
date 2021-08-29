@@ -1,15 +1,31 @@
 [
     {
+        "imgSrc": "https://i.ibb.co/6Zwfd7z/Whats-App-Image-2021-08-29-at-16-51-24.jpg",
+        "name": "Prof. Marcelo Sternberg",
+        "role": "School of Plant Sciences and Food Security, Tel Aviv University",
+        "text": "If FIFA is the global football corporation, then TING GLOBAL is the global sustainability games corporation."
+    },
+    {
+        "imgSrc": "https://i.ibb.co/ZTCd0n1/tingho.jpg",
+        "text": "The total value of Challenge 18 is way above the price itself – it's Immeasurably valuable.",
+        "role": "CEO and Founder of Qibiotech",
+        "name": "Ting Ho"
+    },
+    {
+        "imgSrc": "https://i.ibb.co/zxGKZWN/Whats-App-Image-2021-08-29-at-17-13-07.jpg",
+        "text": "Challenge 18 allows people from all over the world to enjoy Israel and witness Israel is a country with great people, a great atmosphere, great vibes, and moreover great innovations.",
+        "role": "Senior Lecturer at Georgia State University",
+        "name": "Prof. Evaristo Doria"
+    },
+    {
         "imgSrc": "https://i0.wp.com/ting.global/wp-content/uploads/2021/04/Irit-Cohen.jpg?fit=303%2C307&amp;ssl=1",
         "name": "Irit Cohen",
-        "rating": 5,
         "role": "College Director, Shimon Peres School of Art and High Tech",
         "text": "What captured my heart in this “crazy” program, which we are currently in the midst of, is that it corresponds with our school vision and work. Mainly in promoting entrepreneurship and repairing the world actively."
     },
     {
         "imgSrc": "https://www.gravatar.com/avatar/3008476a9614994b2538c9faa1b7e808?s=500&r=pg&d=mm",
         "name": "Shaul Weigert",
-        "rating": 5,
         "role": "Director of the value-social field at the Amal schools' network",
         "text": "In recent weeks I have participated in the 18 Days of Sustainability & Leadership Challenge created by Sharon. The uniqueness of the challenge in my opinion in its originality and creativity. Many deal with challenging issues but it seems that the most important thing is to do it in an interesting way and Sharon was very successful in this. There is something serious about the daily commitment to do a task whose scope depends on your desire and seriousness is important. Hopefully, more people in general and educators will experience the challenge."
     },
@@ -17,13 +33,11 @@
         "imgSrc": "https://i1.wp.com/ting.global/wp-content/uploads/2021/04/Efrat-Shaked-.jpg?fit=200%2C200&ssl=1",
         "name": "Efrat Shaked",
         "role": "The Doing Good Model",
-        "rating": 5,
         "text": "Hello everyone! My name is Efrat Shaked and I am from The Doing Good Model social enterprise. Sharon, it was a pleasure, thanks a lot for your initiation, it was so accurate for my needs."
     },
     {
         "imgSrc": "https://i1.wp.com/ting.global/wp-content/uploads/2021/04/Fernanda-Matsuoka.jpg?fit=200%2C200&ssl=1",
         "name": "Fernanda Matsuoka",
-        "rating": 5,
         "role": "COO at Youth Climate Leaders (YCL)",
         "text": "I wanna say thank you so much @Sharon Gal-Or for taking the lead in organizing the challenge. Hereby is my video. Wish you a blessing day!"
     }

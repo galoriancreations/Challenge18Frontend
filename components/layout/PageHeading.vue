@@ -30,7 +30,7 @@ export default {
     height: 40rem;
   }
 
-  &#scores {
+  &#clubs {
     background-image: linear-gradient(
         to right,
         rgba(#4189bd, 0.85),

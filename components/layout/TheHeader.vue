@@ -53,7 +53,7 @@ export default {
             { link: "/videos", text: "Videos" }
           ]
         },
-        { link: "/scores", text: "Scores" },
+        { link: "/clubs", text: "Clubs" },
         { link: "/players", text: "Players" },
         {
           text: "Join",

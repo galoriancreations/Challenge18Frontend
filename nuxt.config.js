@@ -33,8 +33,7 @@ export default {
 
   plugins: [
     "~/plugins/main",
-    "~/plugins/axios",
-    { src: "~/plugins/vue-plyr", mode: "client" }
+    "~/plugins/axios"
   ],
 
   components: {
@@ -48,7 +47,7 @@ export default {
       "~/components/contact",
       "~/components/dashboard",
       "~/components/home",
-      "~/components/scores",
+      "~/components/clubs",
       "~/components/how-to-play"
     ]
   },

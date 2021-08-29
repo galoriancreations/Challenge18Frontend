@@ -4,14 +4,6 @@
     <div class="testimonial__scroll-area" ref="text">
       <p class="testimonial__text">{{ testimonial.text }}</p>
     </div>
-    <StarRating
-      v-if="isSliderReady"
-      v-model="testimonial.rating"
-      :star-size="20"
-      :show-rating="false"
-      :read-only="true"
-      class="testimonial__rating"
-    />
     <img
       class="testimonial__avatar"
       :src="testimonial.imgSrc"
@@ -28,9 +20,6 @@
 import Scrollbar from "smooth-scrollbar";
 
 export default {
-  components: {
-    StarRating: () => (process.client ? import("vue-star-rating") : null)
-  },
   props: {
     testimonial: Object
   },
@@ -57,7 +46,7 @@ export default {
   line-height: 1.6;
 
   &__scroll-area {
-    height: 13rem;
+    height: 10.8rem;
     margin: 0 -1.25rem;
     padding: 0 1.25rem;
     margin-top: -2rem !important;
@@ -78,10 +67,6 @@ export default {
     @include respond(mobile) {
       font-size: 1.5rem;
     }
-  }
-
-  &__rating {
-    margin-top: 1rem;
   }
 
   &__avatar {
