@@ -36,7 +36,7 @@ export default {
         rgba(#4189bd, 0.85),
         rgba(#4189bd, 0.85)
       ),
-      url(../../assets/images/backgrounds/scores-bg.jpg);
+      url(../../assets/images/backgrounds/players-bg.jpg);
   }
 
   &#what-we-do {
