@@ -9,14 +9,18 @@
         challenge, and possibly customize your own challenge template.
       </p>
       <p>You can use this editor to:</p>
-      <ul>
-        <li>Change the name and language of the template;</li>
-        <li>Edit the title of each day in the template;</li>
+      <ul class="diamond-bullet-list">
+        <li>Change the name and language of the template.</li>
+        <li>Edit the title of each day in the template.</li>
         <li>
           Add/remove days to the template, add/remove tasks on each day, and
-          add/remove options on each task;
+          add/remove options on each task.
         </li>
-        <li>Edit all existing options;</li>
+        <li>
+          Mark or unmark tasks as a bonus, and choose how many points (between 1
+          and 18) to award for each bonus task.
+        </li>
+        <li>Edit all existing options.</li>
         <li>
           Select which option, for each task, you want to include in the
           challenge.
@@ -77,7 +81,7 @@ export default {
 
     & > * {
       font-size: 1.6rem;
-      line-height: 1.6;
+      line-height: 1.7;
 
       @include respond(mobile) {
         font-size: 1.45rem;
@@ -93,11 +97,11 @@ export default {
     }
 
     ul {
-      margin-left: 3rem;
+      margin-left: 1rem;
       margin-top: -0.5rem;
 
       @include respond(mobile) {
-        margin-left: 2rem;
+        margin-left: 0;
         margin-top: 0;
       }
 

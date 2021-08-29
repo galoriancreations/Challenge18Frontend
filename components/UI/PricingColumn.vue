@@ -1,8 +1,10 @@
 <template>
   <article class="pricing-column">
     <div class="pricing-column__header">
-      <p class="pricing-column__plan">{{ plan.label }}</p>
-      <h3 class="pricing-column__price">${{ plan.price }}</h3>
+      <div class="pricing-column__header-content">
+        <p v-if="plan.label" class="pricing-column__plan">{{ plan.label }}</p>
+        <h3 class="pricing-column__price">{{ price }}</h3>
+      </div>
       <WavePatternBottom />
     </div>
     <div class="pricing-column__content">
@@ -39,6 +41,11 @@ export default {
     return {
       membershipFeatures
     };
+  },
+  computed: {
+    price() {
+      return this.plan.type === "free" ? "Free" : `$${this.plan.price}`;
+    }
   }
 };
 </script>
@@ -59,6 +66,18 @@ export default {
     color: #fff;
     padding: 2.5rem 2.5rem 5.5rem;
     text-align: center;
+  }
+
+  &__header-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 9.6rem;
+
+    @include respond(mobile) {
+      height: 9.2rem;
+    }
   }
 
   &__plan {

@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { languageOptions } from "../../assets/util/options";
+import languageOptions from "../../assets/data/languages";
 
 export default {
   props: {
@@ -68,9 +68,8 @@ export default {
   },
   computed: {
     languageOptions() {
-      const availableLanguages = Object.keys(this.templateOptions);
       return languageOptions.filter(language =>
-        availableLanguages.includes(language.name)
+        Object.keys(this.templateOptions).includes(language.name)
       );
     },
     user() {

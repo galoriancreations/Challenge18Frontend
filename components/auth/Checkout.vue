@@ -69,7 +69,8 @@
 </template>
 
 <script>
-import { languageOptions, planOptions } from "../../assets/util/options";
+import languageOptions from "../../assets/data/languages";
+import { planOptions } from "../../assets/util/options";
 
 export default {
   components: {

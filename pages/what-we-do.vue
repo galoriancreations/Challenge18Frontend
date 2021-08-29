@@ -72,46 +72,32 @@
       <section class="days-18__subsection">
         <ul class="days-18__list diamond-bullet-list">
           <li>
-            <strong
-              >A unique challenge activity through the WhatsApp app to build a
-              sense of belonging and sustainability among the players in
-              clubs.</strong
-            >
+            A unique challenge activity through the WhatsApp app to build a
+            sense of belonging and sustainability among the players in clubs.
           </li>
           <li>
-            <strong
-              >Each challenge 18 group includes one or two clubs. The activity
-              is in the format of a cooperative competition (not a
-              winner-loser).</strong
-            >
+            Each challenge 18 group includes one or two clubs. The activity is
+            in the format of a cooperative competition (not a winner-loser).
           </li>
           <li>
-            <strong
-              >The challenge is emphasizing and matching values and skills in
-              the spirit of the club.</strong
-            >
+            The challenge is emphasizing and matching values and skills in the
+            spirit of the club.
           </li>
           <li>
-            <strong
-              >Participation in the challenge solidifies students and raises
-              awareness of the hot topics on the global agenda and helps them
-              form a solid opinion in complex dilemmas.</strong
-            >
+            Participation in the challenge solidifies students and raises
+            awareness of the hot topics on the global agenda and helps them form
+            a solid opinion in complex dilemmas.
           </li>
           <li>
-            <strong
-              >The products of the program include physical challenge game at
-              the club initiated by the players, interviews with change agents
-              in the community, formation of thinking and action groups,
-              certificates of appreciation, an invitation to join the
-              professional Mondial CHALLENGE 18 Games and more.
-            </strong>
+            The products of the program include physical challenge game at the
+            club initiated by the players, interviews with change agents in the
+            community, formation of thinking and action groups, certificates of
+            appreciation, an invitation to join the professional Mondial
+            CHALLENGE 18 Games and more.
           </li>
           <li>
-            <strong
-              >The program was developed with the assistance of the R&amp;D
-              department of the Ministry of Education &#8211; Israel.</strong
-            >
+            The program was developed with the assistance of the R&amp;D
+            department of the Ministry of Education &#8211; Israel.
           </li>
         </ul>
       </section>
@@ -198,6 +184,7 @@ export default {
   &__list {
     text-align: left;
     line-height: 1.6;
+    font-weight: 700;
     margin: 6rem auto;
     max-width: 95rem;
 

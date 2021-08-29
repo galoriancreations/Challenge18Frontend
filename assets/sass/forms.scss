@@ -107,6 +107,10 @@
         margin-left: -5.75px;
       }
     }
+
+    ::placeholder {
+      opacity: 0.7;
+    }
   }
 
   &__plans {

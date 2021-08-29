@@ -29,9 +29,8 @@ export const actions = {
     async auth(context, { mode, data }) {
         const authData = await this.$axios.$post("/api", { [mode]: data });
         const { access_token: token, user, exp } = authData;
-        console.log(authData)
         this.$setAxiosDefaults(token, user.id);
-        // await context.dispatch("loadTemplates");
+        await context.dispatch("loadTemplates");
         context.commit("setUser", { user, token });
 
         this.$cookies.set("userId", user.id);

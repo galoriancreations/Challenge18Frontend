@@ -36,11 +36,8 @@
 </template>
 
 <script>
-import {
-  labels,
-  languageOptions,
-  planOptions
-} from "../../assets/util/options";
+import { labels, planOptions } from "../../assets/util/options";
+import languageOptions from "../../assets/data/languages";
 import dashboardModal from "../../mixins/dashboard-modal";
 
 export default {

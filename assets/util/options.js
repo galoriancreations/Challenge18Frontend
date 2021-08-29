@@ -1,7 +1,3 @@
-import languages from "../data/languages";
-
-export const languageOptions = languages;
-
 export const membershipFeatures = [
     "18 free certificates per game",
     "Free courses lesson plans",

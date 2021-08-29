@@ -337,7 +337,7 @@ export default {
 
   &__option-icon {
     color: $color-azure;
-    font-size: 2.4rem;
+    font-size: 2.3rem;
   }
 
   &__text {

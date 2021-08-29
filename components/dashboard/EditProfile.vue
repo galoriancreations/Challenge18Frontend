@@ -34,7 +34,7 @@
 
 <script>
 import { initialData, textInputKeys } from "../../assets/util/functions";
-import { languageOptions } from "../../assets/util/options";
+import languageOptions from "../../assets/data/languages";
 
 export default {
   props: {

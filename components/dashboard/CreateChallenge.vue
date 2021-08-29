@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { languageOptions } from "../../assets/util/options";
+import languageOptions from "../../assets/data/languages";
 
 export default {
   props: {

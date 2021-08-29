@@ -57,10 +57,13 @@ export default {
       url(../../assets/images/backgrounds/about-bg.jpg);
   }
 
-  &#why-challenge-18 {
-  }
-
   &#how-to-play {
+    background-image: linear-gradient(
+        to right,
+        rgba(#4189bd, 0.8),
+        rgba(#4189bd, 0.8)
+      ),
+      url(../../assets/images/backgrounds/register-bg.jpg);
   }
 
   &#articles {

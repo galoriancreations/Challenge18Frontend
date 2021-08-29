@@ -75,12 +75,14 @@
       <label for="country" class="form__label">
         Country
       </label>
-      <input
+      <v-select
         v-model="formData.country"
-        id="country"
+        :options="countryOptions"
+        :reduce="option => option.code"
+        label="name"
         required
-        class="form__input"
         placeholder="Country"
+        class="language-selector"
       />
     </div>
     <div class="form__field">
@@ -129,7 +131,8 @@
 </template>
 
 <script>
-import { languageOptions } from "../../assets/util/options";
+import countryOptions from "../../assets/data/countries";
+import languageOptions from "../../assets/data/languages";
 import _ from "lodash";
 
 export default {
@@ -152,6 +155,7 @@ export default {
         username: null,
         phone: null
       },
+      countryOptions,
       languageOptions,
       error: null,
       checkoutMode: false
@@ -166,6 +170,9 @@ export default {
     },
     plan() {
       return this.getSelectedPlan();
+    },
+    country() {
+      return this.formData.country;
     }
   },
   methods: {
@@ -209,6 +216,9 @@ export default {
     },
     phone(value) {
       this.checkAvailability("phone", value, "checkPhone");
+    },
+    country(value) {
+      console.log(value);
     }
   },
   provide() {
