@@ -1,8 +1,12 @@
 <template>
   <article class="testimonial">
     <img class="testimonial__icon" src="../../assets/images/icon-quotes.svg" />
-    <div class="testimonial__scroll-area" ref="text">
-      <p class="testimonial__text">{{ testimonial.text }}</p>
+    <div
+      class="testimonial__scroll-area"
+      ref="textWrapper"
+      :style="{ height: textWrapperHeight }"
+    >
+      <p class="testimonial__text" ref="text">{{ testimonial.text }}</p>
     </div>
     <img
       class="testimonial__avatar"
@@ -24,6 +28,11 @@ export default {
     testimonial: Object
   },
   inject: ["sliderCompleted"],
+  data() {
+    return {
+      textWrapperHeight: null
+    };
+  },
   computed: {
     isSliderReady() {
       return this.sliderCompleted();
@@ -31,7 +40,11 @@ export default {
   },
   watch: {
     isSliderReady() {
-      Scrollbar.init(this.$refs.text);
+      const { textWrapper, text } = this.$refs;
+      if (text.offsetHeight > 108) {
+        this.textWrapperHeight = "108px";
+        Scrollbar.init(textWrapper);
+      }
     }
   }
 };
@@ -46,7 +59,6 @@ export default {
   line-height: 1.6;
 
   &__scroll-area {
-    height: 10.8rem;
     margin: 0 -1.25rem;
     padding: 0 1.25rem;
     margin-top: -2rem !important;

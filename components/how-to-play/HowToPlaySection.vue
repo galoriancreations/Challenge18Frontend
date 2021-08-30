@@ -44,7 +44,7 @@ export default {
       }
 
       @include respond(mobile) {
-        margin-bottom: 5.5rem;
+        margin-bottom: 6rem;
       }
     }
   }
@@ -83,7 +83,7 @@ export default {
 
     @include respond(mobile) {
       font-size: 2.4rem;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.75rem;
     }
   }
 
@@ -117,7 +117,7 @@ export default {
     margin-top: 2rem;
 
     @include respond(mobile) {
-      margin-top: 1.25rem;
+      margin-top: 1.75rem;
     }
   }
 
