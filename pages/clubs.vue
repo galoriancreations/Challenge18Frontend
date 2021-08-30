@@ -51,7 +51,7 @@ export default {
     }
 
     @include respond(mobile) {
-      gap: 2.5rem;
+      gap: 2rem;
     }
   }
 
