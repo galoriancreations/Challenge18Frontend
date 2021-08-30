@@ -19,15 +19,15 @@ export default {
     return {
       images: [
         {
-          src: require("~/assets/images/top-challenges/sdgs.jpeg"),
+          src: require("~/assets/images/top-challenges/sdgs.jpg"),
           alt: "International SDG"
         },
         {
-          src: require("~/assets/images/top-challenges/climate-action.jpeg"),
+          src: require("~/assets/images/top-challenges/climate-action.jpg"),
           alt: "Climate Action"
         },
         {
-          src: require("~/assets/images/top-challenges/songs-values.jpeg"),
+          src: require("~/assets/images/top-challenges/songs-values.jpg"),
           alt: "Songs & Values"
         }
       ]
@@ -41,11 +41,13 @@ export default {
   &__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 4rem;
+    gap: 4.5rem;
     align-items: center;
+    max-width: 85rem;
+    margin: auto;
 
     @include respond(mobile-land) {
-      gap: 2rem;
+      gap: 2.5rem;
     }
 
     @include respond(mobile) {
