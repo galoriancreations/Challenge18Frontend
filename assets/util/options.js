@@ -35,9 +35,7 @@ export const planOptions = [
         type: "18-years",
         label: "18 Years",
         features: [
-            "Everything in the 18 Weeks plan",
-            "Unlimited games alone & with other clubs",
-            "Mentorship"
+            "Everything in the 18 Months plan plus..."
         ]
     }
 ];
