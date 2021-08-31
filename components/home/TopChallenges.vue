@@ -2,13 +2,14 @@
   <section class="top-challenges">
     <SectionHeading small>Top Challenges</SectionHeading>
     <div class="top-challenges__grid">
-      <div
-        class="top-challenges__item"
+      <NuxtLink
         v-for="image in images"
         :key="image.src"
+        to="/join"
+        class="top-challenges__item"
       >
         <img v-bind="image" />
-      </div>
+      </NuxtLink>
     </div>
   </section>
 </template>
@@ -57,9 +58,25 @@ export default {
   }
 
   &__item {
+    display: block;
     border-radius: 0.8rem;
     box-shadow: $boxshadow2;
     overflow: hidden;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      transition: all 0.5s;
+    }
+
+    &:hover::after {
+      background-color: rgba($color-azure, 0.4);
+    }
 
     @include respond(mobile) {
       max-width: 30rem;
