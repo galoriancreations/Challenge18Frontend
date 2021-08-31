@@ -4,7 +4,7 @@
     <ImageWithText
       :image="{ src: mainImg, alt: 'Challenge 18 players' }"
       :text="aboutText"
-      :button="{ link: '/membership', variant: 'gold', text: 'Join Us' }"
+      :button="{ link: '/join', variant: 'gold', text: 'Join Us' }"
     />
   </section>
 </template>

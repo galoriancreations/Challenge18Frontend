@@ -1,37 +1,37 @@
 export const membershipFeatures = [
+    "Up to 50 members per group",
+    "Customised challenge templates",
+    "Up to 5 single games at a time",
+    "Earn ting coins (Enjoy our coupon reward system)",
     "18 free certificates per game",
+    "Technical and Pedagogic support",
+    "Free participation in the Challenge 18 global events",
     "Free courses lesson plans",
     "Join a think tank",
     'Free e-book: "The New Global Citizens"',
-    "Free participation in the Challenge 18 global events",
     "Mentorship",
-    "Customised challenge templates",
     "Unlimited games alone & with other clubs"
 ];
 
 export const planOptions = [
     {
-        type: "1-month",
-        price: 249,
-        label: "1 Month",
-        features: membershipFeatures.slice(0, 5)
+        type: "18-days",
+        label: "18 Days",
+        features: membershipFeatures.slice(0, 6)
     },
     {
-        type: "2-months",
-        price: 438,
-        label: "2 Months",
-        features: membershipFeatures.slice(0, 5)
+        type: "18-weeks",
+        label: "18 Weeks",
+        features: membershipFeatures.slice(0, 10)
     },
     {
-        type: "4-months",
-        price: 588,
-        label: "4 Months",
-        features: membershipFeatures.slice(0, 7)
+        type: "18-months",
+        label: "18 Months",
+        features: membershipFeatures.slice(0, 11)
     },
     {
-        type: "1-year",
-        price: 684,
-        label: "1 Year",
+        type: "18-years",
+        label: "18 Years",
         features: membershipFeatures
     }
 ];

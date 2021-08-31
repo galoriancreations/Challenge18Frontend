@@ -19,11 +19,11 @@ export default {
     return {
       images: [
         {
-          src: require("~/assets/images/top-challenges/sdgs.jpg"),
+          src: require("~/assets/images/top-challenges/sdgs-2.jpeg"),
           alt: "International SDG"
         },
         {
-          src: require("~/assets/images/top-challenges/climate-action.jpg"),
+          src: require("~/assets/images/top-challenges/climate-action-2.jpeg"),
           alt: "Climate Action"
         },
         {

@@ -1,6 +1,6 @@
 <template>
   <div class="plans-grid">
-    <PricingColumn v-for="plan in planOptions" :key="plan.type" :plan="plan" />
+    <PlanColumn v-for="plan in planOptions" :key="plan.type" :plan="plan" />
   </div>
 </template>
 
@@ -19,10 +19,19 @@ export default {
 <style lang="scss">
 .plans-grid {
   display: grid;
+  // grid-template-columns: repeat(4, 1fr);
+  // gap: 3rem;
   grid-template-columns: 1fr 1fr;
   gap: 5rem;
   max-width: 75rem;
   margin: auto;
+
+  // @include respond(tablet-land) {
+  //   grid-template-columns: 1fr 1fr;
+  //   gap: 5rem;
+  //   max-width: 75rem;
+  //   margin: auto;
+  // }
 
   @include respond(tablet-sm) {
     gap: 2.5rem;

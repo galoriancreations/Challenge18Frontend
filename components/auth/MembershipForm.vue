@@ -1,9 +1,9 @@
 <template>
-  <form v-if="!checkoutMode" class="form" @submit.prevent="submitHandler">
+  <form class="form" @submit.prevent="submitHandler">
     <div class="selected-plan">
       <div class="selected-plan__seperator" />
       <p v-if="plan" class="selected-plan__plan">
-        {{ plan.label }} / ${{ plan.price }}
+        {{ plan.label }}
       </p>
       <p v-else class="selected-plan__text">
         Please pick one of the plans above
@@ -124,10 +124,10 @@
         class="language-selector"
       />
     </div>
-    <BaseButton variant="blue">Proceed to checkout</BaseButton>
-    <ErrorMessage v-if="error" :error="error" />
+    <BaseButton variant="blue">Register</BaseButton>
+    <BaseSpinner v-if="loading" />
+    <ErrorMessage v-else-if="error" :error="error" />
   </form>
-  <Checkout v-else />
 </template>
 
 <script>
@@ -157,8 +157,8 @@ export default {
       },
       countryOptions,
       languageOptions,
-      error: null,
-      checkoutMode: false
+      loading: false,
+      error: null
     };
   },
   computed: {
@@ -190,7 +190,7 @@ export default {
         }
       }
       this.error = null;
-      this.checkoutMode = true;
+      this.loading = true;
     },
     backToForm() {
       this.checkoutMode = false;
@@ -216,16 +216,7 @@ export default {
     },
     phone(value) {
       this.checkAvailability("phone", value, "checkPhone");
-    },
-    country(value) {
-      console.log(value);
     }
-  },
-  provide() {
-    return {
-      details: this.formData,
-      backToForm: this.backToForm
-    };
   }
 };
 </script>

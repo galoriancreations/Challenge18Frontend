@@ -5,7 +5,16 @@
         <label :for="key" class="form__label">
           {{ labels[key] }}
         </label>
+        <v-select
+          v-if="key === 'country'"
+          v-model="formData.country"
+          :options="countryOptions"
+          label="name"
+          :reduce="option => option.code"
+          class="language-selector"
+        />
         <input
+          v-else
           v-model="formData[key]"
           :id="key"
           :required="key === 'username'"
@@ -35,6 +44,7 @@
 <script>
 import { initialData, textInputKeys } from "../../assets/util/functions";
 import languageOptions from "../../assets/data/languages";
+import countryOptions from "../../assets/data/countries";
 
 export default {
   props: {
@@ -46,6 +56,7 @@ export default {
       formData: initialData({ ...this.labels, language: "Challenge language" }),
       textInputKeys: textInputKeys(this.labels),
       languageOptions,
+      countryOptions,
       loading: false,
       error: null
     };

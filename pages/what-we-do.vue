@@ -101,7 +101,7 @@
           </li>
         </ul>
       </section>
-      <BaseButton link="/membership" variant="gold">Join Us</BaseButton>
+      <BaseButton link="/join" variant="gold">Join Us</BaseButton>
     </section>
   </Page>
 </template>

@@ -243,7 +243,6 @@ export default {
     transform: translateX(-50%);
     padding-top: 1rem;
     cursor: initial;
-    min-width: 30rem;
     opacity: 0;
     visibility: hidden;
     transition: all 0.5s 0.1s;
@@ -267,7 +266,7 @@ export default {
     border-radius: 1rem;
     padding: 2rem 2.5rem;
     width: fit-content;
-    min-width: 16rem;
+    min-width: 15rem;
     margin: auto;
     box-shadow: $boxshadow2;
     transition: all 0.5s;

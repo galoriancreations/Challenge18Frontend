@@ -1,10 +1,5 @@
 <template>
-  <Page title="Premium Membership" name="membership">
-    <RegisterNote>
-      Premium membership is currently available for organizations only. To join
-      us as an individual user, you can
-      <RouterLink to="/register">register for free</RouterLink>.
-    </RegisterNote>
+  <Page title="Join Us" name="membership">
     <section class="inner-section">
       <SectionHeading small>Membership Plans</SectionHeading>
       <MembershipPlans />

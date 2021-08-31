@@ -5,11 +5,8 @@
     <div class="auth-switch">
       <p class="auth-switch__text">Don't have an account yet?</p>
       <div class="auth-switch__links">
-        <BaseButton link="/register" variant="blue">
+        <BaseButton link="/join" variant="gold">
           Register for free
-        </BaseButton>
-        <BaseButton link="/membership" variant="gold">
-          Become a member
         </BaseButton>
       </div>
     </div>
@@ -30,15 +27,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3.5rem;
-  box-shadow: $boxshadow2;
-  border-radius: 1rem;
-  max-width: 75rem;
-  margin: auto;
-
-  @include respond(mobile) {
-    padding: 2.5rem 1.5rem;
-  }
 
   &__text {
     font-size: 1.9rem;

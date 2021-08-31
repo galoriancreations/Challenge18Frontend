@@ -17,7 +17,7 @@
       <BaseButton link="/what-we-do" variant="blue">
         What we do
       </BaseButton>
-      <BaseButton v-if="!isLoggedIn" link="/membership" variant="gold">
+      <BaseButton v-if="!isLoggedIn" link="/join" variant="gold">
         Join Us
       </BaseButton>
       <BaseButton v-if="isLoggedIn" link="/dashboard" variant="gold">

@@ -53,17 +53,16 @@ export default {
             { link: "/videos", text: "Videos" }
           ]
         },
-        { link: "/clubs", text: "Clubs" },
-        { link: "/players", text: "Players" },
         {
-          text: "Join",
+          text: "Game",
           dropdown: [
-            { link: "/register", text: "Free Registration" },
-            { link: "/membership", text: "Premium Membership" }
-          ],
-          hide: this.isLoggedIn
+            { link: "/clubs", text: "Clubs" },
+            { link: "/players", text: "Players" }
+          ]
         },
-        { link: "/contact", text: "Contact" },
+        { link: "/marketplace", text: "Marketplace" },
+        { link: "/join", text: "Join", hide: this.isLoggedIn },
+        { link: "/donate", text: "Donate" },
         { link: "/login", text: "Login", button: true, hide: this.isLoggedIn },
         { action: this.logout, text: "Logout", hide: !this.isLoggedIn },
         {
