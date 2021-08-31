@@ -41,19 +41,25 @@ export const labels = {
         username: "Username",
         phone: "Phone number",
         fullName: "Full name",
-        email: "Email",
+        country: "Country",
+        email: "Email address"
     },
     organization: {
         username: "Username",
+        phone: "Phone number",
+        organization: "Organization/school name",
+        country: "Country",
         memberName: "Lead staff member's name",
         memberRole: "Lead staff member's role",
-        organization: "Organization/school name",
-        city: "City/town",
-        country: "Country",
-        email: "Lead contact email",
-        phone: "Lead contact phone number",
+        email: "Email address"
     },
-    admin: {},
+    admin: {
+        username: "Username",
+        phone: "Phone number",
+        fullName: "Full name",
+        country: "Country",
+        email: "Email address"
+    }
 };
 
 export const rtlLanguages = [

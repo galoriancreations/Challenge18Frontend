@@ -10,9 +10,10 @@
       </p>
       <div class="selected-plan__seperator" />
     </div>
+    <AccountTypeSelector v-model="formData.accountType" />
     <div class="form__field">
       <label for="username" class="form__label">
-        Username
+        Username (used for login)
         <CheckIcon :status="availability.username" />
       </label>
       <input
@@ -24,6 +25,20 @@
       />
     </div>
     <div class="form__field">
+      <label for="phone" class="form__label">
+        Phone number (used for login)
+        <CheckIcon :status="availability.phone" />
+      </label>
+      <input
+        v-model="formData.phone"
+        id="phone"
+        type="tel"
+        required
+        class="form__input"
+        placeholder="Lead contact phone number"
+      />
+    </div>
+    <div class="form__field" v-if="isOrganization">
       <label for="organization" class="form__label">
         Organization/school name
       </label>
@@ -35,40 +50,15 @@
         placeholder="Organization/school name"
       />
     </div>
-    <div class="form__field">
-      <label for="memberName" class="form__label">
-        Lead staff member's mame
+    <div class="form__field" v-if="!isOrganization">
+      <label for="fullName" class="form__label">
+        Full name
       </label>
       <input
-        v-model="formData.memberName"
-        id="memberName"
-        required
+        v-model="formData.fullName"
+        id="fullName"
         class="form__input"
-        placeholder="Lead staff member's mame"
-      />
-    </div>
-    <div class="form__field">
-      <label for="memberRole" class="form__label">
-        Lead staff member's role
-      </label>
-      <input
-        v-model="formData.memberRole"
-        id="memberRole"
-        required
-        class="form__input"
-        placeholder="Lead staff member's role"
-      />
-    </div>
-    <div class="form__field">
-      <label for="city" class="form__label">
-        City/Town
-      </label>
-      <input
-        v-model="formData.city"
-        id="city"
-        required
-        class="form__input"
-        placeholder="City/Town"
+        placeholder="Your full name"
       />
     </div>
     <div class="form__field">
@@ -85,9 +75,33 @@
         class="language-selector"
       />
     </div>
+    <div class="form__field" v-if="isOrganization">
+      <label for="memberName" class="form__label">
+        Lead staff member's mame
+      </label>
+      <input
+        v-model="formData.memberName"
+        id="memberName"
+        required
+        class="form__input"
+        placeholder="Lead staff member's mame"
+      />
+    </div>
+    <div class="form__field" v-if="isOrganization">
+      <label for="memberRole" class="form__label">
+        Lead staff member's role
+      </label>
+      <input
+        v-model="formData.memberRole"
+        id="memberRole"
+        required
+        class="form__input"
+        placeholder="Lead staff member's role"
+      />
+    </div>
     <div class="form__field">
       <label for="email" class="form__label">
-        Lead contact email
+        Email address
       </label>
       <input
         v-model="formData.email"
@@ -95,21 +109,9 @@
         type="email"
         required
         class="form__input"
-        placeholder="Lead contact email"
-      />
-    </div>
-    <div class="form__field">
-      <label for="phone" class="form__label">
-        Lead contact phone number
-        <CheckIcon :status="availability.phone" />
-      </label>
-      <input
-        v-model="formData.phone"
-        id="phone"
-        type="tel"
-        required
-        class="form__input"
-        placeholder="Lead contact phone number"
+        :placeholder="
+          isOrganization ? 'Lead contact email' : 'Your email address'
+        "
       />
     </div>
     <div class="form__field">
@@ -141,13 +143,13 @@ export default {
     return {
       formData: {
         username: "",
+        phone: "",
+        fullName: "",
+        organization: "",
+        country: "",
         memberName: "",
         memberRole: "",
-        organization: "",
-        city: "",
-        country: "",
         email: "",
-        phone: "",
         language: "English",
         accountType: "organization"
       },
@@ -171,30 +173,11 @@ export default {
     plan() {
       return this.getSelectedPlan();
     },
-    country() {
-      return this.formData.country;
+    isOrganization() {
+      return this.formData.accountType === "organization";
     }
   },
   methods: {
-    submitHandler() {
-      if (!this.plan) {
-        this.error =
-          "No plan has been selected. Please select on of the plans above.";
-        return;
-      }
-      for (let key in this.availability) {
-        if (this.availability[key] === "taken") {
-          this.error = `${_.capitalize(key)}
-            is already taken. Please try a different ${key}.`;
-          return;
-        }
-      }
-      this.error = null;
-      this.loading = true;
-    },
-    backToForm() {
-      this.checkoutMode = false;
-    },
     checkAvailability(key, value, apiKey) {
       clearTimeout(this.timeout);
       if (!value.trim()) {
@@ -207,6 +190,35 @@ export default {
           });
           this.availability[key] = result ? "available" : "taken";
         }, 500);
+      }
+    },
+    validateData() {
+      if (!this.plan) {
+        this.error =
+          "No plan has been selected. Please select on of the plans above.";
+        return false;
+      }
+      for (let key in this.availability) {
+        if (this.availability[key] === "taken") {
+          this.error = `${_.capitalize(key)}
+            is already taken. Please try a different ${key}.`;
+          return false;
+        }
+      }
+      this.error = null;
+      return true;
+    },
+    async submitHandler() {
+      if (!this.validateData()) return;
+      this.loading = true;
+      try {
+        await this.$store.dispatch("auth", {
+          mode: "register",
+          data: this.formData
+        });
+      } catch (error) {
+        this.error = error;
+        this.loading = false;
       }
     }
   },
