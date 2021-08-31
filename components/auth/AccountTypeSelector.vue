@@ -66,9 +66,8 @@ export default {
       text-align: center;
       font-size: 1.7rem;
       font-weight: 500;
-      box-shadow: $boxshadow2;
       border-radius: 0.8rem;
-      border: 0.2rem solid transparent;
+      border: 0.2rem solid #ccc;
       cursor: pointer;
       transition: all 0.5s;
 
@@ -79,7 +78,6 @@ export default {
     }
 
     &:hover label,
-    &:focus label,
     input:checked + label {
       background-color: rgba($color-azure-light, 0.8);
     }

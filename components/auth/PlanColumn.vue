@@ -58,7 +58,7 @@ export default {
     position: relative;
     background-color: $color-blue-2;
     color: #fff;
-    padding: 2.5rem 2.5rem 5.5rem;
+    padding: 3rem 2.5rem 5.5rem;
     text-align: center;
   }
 
@@ -67,31 +67,30 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 8rem;
+    height: 7rem;
 
     @include respond(mobile) {
-      height: 7.5rem;
+      height: 6.5rem;
     }
   }
 
   &__plan {
-    font-size: 3.5rem;
+    font-size: 3rem;
 
     @include respond(mobile) {
-      font-size: 3.2rem;
+      font-size: 2.8rem;
     }
   }
 
   &__content {
-    // padding: 4rem 1.5rem;
-    padding: 4rem 2.5rem;
+    padding: 4rem 2rem;
     flex: 1;
     display: flex;
     flex-direction: column;
 
-    // @include respond(tablet-land) {
-    //   padding: 4rem 2.5rem;
-    // }
+    @include respond(tablet-land) {
+      padding: 4rem 2.5rem;
+    }
 
     @include respond(mobile) {
       padding: 3rem 2rem;
@@ -126,8 +125,7 @@ export default {
     }
 
     i {
-      // margin-right: 1.5rem;
-      margin-right: 2rem;
+      margin-right: 1.5rem;
       width: 1.6rem;
       color: $color-azure;
       display: block;
@@ -135,7 +133,6 @@ export default {
 
       @include respond(mobile) {
         width: 1.5rem;
-        margin-right: 1.5rem;
       }
     }
 

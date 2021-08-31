@@ -70,7 +70,6 @@
         :options="countryOptions"
         :reduce="option => option.code"
         label="name"
-        required
         placeholder="Country"
         class="language-selector"
       />
@@ -107,7 +106,6 @@
         v-model="formData.email"
         id="email"
         type="email"
-        required
         class="form__input"
         :placeholder="
           isOrganization ? 'Lead contact email' : 'Your email address'
@@ -122,7 +120,6 @@
         v-model="formData.language"
         :options="languageOptions"
         :reduce="option => option.name"
-        required
         class="language-selector"
       />
     </div>
