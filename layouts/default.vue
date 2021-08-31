@@ -67,6 +67,7 @@ export default {
   mounted() {
     this.initSocketMethods();
     this.initToken();
+    this.io.on("updateCounter", data => console.log(data));
   },
   provide() {
     return {

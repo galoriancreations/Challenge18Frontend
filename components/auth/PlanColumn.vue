@@ -25,24 +25,15 @@
 </template>
 
 <script>
-import { membershipFeatures } from "../../assets/util/options";
-
 export default {
   props: {
     plan: Object
   },
-  inject: ["setSelectedPlan"],
-  data() {
-    return {
-      membershipFeatures
-    };
-  }
+  inject: ["setSelectedPlan"]
 };
 </script>
 
 <style lang="scss">
-@import "../../assets/sass/base.scss";
-
 .plan-column {
   border-radius: 0.8rem;
   overflow: hidden;

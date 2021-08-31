@@ -1,18 +1,3 @@
-export const membershipFeatures = [
-    "Up to 50 members per group",
-    "Customised challenge templates",
-    "Up to 5 single games at a time",
-    "Earn ting coins (Enjoy our coupon reward system)",
-    "18 free certificates per game",
-    "Technical and Pedagogic support",
-    "Free participation in the Challenge 18 global events",
-    "Free courses lesson plans",
-    "Join a think tank",
-    'Free e-book: "The New Global Citizens"',
-    "Mentorship",
-    "Unlimited games alone & with other clubs"
-];
-
 export const planOptions = [
     {
         type: "18-days",

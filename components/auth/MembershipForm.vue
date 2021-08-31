@@ -123,7 +123,7 @@
         class="language-selector"
       />
     </div>
-    <BaseButton variant="blue">Register</BaseButton>
+    <BaseButton variant="blue" @click="submitHandler">Register</BaseButton>
     <BaseSpinner v-if="loading" />
     <ErrorMessage v-else-if="error" :error="error" />
   </form>
