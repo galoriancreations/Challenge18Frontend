@@ -9,15 +9,11 @@
     <div class="plan-column__content">
       <ul class="plan-column__features">
         <li
-          v-for="feature in membershipFeatures"
+          v-for="feature in plan.features"
           :key="feature"
-          :class="{
-            'plan-column__feature': true,
-            excluded: !plan.features.includes(feature)
-          }"
+          class="plan-column__feature"
         >
-          <i v-if="plan.features.includes(feature)" class="fas fa-check" />
-          <i v-else class="fas fa-times" />
+          <i class="fas fa-check" />
           <span>{{ feature }}</span>
         </li>
       </ul>

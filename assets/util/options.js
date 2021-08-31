@@ -17,22 +17,43 @@ export const planOptions = [
     {
         type: "18-days",
         label: "18 Days",
-        features: membershipFeatures.slice(0, 6)
+        features: [
+            "Up to 50 members per group",
+            "Up to 5 single games at a time",
+            "Customised challenge templates",
+            "Earn ting coins (Enjoy our coupon reward system)",
+            "18 free certificates per game",
+            "Technical and Pedagogic support"
+        ]
     },
     {
         type: "18-weeks",
         label: "18 Weeks",
-        features: membershipFeatures.slice(0, 10)
+        features: [
+            "Everything in the 18 Days plan",
+            "Free participation in the Challenge 18 global events",
+            "Free courses lesson plans",
+            "Join a think tank",
+            'Free e-book: "The New Global Citizens"'
+        ]
     },
     {
         type: "18-months",
         label: "18 Months",
-        features: membershipFeatures.slice(0, 11)
+        features: [
+            "Everything in the 18 Weeks plan",
+            "Unlimited games alone & with other clubs",
+            "Mentorship"
+        ]
     },
     {
         type: "18-years",
         label: "18 Years",
-        features: membershipFeatures
+        features: [
+            "Everything in the 18 Weeks plan",
+            "Unlimited games alone & with other clubs",
+            "Mentorship"
+        ]
     }
 ];
 

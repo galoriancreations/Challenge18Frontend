@@ -132,7 +132,7 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/images/backgrounds/membership-bg.jpeg);
+      url(../../assets/images/backgrounds/join-bg-2.jpg);
   }
 
   &#dashboard {
@@ -141,7 +141,7 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/images/backgrounds/membership-bg.jpeg);
+      url(../../assets/images/backgrounds/dashboard-bg.jpeg);
   }
 
   &#challenge-editor {

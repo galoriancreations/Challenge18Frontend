@@ -46,7 +46,6 @@ export default {
         {
           text: "About",
           dropdown: [
-            { link: "/how-to-play", text: "How to Play" },
             { link: "/about", text: "Abous Us" },
             { link: "/what-we-do", text: "What We Do" },
             { link: "/articles", text: "Articles" },
@@ -56,6 +55,7 @@ export default {
         {
           text: "Game",
           dropdown: [
+            { link: "/how-to-play", text: "How to Play" },
             { link: "/clubs", text: "Clubs" },
             { link: "/players", text: "Players" }
           ]

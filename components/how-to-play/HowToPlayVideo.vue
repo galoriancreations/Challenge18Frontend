@@ -1,6 +1,6 @@
 <template>
   <div class="how-to-play__video">
-    <youtube videoId="YBW3yiNmKLU" />
+    <youtube videoId="Y8ARmD0wCfw" />
   </div>
 </template>
 
