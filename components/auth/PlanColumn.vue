@@ -111,6 +111,11 @@ export default {
     display: flex;
     align-items: center;
     line-height: 1.5;
+    font-size: 1.55rem;
+
+    @include respond(mobile) {
+      font-size: 1.5rem;
+    }
 
     &:not(:last-child) {
       margin-bottom: 1.5rem;
@@ -126,7 +131,7 @@ export default {
 
     i {
       margin-right: 1.5rem;
-      width: 1.6rem;
+      width: 1.55rem;
       color: $color-azure;
       display: block;
       text-align: center;
