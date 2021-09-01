@@ -39,11 +39,13 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/base.scss";
-
 .intro {
-  background-image: linear-gradient(to right, rgba(#000, 0.1), rgba(#000, 0.1)),
-    url(../../assets/images/backgrounds/intro-bg.jpg);
+  background-image: linear-gradient(
+      to right,
+      rgba(#4189bd, 0.75),
+      rgba(#4189bd, 0.75)
+    ),
+    url(../../assets/images/backgrounds/join-bg.jpg);
   background-position: center;
   background-size: cover;
   padding: 19rem $padding-sides-desktop;

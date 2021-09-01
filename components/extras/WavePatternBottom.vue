@@ -23,6 +23,7 @@
   overflow: hidden;
   line-height: 0;
   transform: rotate(180deg);
+  z-index: 1;
 }
 .custom-shape-divider-bottom-1613003167 svg {
   position: relative;

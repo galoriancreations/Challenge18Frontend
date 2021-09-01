@@ -22,6 +22,7 @@
   width: 100%;
   overflow: hidden;
   line-height: 0;
+  z-index: 1;
 }
 .custom-shape-divider-top-1613006383 svg {
   position: relative;

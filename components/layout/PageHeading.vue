@@ -141,7 +141,7 @@ export default {
         rgba(#4189bd, 0.8),
         rgba(#4189bd, 0.8)
       ),
-      url(../../assets/images/backgrounds/join-bg-2.jpg);
+      url(../../assets/images/backgrounds/intro-2-bg.jpg);
   }
 
   &#dashboard {
@@ -182,6 +182,7 @@ export default {
     max-width: 70rem;
     transform: translate(-50%, -50%);
     text-align: center;
+    z-index: 5;
 
     @include respond(mobile) {
       font-size: 4rem;
