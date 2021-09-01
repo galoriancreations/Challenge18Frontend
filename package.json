@@ -28,11 +28,11 @@
     "vue-inner-image-zoom": "^1.1.0",
     "vue-linkify": "^1.0.1",
     "vue-paypal-checkout": "^3.2.0",
+    "vue-phone-number-input": "^1.1.10",
     "vue-select": "^3.11.2",
     "vue-star-rating": "^1.7.0",
     "vue-textarea-autosize": "^1.1.1",
     "vue-waypoint": "^4.2.0",
-    "vue-whatsapp-widget": "^1.0.0",
     "vue-youtube": "^1.4.0",
     "vuescroll": "^4.17.3"
   },

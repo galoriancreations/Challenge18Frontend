@@ -57,9 +57,6 @@ export default {
         }
       ]
     };
-  },
-  mounted() {
-    console.log(require("~/assets/images/how-to-play/preparation.png"));
   }
 };
 </script>

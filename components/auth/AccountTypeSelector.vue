@@ -77,12 +77,14 @@ export default {
       }
     }
 
-    &:hover label,
-    input:checked + label {
-      background-color: rgba($color-azure-light, 0.8);
+    &:hover label {
+      @media (hover: hover) {
+        background-color: rgba($color-azure-light, 0.8);
+      }
     }
 
     input:checked + label {
+      background-color: rgba($color-azure-light, 0.8);
       border-color: $color-azure;
     }
   }

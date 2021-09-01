@@ -18,7 +18,7 @@
         What we do
       </BaseButton>
       <BaseButton v-if="!isLoggedIn" link="/join" variant="gold">
-        Join Us
+        Join for free
       </BaseButton>
       <BaseButton v-if="isLoggedIn" link="/dashboard" variant="gold">
         Go do dashboard

@@ -25,7 +25,6 @@ export default {
         require("~/assets/images/clubs/premiernepal.jpeg"),
         require("~/assets/images/clubs/raziel.jpeg"),
         require("~/assets/images/clubs/reshetyeruka.jpeg"),
-        require("~/assets/images/clubs/shazar.jpeg"),
         require("~/assets/images/clubs/shevachmofet.jpeg"),
         require("~/assets/images/clubs/ycl.jpeg")
       ]

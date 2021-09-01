@@ -10,7 +10,9 @@
           {{ label }}
         </h4>
         <p class="account-details__text">
-          {{ user[key] || "Not filled yet" }}
+          {{
+            (key === "country" ? countryText : user[key]) || "Not filled yet"
+          }}
         </p>
       </div>
       <div class="account-details__field" v-if="languageText">
@@ -19,10 +21,10 @@
           {{ languageText }}
         </p>
       </div>
-      <div class="account-details__field" v-if="planText">
+      <div class="account-details__field" v-if="user.plan">
         <h4 class="account-details__title">Membership plan</h4>
         <p class="account-details__text">
-          {{ planText }}
+          {{ user.plan }}
         </p>
       </div>
     </div>
@@ -38,6 +40,7 @@
 <script>
 import { labels, planOptions } from "../../assets/util/options";
 import languageOptions from "../../assets/data/languages";
+import countryOptions from "../../assets/data/countries";
 import dashboardModal from "../../mixins/dashboard-modal";
 
 export default {
@@ -58,16 +61,11 @@ export default {
       );
       return matchingLanguage?.label;
     },
-    planText() {
-      if (this.user?.plan === "free") {
-        return "Free";
-      }
-      const matchingPlan = planOptions.find(
-        plan => plan.type === this.user?.plan
+    countryText() {
+      const matchingCountry = countryOptions.find(
+        country => country.code === this.user?.country
       );
-      if (!matchingPlan) return;
-      const { label, price } = matchingPlan;
-      return `${label} / $${price}`;
+      return matchingCountry?.name;
     }
   },
   provide() {

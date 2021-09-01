@@ -10,6 +10,14 @@
         <li>A donation to a charity of their choice</li>
       </ul>
     </section>
+    <SectionSeperator />
+    <section class="marketplace__cta">
+      <p>
+        Want to become our partner and have your products featured in our
+        marketplace?
+      </p>
+      <BaseButton link="/contact" variant="blue">Contact Us</BaseButton>
+    </section>
   </Page>
 </template>
 
@@ -38,6 +46,16 @@
           margin-bottom: 0.5rem;
         }
       }
+    }
+  }
+
+  &__cta {
+    text-align: center;
+    max-width: 55rem;
+    margin: auto;
+
+    p {
+      margin-bottom: 3rem;
     }
   }
 }

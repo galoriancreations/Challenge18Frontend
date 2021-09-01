@@ -29,13 +29,16 @@
         Phone number (used for login)
         <CheckIcon :status="availability.phone" />
       </label>
-      <input
-        v-model="formData.phone"
-        id="phone"
-        type="tel"
-        required
-        class="form__input"
-        placeholder="Lead contact phone number"
+      <VuePhoneNumberInput
+        :class="{ 'phone-number-input': true }"
+        id="phone-number"
+        v-model="phoneInput"
+        @update="updatePhone"
+        color="#007bff"
+        :border-radius="8"
+        :no-example="true"
+        :show-code-on-list="true"
+        :no-flags="true"
       />
     </div>
     <div class="form__field" v-if="isOrganization">
@@ -133,8 +136,11 @@
 import countryOptions from "../../assets/data/countries";
 import languageOptions from "../../assets/data/languages";
 import _ from "lodash";
+import VuePhoneNumberInput from "vue-phone-number-input";
+import "vue-phone-number-input/dist/vue-phone-number-input.css";
 
 export default {
+  components: { VuePhoneNumberInput },
   inject: ["getSelectedPlan"],
   data() {
     return {
@@ -150,6 +156,7 @@ export default {
         language: "English",
         accountType: "organization"
       },
+      phoneInput: null,
       availability: {
         username: null,
         phone: null
@@ -157,7 +164,8 @@ export default {
       countryOptions,
       languageOptions,
       loading: false,
-      error: null
+      error: null,
+      phoneNumber: null
     };
   },
   computed: {
@@ -175,6 +183,12 @@ export default {
     }
   },
   methods: {
+    updatePhone(data) {
+      console.log(data);
+      if (data.formattedNumber) {
+        this.formData.phone = data.formattedNumber;
+      }
+    },
     checkAvailability(key, value, apiKey) {
       clearTimeout(this.timeout);
       if (!value.trim()) {
@@ -211,7 +225,7 @@ export default {
       try {
         await this.$store.dispatch("auth", {
           mode: "register",
-          data: this.formData
+          data: { ...this.formData, plan: this.plan.type }
         });
       } catch (error) {
         this.error = error;
@@ -276,6 +290,55 @@ export default {
     @include respond(mobile) {
       font-size: 2rem;
     }
+  }
+}
+
+.phone-number-input {
+  * {
+    font-family: inherit !important;
+  }
+
+  & > div {
+    height: 5.4rem !important;
+
+    @include respond(mobile) {
+      height: 5.2rem !important;
+    }
+  }
+
+  input,
+  label {
+    font-size: inherit !important;
+  }
+
+  input {
+    height: 5.4rem !important;
+    border-width: 0.2rem !important;
+
+    @include respond(mobile) {
+      height: 5.2rem !important;
+    }
+  }
+
+  .select-country-container {
+    min-width: initial !important;
+    max-width: initial !important;
+    width: 15rem !important;
+    flex: 0 0 15rem !important;
+
+    @include respond(mobile) {
+      width: 14.5rem !important;
+      flex: 0 0 14.5rem !important;
+    }
+  }
+
+  .country-selector__toggle {
+    top: 50%;
+    transform: translateY(-20%);
+  }
+
+  input:not(:placeholder-shown) ~ label {
+    font-size: 1.2rem !important;
   }
 }
 </style>
