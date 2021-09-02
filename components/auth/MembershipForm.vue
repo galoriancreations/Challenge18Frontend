@@ -334,8 +334,11 @@ export default {
   }
 
   .country-selector__toggle {
-    top: 50% !important;
-    transform: translateY(-20%) !important;
+    top: calc(50% - 4.5px) !important;
+
+    @include respond(mobile) {
+      top: calc(50% - 4.75px) !important;
+    }
   }
 
   input:not(:placeholder-shown) ~ label,
