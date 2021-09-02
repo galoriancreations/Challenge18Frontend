@@ -296,6 +296,7 @@ export default {
 .phone-number-input {
   * {
     font-family: inherit !important;
+    z-index: 5 !important;
   }
 
   & > div {
@@ -333,11 +334,12 @@ export default {
   }
 
   .country-selector__toggle {
-    top: 50%;
-    transform: translateY(-20%);
+    top: 50% !important;
+    transform: translateY(-20%) !important;
   }
 
-  input:not(:placeholder-shown) ~ label {
+  input:not(:placeholder-shown) ~ label,
+  label[style="color: orangered;"] {
     font-size: 1.2rem !important;
   }
 }
