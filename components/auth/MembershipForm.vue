@@ -30,13 +30,12 @@
         <CheckIcon :status="availability.phone" />
       </label>
       <VuePhoneNumberInput
-        :class="{ 'phone-number-input': true }"
+        class="phone-number-input"
         id="phone-number"
-        v-model="phoneInput"
-        @update="updatePhone"
+        v-model="phoneInput.value"
+        @update="updatePhoneNumber"
         color="#007bff"
         :border-radius="8"
-        :no-example="true"
         :show-code-on-list="true"
         :no-flags="true"
       />
@@ -156,7 +155,10 @@ export default {
         language: "English",
         accountType: "organization"
       },
-      phoneInput: null,
+      phoneInput: {
+        value: null,
+        isValid: false
+      },
       availability: {
         username: null,
         phone: null
@@ -183,11 +185,11 @@ export default {
     }
   },
   methods: {
-    updatePhone(data) {
-      console.log(data);
+    updatePhoneNumber(data) {
       if (data.formattedNumber) {
         this.formData.phone = data.formattedNumber;
       }
+      this.phoneInput.isValid = data.isValid;
     },
     checkAvailability(key, value, apiKey) {
       clearTimeout(this.timeout);
@@ -207,6 +209,11 @@ export default {
       if (!this.plan) {
         this.error =
           "No plan has been selected. Please select on of the plans above.";
+        return false;
+      }
+      if (!this.phoneInput.isValid) {
+        this.error =
+          "The phone number you entered is invalid. Please enter a valid number.";
         return false;
       }
       for (let key in this.availability) {
