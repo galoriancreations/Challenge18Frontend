@@ -14,14 +14,11 @@
       </p>
     </div>
     <div class="intro__links">
-      <BaseButton link="/what-we-do" variant="blue">
-        What we do
+      <BaseButton v-if="!isLoggedIn" link="/join" variant="blue">
+        Get Started <i class="fas fa-chevron-right" />
       </BaseButton>
-      <BaseButton v-if="!isLoggedIn" link="/join" variant="gold">
-        Join for free
-      </BaseButton>
-      <BaseButton v-if="isLoggedIn" link="/dashboard" variant="gold">
-        Go do dashboard
+      <BaseButton v-if="isLoggedIn" link="/dashboard" variant="blue">
+        Go do dashboard <i class="fas fa-chevron-right" />
       </BaseButton>
     </div>
     <WavePatternBottom />
@@ -104,7 +101,7 @@ export default {
     width: 37.5vw;
     max-width: 54rem;
     min-width: 50rem;
-    font-size: 2.1rem;
+    font-size: 1.9rem;
     line-height: 1.6;
 
     @include respond(tablet) {
@@ -133,6 +130,9 @@ export default {
       width: 25rem;
       padding: 1.2rem 0 1rem;
       box-shadow: $boxshadow2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       @include respond(mobile) {
         font-size: 1.3rem;
@@ -143,13 +143,9 @@ export default {
         box-shadow: $boxshadow1;
       }
 
-      &:not(:last-child) {
-        margin-right: 2.5rem;
-
-        @include respond(mobile) {
-          margin-right: 0;
-          margin-bottom: 1.5rem;
-        }
+      i {
+        font-size: 1.2rem;
+        margin-left: 1.5rem;
       }
     }
   }
