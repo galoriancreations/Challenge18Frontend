@@ -64,16 +64,13 @@ export const actions = {
         clearTimeout(logoutTimer);
     },
     async updateUser(context, data) {
-        try {
-            const { user: userData } = data || context.getters;
-            const { user } = await this.$axios.$post("/xapi",
-                { editProfile: data || {}, userID: userData.id }
-            );
-            console.log(user)
-            context.commit("updateUser", user);
-        } catch (error) {
-            console.log(error)
-        }
+        console.log("request data", data)
+        console.log("user from state", context.getters.user)
+        const { user } = await this.$axios.$post("/xapi",
+            { editProfile: data || {}, userID: context.getters.user.id }
+        );
+        console.log("response data", user)
+        context.commit("updateUser", user);
     },
     async loadTemplates(context) {
         const { templates } = await this.$axios.$post("/xapi",

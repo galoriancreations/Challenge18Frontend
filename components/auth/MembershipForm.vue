@@ -31,7 +31,7 @@
       </label>
       <VuePhoneNumberInput
         class="phone-number-input"
-        id="phone-number"
+        id="phone"
         v-model="phoneInput.value"
         @update="updatePhoneNumber"
         color="#007bff"
@@ -78,14 +78,14 @@
     </div>
     <div class="form__field" v-if="isOrganization">
       <label for="memberName" class="form__label">
-        Lead staff member's mame
+        Lead staff member's name
       </label>
       <input
         v-model="formData.memberName"
         id="memberName"
         required
         class="form__input"
-        placeholder="Lead staff member's mame"
+        placeholder="Lead staff member's name"
       />
     </div>
     <div class="form__field" v-if="isOrganization">

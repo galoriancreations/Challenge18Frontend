@@ -71,6 +71,7 @@ export default {
       this.loading = true;
       this.error = null;
       try {
+        console.log("formData", this.formData);
         await this.$store.dispatch("updateUser", this.formData);
         this.closeModal();
       } catch (error) {

@@ -46,7 +46,7 @@ export default {
         {
           text: "About",
           dropdown: [
-            { link: "/about", text: "Abous Us" },
+            { link: "/about", text: "About Us" },
             { link: "/what-we-do", text: "What We Do" },
             { link: "/articles", text: "Articles" },
             { link: "/videos", text: "Videos" }
