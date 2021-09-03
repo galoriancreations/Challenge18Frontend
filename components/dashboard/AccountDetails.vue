@@ -21,10 +21,10 @@
           {{ languageText }}
         </p>
       </div>
-      <div class="account-details__field" v-if="user.plan">
+      <div class="account-details__field">
         <h4 class="account-details__title">Membership plan</h4>
         <p class="account-details__text">
-          {{ user.plan }}
+          {{ planText }}
         </p>
       </div>
     </div>
@@ -66,6 +66,12 @@ export default {
         country => country.code === this.user?.country
       );
       return matchingCountry?.name;
+    },
+    planText() {
+      const matchingPlan = planOptions.find(
+        plan => plan.type === this.user?.plan
+      );
+      return matchingPlan?.label;
     }
   },
   provide() {

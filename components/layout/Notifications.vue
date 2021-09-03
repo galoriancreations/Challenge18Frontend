@@ -1,6 +1,10 @@
 <template>
   <div class="notifications">
-    <TransitionGroup class="notifications__wrapper" name="notification">
+    <component
+      :is="isMounted ? 'TransitionGroup' : 'div'"
+      class="notifications__wrapper"
+      name="notification"
+    >
       <component
         v-for="item in items"
         :key="item.id"
@@ -8,7 +12,7 @@
         v-bind="item.props"
         @dismiss="removeItem(item.id)"
       />
-    </TransitionGroup>
+    </component>
   </div>
 </template>
 
@@ -17,7 +21,15 @@ export default {
   props: {
     items: Array
   },
-  inject: ["removeItem"]
+  inject: ["removeItem"],
+  data() {
+    return {
+      isMounted: false
+    };
+  },
+  mounted() {
+    this.isMounted = true;
+  }
 };
 </script>
 

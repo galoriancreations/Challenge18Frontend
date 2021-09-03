@@ -32,8 +32,7 @@ import confirmModal from "../mixins/confirm-modal";
 export default {
   mixins: [confirmModal],
   meta: {
-    requiresAuth: true,
-    forOrganizations: true
+    requiresAuth: true
   },
   async asyncData({ app, store, $axios, error }) {
     try {

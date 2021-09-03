@@ -55,7 +55,8 @@ export default {
     isLoggedIn(value) {
       if (value) {
         this.io.emit("joinRoom", this.user.id);
-        this.$router.replace("/dashboard");
+        const redirect = this.$route.query.redirect || "dashboard";
+        this.$router.replace(`/${redirect}`);
       } else {
         this.restartSocket();
         if (this.$route.meta.requiresAuth) {

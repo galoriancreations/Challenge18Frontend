@@ -58,6 +58,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: 30rem;
 
     @include respond(mobile) {
       padding: 3rem 2rem 5rem;
@@ -68,12 +69,6 @@ export default {
       width: auto;
       font-weight: 600;
     }
-  }
-
-  &.my-challenges &__content,
-  &.club-players &__content,
-  &.my-drafts &__content {
-    min-height: 30rem;
   }
 }
 </style>

@@ -1,10 +1,8 @@
 <template>
-  <DashboardSection title="My Challenges" class="my-challenges">
+  <DashboardSection title="Created Challenges" class="my-challenges">
     <div v-if="!hasChallenges" class="my-challenges__empty">
-      <p>
-        You don't have any challenges yet.
-        {{ isIndividual ? "Join" : "Create" }} your first!
-      </p>
+      <p>Challenges you created will appear here.</p>
+      <p>Click the button below to create your first challenge.</p>
     </div>
     <div v-else class="my-challenges__table-container">
       <vue-good-table
@@ -20,8 +18,8 @@
       <ActionButton type="add" color="blue" @click="modalOpen = true" />
     </template>
     <template slot="modal">
-      <JoinChallenge v-if="isIndividual" :active="modalOpen" />
-      <CreateChallenge v-else :active="modalOpen" />
+      <!-- <JoinChallenge v-if="isIndividual" :active="modalOpen" /> -->
+      <CreateChallenge :active="modalOpen" />
     </template>
   </DashboardSection>
 </template>

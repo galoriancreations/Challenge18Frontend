@@ -1,16 +1,16 @@
 <template>
   <Page title="Dashboard" name="dashboard">
-    <AccountDetails />
-    <ClubPlayers v-if="isOrganization" />
-    <MyChallenges />
-    <PublicTemplates v-if="isAdmin" />
-    <MyTemplates v-if="isOrgnization || isAdmin" />
-    <MyDrafts v-if="isOrgnization || isAdmin" />
     <ConfirmModal
       :active="showConfirmModal"
       :text="confirmText"
       @confirm="confirmAction"
     />
+    <AccountDetails />
+    <ClubPlayers v-if="isOrganization" />
+    <CreatedChallenges />
+    <PublicTemplates v-if="isAdmin" />
+    <MyTemplates />
+    <MyDrafts />
   </Page>
 </template>
 

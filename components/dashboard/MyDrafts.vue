@@ -9,13 +9,18 @@
 </template>
 
 <script>
+import { dataArrayFromObject } from "../../assets/util/functions";
+
 export default {
   computed: {
     user() {
       return this.$store.getters.user;
     },
+    drafts() {
+      return dataArrayFromObject(this.user.drafts);
+    },
     hasDrafts() {
-      return this.user?.drafts?.length > 0;
+      return this.user.drafts && this.drafts?.length > 0;
     }
   }
 };

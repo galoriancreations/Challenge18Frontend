@@ -21,10 +21,10 @@
         <div
           class="template-button"
           v-for="template in filteredTemplateOptions"
-          :key="template"
+          :key="template.id"
         >
-          <label @click="selectTemplate(template)">
-            {{ template }}
+          <label @click="selectTemplate(template.id)">
+            {{ template.name }}
           </label>
         </div>
       </div>
@@ -52,13 +52,14 @@ export default {
   inject: ["closeModal"],
   data() {
     return {
-      selectedLanguage: "English",
-      templateOptions: {}
+      selectedLanguage: "English"
     };
   },
   computed: {
     languageOptions() {
-      const availableLanguages = Object.keys(this.templateOptions);
+      const availableLanguages = this.templateOptions.map(
+        template => template.language
+      );
       return languageOptions.filter(language =>
         availableLanguages.includes(language.name)
       );
@@ -69,8 +70,13 @@ export default {
     userLanguage() {
       return this.user?.language;
     },
+    templateOptions() {
+      return this.$store.getters.templates;
+    },
     filteredTemplateOptions() {
-      return this.templateOptions[this.selectedLanguage];
+      return this.templateOptions.filter(
+        template => template.language === this.selectedLanguage
+      );
     }
   },
   methods: {

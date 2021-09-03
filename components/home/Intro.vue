@@ -17,7 +17,7 @@
       <BaseButton v-if="!isLoggedIn" link="/join" variant="blue">
         Get Started <i class="fas fa-chevron-right" />
       </BaseButton>
-      <BaseButton v-if="isLoggedIn" link="/dashboard" variant="blue">
+      <BaseButton v-if="isLoggedIn" link="/challenge-editor" variant="blue">
         Go do dashboard <i class="fas fa-chevron-right" />
       </BaseButton>
     </div>

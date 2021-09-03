@@ -5,7 +5,7 @@ export const namespaced = false;
 export const state = () => ({
     user: null,
     token: null,
-    templates: {}
+    templates: []
 });
 
 export const mutations = {
@@ -31,7 +31,7 @@ export const actions = {
         const { access_token: token, user, exp } = authData;
         this.$setAxiosDefaults(token, user.id);
         console.log(authData)
-        // await context.dispatch("loadTemplates");
+        // await context.dispatch("loadTemplates", user.id);
         context.commit("setUser", { user, token });
 
         this.$cookies.set("userId", user.id);
@@ -64,18 +64,18 @@ export const actions = {
         clearTimeout(logoutTimer);
     },
     async updateUser(context, data) {
-        console.log("request data", data)
-        console.log("user from state", context.getters.user)
-        const { user } = await this.$axios.$post("/xapi",
-            { editProfile: data || {}, userID: context.getters.user.id }
-        );
+        const { user } = await this.$axios.$post("/xapi", {
+            editProfile: data || {},
+            userID: context.getters.user.id
+        });
         console.log("response data", user)
         context.commit("updateUser", user);
     },
-    async loadTemplates(context) {
-        const { templates } = await this.$axios.$post("/xapi",
-            { getTemplateNames: true }
-        );
+    async loadTemplates(context, userId) {
+        const { templates } = await this.$axios.$post("/xapi", {
+            getTemplateNames: true,
+            userID: userId || context.getters.user.id
+        });
         context.commit("setTemplates", templates);
     }
 };

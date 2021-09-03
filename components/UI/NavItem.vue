@@ -7,17 +7,19 @@
     @keydown.enter="enterKeyHandler"
     @keydown.esc="closeDropdownOnDesktop"
   >
-    <NuxtLink
+    <component
+      :is="button ? 'BaseButton' : 'NuxtLink'"
       v-if="link"
       :to="link"
-      activeClass="active"
+      :link="button ? link : null"
+      :variant="button ? 'gold' : null"
+      :activeClass="!button && 'active'"
       exact
-      :class="linkClasses"
     >
       {{ text }}
       <i v-if="dropdown" class="fas fa-chevron-down" />
-    </NuxtLink>
-    <button v-else :class="linkClasses">
+    </component>
+    <button v-else>
       {{ text }}
       <i v-if="dropdown" class="fas fa-chevron-down" />
     </button>
@@ -68,13 +70,6 @@ export default {
         reverse: this.reverse,
         "open-desktop": this.dropdownOpenDesktop,
         "open-mobile": this.dropdownOpenMobile
-      };
-    },
-    linkClasses() {
-      return {
-        "header__nav-link": true,
-        button: this.button,
-        "button--gold": this.button
       };
     },
     hasActiveSubitem() {

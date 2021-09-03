@@ -22,15 +22,15 @@
           <div
             class="template-button"
             v-for="template in filteredTemplateOptions"
-            :key="template"
+            :key="template.id"
           >
             <input
               type="radio"
               v-model="selectedTemplate"
-              :value="template"
-              :id="template"
+              :value="template.id"
+              :id="template.id"
             />
-            <label :for="template">{{ template }}</label>
+            <label :for="template.id">{{ template.name }}</label>
           </div>
         </div>
       </div>
@@ -68,8 +68,11 @@ export default {
   },
   computed: {
     languageOptions() {
+      const availableLanguages = this.templateOptions.map(
+        template => template.language
+      );
       return languageOptions.filter(language =>
-        Object.keys(this.templateOptions).includes(language.name)
+        availableLanguages.includes(language.name)
       );
     },
     user() {
@@ -82,7 +85,9 @@ export default {
       return this.$store.getters.templates;
     },
     filteredTemplateOptions() {
-      return this.templateOptions[this.selectedLanguage || "English"];
+      return this.templateOptions.filter(
+        template => template.language === this.selectedLanguage
+      );
     }
   },
   methods: {
@@ -128,106 +133,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-.new-challenge-modal {
-  &__section {
-    &:not(:last-child) {
-      margin-bottom: 5rem;
-
-      @include respond(mobile) {
-        margin-bottom: 4rem;
-      }
-    }
-  }
-
-  &__subheading {
-    font-size: 1.9rem;
-    margin-bottom: 1.8rem;
-    line-height: 1.6;
-
-    @include respond(mobile) {
-      font-size: 1.7rem;
-    }
-  }
-
-  &__options {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-
-    @include respond(mobile) {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-  }
-
-  &.join-challenge .button {
-    width: 15rem;
-  }
-
-  &__link-section,
-  .section-heading-wrapper + .error-message {
-    position: absolute;
-    width: 100%;
-    padding: 0 4rem;
-    left: 0;
-    top: 50%;
-    transform: translateY(-30%);
-    text-align: center;
-
-    @include respond(mobile) {
-      padding: 0 2rem;
-    }
-  }
-
-  &__link {
-    font-size: 2.3rem;
-    color: $color-blue-2;
-    transition: color 0.5s;
-
-    @include respond(mobile) {
-      font-size: 2.1rem;
-    }
-
-    &:hover {
-      color: $color-gold-3;
-    }
-  }
-}
-
-.template-button {
-  input {
-    display: none;
-  }
-
-  label {
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    box-shadow: $boxshadow2;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    border: 0.2rem solid transparent;
-    font-weight: 500;
-    font-size: 1.7rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.5s;
-
-    @include respond(mobile) {
-      font-size: 1.55rem;
-    }
-
-    &:hover {
-      background-color: rgba($color-azure-light, 0.8);
-    }
-  }
-
-  input:checked + label {
-    background-color: rgba($color-azure-light, 0.8);
-    border: 0.2rem solid $color-azure;
-  }
-}
-</style>
