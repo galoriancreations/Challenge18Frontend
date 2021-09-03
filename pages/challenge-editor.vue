@@ -50,7 +50,7 @@ export default {
           draftId: configId
         };
       } else if (draftId) {
-        const { draft } = await $axios.$post("/xapi", {
+        const draft = await $axios.$post("/xapi", {
           getDraftData: draftId
         });
         return {
@@ -62,7 +62,7 @@ export default {
           templateId: draft.templateId
         };
       } else if (selectedTemplate) {
-        const { template } = await $axios.$post("/xapi", {
+        const template = await $axios.$post("/xapi", {
           getTemplateData: selectedTemplate
         });
         return {
@@ -133,6 +133,7 @@ export default {
     },
     finalTemplateData() {
       return {
+        id: this.templateId,
         name: this.name,
         language: this.language,
         days: clearedOptions(this.options),
@@ -185,7 +186,8 @@ export default {
           await this.saveDraft();
           this.autoSave.date = new Date();
           this.autoSave.error = false;
-        } catch {
+        } catch (err) {
+          console.log(err);
           this.autoSave.error = true;
         }
         this.autoSave.loading = false;

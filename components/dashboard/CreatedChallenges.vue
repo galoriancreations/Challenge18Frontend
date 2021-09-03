@@ -50,7 +50,7 @@ export default {
       return this.$store.getters.user;
     },
     hasChallenges() {
-      return !!this.user?.myChallenges && this.challenges.length > 0;
+      return this.user?.myChallenges && this.challenges.length > 0;
     },
     isIndividual() {
       return this.user?.accountType === "individual";
@@ -67,14 +67,14 @@ export default {
       if (this.hasChallenges) {
         this.scrollbar = Scrollbar.init(this.table);
       }
-      this.io.on("myChallenges", () => {
-        setTimeout(() => {
-          if (!this.scrollbar) {
-            this.scrollbar = Scrollbar.init(this.table);
-          }
-          this.scrollbar.scrollTop = 0;
-        }, 10);
-      });
+      // this.io.on("myChallenges", () => {
+      //   setTimeout(() => {
+      //     if (!this.scrollbar) {
+      //       this.scrollbar = Scrollbar.init(this.table);
+      //     }
+      //     this.scrollbar.scrollTop = 0;
+      //   }, 10);
+      // });
     },
     adjustTableHeader() {
       this.fixedHeader = window.innerWidth > 1000;
