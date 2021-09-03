@@ -184,10 +184,12 @@ export default {
   },
   methods: {
     updatePhoneNumber(data) {
+      console.log(data);
       if (data.formattedNumber) {
         this.formData.phone = data.formattedNumber;
       }
       this.phoneInput.isValid = data.isValid;
+      this.formData.country = data.countryCode;
     },
     checkAvailability(key, value, apiKey) {
       clearTimeout(this.timeout);
