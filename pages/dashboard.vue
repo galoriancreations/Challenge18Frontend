@@ -22,6 +22,16 @@ export default {
   meta: {
     requiresAuth: true
   },
+  async asyncData({ store }) {
+    try {
+      if (process.client) {
+        await Promise.all([
+          store.dispatch("updateUser"),
+          store.dispatch("loadTemplates")
+        ]);
+      }
+    } catch {}
+  },
   computed: {
     user() {
       return this.$store.getters.user;
