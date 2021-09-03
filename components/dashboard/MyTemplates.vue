@@ -16,10 +16,10 @@ export default {
       return this.$store.getters.user;
     },
     templates() {
-      return dataArrayFromObject(this.user.templates);
+      return dataArrayFromObject(this.user?.templates);
     },
     hasTemplates() {
-      return this.user.templates && this.templates.length > 0;
+      return this.user?.templates && this.templates.length > 0;
     }
   }
 };

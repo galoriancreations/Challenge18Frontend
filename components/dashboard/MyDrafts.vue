@@ -20,7 +20,7 @@ export default {
       return dataArrayFromObject(this.user.drafts);
     },
     hasDrafts() {
-      return this.user.drafts && this.drafts?.length > 0;
+      return this.user?.drafts && this.drafts?.length > 0;
     }
   }
 };

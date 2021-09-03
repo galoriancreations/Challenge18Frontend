@@ -11,7 +11,7 @@ import socket from "socket.io-client";
 export default {
   data() {
     return {
-      io: socket(this.$config.axios.baseURL)
+      // io: socket(this.$config.axios.baseURL)
     };
   },
   computed: {
@@ -54,7 +54,7 @@ export default {
   watch: {
     isLoggedIn(value) {
       if (value) {
-        this.io.emit("joinRoom", this.user.id);
+        // this.io.emit("joinRoom", this.user.id);
         const redirect = this.$route.query.redirect || "dashboard";
         this.$router.replace(`/${redirect}`);
       } else {
@@ -66,9 +66,10 @@ export default {
     }
   },
   mounted() {
-    this.initSocketMethods();
+    // console.log(this.io);
+    // this.initSocketMethods();
     this.initToken();
-    this.io.on("updateCounter", data => console.log(data));
+    // this.io.on("updateCounter", data => console.log(data));
   },
   provide() {
     return {

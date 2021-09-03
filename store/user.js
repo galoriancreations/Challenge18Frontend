@@ -31,7 +31,7 @@ export const actions = {
         const { access_token: token, user, exp } = authData;
         this.$setAxiosDefaults(token, user.id);
         console.log(authData)
-        // await context.dispatch("loadTemplates", user.id);
+        // await context.dispatch("loadTemplates");
         context.commit("setUser", { user, token });
 
         this.$cookies.set("userId", user.id);
@@ -63,18 +63,15 @@ export const actions = {
         this.$cookies.removeAll();
         clearTimeout(logoutTimer);
     },
-    async updateUser(context, data) {
+    async updateUser(context, data = {}) {
         const { user } = await this.$axios.$post("/xapi", {
-            editProfile: data || {},
-            userID: context.getters.user.id
+            editProfile: data
         });
-        console.log("response data", user)
         context.commit("updateUser", user);
     },
-    async loadTemplates(context, userId) {
+    async loadTemplates(context) {
         const { templates } = await this.$axios.$post("/xapi", {
-            getTemplateNames: true,
-            userID: userId || context.getters.user.id
+            getTemplateNames: true
         });
         context.commit("setTemplates", templates);
     }
