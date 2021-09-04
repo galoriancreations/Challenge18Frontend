@@ -16,6 +16,8 @@
     margin: auto;
     margin-bottom: 9rem;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
 
     @include respond(mobile) {
       margin-bottom: 6rem;
@@ -23,6 +25,7 @@
 
     video {
       display: block;
+      max-width: 100%;
     }
   }
 }
