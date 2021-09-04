@@ -20,16 +20,20 @@ export default {
     return {
       images: [
         {
-          src: require("~/assets/images/top-challenges/sdgs-2.jpeg"),
+          src: require("~/assets/images/logos/PNGChallenge18LogoSDGs-01.png"),
           alt: "International SDG"
         },
         {
-          src: require("~/assets/images/top-challenges/climate-action-2.jpeg"),
+          src: require("~/assets/images/logos/PNGChallenge18LogoClimateAction-01.png"),
           alt: "Climate Action"
         },
         {
-          src: require("~/assets/images/top-challenges/songs-values.jpg"),
+          src: require("~/assets/images/logos/PNGChallenge18LogoSongsAndValues-01.png"),
           alt: "Songs & Values"
+        },
+        {
+          src: require("~/assets/images/logos/PNGChallenge18LogoFriendlyAI-01.png"),
+          alt: "Friendly AI"
         }
       ]
     };
@@ -41,10 +45,10 @@ export default {
 .top-challenges {
   &__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 4.5rem;
     align-items: center;
-    max-width: 85rem;
+    max-width: 90rem;
     margin: auto;
 
     @include respond(mobile-land) {
