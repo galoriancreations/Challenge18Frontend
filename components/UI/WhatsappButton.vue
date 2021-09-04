@@ -6,8 +6,8 @@
 
 <style lang="scss">
 .whatsapp-icon {
-  width: 6.5rem;
-  height: 6.5rem;
+  width: 6.2rem;
+  height: 6.2rem;
   position: fixed;
   bottom: 2rem;
   right: 2rem;

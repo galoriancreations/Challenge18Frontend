@@ -20,6 +20,7 @@
 
 <script>
 import { dataArrayFromObject } from "../../assets/util/functions";
+import Scrollbar from "smooth-scrollbar";
 
 export default {
   data() {
@@ -28,7 +29,9 @@ export default {
         { field: "id", label: "ID", sortable: false },
         { field: "name", label: "Name", sortable: false },
         { field: "language", label: "Language", sortable: false }
-      ]
+      ],
+      scrollbar: null,
+      fixedHeader: false
     };
   },
   computed: {
@@ -40,7 +43,30 @@ export default {
     },
     hasDrafts() {
       return this.user?.drafts && this.drafts?.length > 0;
+    },
+    table() {
+      return this.$el.querySelector(".vgt-responsive");
     }
+  },
+  methods: {
+    manageTableScrollbar() {
+      if (this.hasDrafts) {
+        this.scrollbar = Scrollbar.init(this.table);
+      }
+    },
+    adjustTableHeader() {
+      this.fixedHeader = window.innerWidth > 1000;
+    }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.manageTableScrollbar();
+      this.adjustTableHeader();
+    }, 100);
+    window.addEventListener("resize", this.adjustTableHeader);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.manageTableHeader);
   }
 };
 </script>
