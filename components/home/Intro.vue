@@ -120,7 +120,6 @@ export default {
     max-width: 35rem;
 
     @include respond(tablet) {
-      margin-right: 0;
       margin-bottom: 5rem;
     }
   }

@@ -6,6 +6,7 @@
       <slot />
     </WhiteSection>
     <slot v-else />
+    <WhatsappButton v-if="$route.name !== 'challenge-editor'" />
     <TheFooter />
   </div>
 </template>
