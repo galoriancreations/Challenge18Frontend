@@ -40,7 +40,7 @@ export default {
       return this.user?.accountType === "organization";
     },
     isAdmin() {
-      return true;
+      return this.user?.accountType === "admin";
     }
   }
 };

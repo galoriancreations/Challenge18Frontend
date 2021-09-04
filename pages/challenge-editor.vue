@@ -226,7 +226,7 @@ export default {
       return true;
     },
     async createNewChallenge() {
-      const { challenge } = await this.$axios.$post("/xapi", {
+      const challenge = await this.$axios.$post("/xapi", {
         createChallenge: {
           draftId: this.draftId,
           challengeData: this.finalChallengeConfig,

@@ -1,6 +1,6 @@
 <template>
   <div class="how-to-play__video">
-    <video autoplay muted loop playsinline ref="video">
+    <video autoplay muted loop playsinline controls ref="video">
       <source src="../../assets/videos/whatsapp-recording.mp4" />
     </video>
   </div>
@@ -16,8 +16,6 @@
     margin: auto;
     margin-bottom: 9rem;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
 
     @include respond(mobile) {
       margin-bottom: 6rem;
