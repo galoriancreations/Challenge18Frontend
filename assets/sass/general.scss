@@ -72,55 +72,18 @@ a {
 }
 
 ul.diamond-bullet-list {
-  // @mixin customBullet {
-  //   padding-left: 2.5rem;
-  //   position: relative;
-
-  //   @include respond(mobile) {
-  //     padding-left: 2rem;
-  //   }
-
-  //   &::before {
-  //     content: "";
-  //     position: absolute;
-  //     left: 0;
-  //     top: 50%;
-  //     width: 0.8rem;
-  //     height: 0.8rem;
-  //     background-color: $color-blue-2;
-  //     transform: translateY(-50%) rotate(45deg);
-
-  //     @include respond(mobile) {
-  //       width: 0.7rem;
-  //       height: 0.7rem;
-  //     }
-  //   }
-  // }
-
   li {
     list-style-image: url(../images/diamond-bullet.svg);
     padding-left: 0.75rem;
     margin-left: 1.5rem;
 
     @include respond(mobile) {
-      padding-left: 0.5rem;
+      padding-left: 0.4rem;
+      margin-left: 1.7rem;
+    }
 
-      li {
-        margin-left: 0.75rem;
-      }
+    li {
+      margin-left: 0;
     }
   }
-
-  // &:not(.diamond-bullet-list--nested) {
-  //   li {
-  //     @include customBullet;
-  //   }
-  // }
-
-  // &--nested {
-  //   li > *:not(ul) {
-  //     display: block;
-  //     @include customBullet;
-  //   }
-  // }
 }

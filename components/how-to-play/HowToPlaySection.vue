@@ -3,13 +3,15 @@
     <h2 class="how-to-play__section-title">{{ title }}</h2>
     <div class="how-to-play__section-container">
       <div class="how-to-play__section-content">
-        <ul class="diamond-bullet-list diamond-bullet-list--nested">
+        <ul class="diamond-bullet-list">
           <li v-for="item in items" :key="item.text || item">
             <span v-html="item.text || item" />
             <ul v-if="item.subitems">
-              <li v-for="subitem in item.subitems" :key="subitem">
-                <span v-html="subitem" />
-              </li>
+              <li
+                v-for="subitem in item.subitems"
+                :key="subitem"
+                v-html="subitem"
+              />
             </ul>
           </li>
         </ul>
