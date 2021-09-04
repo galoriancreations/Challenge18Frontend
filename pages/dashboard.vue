@@ -23,14 +23,14 @@ export default {
     requiresAuth: true
   },
   async asyncData({ store }) {
-    try {
-      if (process.client) {
+    if (process.client) {
+      try {
         await Promise.all([
           store.dispatch("updateUser"),
           store.dispatch("loadTemplates")
         ]);
-      }
-    } catch {}
+      } catch {}
+    }
   },
   computed: {
     user() {
@@ -40,7 +40,7 @@ export default {
       return this.user?.accountType === "organization";
     },
     isAdmin() {
-      return this.user?.accountType === "admin";
+      return true;
     }
   }
 };

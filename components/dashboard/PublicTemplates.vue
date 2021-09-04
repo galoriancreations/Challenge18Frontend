@@ -29,9 +29,11 @@ export default {
     return {
       columns: [
         { field: "id", label: "ID", sortable: false },
-        { field: "title", label: "Title", sortable: false },
+        { field: "name", label: "Name", sortable: false },
         { field: "language", label: "Language", sortable: false }
-      ]
+      ],
+      scrollbar: null,
+      fixedHeader: false
     };
   },
   computed: {
@@ -45,19 +47,35 @@ export default {
     }
   },
   methods: {
+    manageTableScrollbar() {
+      if (this.hasChallenges) {
+        this.scrollbar = Scrollbar.init(this.table);
+      }
+    },
+    adjustTableHeader() {
+      this.fixedHeader = window.innerWidth > 1000;
+    },
     selectTemplate(templateId) {
       if (templateId) {
         this.$cookies.set("selectedTemplate", templateId);
       } else {
         this.$cookies.remove("selectedTemplate");
       }
-      this.$cookies.remove("draftId");
       this.$cookies.remove("challengeId");
+      this.$cookies.remove("draftId");
       this.$router.push({
         path: "/challenge-editor",
         query: { templateOnly: true }
       });
     }
+  },
+  mounted() {
+    this.manageTableScrollbar();
+    this.adjustTableHeader();
+    window.addEventListener("resize", this.adjustTableHeader);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.manageTableHeader);
   }
 };
 </script>
