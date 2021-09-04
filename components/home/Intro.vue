@@ -93,7 +93,8 @@ export default {
     line-height: 1.6;
 
     @include respond(mobile) {
-      font-size: 1.75rem;
+      font-size: 1.7rem;
+      line-height: 1.55;
     }
   }
 
