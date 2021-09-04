@@ -44,6 +44,9 @@ export default {
     },
     hasTemplates() {
       return this.templates.length > 0;
+    },
+    table() {
+      return this.$el.querySelector(".vgt-responsive");
     }
   },
   methods: {
@@ -70,8 +73,10 @@ export default {
     }
   },
   mounted() {
-    this.manageTableScrollbar();
-    this.adjustTableHeader();
+    setTimeout(() => {
+      this.manageTableScrollbar();
+      this.adjustTableHeader();
+    }, 100);
     window.addEventListener("resize", this.adjustTableHeader);
   },
   beforeDestroy() {

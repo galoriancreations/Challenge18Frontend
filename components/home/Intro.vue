@@ -1,5 +1,12 @@
 <template>
   <section class="intro">
+    <div class="intro__top">
+      <h1 class="intro__heading">Challenge Yourself to the Top</h1>
+      <p class="intro__subheading">
+        Easily build, run, and change the world with any challenge on one
+        platform.
+      </p>
+    </div>
     <div class="intro__content">
       <img
         class="intro__img"
@@ -45,7 +52,7 @@ export default {
     url(../../assets/images/backgrounds/join-bg.jpg);
   background-position: center;
   background-size: cover;
-  padding: 19rem $padding-sides-desktop;
+  padding: 18rem $padding-sides-desktop;
   color: #fff;
   position: relative;
 
@@ -54,19 +61,40 @@ export default {
   }
 
   @include respond(tablet) {
-    padding: 18rem $padding-sides-desktop 17rem;
+    padding: 17rem $padding-sides-desktop 16rem;
   }
 
   @include respond(mobile) {
-    padding: 14rem $padding-sides-mobile 12rem;
+    padding: 13rem $padding-sides-mobile 12rem;
+  }
+
+  &__top {
+    text-align: center;
+    margin-bottom: 6rem;
+
+    @include respond(mobile) {
+      margin-bottom: 3rem;
+    }
   }
 
   &__heading {
     font-weight: 800;
     font-size: 4.5rem;
-    text-align: center;
-    margin: auto;
-    margin-bottom: 5rem;
+    margin-bottom: 2rem;
+
+    @include respond(mobile) {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__subheading {
+    font-size: 2.1rem;
+    line-height: 1.6;
+
+    @include respond(mobile) {
+      font-size: 1.75rem;
+    }
   }
 
   &__content {
@@ -89,7 +117,6 @@ export default {
   &__img {
     width: 100%;
     max-width: 35rem;
-    margin-right: 10rem;
 
     @include respond(tablet) {
       margin-right: 0;
@@ -110,7 +137,7 @@ export default {
     }
 
     @include respond(mobile) {
-      font-size: 1.7rem;
+      font-size: 1.6rem;
     }
   }
 
