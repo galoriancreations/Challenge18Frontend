@@ -61,7 +61,7 @@ export default {
   }
 
   &__section-content {
-    font-size: 1.75rem;
+    font-size: 1.7rem;
     line-height: 1.6;
 
     @include respond(mobile) {

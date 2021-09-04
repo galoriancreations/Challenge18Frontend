@@ -56,8 +56,8 @@ export default {
     }
 
     @include respond(mobile) {
-      grid-template-columns: 1fr;
-      gap: 3rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
     }
   }
 
@@ -83,7 +83,7 @@ export default {
     }
 
     @include respond(mobile) {
-      max-width: 30rem;
+      max-width: 25rem;
       margin: auto;
     }
 
