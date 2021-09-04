@@ -4,6 +4,8 @@
     <WhiteSection tag="main" class="home">
       <TopChallenges />
       <SectionSeperator />
+      <CreateChallengeCTA />
+      <SectionSeperator />
       <Testimonials />
       <SectionSeperator />
       <LatestNews />
