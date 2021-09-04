@@ -1,6 +1,8 @@
 <template>
   <div class="how-to-play__video">
-    <youtube videoId="Y8ARmD0wCfw" />
+    <video autoplay muted loop playsinline ref="video">
+      <source src="../../assets/videos/whatsapp-recording.mp4" />
+    </video>
   </div>
 </template>
 
@@ -8,26 +10,18 @@
 .how-to-play {
   &__video {
     border-radius: 0.8rem;
-    overflow: hidden;
     box-shadow: $boxshadow2;
-    width: 100%;
-    max-width: 70rem;
-    height: 40rem;
+    width: fit-content;
+    max-width: 100%;
     margin: auto;
     margin-bottom: 9rem;
-
-    @include respond(mobile-land) {
-      height: 60vw;
-      min-height: 25rem;
-    }
+    overflow: hidden;
 
     @include respond(mobile) {
       margin-bottom: 6rem;
     }
 
-    iframe {
-      width: 100%;
-      height: 100%;
+    video {
       display: block;
     }
   }
