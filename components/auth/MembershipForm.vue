@@ -184,7 +184,6 @@ export default {
   },
   methods: {
     updatePhoneNumber(data) {
-      console.log(data);
       if (data.formattedNumber) {
         this.formData.phone = data.formattedNumber;
       }
