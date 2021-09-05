@@ -204,8 +204,7 @@ export default {
       }
       for (let day of this.options) {
         if (!day.title) {
-          this.submit.error = "One or more days were left without a title";
-          return false;
+          day.title = `Day ${this.options.indexOf(day)}`;
         }
         if (!day.tasks.length) {
           this.submit.error = "One or more days were left empty";
@@ -233,6 +232,7 @@ export default {
           templateId: this.templateId
         }
       });
+      this.$cookies.remove("draftId");
       this.$router.replace(`/challenges/${challenge.id}`);
     },
     async updateChallenge() {
@@ -243,10 +243,12 @@ export default {
           challengeData: this.finalChallengeConfig
         }
       });
+      this.$cookies.remove("draftId");
       this.$router.push(`/challenges/${this.editedChallengeId}`);
     },
     async saveTemplateAndRedirect() {
       await this.saveTemplate(true);
+      this.$cookies.remove("draftId");
       this.$router.push({
         path: "/dashboard",
         hash: this.isTemplatePublic ? "#public-templates" : "#my-templates"
