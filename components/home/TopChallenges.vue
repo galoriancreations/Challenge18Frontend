@@ -9,7 +9,11 @@
         @click="setChallenge(item)"
       />
     </div>
-    <DashboardModal :active="showModal" class="top-challenges__modal">
+    <DashboardModal
+      :active="showModal"
+      class="top-challenges__modal"
+      :scrollbar="false"
+    >
       <h2 class="top-challenges__title">
         {{ selectedChallenge.title }}
       </h2>

@@ -5,7 +5,7 @@
         Username
       </label>
       <input
-        v-model="formData.username"
+        v-model.trim="formData.username"
         id="username"
         placeholder="Your username"
         required
@@ -17,7 +17,7 @@
     <div class="form__field">
       <label for="phone" class="form__label">Phone</label>
       <input
-        v-model="formData.phone"
+        v-model.trim="formData.phone"
         id="phone"
         name="phone"
         type="tel"
