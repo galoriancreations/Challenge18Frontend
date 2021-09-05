@@ -16,8 +16,8 @@
   @include respond(mobile) {
     width: 5rem;
     height: 5rem;
-    bottom: 1.5rem;
-    right: 1.5rem;
+    bottom: 1rem;
+    right: 1rem;
   }
 }
 </style>

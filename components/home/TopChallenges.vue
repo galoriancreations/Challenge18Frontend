@@ -92,58 +92,5 @@ export default {
       gap: 2rem;
     }
   }
-
-  &__item {
-    display: block;
-    border-radius: 0.8rem;
-    box-shadow: $boxshadow2;
-    overflow: hidden;
-    position: relative;
-    cursor: pointer;
-
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      transition: all 0.5s;
-    }
-
-    &:hover::after {
-      background-color: rgba($color-azure, 0.4);
-    }
-
-    @include respond(mobile) {
-      max-width: 25rem;
-      margin: auto;
-    }
-
-    img {
-      width: 100%;
-      display: block;
-    }
-  }
-
-  &__modal {
-    // .modal__wrapper {
-    //   max-width: 75rem !important;
-    // }
-  }
-
-  &__title {
-    color: $color-blue-2;
-    font-size: 3.5rem;
-    margin-bottom: 3rem;
-  }
-
-  &__text {
-    p {
-      &:not(:last-child) {
-        margin-bottom: 2rem;
-      }
-    }
-  }
 }
 </style>
