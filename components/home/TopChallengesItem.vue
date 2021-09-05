@@ -1,13 +1,33 @@
 <template>
   <div class="top-challenges__item" v-on="$listeners">
-    <img :src="challenge.image" :alt="challenge.title" />
+    <div class="top-challenges__img" @click="showModal = true">
+      <img :src="challenge.image" :alt="challenge.title" />
+    </div>
+    <DashboardModal :active="showModal" class="top-challenges__modal">
+      <h2 class="top-challenges__title">
+        {{ challenge.title }}
+      </h2>
+      <div class="top-challenges__text">
+        <p v-for="paragraph in text" :key="paragraph">
+          {{ paragraph }}
+        </p>
+      </div>
+    </DashboardModal>
   </div>
 </template>
 
 <script>
+import dashboardModal from "../../mixins/dashboard-modal";
+
 export default {
+  mixins: [dashboardModal],
   props: {
     challenge: Object
+  },
+  computed: {
+    text() {
+      return this.challenge.text.split("\n");
+    }
   }
 };
 </script>
@@ -19,8 +39,16 @@ export default {
     border-radius: 0.8rem;
     box-shadow: $boxshadow2;
     overflow: hidden;
-    position: relative;
+
+    @include respond(mobile) {
+      max-width: 25rem;
+      margin: auto;
+    }
+  }
+
+  &__img {
     cursor: pointer;
+    position: relative;
 
     &::after {
       content: "";
@@ -35,16 +63,11 @@ export default {
     &:hover::after {
       background-color: rgba($color-azure, 0.4);
     }
+  }
 
-    @include respond(mobile) {
-      max-width: 25rem;
-      margin: auto;
-    }
-
-    img {
-      width: 100%;
-      display: block;
-    }
+  img {
+    width: 100%;
+    display: block;
   }
 
   &__title {
