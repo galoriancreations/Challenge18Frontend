@@ -9,7 +9,7 @@
     <ClubPlayers v-if="isOrganization" />
     <CreatedChallenges />
     <PublicTemplates v-if="isAdmin" />
-    <MyTemplates />
+    <!-- <MyTemplates /> -->
     <MyDrafts />
   </Page>
 </template>
@@ -22,8 +22,8 @@ export default {
   meta: {
     requiresAuth: true
   },
-  async asyncData({ store }) {
-    if (process.client) {
+  async asyncData({ store, from }) {
+    if (process.client && !from.meta[0]?.forLoggingIn) {
       try {
         await Promise.all([
           store.dispatch("updateUser"),

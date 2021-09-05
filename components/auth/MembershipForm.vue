@@ -123,7 +123,7 @@
         class="language-selector"
       />
     </div>
-    <BaseButton variant="blue" @click="submitHandler">Register</BaseButton>
+    <BaseButton variant="blue">Register</BaseButton>
     <BaseSpinner v-if="loading" />
     <ErrorMessage v-else-if="error" :error="error" />
   </form>
@@ -164,8 +164,7 @@ export default {
       countryOptions,
       languageOptions,
       loading: false,
-      error: null,
-      phoneNumber: null
+      error: null
     };
   },
   computed: {
@@ -234,6 +233,7 @@ export default {
           data: { ...this.formData, plan: this.plan.type }
         });
       } catch (error) {
+        console.log(error);
         this.error = error;
         this.loading = false;
       }

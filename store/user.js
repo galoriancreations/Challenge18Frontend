@@ -28,7 +28,9 @@ export const mutations = {
 export const actions = {
     async auth(context, { mode, data }) {
         const authData = await this.$axios.$post("/api", { [mode]: data });
+        console.log(authData)
         const { access_token: token, user, exp } = authData;
+        console.log(token, user, exp)
         this.$axios.setToken(token, "Bearer");
         await context.dispatch("loadTemplates");
         context.commit("setUser", { user, token });
@@ -36,6 +38,7 @@ export const actions = {
         this.$cookies.set("userId", user.id);
         this.$cookies.set("token", token);
         this.$cookies.set("expirationDate", new Date(exp));
+        console.log("cookies set")
 
         const timeLeft = new Date(exp).getTime() - Date.now();
         logoutTimer = setTimeout(() => context.dispatch("logout"), timeLeft);
@@ -66,12 +69,14 @@ export const actions = {
         const { user } = await this.$axios.$post("/xapi", {
             editProfile: data
         });
+        console.log(user)
         context.commit("updateUser", user);
     },
     async loadTemplates(context) {
         const { templates } = await this.$axios.$post("/xapi", {
             getAvailableTemplates: true
         });
+        console.log(templates)
         context.commit("setTemplates", templates);
     }
 };
