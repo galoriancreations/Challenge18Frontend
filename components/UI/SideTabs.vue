@@ -56,7 +56,6 @@ export default {
   overflow: hidden;
   position: relative;
   background-color: rgba(#eee, 0.5);
-  margin-bottom: 3.5rem;
 
   @include respond(desktop) {
     border-radius: 0.8rem;

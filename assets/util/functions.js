@@ -49,6 +49,7 @@ export const initialOptions = (options = emptyDays()) =>
   options.map(day => ({
     ...day,
     id: day.id || uniqid(),
+    introduction: day.introduction || "",
     tasks: day.tasks.map((task, taskIndex) => ({
       ...task,
       id: task.id || uniqid(),

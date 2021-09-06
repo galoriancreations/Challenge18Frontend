@@ -2,8 +2,9 @@
   <TransitionGroup class="challenge-editor__wrapper" :name="transition">
     <div key="content" class="challenge-editor__content" :style="{ direction }">
       <section class="challenge-editor__tabs">
+        <ActionButton type="add" color="white" @click="addDayToStart" />
         <SideTabs v-model="selectedDay" :tabs="days" />
-        <ActionButton type="add" color="white" @click="addDay" />
+        <ActionButton type="add" color="white" @click="addDayToEnd" />
       </section>
       <section class="challenge-editor__day" ref="container">
         <SectionHeading small>
@@ -14,6 +15,7 @@
           :active="dayTitleEdited"
         />
         <DayActionButtons />
+        <DayIntroductionField v-model.trim="options[dayIndex].introduction" />
         <EditorTaskList :tasks="options[dayIndex].tasks" />
       </section>
     </div>
@@ -92,11 +94,19 @@ export default {
         this.dayTitleEdited = false;
       }
     },
-    addDay() {
+    addDayToStart() {
+      this.options.unshift({
+        id: uniqid(),
+        title: "",
+        tasks: [newTask(0)]
+      });
+      this.selectedDay = 1;
+    },
+    addDayToEnd() {
       this.options.push({
         id: uniqid(),
         title: "",
-        tasks: [newTask(0), newTask(1), newTask(2)]
+        tasks: [newTask(0)]
       });
       this.selectedDay = this.options.length;
     },
@@ -125,6 +135,7 @@ export default {
   },
   mounted() {
     document.addEventListener("keydown", this.keydownHandler);
+    console.log(this.options[0]);
   },
   beforeDestroy() {
     document.removeEventListener("keydown", this.keydownHandler);
@@ -159,6 +170,12 @@ export default {
 
     @include respond(mobile) {
       gap: 7rem;
+    }
+  }
+
+  &__tabs {
+    .side-tabs {
+      margin: 3rem 0;
     }
   }
 

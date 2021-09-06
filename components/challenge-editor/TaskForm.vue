@@ -64,30 +64,26 @@
           </div>
         </div>
       </label>
-      <form
-        v-else
-        @keydown.enter="finishEditOption"
-        @keydown.esc="finishEditOption"
-      >
-        <textarea-autosize
-          :value="option.text"
-          @input="editOption($event, optionIndex)"
-          class="task-form__option-edit"
-          :id="`edit-${option.id}`"
-          placeholder="Start typing here..."
-          :rows="1"
-        />
-      </form>
-    </div>
-    <form @keydown.enter="addOption">
       <textarea-autosize
-        :value="task.extraInput"
-        @input="updateExtraInput"
-        class="task-form__extra"
-        :placeholder="extraInputPlaceholder"
+        v-else
+        :value="option.text"
+        @input="editOption($event, optionIndex)"
+        @keydown.native.enter="finishEditOption"
+        @keydown.native.esc="finishEditOption"
+        class="task-form__option-edit"
+        :id="`edit-${option.id}`"
+        placeholder="Start typing here..."
         :rows="1"
       />
-    </form>
+    </div>
+    <textarea-autosize
+      :value="task.extraInput"
+      @input="updateExtraInput"
+      @keydown.native.enter="addOption"
+      class="task-form__extra"
+      :placeholder="extraInputPlaceholder"
+      :rows="1"
+    />
   </div>
 </template>
 
