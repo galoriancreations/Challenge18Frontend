@@ -15,7 +15,6 @@
           :active="dayTitleEdited"
         />
         <DayActionButtons />
-        <DayIntroductionField v-model.trim="options[dayIndex].introduction" />
         <EditorTaskList :tasks="options[dayIndex].tasks" />
       </section>
     </div>
@@ -135,7 +134,6 @@ export default {
   },
   mounted() {
     document.addEventListener("keydown", this.keydownHandler);
-    console.log(this.options[0]);
   },
   beforeDestroy() {
     document.removeEventListener("keydown", this.keydownHandler);
@@ -148,6 +146,7 @@ export default {
       closeModal: () => {
         this.dayTitleEdited = false;
       },
+      getDayIndex: () => this.dayIndex,
       deleteDay: this.deleteDay
     };
   }

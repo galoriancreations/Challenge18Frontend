@@ -9,7 +9,7 @@
       class="task-form__extra challenge-editor__introduction-input"
       placeholder="Message that would be displayed to the participants on the group chat, explaining about the day's subject"
       :min-height="100"
-      :max-height="350"
+      :max-height="300"
     />
   </div>
 </template>

@@ -1,5 +1,9 @@
 <template>
   <TransitionGroup class="challenge-editor__tasks" :name="transition">
+    <DayIntroductionField
+      :key="options[dayIndex].id"
+      v-model.trim="options[dayIndex].introduction"
+    />
     <TaskForm v-for="task in tasks" :key="task.id" :task="task" />
     <div key="add" class="challenge-editor__add-task">
       <ActionButton type="add" color="white" @click="addTask" />
@@ -14,7 +18,13 @@ export default {
   props: {
     tasks: Array
   },
-  inject: ["getTransition", "setTransition", "setConfirmModal"],
+  inject: [
+    "options",
+    "getDayIndex",
+    "getTransition",
+    "setTransition",
+    "setConfirmModal"
+  ],
   data() {
     return {
       editedOption: null
@@ -23,6 +33,9 @@ export default {
   computed: {
     transition() {
       return this.getTransition();
+    },
+    dayIndex() {
+      return this.getDayIndex();
     }
   },
   methods: {
