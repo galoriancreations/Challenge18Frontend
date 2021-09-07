@@ -6,7 +6,7 @@
         <h3 class="footer__heading">Our Company</h3>
         <ul class="footer__text footer__list">
           <li v-for="item in infoLinks" :key="item.to">
-            <NuxtLink class="footer__link" v-bind="item">
+            <NuxtLink class="footer__link" v-bind="item" activeClass="active">
               {{ item.text }}
             </NuxtLink>
           </li>
@@ -23,16 +23,7 @@
         </ul>
       </div>
       <div class="footer__column">
-        <h3 class="footer__heading">
-          <NuxtLink
-            v-if="$route.name !== 'contact'"
-            class="footer__link"
-            to="/contact"
-          >
-            Contact Us
-          </NuxtLink>
-          <span v-else>Contact Us</span>
-        </h3>
+        <h3 class="footer__heading">Contact Us</h3>
         <div class="footer__contact">
           <p class="footer__text"><strong>Tel:</strong> +972-559721123</p>
           <p class="footer__text">
@@ -163,7 +154,8 @@ export default {
   &__link {
     transition: color 0.5s;
 
-    &:hover {
+    &:hover,
+    &.active {
       color: $color-azure;
     }
   }
