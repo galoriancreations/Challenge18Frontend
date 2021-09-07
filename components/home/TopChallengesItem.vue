@@ -12,6 +12,9 @@
           {{ paragraph }}
         </p>
       </div>
+      <BaseButton v-if="!isLoggedIn" variant="blue" link="/join">
+        Join Us
+      </BaseButton>
     </DashboardModal>
   </div>
 </template>
@@ -27,6 +30,9 @@ export default {
   computed: {
     text() {
       return this.challenge.text.split("\n");
+    },
+    isLoggedIn() {
+      return this.$store.getters.isAuth;
     }
   }
 };
@@ -86,6 +92,12 @@ export default {
       &:not(:last-child) {
         margin-bottom: 2rem;
       }
+    }
+  }
+
+  &__modal {
+    .button {
+      margin-top: 3rem;
     }
   }
 }
