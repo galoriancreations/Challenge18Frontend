@@ -222,6 +222,7 @@ export default {
       return true;
     },
     async createNewChallenge() {
+      await this.saveTemplate();
       const challenge = await this.$axios.$post("/xapi", {
         createChallenge: {
           draftId: this.draftId,

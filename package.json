@@ -36,8 +36,7 @@
     "vue-textarea-autosize": "^1.1.1",
     "vue-waypoint": "^4.2.0",
     "vue-youtube": "^1.4.0",
-    "vuescroll": "^4.17.3",
-    "vuetable-2": "^2.0.0-beta.4"
+    "vuescroll": "^4.17.3"
   },
   "devDependencies": {
     "@nuxtjs/style-resources": "^1.2.1",

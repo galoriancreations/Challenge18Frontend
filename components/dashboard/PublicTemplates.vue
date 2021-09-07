@@ -8,13 +8,14 @@
       <p>Click below to create a new public template.</p>
     </div>
     <div v-else class="my-challenges__table-container">
-      <vuetable
-        ref="vuetable"
-        :fields="['id', 'name', 'language']"
-        :api-mode="false"
-        :data-path="templates"
-      ></vuetable>
-      -->
+      <vue-good-table
+        class="results-table my-challenges__table"
+        :columns="columns"
+        :rows="templates"
+        theme="polar-bear"
+        max-height="46rem"
+        :fixed-header="fixedHeader"
+      />
     </div>
     <template slot="button">
       <ActionButton type="add" color="blue" @click="selectTemplate" />
@@ -44,12 +45,6 @@ export default {
     hasTemplates() {
       return !!this.templates.length;
     },
-    data() {
-      return {
-        links: {},
-        data: this.templates
-      };
-    },
     table() {
       return this.$el.querySelector(".vgt-responsive");
     }
@@ -78,11 +73,11 @@ export default {
     }
   },
   mounted() {
-    // setTimeout(() => {
-    //   this.manageTableScrollbar();
-    //   this.adjustTableHeader();
-    // }, 100);
-    // window.addEventListener("resize", this.adjustTableHeader);
+    setTimeout(() => {
+      this.manageTableScrollbar();
+      this.adjustTableHeader();
+    }, 100);
+    window.addEventListener("resize", this.adjustTableHeader);
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.manageTableHeader);
