@@ -1,6 +1,6 @@
 export default {
   head: {
-    title: "Challenge 18 – The Innovation Nation Games",
+    title: "Challenge 18 – Challenge Yourself to the Top",
     htmlAttrs: {
       lang: "en"
     },

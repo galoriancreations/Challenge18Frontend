@@ -203,9 +203,6 @@ export default {
         return false;
       }
       for (let day of this.options) {
-        if (!day.title) {
-          day.title = `Day ${this.options.indexOf(day)}`;
-        }
         if (!day.tasks.length) {
           this.submit.error = "One or more days were left empty";
           return false;

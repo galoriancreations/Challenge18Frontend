@@ -7,7 +7,6 @@ export const planOptions = [
             "Up to 5 single games at a time",
             "Customised challenge templates",
             "Earn ting coins (Enjoy our coupon reward system)",
-            "18 free certificates per game",
             "Technical and Pedagogic support"
         ]
     },
@@ -17,9 +16,9 @@ export const planOptions = [
         features: [
             "Everything in the 18 Days plan",
             "Free participation in the Challenge 18 global events",
+            "18 free certificates per game",
             "Free courses lesson plans",
-            "Join a think tank",
-            'Free e-book: "The New Global Citizens"'
+            "Join a think tank"
         ]
     },
     {
@@ -28,7 +27,8 @@ export const planOptions = [
         features: [
             "Everything in the 18 Weeks plan",
             "Unlimited games alone & with other clubs",
-            "Mentorship"
+            "Mentorship",
+            'Free e-book: "The New Global Citizens"'
         ]
     },
     {

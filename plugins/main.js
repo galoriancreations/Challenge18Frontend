@@ -9,6 +9,7 @@ import linkify from "vue-linkify";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import TextareaAutosize from "vue-textarea-autosize";
+import Vuetable from "vuetable-2";
 
 Vue.use(VueGoodTable);
 Vue.use(VueAgile);
@@ -17,6 +18,7 @@ Vue.use(Vuescroll);
 Vue.directive("linkified", linkify);
 Vue.component("v-select", vSelect);
 Vue.use(TextareaAutosize);
+Vue.component(Vuetable);
 
 Vue.prototype.$vuescrollConfig = {
     bar: { background: "#000c66" }

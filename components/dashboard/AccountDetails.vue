@@ -86,6 +86,8 @@ export default {
 .account-details {
   &__grid {
     width: 100%;
+    max-width: 80rem;
+    margin: auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
     row-gap: 2.5rem;

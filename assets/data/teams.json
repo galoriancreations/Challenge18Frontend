@@ -92,7 +92,7 @@
                 "name": "Johnny Chong",
                 "image": "chong.jpg",
                 "role": "Hong Kong",
-                "description": "Independent non-executive Director of Yi Hua Holdings in Hong Kong. Director of Stars Capital Partners, a private financial consultancy for global startups for the market in China."
+                "description": "Founding Chairman of STARS Foundation since 2005.  Trained as an engineer with strong business architect and development professional to organize resources logically, effectively and being involved in start-ups business model development, technology transfer M&A and IPO consultancy since year 2015."
             },
             {
                 "name": "David Hanson Jr.",
@@ -129,6 +129,12 @@
                 "image": "josune.jpeg",
                 "role": "Spain",
                 "description": "Effective Social Transformation towards SDG strategist. Holistic thinker & planner and Collaborative Growth specialist"
+            },
+            {
+                "name": "Skaistė Budbergytė",
+                "image": "sky.jpg",
+                "role": "Lithuania",
+                "description": "After gaining experience in the fields of innovation facilitation and commercialisation of businesses, backed by LL.M. from Tel Aviv University in Technology Law, Skaistė has formed an unsurpassing set of multidisciplinary skills as a forward-thinking entrepreneur."
             }
         ]
     }
