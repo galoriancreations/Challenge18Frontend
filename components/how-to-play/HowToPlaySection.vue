@@ -101,12 +101,11 @@ export default {
     }
 
     ul {
-      margin-left: 2.8rem;
+      margin-left: 2.25rem;
       margin-top: 1rem;
 
       @include respond(mobile) {
-        margin-left: 2.4rem;
-        margin-top: 0.75rem;
+        margin-left: 1.75rem;
       }
     }
 

@@ -96,8 +96,8 @@ export default {
   &#marketplace {
     background-image: linear-gradient(
         to right,
-        rgba(#4189bd, 0.8),
-        rgba(#4189bd, 0.8)
+        rgba(#4189bd, 0.75),
+        rgba(#4189bd, 0.75)
       ),
       url(../../assets/images/backgrounds/marketplace-bg.jpg);
   }
