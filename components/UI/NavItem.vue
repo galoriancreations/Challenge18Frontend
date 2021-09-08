@@ -8,17 +8,20 @@
     @keydown.esc="closeDropdownOnDesktop"
   >
     <component
-      :is="button ? 'BaseButton' : 'NuxtLink'"
       v-if="link"
+      :is="button ? 'BaseButton' : 'NuxtLink'"
       :to="link"
       :link="button ? link : null"
       :variant="button ? 'gold' : null"
-      :activeClass="!button && 'active'"
+      :activeClass="!button ? 'active' : null"
       exact
     >
       {{ text }}
       <i v-if="dropdown" class="fas fa-chevron-down" />
     </component>
+    <a v-else-if="external" :href="external" target="_blank">
+      {{ text }}
+    </a>
     <button v-else>
       {{ text }}
       <i v-if="dropdown" class="fas fa-chevron-down" />
@@ -53,7 +56,8 @@ export default {
     reverse: Boolean,
     button: Boolean,
     dropdown: Array,
-    action: Function
+    action: Function,
+    external: Boolean
   },
   inject: ["closeNav"],
   data() {

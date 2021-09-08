@@ -62,7 +62,11 @@ export default {
         },
         { link: "/marketplace", text: "Marketplace" },
         { link: "/join", text: "Join", hide: this.isLoggedIn },
-        { link: "/donate", text: "Donate" },
+        {
+          external:
+            "https://www.jgive.com/new/en/ils/charity-organizations/1285",
+          text: "Donate"
+        },
         { link: "/login", text: "Login", button: true, hide: this.isLoggedIn },
         { action: this.logout, text: "Logout", hide: !this.isLoggedIn },
         {

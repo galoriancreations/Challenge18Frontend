@@ -6,9 +6,14 @@
         <h3 class="footer__heading">Our Company</h3>
         <ul class="footer__text footer__list">
           <li v-for="item in infoLinks" :key="item.to">
-            <NuxtLink class="footer__link" v-bind="item" activeClass="active">
+            <component
+              :is="item.href ? 'a' : 'NuxtLink'"
+              class="footer__link"
+              v-bind="item"
+              activeClass="active"
+            >
               {{ item.text }}
-            </NuxtLink>
+            </component>
           </li>
         </ul>
       </div>
@@ -59,10 +64,14 @@ export default {
     infoLinks() {
       return [
         { to: "/about", text: "About Us" },
-        { to: "/donate", text: "Donate" },
+        {
+          href: "https://www.jgive.com/new/en/ils/charity-organizations/1285",
+          text: "Donate",
+          target: "_blank"
+        },
         { to: "/contact", text: "Contact Us" },
-        { to: "/terms.pdf", text: "Terms of Service", target: "_blank" },
-        { to: "/privacy.pdf", text: "Privacy Policy", target: "_blank" }
+        { href: "/terms.pdf", text: "Terms of Service", target: "_blank" },
+        { href: "/privacy.pdf", text: "Privacy Policy", target: "_blank" }
       ];
     }
   }
