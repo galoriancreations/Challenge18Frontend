@@ -8,7 +8,6 @@ import VueSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import TextareaAutosize from "vue-textarea-autosize";
 
-Vue.use(VueGoodTable);
 Vue.use(VueAgile);
 Vue.use(VueYoutube);
 Vue.use(Vuescroll);
