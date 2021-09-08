@@ -39,17 +39,7 @@ export default {
       const { draftId, challengeId, selectedTemplate } = app.$cookies.getAll();
       const { user } = store.getters;
 
-      if (challengeId) {
-        const { challenge, configId } = await $axios.$post("/xapi", {
-          getChallengeConfig: challengeId
-        });
-        return {
-          name: challenge.name,
-          language: challenge.language,
-          options: initialOptions(challenge.days),
-          draftId: configId
-        };
-      } else if (draftId) {
+      if (draftId) {
         const draft = await $axios.$post("/xapi", {
           getDraftData: draftId
         });
@@ -60,6 +50,18 @@ export default {
           draftId,
           isTemplatePublic: draft.isTemplatePublic,
           templateId: draft.templateId
+        };
+      } else if (challengeId) {
+        const challenge = await $axios.$post("/api", {
+          getChallengeData: challengeId
+        });
+        return {
+          name: challenge.name,
+          language: challenge.language,
+          options: initialOptions(challenge.days),
+          draftId: null,
+          isTemplatePublic: challenge.isTemplatePublic,
+          templateId: challenge.template
         };
       } else if (selectedTemplate) {
         const template = await $axios.$post("/xapi", {
@@ -140,12 +142,15 @@ export default {
         isPublic: this.isTemplatePublic
       };
     },
-    finalChallengeConfig() {
-      return {
-        name: this.name,
-        language: this.language,
-        days: clearedOptions(this.options, false)
-      };
+    finalSelections() {
+      const selections = {};
+      this.options.forEach(day => {
+        selections[day.id] = {};
+        day.tasks.forEach(task => {
+          selections[day.id][task.id] = task.selection;
+        });
+      });
+      return selections;
     }
   },
   methods: {
@@ -180,14 +185,11 @@ export default {
       this.autoSave.timeout = setTimeout(async () => {
         this.autoSave.loading = true;
         try {
-          if (!this.editedChallengeId) {
-            await this.saveTemplate();
-          }
+          await this.saveTemplate();
           await this.saveDraft();
           this.autoSave.date = new Date();
           this.autoSave.error = false;
         } catch (err) {
-          console.log(err);
           this.autoSave.error = true;
         }
         this.autoSave.loading = false;
@@ -226,8 +228,8 @@ export default {
       const challenge = await this.$axios.$post("/xapi", {
         createChallenge: {
           draftId: this.draftId,
-          challengeData: this.finalChallengeConfig,
-          templateId: this.templateId
+          templateId: this.templateId,
+          selections: this.finalSelections
         }
       });
       this.$cookies.remove("draftId");
@@ -239,7 +241,8 @@ export default {
         updateChallenge: {
           challengeId: this.editedChallengeId,
           draftId: this.draftId,
-          challengeData: this.finalChallengeConfig
+          templateId: this.templateId,
+          selections: this.finalSelections
         }
       });
       this.$cookies.remove("draftId");

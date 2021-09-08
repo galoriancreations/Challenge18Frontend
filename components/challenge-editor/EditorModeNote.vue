@@ -1,13 +1,13 @@
 <template>
   <Notification class="editor-mode-note" v-on="$listeners">
     <p v-if="templateOnlyMode">
-      You're on a <strong>template-only</strong> mode: you're not creating a
+      You're on a <strong>template only</strong> mode: you're not creating a
       challenge, but only building a template for later use.
     </p>
     <p v-else-if="editedChallengeId">
-      You're editing an
-      <strong>exisitng challenge</strong> that is already published (challenge
-      ID: <strong>{{ editedChallengeId }}</strong
+      You're currently editing an
+      <strong>exisitng challenge</strong> (challenge ID:
+      <strong>{{ editedChallengeId }}</strong
       >).
     </p>
     <p v-else>

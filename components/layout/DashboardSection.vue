@@ -23,8 +23,8 @@ export default {
 
 <style lang="scss">
 .dashboard-section {
-  // max-width: 85rem;
-  // margin: auto;
+  max-width: 95rem;
+  margin: auto;
 
   &:not(:last-child) {
     margin-bottom: 8rem;

@@ -16,9 +16,7 @@ export default {
     computed: {
         items() {
             return this.templates.map(template => ({
-                id: template.id,
-                name: template.name,
-                language: template.language,
+                ...template,
                 clone: () => this.cloneTemplate(template),
                 edit: () => this.editTemplate(template.id),
                 delete: () => this.deleteTemplate(template)
