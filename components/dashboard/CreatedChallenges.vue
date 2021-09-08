@@ -5,20 +5,18 @@
       <p>Click the button below to create your first challenge.</p>
     </div>
     <div v-else class="my-challenges__table-container">
-      <vue-good-table
-        class="results-table my-challenges__table"
-        :columns="columns"
-        :rows="challenges"
-        theme="polar-bear"
-        max-height="46rem"
-        :fixed-header="fixedHeader"
-      />
+      <v-card :elevation="1">
+        <v-data-table :headers="headers" :items="items">
+          <template v-slot:[`item.edit`]="{ item }">
+            <DashboardButton type="edit" @click="item.edit" />
+          </template>
+        </v-data-table>
+      </v-card>
     </div>
     <template slot="button">
       <ActionButton type="add" color="blue" @click="modalOpen = true" />
     </template>
     <template slot="modal">
-      <!-- <JoinChallenge v-if="isIndividual" :active="modalOpen" /> -->
       <CreateChallenge :active="modalOpen" />
     </template>
   </DashboardSection>
@@ -33,16 +31,12 @@ export default {
   data() {
     return {
       modalOpen: false,
-      columns: [
-        { field: "name", label: "Name", sortable: false },
-        { field: "language", label: "Language", sortable: false },
-        { field: "day", label: "Day", sortable: false },
-        { field: "numOfUsers", label: "Users", sortable: false },
-        { field: "score", label: "Score", sortable: false },
-        { field: "invite", label: "Invite", sortable: false }
-      ],
-      scrollbar: null,
-      fixedHeader: false
+      headers: [
+        { text: "ID", value: "id", sortable: false },
+        { text: "Name", value: "name" },
+        { text: "Language", value: "language" },
+        { text: "Edit", value: "edit", sortable: false }
+      ]
     };
   },
   computed: {
@@ -50,50 +44,33 @@ export default {
       return this.$store.getters.user;
     },
     hasChallenges() {
-      return this.user?.myChallenges && this.challenges.length > 0;
-    },
-    isIndividual() {
-      return this.user?.accountType === "individual";
+      return this.user?.createdChallenges && this.challenges.length > 0;
     },
     challenges() {
-      return dataArrayFromObject(this.user.myChallenges);
+      return dataArrayFromObject(this.user.createdChallenges);
     },
-    table() {
-      return this.$el.querySelector(".vgt-responsive");
+    items() {
+      return this.challenges.map(challenge => ({
+        id: challenge.id,
+        name: challenge.name,
+        language: challenge.language,
+        edit: () => this.editChallenge(challenge.id)
+      }));
     }
   },
   methods: {
-    manageTableScrollbar() {
-      if (this.hasChallenges) {
-        this.scrollbar = Scrollbar.init(this.table);
-      }
-      // this.io.on("myChallenges", () => {
-      //   setTimeout(() => {
-      //     if (!this.scrollbar) {
-      //       this.scrollbar = Scrollbar.init(this.table);
-      //     }
-      //     this.scrollbar.scrollTop = 0;
-      //   }, 10);
-      // });
-    },
-    adjustTableHeader() {
-      this.fixedHeader = window.innerWidth > 1000;
-    },
-    closeModal() {
-      this.modalOpen = false;
+    editChallenge(challengeId) {
+      this.$cookies.set("challengeId", challengeId);
+      this.$cookies.remove("selectedTemplate");
+      this.$cookies.remove("draftId");
+      this.$router.push("/challenge-editor");
     }
-  },
-  mounted() {
-    this.manageTableScrollbar();
-    this.adjustTableHeader();
-    window.addEventListener("resize", this.adjustTableHeader);
-  },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.manageTableHeader);
   },
   provide() {
     return {
-      closeModal: this.closeModal
+      closeModal: () => {
+        this.modalOpen = false;
+      }
     };
   }
 };

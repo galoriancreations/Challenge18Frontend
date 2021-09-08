@@ -67,7 +67,7 @@
       <label for="country" class="form__label">
         Country
       </label>
-      <v-select
+      <VueSelect
         v-model="formData.country"
         :options="countryOptions"
         :reduce="option => option.code"
@@ -116,7 +116,7 @@
       <label for="language" class="form__label">
         Challenge language
       </label>
-      <v-select
+      <VueSelect
         v-model="formData.language"
         :options="languageOptions"
         :reduce="option => option.name"

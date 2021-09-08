@@ -19,7 +19,8 @@
 .checkout .spinner,
 .modal .spinner,
 .button + .spinner,
-.challenge-editor__wrapper .spinner {
+.challenge-editor__wrapper .spinner,
+.dashboard-section .spinner {
   position: fixed;
   top: 50%;
   left: 50%;

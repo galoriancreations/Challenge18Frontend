@@ -5,7 +5,7 @@
         <label :for="key" class="form__label">
           {{ labels[key] }}
         </label>
-        <v-select
+        <VueSelect
           v-if="key === 'country'"
           v-model="formData.country"
           :options="countryOptions"
@@ -26,7 +26,7 @@
         <label for="language" class="form__label">
           Challenge language
         </label>
-        <v-select
+        <VueSelect
           v-model="formData.language"
           :options="languageOptions"
           :reduce="option => option.name"

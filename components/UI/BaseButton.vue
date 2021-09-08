@@ -63,6 +63,11 @@ export default {
     color: #fff;
   }
 
+  &--azure {
+    background-color: $color-azure;
+    color: #fff;
+  }
+
   &--white {
     background-color: #fff;
     color: $color-blue-2;

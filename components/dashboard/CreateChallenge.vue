@@ -6,7 +6,7 @@
   >
     <div class="new-challenge-modal__section">
       <h3 class="new-challenge-modal__subheading">Choose a language</h3>
-      <v-select
+      <VueSelect
         v-model="selectedLanguage"
         :options="languageOptions"
         :reduce="option => option.name"

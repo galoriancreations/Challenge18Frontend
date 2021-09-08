@@ -231,7 +231,8 @@ export default {
         }
       });
       this.$cookies.remove("draftId");
-      this.$router.replace(`/challenges/${challenge.id}`);
+      // this.$router.replace(`/challenges/${challenge.id}`);
+      this.$router.replace("/dashboard");
     },
     async updateChallenge() {
       await this.$axios.$post("/xapi", {
@@ -242,7 +243,8 @@ export default {
         }
       });
       this.$cookies.remove("draftId");
-      this.$router.push(`/challenges/${this.editedChallengeId}`);
+      // this.$router.push(`/challenges/${this.editedChallengeId}`);
+      this.$router.replace("/dashboard");
     },
     async saveTemplateAndRedirect() {
       await this.saveTemplate(true);

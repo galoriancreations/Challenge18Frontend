@@ -1,6 +1,6 @@
 <template>
   <EditorTopField label="Challenge language">
-    <v-select
+    <VueSelect
       :value="value"
       @input="$emit('input', $event)"
       :options="languageOptions"

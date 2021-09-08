@@ -59,10 +59,10 @@ export default {
       return this.getLanguage();
     },
     days() {
-      return numbersArray(this.options.length).map(day => ({
-        id: `day-${day}`,
-        value: day,
-        label: `${this.dayLabel} ${day}`
+      return this.options.map((day, index) => ({
+        id: day.id,
+        value: index + 1,
+        label: `${this.dayLabel} ${index + 1}`
       }));
     },
     dayIndex() {

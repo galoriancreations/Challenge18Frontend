@@ -32,8 +32,7 @@ export default {
   },
 
   plugins: [
-    "~/plugins/main",
-    "~/plugins/axios"
+    "~/plugins/main"
   ],
 
   components: {
@@ -53,7 +52,8 @@ export default {
   },
 
   buildModules: [
-    "@nuxtjs/style-resources"
+    "@nuxtjs/style-resources",
+    "@nuxtjs/vuetify"
   ],
 
   modules: [

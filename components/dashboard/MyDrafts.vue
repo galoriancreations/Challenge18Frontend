@@ -6,32 +6,36 @@
       </p>
     </div>
     <div v-else class="my-challenges__table-container">
-      <vue-good-table
-        class="results-table my-challenges__table"
-        :columns="columns"
-        :rows="drafts"
-        theme="polar-bear"
-        max-height="46rem"
-        :fixed-header="fixedHeader"
-      />
+      <v-card :elevation="1">
+        <v-data-table :headers="headers" :items="items">
+          <template v-slot:[`item.edit`]="{ item }">
+            <DashboardButton type="edit" @click="item.edit" />
+          </template>
+          <template v-slot:[`item.delete`]="{ item }">
+            <DashboardButton type="delete" @click="item.delete" />
+          </template>
+        </v-data-table>
+      </v-card>
     </div>
+    <BaseSpinner v-if="loading" />
   </DashboardSection>
 </template>
 
 <script>
 import { dataArrayFromObject } from "../../assets/util/functions";
-import Scrollbar from "smooth-scrollbar";
 
 export default {
+  inject: ["setConfirmModal"],
   data() {
     return {
-      columns: [
-        { field: "id", label: "ID", sortable: false },
-        { field: "name", label: "Name", sortable: false },
-        { field: "language", label: "Language", sortable: false }
+      headers: [
+        { text: "ID", value: "id", sortable: false },
+        { text: "Name", value: "name" },
+        { text: "Language", value: "language" },
+        { text: "Edit", value: "edit", sortable: false },
+        { text: "Delete", value: "delete", sortable: false }
       ],
-      scrollbar: null,
-      fixedHeader: false
+      loading: false
     };
   },
   computed: {
@@ -42,31 +46,46 @@ export default {
       return dataArrayFromObject(this.user.drafts);
     },
     hasDrafts() {
-      return this.user?.drafts && this.drafts?.length > 0;
+      return this.user?.drafts && this.drafts.length > 0;
     },
-    table() {
-      return this.$el.querySelector(".vgt-responsive");
+    items() {
+      return this.drafts.map(draft => ({
+        id: draft.id,
+        name: draft.name,
+        language: draft.language,
+        edit: () => this.editDraft(draft),
+        delete: () => this.deleteDraft(draft.id)
+      }));
     }
   },
   methods: {
-    manageTableScrollbar() {
-      if (this.hasDrafts) {
-        this.scrollbar = Scrollbar.init(this.table);
+    editDraft(draft) {
+      this.$cookies.set("draftId", draft.id);
+      if (draft.challengeId) {
+        this.$cookies.set("challengeId");
+      } else {
+        this.$cookies.remove("challengeId");
       }
+      this.$cookies.remove("selectedTemplate");
+      const redirect = { path: "/challenge-editor" };
+      if (draft.templateOnly) {
+        redirect.query = { templateOnly: true };
+      }
+      this.$router.push(redirect);
     },
-    adjustTableHeader() {
-      this.fixedHeader = window.innerWidth > 1000;
+    deleteDraft(draftId) {
+      this.setConfirmModal(
+        "Are you sure you want to delete this draft? This action is irreversible.",
+        async () => {
+          this.loading = true;
+          await this.$axios.$post("/xapi", {
+            deleteDraft: draftId
+          });
+          await this.$store.dispatch("updateUser");
+          this.loading = false;
+        }
+      );
     }
-  },
-  mounted() {
-    setTimeout(() => {
-      this.manageTableScrollbar();
-      this.adjustTableHeader();
-    }, 100);
-    window.addEventListener("resize", this.adjustTableHeader);
-  },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.manageTableHeader);
   }
 };
 </script>
