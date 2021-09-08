@@ -1,7 +1,7 @@
 <template>
   <Page title="Join Us" name="membership">
     <section class="inner-section">
-      <SectionHeading small>Membership Plans</SectionHeading>
+      <SectionHeading small>Commitment Membership Plans</SectionHeading>
       <MembershipPlans />
     </section>
     <section class="inner-section" ref="formSection">
