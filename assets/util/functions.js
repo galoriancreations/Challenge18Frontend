@@ -1,5 +1,6 @@
 import uniqid from "uniqid";
 import cloneDeep from "clone-deep";
+import moment from "moment";
 
 export const usersArray = users => {
   const data = [];
@@ -131,3 +132,10 @@ export const numbersArray = n =>
 
 export const dataArrayFromObject = data =>
   Object.keys(data).map(id => ({ id, ...data[id] }));
+
+export const currentDay = date => {
+  if (!date) {
+    date = moment(new Date()).add(7, "days")
+  };
+  return moment(new Date()).diff(moment(date), "days");
+}

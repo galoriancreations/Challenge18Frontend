@@ -23,8 +23,7 @@
 </template>
 
 <script>
-import { dataArrayFromObject } from "../../assets/util/functions";
-import Scrollbar from "smooth-scrollbar";
+import { dataArrayFromObject, currentDay } from "../../assets/util/functions";
 
 export default {
   inject: ["io"],
@@ -34,6 +33,9 @@ export default {
       headers: [
         { text: "Name", value: "name" },
         { text: "Language", value: "language" },
+        { text: "No. of Users", value: "numOfUsers" },
+        { text: "Active", value: "isActive" },
+        { text: "Current Day", value: "currentDay" },
         { text: "Edit", value: "edit", sortable: false }
       ]
     };
@@ -50,9 +52,10 @@ export default {
     },
     items() {
       return this.challenges.map(challenge => ({
-        id: challenge.id,
-        name: challenge.name,
-        language: challenge.language,
+        ...challenge,
+        numOfUsers: Object.keys(challenge.scores).length,
+        isActive: challenge.isActive ? "Yes" : "No",
+        currentDay: currentDay(challenge.startDate),
         edit: () => this.editChallenge(challenge.id)
       }));
     }
