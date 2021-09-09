@@ -20,7 +20,10 @@
       </v-card>
     </div>
     <template slot="button">
-      <ActionButton type="add" color="blue" @click="editTemplate(null)" />
+      <ActionButton type="add" color="blue" @click="showModal = true" />
+    </template>
+    <template slot="modal">
+      <CreateTemplate :active="showModal" />
     </template>
     <BaseSpinner v-if="loading" />
   </DashboardSection>
@@ -28,9 +31,10 @@
 
 <script>
 import templatesTable from "../../mixins/templates-table";
+import dashboardModal from "../../mixins/dashboard-modal";
 
 export default {
-  mixins: [templatesTable],
+  mixins: [templatesTable, dashboardModal],
   computed: {
     templates() {
       return this.$store.getters.templates.filter(
