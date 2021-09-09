@@ -3,7 +3,6 @@ export default {
     data() {
         return {
             headers: [
-                { text: "ID", value: "id", sortable: false },
                 { text: "Name", value: "name" },
                 { text: "Language", value: "language" },
                 { text: "Clone", value: "clone", sortable: false },

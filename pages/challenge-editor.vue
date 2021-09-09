@@ -60,7 +60,8 @@ export default {
           language: challenge.language,
           options: initialOptions(challenge.days),
           draftId: null,
-          isTemplatePublic: challenge.isTemplatePublic,
+          isTemplatePublic:
+            challenge.isTemplatePublic && user.accountType === "admin",
           templateId: challenge.template
         };
       } else if (selectedTemplate) {
