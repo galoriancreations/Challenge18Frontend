@@ -57,7 +57,7 @@ export default {
     button: Boolean,
     dropdown: Array,
     action: Function,
-    external: Boolean
+    external: String
   },
   inject: ["closeNav"],
   data() {

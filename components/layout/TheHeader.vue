@@ -20,22 +20,17 @@
 export default {
   data() {
     return {
-      headerMode: {
-        navOpen: false,
-        sticky: false
-      }
+      navOpen: false,
+      sticky: false
     };
   },
   computed: {
     classes() {
       return {
         header: true,
-        active: this.headerMode.navOpen,
-        sticky: this.headerMode.sticky
+        active: this.navOpen,
+        sticky: this.sticky
       };
-    },
-    navOpen() {
-      return this.headerMode.navOpen;
     },
     isLoggedIn() {
       return this.$store.getters.isAuth;
@@ -81,10 +76,10 @@ export default {
   },
   methods: {
     toggleNav() {
-      this.headerMode.navOpen = !this.headerMode.navOpen;
+      this.navOpen = !this.navOpen;
     },
     closeNav() {
-      this.headerMode.navOpen = false;
+      this.navOpen = false;
     },
     logout() {
       this.$store.dispatch("logout");
@@ -95,7 +90,7 @@ export default {
       }
     },
     adjustStickyHeader() {
-      this.headerMode.sticky = window.scrollY > 0 && !this.active;
+      this.sticky = window.scrollY > 0 && !this.active;
     }
   },
   watch: {
@@ -116,7 +111,7 @@ export default {
     return {
       toggleNav: this.toggleNav,
       closeNav: this.closeNav,
-      headerMode: this.headerMode
+      headerMode: this
     };
   }
 };

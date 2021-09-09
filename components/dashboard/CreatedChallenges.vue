@@ -32,7 +32,6 @@ export default {
     return {
       modalOpen: false,
       headers: [
-        { text: "ID", value: "id", sortable: false },
         { text: "Name", value: "name" },
         { text: "Language", value: "language" },
         { text: "Edit", value: "edit", sortable: false }
