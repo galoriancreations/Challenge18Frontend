@@ -9,7 +9,6 @@
 
 html {
   font-size: 10px !important;
-  overflow-y: initial !important;
 
   @include respond(desktop-lg) {
     font-size: 11px !important;

@@ -95,7 +95,7 @@ export default {
   },
   watch: {
     navOpen(value) {
-      document.querySelector("body").style.overflow = value ? "hidden" : null;
+      document.querySelector("html").style.overflow = value ? "hidden" : null;
     }
   },
   mounted() {
@@ -103,7 +103,7 @@ export default {
     window.addEventListener("scroll", this.adjustStickyHeader);
   },
   beforeDestroy() {
-    document.querySelector("body").style.overflow = null;
+    document.querySelector("html").style.overflow = null;
     window.removeEventListener("resize", this.adjustNavOpen);
     window.removeEventListener("scroll", this.adjustStickyHeader);
   },
