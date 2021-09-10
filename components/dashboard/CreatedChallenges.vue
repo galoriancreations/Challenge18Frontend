@@ -5,13 +5,15 @@
       <p>Click the button below to create your first challenge.</p>
     </div>
     <div v-else class="my-challenges__table-container">
-      <v-card :elevation="1">
-        <v-data-table :headers="headers" :items="items">
-          <template v-slot:[`item.edit`]="{ item }">
-            <DashboardButton type="edit" @click="item.edit" />
-          </template>
-        </v-data-table>
-      </v-card>
+      <v-app>
+        <v-card>
+          <v-data-table :headers="headers" :items="items">
+            <template v-slot:[`item.edit`]="{ item }">
+              <DashboardButton type="edit" @click="item.edit" />
+            </template>
+          </v-data-table>
+        </v-card>
+      </v-app>
     </div>
     <template slot="button">
       <ActionButton type="add" color="blue" @click="modalOpen = true" />

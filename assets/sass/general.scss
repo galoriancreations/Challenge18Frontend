@@ -27,6 +27,14 @@ html {
   }
 }
 
+.v-application {
+  font-family: inherit !important;
+}
+
+.v-application--wrap {
+  min-height: initial !important;
+}
+
 ::selection {
   background-color: $color-gold-4;
   color: #000;

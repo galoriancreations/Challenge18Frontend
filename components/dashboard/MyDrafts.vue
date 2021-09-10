@@ -6,16 +6,18 @@
       </p>
     </div>
     <div v-else class="my-challenges__table-container">
-      <v-card :elevation="1">
-        <v-data-table :headers="headers" :items="items">
-          <template v-slot:[`item.edit`]="{ item }">
-            <DashboardButton type="edit" @click="item.edit" />
-          </template>
-          <template v-slot:[`item.delete`]="{ item }">
-            <DashboardButton type="delete" @click="item.delete" />
-          </template>
-        </v-data-table>
-      </v-card>
+      <v-app>
+        <v-card>
+          <v-data-table :headers="headers" :items="items">
+            <template v-slot:[`item.edit`]="{ item }">
+              <DashboardButton type="edit" @click="item.edit" />
+            </template>
+            <template v-slot:[`item.delete`]="{ item }">
+              <DashboardButton type="delete" @click="item.delete" />
+            </template>
+          </v-data-table>
+        </v-card>
+      </v-app>
     </div>
     <BaseSpinner v-if="loading" />
   </DashboardSection>

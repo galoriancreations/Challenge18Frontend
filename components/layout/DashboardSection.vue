@@ -37,7 +37,6 @@ export default {
   &__container {
     border-radius: 1rem;
     box-shadow: $boxshadow2;
-    overflow: hidden;
   }
 
   &__heading {
