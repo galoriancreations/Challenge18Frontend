@@ -16,7 +16,7 @@
           color="white"
           @click="addMessage"
         />
-        <SideTabs v-model="selectedDay" :tabs="days" />
+        <SideTabs v-if="days.length" v-model="selectedDay" :tabs="days" />
       </div>
       <TransitionGroup
         class="challenge-editor__pre-messages-content"
