@@ -64,7 +64,7 @@ export default {
   watch: {
     active(value) {
       if (this.disableWindowScroll) {
-        document.querySelector("body").style.overflow = value ? "hidden" : null;
+        document.querySelector("html").style.overflow = value ? "hidden" : null;
       }
     }
   },

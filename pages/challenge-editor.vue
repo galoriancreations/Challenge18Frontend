@@ -15,6 +15,8 @@
       />
     </section>
     <SectionSeperator />
+    <PreChallengeMessages />
+    <SectionSeperator />
     <EditorMainArea />
     <EditorFloatingButtons />
     <EditorNotifications />
@@ -23,6 +25,7 @@
 
 <script>
 import {
+  initialPreMessages,
   initialOptions,
   clearedOptions,
   isSelectionMatching
@@ -43,9 +46,11 @@ export default {
         const draft = await $axios.$post("/xapi", {
           getDraftData: draftId
         });
+        console.log(draft);
         return {
           name: draft.name,
           language: draft.language,
+          preMessages: initialPreMessages(draft.preMessages),
           options: draft.days,
           draftId,
           isTemplatePublic: draft.isTemplatePublic,
@@ -58,6 +63,7 @@ export default {
         return {
           name: challenge.name,
           language: challenge.language,
+          preMessages: initialPreMessages(challenge.preMessages),
           options: initialOptions(challenge.days),
           draftId: null,
           isTemplatePublic:
@@ -71,6 +77,7 @@ export default {
         return {
           name: template.name,
           language: template.language,
+          preMessages: initialPreMessages(template.preMessages),
           options: initialOptions(template.days),
           draftId: null,
           isTemplatePublic: template.isPublic && user?.accountType === "admin",
@@ -80,6 +87,7 @@ export default {
         return {
           name: "",
           language: user?.language || "English",
+          preMessages: initialPreMessages(),
           options: initialOptions(),
           draftId: null,
           isTemplatePublic: user?.accountType === "admin",
@@ -127,6 +135,7 @@ export default {
       return {
         name: this.name,
         language: this.language,
+        preMessages: this.preMessages,
         days: this.options,
         isTemplatePublic: this.isTemplatePublic,
         templateId: this.templateId,
@@ -139,6 +148,7 @@ export default {
         id: this.templateId,
         name: this.name,
         language: this.language,
+        preMessages: this.preMessages,
         days: clearedOptions(this.options),
         isPublic: this.isTemplatePublic
       };
@@ -283,6 +293,12 @@ export default {
     language() {
       this.autoSaveData();
     },
+    preMessages: {
+      handler() {
+        this.autoSaveData();
+      },
+      deep: true
+    },
     options: {
       handler() {
         this.autoSaveData();
@@ -307,13 +323,14 @@ export default {
   },
   provide() {
     return {
-      options: this.options,
+      templateOnlyMode: this.templateOnlyMode,
+      editedChallengeId: this.editedChallengeId,
       getLanguage: () => this.language,
       openIntroModal: () => {
         this.showIntroModal = true;
       },
-      templateOnlyMode: this.templateOnlyMode,
-      editedChallengeId: this.editedChallengeId,
+      preMessages: this.preMessages,
+      options: this.options,
       autoSave: this.autoSave,
       submit: this.submit,
       getTransition: () => this.transition,

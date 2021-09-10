@@ -2,7 +2,6 @@
   <TransitionGroup class="challenge-editor__wrapper" :name="transition">
     <div key="content" class="challenge-editor__content" :style="{ direction }">
       <section class="challenge-editor__tabs">
-        <ActionButton type="add" color="white" @click="addDayToStart" />
         <SideTabs v-model="selectedDay" :tabs="days" />
         <ActionButton type="add" color="white" @click="addDayToEnd" />
       </section>
@@ -174,7 +173,7 @@ export default {
 
   &__tabs {
     .side-tabs {
-      margin: 3rem 0;
+      margin-bottom: 3rem;
     }
   }
 

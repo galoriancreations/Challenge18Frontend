@@ -6,7 +6,7 @@
     <textarea-autosize
       :value="value"
       @input="$emit('input', $event)"
-      class="task-form__extra challenge-editor__introduction-input"
+      class="task-form__extra"
       placeholder="Message that would be displayed to the participants on the group chat, explaining about the day's subject"
       :min-height="100"
       :max-height="300"
