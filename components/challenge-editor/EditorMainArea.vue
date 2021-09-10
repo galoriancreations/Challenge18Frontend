@@ -6,12 +6,9 @@
         <ActionButton type="add" color="white" @click="addDayToEnd" />
       </section>
       <section class="challenge-editor__day" ref="container">
-        <SectionHeading small>
-          {{ dayTitle }}
-        </SectionHeading>
-        <EditDayTitleModal
-          v-model.trim="options[dayIndex].title"
-          :active="dayTitleEdited"
+        <DayTitleField
+          v-model="options[dayIndex].title"
+          :label="`${dayLabel} ${selectedDay}`"
         />
         <DayActionButtons />
         <EditorTaskList :tasks="options[dayIndex].tasks" />
@@ -28,7 +25,7 @@
 </template>
 
 <script>
-import { numbersArray, newTask } from "../../assets/util/functions";
+import { newTask } from "../../assets/util/functions";
 import { rtlLanguages, dayTranslations } from "../../assets/util/options";
 import uniqid from "uniqid";
 
@@ -46,8 +43,7 @@ export default {
   ],
   data() {
     return {
-      selectedDay: 1,
-      dayTitleEdited: false
+      selectedDay: 1
     };
   },
   computed: {
@@ -70,11 +66,6 @@ export default {
     dayLabel() {
       return dayTranslations[this.language] || "Day";
     },
-    dayTitle() {
-      const { dayLabel, selectedDay, options, dayIndex } = this;
-      const { title } = options[dayIndex];
-      return `${dayLabel} ${selectedDay} – ${title || "(Edit day title)"}`;
-    },
     direction() {
       return rtlLanguages.includes(this.language) ? "rtl" : null;
     },
@@ -87,11 +78,6 @@ export default {
     }
   },
   methods: {
-    keydownHandler(event) {
-      if (event.key === "Enter" || event.key === "Escape") {
-        this.dayTitleEdited = false;
-      }
-    },
     addDayToStart() {
       this.options.unshift({
         id: uniqid(),
@@ -131,20 +117,8 @@ export default {
       this.setTransition(null);
     }
   },
-  mounted() {
-    document.addEventListener("keydown", this.keydownHandler);
-  },
-  beforeDestroy() {
-    document.removeEventListener("keydown", this.keydownHandler);
-  },
   provide() {
     return {
-      editDayTitle: () => {
-        this.dayTitleEdited = true;
-      },
-      closeModal: () => {
-        this.dayTitleEdited = false;
-      },
       getDayIndex: () => this.dayIndex,
       deleteDay: this.deleteDay
     };

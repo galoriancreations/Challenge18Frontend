@@ -1,25 +1,24 @@
 <template>
-  <div class="challenge-editor__day-actions">
+  <div class="challenge-editor__day-actions" v-if="options.length > 1">
     <div class="challenge-editor__day-actions-wrapper">
-      <IconButton type="edit" @click="editDayTitle" />
-      <IconButton v-if="options.length > 1" type="delete" @click="deleteDay" />
+      <IconButton type="delete" @click="deleteDay" />
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  inject: ["options", "editDayTitle", "deleteDay"]
+  inject: ["options", "deleteDay"]
 };
 </script>
 
 <style lang="scss">
 .challenge-editor {
   &__day-actions {
-    margin: -1rem 0 6rem;
+    margin-bottom: 6rem;
 
     @include respond(mobile) {
-      margin: -0.5rem 0 4.5rem;
+      margin-bottom: 4.5rem;
     }
   }
 
