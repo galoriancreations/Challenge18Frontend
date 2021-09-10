@@ -156,9 +156,9 @@ export default {
   }
 
   &__pre-messages-tabs {
-    .action-button {
-      margin-bottom: 3rem;
-    }
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
 
     .side-tabs {
       margin-bottom: 0 !important;
