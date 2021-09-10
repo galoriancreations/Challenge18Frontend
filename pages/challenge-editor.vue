@@ -46,7 +46,6 @@ export default {
         const draft = await $axios.$post("/xapi", {
           getDraftData: draftId
         });
-        console.log(draft);
         return {
           name: draft.name,
           language: draft.language,
@@ -291,6 +290,9 @@ export default {
       this.autoSaveData();
     },
     language() {
+      this.autoSaveData();
+    },
+    isPublic() {
       this.autoSaveData();
     },
     preMessages: {

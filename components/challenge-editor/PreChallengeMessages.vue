@@ -80,7 +80,7 @@ export default {
       return this.getLanguage();
     },
     dayLabel() {
-      return dayTranslations[this.language] || "English";
+      return dayTranslations[this.language] || "Day";
     },
     direction() {
       return rtlLanguages.includes(this.language) ? "rtl" : null;
