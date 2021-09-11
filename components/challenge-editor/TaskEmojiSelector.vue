@@ -9,9 +9,11 @@
         {{ task.emoji }}
       </span>
     </button>
-    <div :class="wrapperClasses">
-      <VEmojiPicker @select="selectEmoji" />
-    </div>
+    <Transition name="picker">
+      <div v-if="showPicker" class="task-form__emoji-wrapper">
+        <VEmojiPicker @select="selectEmoji" />
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -25,14 +27,6 @@ export default {
     return {
       showPicker: false
     };
-  },
-  computed: {
-    wrapperClasses() {
-      return {
-        "task-form__emoji-wrapper": true,
-        "task-form__emoji-wrapper--active": this.showPicker
-      };
-    }
   },
   methods: {
     selectEmoji(emoji) {
@@ -101,17 +95,22 @@ export default {
     top: calc(100% + 1rem);
     left: 50%;
     transform: translateX(-50%);
-    background-color: #fff;
-    width: fit-content;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.5s;
     z-index: 5;
-
-    &--active {
-      opacity: 1;
-      visibility: visible;
-    }
   }
+}
+
+.picker-enter,
+.picker-leave-to {
+  opacity: 0;
+}
+
+.picker-enter-active,
+.picker-leave-active {
+  transition: opacity 0.4s;
+}
+
+.picker-enter-to,
+.picker-leave-from {
+  opacity: 1;
 }
 </style>

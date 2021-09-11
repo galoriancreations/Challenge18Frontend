@@ -194,7 +194,6 @@ export default {
   box-shadow: $boxshadow2;
   padding: 3.5rem 3rem;
   width: 100%;
-  overflow: hidden;
 
   @include respond(mobile) {
     padding: 3rem 2rem;
