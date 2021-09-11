@@ -95,7 +95,10 @@ export default {
       const { templateId } = await this.$axios.$post("/xapi", {
         saveTemplate: {
           templateId: null,
-          templateData: template,
+          templateData: {
+            ...template,
+            name: `${template.name} (copy)`
+          },
           draftId: null,
           finishEditing: false
         }

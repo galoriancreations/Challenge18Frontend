@@ -17,55 +17,57 @@
   </section>
 </template>
 
+//
 <script>
-import { challengesArray } from "../../assets/util/functions";
+// import { challengesArray } from "../../assets/util/functions";
 
-export default {
-  data() {
-    return {
-      columns: [
-        {
-          label: "School/Org",
-          field: "school1",
-          sortable: false
-        },
-        {
-          label: "Score",
-          field: "score1",
-          sortable: false
-        },
-        {
-          label: "Total Score",
-          field: "total",
-          thClass: "total-column",
-          tdClass: "total-column"
-        },
-        {
-          label: "Score",
-          field: "score2",
-          sortable: false
-        },
-        {
-          label: "School/Org",
-          field: "school2",
-          sortable: false
-        }
-      ]
-    };
-  },
-  computed: {
-    results() {
-      return this.$store.getters["results/results"];
-    },
-    loading() {
-      return this.$store.getters["results/loading"];
-    },
-    error() {
-      return this.$store.getters["results/error"];
-    },
-    rows() {
-      return challengesArray(this.results);
-    }
-  }
-};
+// export default {
+//   data() {
+//     return {
+//       columns: [
+//         {
+//           label: "School/Org",
+//           field: "school1",
+//           sortable: false
+//         },
+//         {
+//           label: "Score",
+//           field: "score1",
+//           sortable: false
+//         },
+//         {
+//           label: "Total Score",
+//           field: "total",
+//           thClass: "total-column",
+//           tdClass: "total-column"
+//         },
+//         {
+//           label: "Score",
+//           field: "score2",
+//           sortable: false
+//         },
+//         {
+//           label: "School/Org",
+//           field: "school2",
+//           sortable: false
+//         }
+//       ]
+//     };
+//   },
+//   computed: {
+//     results() {
+//       return this.$store.getters["results/results"];
+//     },
+//     loading() {
+//       return this.$store.getters["results/loading"];
+//     },
+//     error() {
+//       return this.$store.getters["results/error"];
+//     },
+//     rows() {
+//       return challengesArray(this.results);
+//     }
+//   }
+// };
+//
 </script>

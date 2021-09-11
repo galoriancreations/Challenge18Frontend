@@ -18,39 +18,41 @@
   </WhiteSection>
 </template>
 
+//
 <script>
-import { teamsArray } from "../../assets/util/functions";
+// import { teamsArray } from "../../assets/util/functions";
 
-export default {
-  data() {
-    return {
-      columns: [
-        {
-          label: "Player",
-          field: "name"
-        },
-        {
-          label: "Score",
-          field: "score"
-        }
-      ]
-    };
-  },
-  computed: {
-    loading() {
-      return this.$store.getters["results/loading"];
-    },
-    error() {
-      return this.$store.getters["results/error"];
-    },
-    results() {
-      return this.$store.getters["results/results"];
-    },
-    teams() {
-      return teamsArray(this.results).filter(team => team.users.length > 2);
-    }
-  }
-};
+// export default {
+//   data() {
+//     return {
+//       columns: [
+//         {
+//           label: "Player",
+//           field: "name"
+//         },
+//         {
+//           label: "Score",
+//           field: "score"
+//         }
+//       ]
+//     };
+//   },
+//   computed: {
+//     loading() {
+//       return this.$store.getters["results/loading"];
+//     },
+//     error() {
+//       return this.$store.getters["results/error"];
+//     },
+//     results() {
+//       return this.$store.getters["results/results"];
+//     },
+//     teams() {
+//       return teamsArray(this.results).filter(team => team.users.length > 2);
+//     }
+//   }
+// };
+//
 </script>
 
 <style lang="scss">

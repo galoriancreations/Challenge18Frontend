@@ -67,14 +67,12 @@ export const actions = {
         const { user } = await this.$axios.$post("/xapi", {
             editProfile: data
         });
-        console.log(user)
         context.commit("updateUser", user);
     },
     async loadTemplates(context) {
         const { templates } = await this.$axios.$post("/xapi", {
             getAvailableTemplates: true
         });
-        console.log(templates)
         context.commit("setTemplates", templates);
     }
 };

@@ -28,15 +28,19 @@ export default {
     methods: {
         async cloneTemplate(template) {
             this.loading = true;
-            const { templateId } = await this.$axios.$post("/xapi", {
+            await this.$axios.$post("/xapi", {
                 saveTemplate: {
                     templateId: null,
-                    templateData: template,
+                    templateData: {
+                        ...template,
+                        name: `${template.name} (copy)`
+                    },
                     draftId: null,
                     finishEditing: false
                 }
             });
-            this.editTemplate(templateId);
+            await this.$store.dispatch("loadTemplates");
+            this.loading = false;
         },
         editTemplate(templateId) {
             if (templateId) {

@@ -3,7 +3,7 @@
     <div key="content" class="challenge-editor__content" :style="{ direction }">
       <section class="challenge-editor__tabs">
         <SideTabs v-model="selectedDay" :tabs="days" />
-        <ActionButton type="add" color="white" @click="addDayToEnd" />
+        <ActionButton type="add" color="white" @click="addDay" />
       </section>
       <section class="challenge-editor__day" ref="container">
         <DayTitleField
@@ -78,15 +78,7 @@ export default {
     }
   },
   methods: {
-    addDayToStart() {
-      this.options.unshift({
-        id: uniqid(),
-        title: "",
-        tasks: [newTask(0)]
-      });
-      this.selectedDay = 1;
-    },
-    addDayToEnd() {
+    addDay() {
       this.options.push({
         id: uniqid(),
         title: "",

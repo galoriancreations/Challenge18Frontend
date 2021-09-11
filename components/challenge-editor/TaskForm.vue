@@ -13,18 +13,9 @@
         <IconButton type="delete" @click="deleteTask(taskIndex)" />
       </div>
     </div>
-    <div class="task-form__points-selector">
-      <label>Awarded points</label>
-      <NumberInput
-        v-model="task.points"
-        :min="1"
-        :max="18"
-        :center="true"
-        size="large"
-        :disabled="!task.isBonus"
-        inline
-        controls
-      />
+    <div class="task-form__selectors">
+      <TaskPointsSelector />
+      <TaskEmojiSelector />
     </div>
     <div
       v-for="(option, optionIndex) in task.options"
@@ -91,10 +82,8 @@
 import { convertTaskText, stripHTML } from "../../assets/util/functions";
 import { taskTranslations } from "../../assets/util/options";
 import uniqid from "uniqid";
-import NumberInput from "@chenfengyuan/vue-number-input";
 
 export default {
-  components: { NumberInput },
   props: {
     task: Object
   },
@@ -190,6 +179,11 @@ export default {
         setTimeout(() => this.optionInput?.focus(), 10);
       }
     }
+  },
+  provide() {
+    return {
+      task: this.task
+    };
   }
 };
 </script>
@@ -215,7 +209,7 @@ export default {
   }
 
   &__top {
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -247,66 +241,30 @@ export default {
     visibility: visible;
   }
 
-  &__points-selector {
+  &__selectors {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 50rem;
+    margin: auto;
+    margin-bottom: 3rem;
+
+    @include respond(mobile) {
+      flex-direction: column;
+      align-items: center;
+
+      & > *:not(:last-child) {
+        margin-bottom: 2rem;
+      }
+    }
+  }
+
+  &__selector-label {
+    display: block;
     text-align: center;
-    margin-bottom: 2.5rem;
-
-    label {
-      display: block;
-      text-align: center;
-      margin-bottom: 1rem;
-      font-weight: 600;
-      cursor: initial;
-    }
-
-    .number-input {
-      input {
-        font-family: inherit;
-        font-size: 1.6rem !important;
-        transition: border-color 0.4s !important;
-
-        @include respond(mobile) {
-          font-size: 1.5rem !important;
-        }
-
-        &:focus {
-          border-color: $color-azure !important;
-        }
-      }
-
-      button {
-        transition: all 0.5s;
-
-        &:not(:disabled) {
-          cursor: pointer;
-
-          &:hover {
-            background-color: rgba($color-azure-light, 0.8);
-
-            &::before,
-            &::after {
-              background-color: #111 !important;
-            }
-          }
-        }
-
-        &::before {
-          width: 1.45rem !important;
-
-          @include respond(mobile) {
-            width: 1.4rem !important;
-          }
-        }
-
-        &::after {
-          height: 1.45rem !important;
-
-          @include respond(mobile) {
-            height: 1.4rem !important;
-          }
-        }
-      }
-    }
+    margin-bottom: 1rem;
+    font-weight: 600;
+    cursor: initial;
   }
 
   &__option {
