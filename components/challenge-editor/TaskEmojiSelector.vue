@@ -1,7 +1,7 @@
 <template>
   <div class="task-form__emoji-selector">
     <label class="task-form__selector-label">Emoji</label>
-    <button @click="showPicker = !showPicker">
+    <button @click="showPicker = !showPicker" class="task-form__emoji-button">
       <span v-if="!task.emoji" class="task-form__no-emoji">
         Click to select
       </span>
@@ -38,7 +38,25 @@ export default {
     selectEmoji(emoji) {
       this.task.emoji = emoji.data;
       this.showPicker = false;
+    },
+    closeOnClick(event) {
+      if (!event.target.closest(".task-form__emoji-selector")) {
+        this.showPicker = false;
+      }
+    },
+    closeOnEscPress(event) {
+      if (event.key === "Escape") {
+        this.showPicker = false;
+      }
     }
+  },
+  mounted() {
+    document.addEventListener("click", this.closeOnClick);
+    document.addEventListener("keydown", this.closeOnEscPress);
+  },
+  beforeDestroy() {
+    document.removeEventListener("click", this.closeOnClick);
+    document.removeEventListener("keydown", this.closeOnEscPress);
   }
 };
 </script>
@@ -60,6 +78,10 @@ export default {
     .emoji {
       overflow: visible !important;
     }
+  }
+
+  &__emoji-button {
+    outline: none;
   }
 
   &__no-emoji {
