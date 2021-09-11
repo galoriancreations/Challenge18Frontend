@@ -95,7 +95,7 @@ export default {
     top: calc(100% + 1rem);
     left: 50%;
     transform: translateX(-50%);
-    z-index: 5;
+    z-index: 10;
   }
 }
 
@@ -107,10 +107,5 @@ export default {
 .picker-enter-active,
 .picker-leave-active {
   transition: opacity 0.4s;
-}
-
-.picker-enter-to,
-.picker-leave-from {
-  opacity: 1;
 }
 </style>
