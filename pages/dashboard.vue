@@ -51,7 +51,10 @@ export default {
   },
   provide() {
     return {
-      removeItem: id => {
+      addNotification: item => {
+        this.notifications.push(item);
+      },
+      removeNotification: id => {
         this.notifications = this.notifications.filter(
           notification => notification.id !== id
         );

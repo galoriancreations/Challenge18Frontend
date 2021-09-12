@@ -31,7 +31,7 @@ export default {
   },
   provide() {
     return {
-      removeItem: id => {
+      removeNotification: id => {
         this.items = this.items.filter(item => item.id !== id);
       }
     };

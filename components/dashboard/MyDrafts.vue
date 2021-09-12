@@ -23,9 +23,10 @@
 
 <script>
 import { dataArrayFromObject } from "../../assets/util/functions";
+import uniqid from "uniqid";
 
 export default {
-  inject: ["setConfirmModal"],
+  inject: ["setConfirmModal", "addNotification"],
   data() {
     return {
       headers: [
@@ -82,6 +83,10 @@ export default {
             deleteDraft: draftId
           });
           await this.$store.dispatch("updateUser");
+          this.addNotification({
+            id: uniqid(),
+            html: `Successfully deleted draft: <strong>${draftId}</strong>.`
+          });
           this.loading = false;
         }
       );

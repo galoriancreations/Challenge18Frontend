@@ -1,5 +1,7 @@
+import uniqid from "uniqid";
+
 export default {
-    inject: ["setConfirmModal"],
+    inject: ["addNotification", "setConfirmModal"],
     data() {
         return {
             headers: [
@@ -28,7 +30,7 @@ export default {
     methods: {
         async cloneTemplate(template) {
             this.loading = true;
-            await this.$axios.$post("/xapi", {
+            const { templateId } = await this.$axios.$post("/xapi", {
                 saveTemplate: {
                     templateId: null,
                     templateData: {
@@ -40,6 +42,10 @@ export default {
                 }
             });
             await this.$store.dispatch("loadTemplates");
+            this.addNotification({
+                id: uniqid(),
+                html: `Created new template: <strong>${template.name} (copy)</strong>.`
+            });
             this.loading = false;
         },
         editTemplate(templateId) {
@@ -60,14 +66,17 @@ export default {
                 "Are you sure you want to delete this template? This action is irreversible.",
                 async () => {
                     this.loading = true;
-                    const res = await this.$axios.$post("/xapi", {
+                    await this.$axios.$post("/xapi", {
                         deleteTemplate: {
                             templateId: template.id,
                             isPublic: template.isPublic
                         }
                     });
-                    console.log(res)
                     await this.$store.dispatch("loadTemplates");
+                    this.addNotification({
+                        id: uniqid(),
+                        html: `Successfully deleted template: <strong>${template.name}</strong>.`
+                    });
                     this.loading = false;
                 }
             );

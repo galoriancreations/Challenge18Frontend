@@ -10,7 +10,7 @@
         :key="item.id"
         :is="item.component || 'Notification'"
         v-bind="item.props || item"
-        @dismiss="removeItem(item.id)"
+        @dismiss="removeNotification(item.id)"
       />
     </component>
   </div>
@@ -21,7 +21,7 @@ export default {
   props: {
     items: Array
   },
-  inject: ["removeItem"],
+  inject: ["removeNotification"],
   data() {
     return {
       isMounted: false
