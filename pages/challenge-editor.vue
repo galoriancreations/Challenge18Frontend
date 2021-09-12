@@ -292,7 +292,7 @@ export default {
     language() {
       this.autoSaveData();
     },
-    isPublic() {
+    isTemplatePublic() {
       this.autoSaveData();
     },
     preMessages: {

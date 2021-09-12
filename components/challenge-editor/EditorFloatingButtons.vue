@@ -1,13 +1,18 @@
 <template>
   <FloatingButtons>
     <ActionButton type="info" color="white" @click="openIntroModal" />
-    <ActionButton type="shuffle" color="white" @click="selectRandomOptions" />
+    <ActionButton
+      v-if="!templateOnlyMode"
+      type="shuffle"
+      color="white"
+      @click="selectRandomOptions"
+    />
   </FloatingButtons>
 </template>
 
 <script>
 export default {
-  inject: ["options", "openIntroModal", "setConfirmModal"],
+  inject: ["templateOnlyMode", "options", "openIntroModal", "setConfirmModal"],
   methods: {
     selectRandomOptions() {
       this.setConfirmModal(
