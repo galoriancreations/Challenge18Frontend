@@ -31,9 +31,11 @@ import {
   isSelectionMatching
 } from "../assets/util/functions";
 import confirmModal from "../mixins/confirm-modal";
+import uniqid from "uniqid";
 
 export default {
   mixins: [confirmModal],
+  inject: ["addNotification"],
   meta: {
     requiresAuth: true
   },
@@ -243,7 +245,10 @@ export default {
         }
       });
       this.$cookies.remove("draftId");
-      // this.$router.replace(`/challenges/${challenge.id}`);
+      this.addNotification({
+        id: uniqid(),
+        html: `Successfully created new challenge: <strong>${challenge.name}</strong>.`
+      });
       this.$router.replace("/dashboard");
     },
     async updateChallenge() {
@@ -256,16 +261,20 @@ export default {
         }
       });
       this.$cookies.remove("draftId");
-      // this.$router.push(`/challenges/${this.editedChallengeId}`);
+      this.addNotification({
+        id: uniqid(),
+        html: `Successfully updated challenge: <strong>${this.name}</strong>.`
+      });
       this.$router.replace("/dashboard");
     },
     async saveTemplateAndRedirect() {
       await this.saveTemplate(true);
       this.$cookies.remove("draftId");
-      this.$router.push({
-        path: "/dashboard",
-        hash: this.isTemplatePublic ? "#public-templates" : "#my-templates"
+      this.addNotification({
+        id: uniqid(),
+        html: `Successfully saved template: <strong>${this.name}</strong>.`
       });
+      this.$router.replace("/dashboard");
     },
     async submitHandler() {
       if (!this.validateData()) return;

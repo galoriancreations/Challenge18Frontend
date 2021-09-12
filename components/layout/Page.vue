@@ -7,6 +7,10 @@
     </WhiteSection>
     <slot v-else />
     <WhatsappButton v-if="$route.name !== 'challenge-editor'" />
+    <Notifications
+      v-if="$route.name !== 'challenge-editor'"
+      :items="notifications"
+    />
     <TheFooter />
   </div>
 </template>
@@ -30,13 +34,22 @@ export default {
       title: this.title && `${this.title} – Challenge 18`
     };
   },
+  computed: {
+    notifications() {
+      return this.$store.getters["notifications/items"];
+    }
+  },
   mounted() {
     window.scrollTo(0, 0);
   },
   provide() {
     return {
       name: this.name,
-      title: this.title
+      title: this.title,
+      addNotification: item =>
+        this.$store.commit("notifications/addItem", item),
+      removeNotification: itemId =>
+        this.$store.commit("notifications/removeItem", itemId)
     };
   }
 };
