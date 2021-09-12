@@ -69,7 +69,11 @@ export default {
   },
   provide() {
     return {
-      io: this.io
+      io: this.io,
+      addNotification: item =>
+        this.$store.commit("notifications/addItem", item),
+      removeNotification: itemId =>
+        this.$store.commit("notifications/removeItem", itemId)
     };
   }
 };

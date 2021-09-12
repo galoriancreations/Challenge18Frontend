@@ -45,11 +45,7 @@ export default {
   provide() {
     return {
       name: this.name,
-      title: this.title,
-      addNotification: item =>
-        this.$store.commit("notifications/addItem", item),
-      removeNotification: itemId =>
-        this.$store.commit("notifications/removeItem", itemId)
+      title: this.title
     };
   }
 };
