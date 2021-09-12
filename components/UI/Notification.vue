@@ -41,6 +41,8 @@ export default {
   &__content {
     padding: 1.5rem 2rem;
     max-width: 45rem;
+    overflow: hidden;
+    word-wrap: break-word;
 
     @include respond(mobile) {
       padding: 1.2rem;
