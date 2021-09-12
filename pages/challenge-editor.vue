@@ -31,7 +31,6 @@ import {
   isSelectionMatching
 } from "../assets/util/functions";
 import confirmModal from "../mixins/confirm-modal";
-import uniqid from "uniqid";
 
 export default {
   mixins: [confirmModal],
@@ -208,32 +207,40 @@ export default {
       }, 5000);
     },
     validateData() {
-      if (!this.name) {
-        this.submit.error = "Challenge name can't be empty";
+      try {
+        if (!this.name) {
+          throw "Challenge name can't be empty";
+        }
+        if (!this.language) {
+          throw "Please choose a language for the template";
+        }
+        const selectedEmojis = [];
+        for (let day of this.options) {
+          if (!day.tasks.length) {
+            throw "One or more days were left empty";
+          }
+          for (let task of day.tasks) {
+            if (!task.options.length) {
+              throw "One or more tasks were left empty";
+            }
+            if (!task.emoji) {
+              throw "One or moret tasks were left with no emoji";
+            }
+            if (selectedEmojis.includes(task.emoji)) {
+              throw "The same emoji was selected for multiple tasks. Please select a different emoji for each task";
+            }
+            selectedEmojis.push(task.emoji);
+            if (!this.templateOnlyMode && !isSelectionMatching(task)) {
+              throw "One or more tasks were left with no selection";
+            }
+          }
+        }
+        this.submit.error = null;
+        return true;
+      } catch (error) {
+        this.submit.error = error;
         return false;
       }
-      if (!this.language) {
-        this.submit.error = "Please choose a language for the template";
-        return false;
-      }
-      for (let day of this.options) {
-        if (!day.tasks.length) {
-          this.submit.error = "One or more days were left empty";
-          return false;
-        }
-        for (let task of day.tasks) {
-          if (!task.options.length) {
-            this.submit.error = "One or more tasks were left empty";
-            return false;
-          }
-          if (!this.templateOnlyMode && !isSelectionMatching(task)) {
-            this.submit.error = "One or more tasks were left with no selection";
-            return false;
-          }
-        }
-      }
-      this.submit.error = null;
-      return true;
     },
     async createNewChallenge() {
       await this.saveTemplate();
@@ -245,10 +252,9 @@ export default {
         }
       });
       this.$cookies.remove("draftId");
-      this.addNotification({
-        id: uniqid(),
-        html: `Successfully created new challenge: <strong>${challenge.name}</strong>.`
-      });
+      this.addNotification(
+        `Successfully created new challenge: <strong>${challenge.name}</strong>.`
+      );
       this.$router.replace("/dashboard");
     },
     async updateChallenge() {
@@ -261,19 +267,17 @@ export default {
         }
       });
       this.$cookies.remove("draftId");
-      this.addNotification({
-        id: uniqid(),
-        html: `Successfully updated challenge: <strong>${this.name}</strong>.`
-      });
+      this.addNotification(
+        `Successfully updated challenge: <strong>${this.name}</strong>.`
+      );
       this.$router.replace("/dashboard");
     },
     async saveTemplateAndRedirect() {
       await this.saveTemplate(true);
       this.$cookies.remove("draftId");
-      this.addNotification({
-        id: uniqid(),
-        html: `Successfully saved template: <strong>${this.name}</strong>.`
-      });
+      this.addNotification(
+        `Successfully saved template: <strong>${this.name}</strong>.`
+      );
       this.$router.replace("/dashboard");
     },
     async submitHandler() {

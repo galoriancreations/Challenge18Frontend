@@ -1,3 +1,5 @@
+import uniqid from "uniqid";
+
 const timeouts = {};
 
 export const state = () => ({
@@ -17,11 +19,19 @@ export const mutations = {
 };
 
 export const actions = {
-    addItem(context, item) {
-        context.commit("addItem", item);
-        if (!item.noAutoDismiss) {
-            timeouts[item.id] =
-                setTimeout(() => context.dispatch("removeItem", item.id), 20000);
+    addItem(context, payload) {
+        let newItem = { id: uniqid() };
+        if (typeof payload === "string") {
+            newItem.html = payload;
+        } else {
+            newItem = { ...newItem, ...payload };
+        }
+        context.commit("addItem", newItem);
+        if (!newItem.noAutoDismiss) {
+            timeouts[newItem.id] = setTimeout(
+                () => context.dispatch("removeItem", newItem.id),
+                20000
+            );
         }
     },
     removeItem(context, itemId) {

@@ -1,5 +1,3 @@
-import uniqid from "uniqid";
-
 export default {
     inject: ["addNotification", "setConfirmModal"],
     data() {
@@ -42,10 +40,9 @@ export default {
                 }
             });
             await this.$store.dispatch("loadTemplates");
-            this.addNotification({
-                id: uniqid(),
-                html: `Created new template: <strong>${template.name} (copy)</strong>.`
-            });
+            this.addNotification(
+                `Created new template: <strong>${template.name} (copy)</strong>.`
+            );
             this.loading = false;
         },
         editTemplate(templateId) {
@@ -73,10 +70,9 @@ export default {
                         }
                     });
                     await this.$store.dispatch("loadTemplates");
-                    this.addNotification({
-                        id: uniqid(),
-                        html: `Successfully deleted template: <strong>${template.name}</strong>.`
-                    });
+                    this.addNotification(
+                        `Successfully deleted template: <strong>${template.name}</strong>.`
+                    );
                     this.loading = false;
                 }
             );
