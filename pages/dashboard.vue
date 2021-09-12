@@ -5,6 +5,7 @@
       :text="confirmText"
       @confirm="confirmAction"
     />
+    <Notifications :items="notifications" />
     <AccountDetails />
     <!-- <ClubPlayers v-if="isOrganization" /> -->
     <CreatedChallenges />
@@ -21,6 +22,11 @@ export default {
   mixins: [confirmModal],
   meta: {
     requiresAuth: true
+  },
+  data() {
+    return {
+      notifications: []
+    };
   },
   async asyncData({ store, from }) {
     if (process.client && !from.meta[0]?.forLoggingIn) {
@@ -42,6 +48,15 @@ export default {
     isAdmin() {
       return this.user?.accountType === "admin";
     }
+  },
+  provide() {
+    return {
+      removeItem: id => {
+        this.notifications = this.notifications.filter(
+          notification => notification.id !== id
+        );
+      }
+    };
   }
 };
 </script>

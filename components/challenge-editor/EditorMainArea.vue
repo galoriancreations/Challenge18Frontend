@@ -7,11 +7,43 @@
       </section>
       <section class="challenge-editor__day" ref="container">
         <DayTitleField
+          :key="`title-${options[dayIndex].id}`"
           v-model="options[dayIndex].title"
           :label="`${dayLabel} ${selectedDay}`"
         />
-        <DayActionButtons />
-        <EditorTaskList :tasks="options[dayIndex].tasks" />
+        <DayActionButtons :key="`actions-${options[dayIndex].id}`" />
+        <TransitionGroup
+          class="challenge-editor__day-content"
+          :name="transition"
+        >
+          <div
+            :key="`introduction-${options[dayIndex].id}`"
+            class="challenge-editor__subsection"
+          >
+            <DayIntroductionField
+              :key="options[dayIndex].id"
+              v-model.trim="options[dayIndex].introduction"
+            />
+          </div>
+          <div
+            :key="`tasks-${options[dayIndex].id}`"
+            class="challenge-editor__subsection"
+          >
+            <h3 class="challenge-editor__subsection-heading">
+              Day Tasks
+            </h3>
+            <EditorTaskList :tasks="options[dayIndex].tasks" />
+          </div>
+          <div
+            :key="`messages-${options[dayIndex].id}`"
+            class="challenge-editor__subsection"
+          >
+            <h3 class="challenge-editor__subsection-heading">
+              Additional Messages
+            </h3>
+            <AdditionalMessagesList :messages="options[dayIndex].messages" />
+          </div>
+        </TransitionGroup>
       </section>
     </div>
     <div key="submit" class="challenge-editor__submit-wrapper">
@@ -25,7 +57,7 @@
 </template>
 
 <script>
-import { newTask } from "../../assets/util/functions";
+import { newMessage, newTask } from "../../assets/util/functions";
 import { rtlLanguages, dayTranslations } from "../../assets/util/options";
 import uniqid from "uniqid";
 
@@ -82,9 +114,11 @@ export default {
       this.options.push({
         id: uniqid(),
         title: "",
-        tasks: [newTask(0)]
+        tasks: [newTask(0)],
+        messages: [newMessage()]
       });
       this.selectedDay = this.options.length;
+      this.setTransition("task");
     },
     deleteDay() {
       this.setConfirmModal(
@@ -104,14 +138,10 @@ export default {
       this.setTransition("task");
       const optionsTop = this.$refs.container.getBoundingClientRect().top;
       window.scrollTo(0, window.scrollY + optionsTop - 150);
-    },
-    dayTitleEdited() {
-      this.setTransition(null);
     }
   },
   provide() {
     return {
-      getDayIndex: () => this.dayIndex,
       deleteDay: this.deleteDay
     };
   }
@@ -145,6 +175,32 @@ export default {
 
   &__day {
     position: relative;
+  }
+
+  &__subsection {
+    position: relative;
+    z-index: 5;
+
+    &:not(:last-child) {
+      margin-bottom: 9rem;
+
+      @include respond(mobile) {
+        margin-bottom: 7rem;
+      }
+    }
+  }
+
+  &__subsection-heading {
+    text-align: center;
+    font-weight: 600;
+    color: $color-blue-2;
+    font-size: 2.7rem;
+    margin-bottom: 3rem;
+
+    @include respond(mobile) {
+      font-size: 2.1rem;
+      margin-bottom: 2.5rem;
+    }
   }
 
   &__submit-wrapper {

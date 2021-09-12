@@ -25,12 +25,6 @@ export default {
 <style lang="scss">
 .challenge-editor {
   &__introduction-field {
-    margin-bottom: 8rem;
-
-    @include respond(mobile) {
-      margin-bottom: 6rem;
-    }
-
     h3 {
       text-align: center;
     }

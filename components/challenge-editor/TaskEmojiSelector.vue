@@ -1,5 +1,5 @@
 <template>
-  <div class="task-form__emoji-selector">
+  <div class="task-form__emoji-selector" :id="`emoji-${task.id}`">
     <label class="task-form__selector-label">Emoji</label>
     <button @click="showPicker = !showPicker" class="task-form__emoji-button">
       <span v-if="!task.emoji" class="task-form__no-emoji">
@@ -34,7 +34,7 @@ export default {
       this.showPicker = false;
     },
     closeOnClick(event) {
-      if (!event.target.closest(".task-form__emoji-selector")) {
+      if (!event.target.closest(`#emoji-${this.task.id}`)) {
         this.showPicker = false;
       }
     },
@@ -95,7 +95,7 @@ export default {
     top: calc(100% + 1rem);
     left: 50%;
     transform: translateX(-50%);
-    z-index: 10;
+    z-index: 15;
   }
 }
 

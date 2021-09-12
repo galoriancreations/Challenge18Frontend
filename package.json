@@ -35,6 +35,7 @@
     "vue-textarea-autosize": "^1.1.1",
     "vue-waypoint": "^4.2.0",
     "vue-youtube": "^1.4.0",
+    "vue2-timepicker": "^1.1.6",
     "vuescroll": "^4.17.3"
   },
   "devDependencies": {

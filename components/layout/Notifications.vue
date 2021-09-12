@@ -8,8 +8,8 @@
       <component
         v-for="item in items"
         :key="item.id"
-        :is="item.component"
-        v-bind="item.props"
+        :is="item.component || 'Notification'"
+        v-bind="item.props || item"
         @dismiss="removeItem(item.id)"
       />
     </component>

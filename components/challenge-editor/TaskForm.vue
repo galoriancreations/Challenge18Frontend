@@ -15,6 +15,7 @@
     </div>
     <div class="task-form__selectors">
       <TaskPointsSelector />
+      <TaskTimeSelector />
       <TaskEmojiSelector />
     </div>
     <div
@@ -244,7 +245,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    max-width: 50rem;
+    max-width: 55rem;
     margin: auto;
     margin-bottom: 3rem;
 
@@ -290,7 +291,11 @@ export default {
 
   &__option-icon {
     color: $color-azure;
-    font-size: 2.3rem;
+    font-size: 2.2rem;
+
+    @include respond(mobile) {
+      font-size: 1.9rem;
+    }
   }
 
   &__text {

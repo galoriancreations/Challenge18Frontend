@@ -10,7 +10,7 @@ export default {
   inject: ["autoSave"],
   data() {
     return {
-      items: [{ id: "editor-mode", component: EditorModeNote }]
+      items: [{ id: "editor-mode", component: EditorModeNote, props: {} }]
     };
   },
   computed: {

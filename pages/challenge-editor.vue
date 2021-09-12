@@ -50,7 +50,7 @@ export default {
           name: draft.name,
           language: draft.language,
           preMessages: initialPreMessages(draft.preMessages),
-          options: draft.days,
+          options: initialOptions(draft.days),
           draftId,
           isTemplatePublic: draft.isTemplatePublic,
           templateId: draft.templateId

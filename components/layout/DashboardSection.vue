@@ -40,6 +40,7 @@ export default {
   }
 
   &__heading {
+    border-radius: 1rem 1rem 0 0;
     background-color: $color-blue-2;
     color: $color-gold-4;
     text-align: center;

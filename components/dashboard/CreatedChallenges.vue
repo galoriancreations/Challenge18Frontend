@@ -6,13 +6,11 @@
     </div>
     <div v-else class="my-challenges__table-container">
       <v-app>
-        <v-card>
-          <v-data-table :headers="headers" :items="items">
-            <template v-slot:[`item.edit`]="{ item }">
-              <DashboardButton type="edit" @click="item.edit" />
-            </template>
-          </v-data-table>
-        </v-card>
+        <v-data-table :headers="headers" :items="items" class="elevation-2">
+          <template v-slot:[`item.edit`]="{ item }">
+            <DashboardButton type="edit" @click="item.edit" />
+          </template>
+        </v-data-table>
       </v-app>
     </div>
     <template slot="button">

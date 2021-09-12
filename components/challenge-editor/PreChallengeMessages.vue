@@ -47,6 +47,7 @@
             class="task-form__extra"
             placeholder="Type your message here..."
             :min-height="100"
+            :max-height="100"
           />
         </div>
       </TransitionGroup>

@@ -1,7 +1,8 @@
 <template>
   <div class="notification">
     <div class="notification__content">
-      <slot />
+      <p v-if="html" v-html="html" />
+      <slot v-else />
     </div>
     <div v-if="dismissable" class="notification__close">
       <IconButton type="close" @click="$emit('dismiss')" />
@@ -15,7 +16,8 @@ export default {
     dismissable: {
       type: Boolean,
       default: true
-    }
+    },
+    html: String
   }
 };
 </script>

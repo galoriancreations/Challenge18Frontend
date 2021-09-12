@@ -12,10 +12,11 @@ export const initialPreMessages = messages => {
   }))
 };
 
-export const emptyDays = (days = 1, tasks = 1) =>
+export const emptyDays = (days = 1, tasks = 1, messages = 1) =>
   numbersArray(days).map(() => ({
     title: "",
-    tasks: numbersArray(tasks).map(() => newTask())
+    tasks: numbersArray(tasks).map(() => newTask()),
+    messages: numbersArray(messages).map(() => newMessage())
   }));
 
 export const initialOptions = (options = emptyDays()) =>
@@ -32,7 +33,14 @@ export const initialOptions = (options = emptyDays()) =>
       })),
       selection: task.selection || task.options[0]?.text,
       points: task.points || taskIndex + 1,
-      extraInput: task.extraInput || ""
+      time: task.time || "18:00:00",
+      extraInput: task.extraInput || "",
+    })),
+    messages: (day.messages || [{}]).map(message => ({
+      id: message.id || uniqid(),
+      type: message.type || "text",
+      content: message.content || "",
+      time: message.time || "18:00:00"
     }))
   }));
 
@@ -56,7 +64,15 @@ export const newTask = index => ({
   isBonus: false,
   selection: null,
   points: index + 1,
+  time: "18:00:00",
   extraInput: ""
+});
+
+export const newMessage = () => ({
+  id: uniqid(),
+  type: "text",
+  content: "",
+  time: "18:00:00"
 });
 
 export const clearedOptions = (options, removeSelections = true) => {
