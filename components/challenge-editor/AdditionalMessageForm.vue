@@ -2,7 +2,7 @@
   <div class="task-form additional-message-form">
     <div class="additional-message-form__top">
       <TaskTimeSelector />
-      <div class="task-form__top-icons">
+      <div class="task-form__top-icons" v-if="deleteButton">
         <IconButton type="delete" @click="deleteMessage(messageIndex)" />
       </div>
     </div>
@@ -19,7 +19,11 @@
 <script>
 export default {
   props: {
-    message: Object
+    message: Object,
+    deleteButton: {
+      type: Boolean,
+      default: true
+    }
   },
   inject: ["selectedDayMessages", "deleteMessage"],
   computed: {
@@ -47,7 +51,9 @@ export default {
       margin: auto;
 
       @include respond(mobile) {
-        margin: 0;
+        &:not(:last-child) {
+          margin: 0;
+        }
       }
     }
   }

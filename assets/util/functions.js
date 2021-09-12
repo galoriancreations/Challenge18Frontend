@@ -8,7 +8,8 @@ export const initialPreMessages = messages => {
   }
   return messages.map(message => ({
     id: message.id || uniqid(),
-    text: message.text || ""
+    text: message.text || "",
+    time: message.time || "18:00:00"
   }))
 };
 

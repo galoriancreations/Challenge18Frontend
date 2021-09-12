@@ -29,26 +29,24 @@
         >
           Click the button to add a new message.
         </p>
-        <div
-          v-else
-          :key="preMessages[dayIndex].id"
-          class="task-form pre-message-form"
-        >
+        <div v-else :key="preMessages[dayIndex].id">
           <div class="task-form__top">
             <h3 class="pre-message-form__title">
               {{ formTitle }}
             </h3>
-            <div class="task-form__top-icons">
-              <IconButton type="delete" @click="deleteMessage" />
-            </div>
+            <IconButton type="delete" @click="deleteMessage" />
           </div>
-          <textarea-autosize
-            v-model="preMessages[dayIndex].text"
-            class="task-form__extra"
-            placeholder="Type your message here..."
-            :min-height="100"
-            :max-height="100"
-          />
+          <div class="task-form pre-message-form">
+            <TaskTimeSelector :item="preMessages[dayIndex]" />
+
+            <textarea-autosize
+              v-model="preMessages[dayIndex].text"
+              class="task-form__extra"
+              placeholder="Type your message here..."
+              :rows="2"
+              :max-height="100"
+            />
+          </div>
         </div>
       </TransitionGroup>
     </div>
@@ -100,7 +98,8 @@ export default {
     addMessage() {
       this.preMessages.unshift({
         id: uniqid(),
-        text: ""
+        text: "",
+        time: "18:00:00"
       });
       this.selectedDay = this.days[0].value;
     },
@@ -186,6 +185,10 @@ export default {
     @include respond(mobile) {
       font-size: 1.75rem;
     }
+  }
+
+  .task-form__time-selector {
+    margin-bottom: 2rem;
   }
 
   textarea {

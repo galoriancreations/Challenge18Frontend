@@ -1,7 +1,8 @@
 <template>
   <div class="task-form__time-selector">
     <label class="task-form__selector-label">Time</label>
-    <vue-timepicker format="HH:mm:ss" v-model="task.time" />
+    <vue-timepicker v-if="item" format="HH:mm:ss" v-model="item.time" />
+    <vue-timepicker v-else format="HH:mm:ss" v-model="task.time" />
   </div>
 </template>
 
@@ -11,12 +12,19 @@ import "vue2-timepicker/dist/VueTimepicker.css";
 
 export default {
   components: { VueTimepicker },
+  props: {
+    item: Object
+  },
   inject: ["task"]
 };
 </script>
 
 <style lang="scss">
 .task-form__time-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   .vue__time-picker {
     input {
       outline: none;
