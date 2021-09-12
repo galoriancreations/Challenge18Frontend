@@ -71,9 +71,9 @@ export default {
     return {
       io: this.io,
       addNotification: item =>
-        this.$store.commit("notifications/addItem", item),
+        this.$store.dispatch("notifications/addItem", item),
       removeNotification: itemId =>
-        this.$store.commit("notifications/removeItem", itemId)
+        this.$store.dispatch("notifications/removeItem", itemId)
     };
   }
 };
