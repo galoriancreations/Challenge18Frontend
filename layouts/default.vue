@@ -59,6 +59,7 @@ export default {
         if (this.$route.meta.requiresAuth) {
           this.$router.replace("/");
         }
+        this.$store.dispatch("notifications/clearItems");
       }
     }
   },
