@@ -13,12 +13,11 @@ export const initialPreMessages = messages => {
   }))
 };
 
-export const emptyDays = (days = 1, tasks = 1, messages = 1) =>
-  numbersArray(days).map(() => ({
-    title: "",
-    tasks: numbersArray(tasks).map(() => newTask()),
-    messages: numbersArray(messages).map(() => newMessage())
-  }));
+export const emptyDays = () => [{
+  title: "",
+  tasks: [newTask()],
+  messages: [newMessage()]
+}];
 
 export const initialOptions = (options = emptyDays()) =>
   options.map(day => ({

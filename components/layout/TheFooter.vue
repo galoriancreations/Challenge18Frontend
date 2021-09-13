@@ -186,7 +186,7 @@ export default {
 
     @include respond(mobile) {
       font-size: 1.4rem;
-      margin-top: 5rem;
+      margin-top: 4rem;
     }
   }
 }

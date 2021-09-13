@@ -33,8 +33,8 @@ export default {
   &#clubs {
     background-image: linear-gradient(
         to right,
-        rgba(#4189bd, 0.85),
-        rgba(#4189bd, 0.85)
+        rgba(#4189bd, 0.8),
+        rgba(#4189bd, 0.8)
       ),
       url(../../assets/images/backgrounds/clubs-bg.jpg);
   }

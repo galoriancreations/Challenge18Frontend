@@ -16,6 +16,7 @@ export default {
         items() {
             return this.templates.map(template => ({
                 ...template,
+                name: template.name || "(Unnamed)",
                 clone: () => this.cloneTemplate(template),
                 edit: () => this.editTemplate(template.id),
                 delete: () => this.deleteTemplate(template)
@@ -28,12 +29,12 @@ export default {
     methods: {
         async cloneTemplate(template) {
             this.loading = true;
-            const { templateId } = await this.$axios.$post("/xapi", {
+            await this.$axios.$post("/xapi", {
                 saveTemplate: {
                     templateId: null,
                     templateData: {
                         ...template,
-                        name: `${template.name} (copy)`
+                        name: `${template.name || "Unnamed"} (copy)`
                     },
                     draftId: null,
                     finishEditing: false
@@ -41,7 +42,7 @@ export default {
             });
             await this.$store.dispatch("loadTemplates");
             this.addNotification(
-                `Created new template: <strong>${template.name} (copy)</strong>.`
+                `Created new template: <strong>${template.name || "Unnamed"} (copy)</strong>.`
             );
             this.loading = false;
         },
@@ -71,7 +72,7 @@ export default {
                     });
                     await this.$store.dispatch("loadTemplates");
                     this.addNotification(
-                        `Successfully deleted template: <strong>${template.name}</strong>.`
+                        `Successfully deleted template: <strong>${template.name || "(Unnamed)"}</strong>.`
                     );
                     this.loading = false;
                 }
