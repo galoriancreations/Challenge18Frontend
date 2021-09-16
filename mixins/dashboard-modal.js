@@ -5,9 +5,15 @@ export default {
         }
     },
     methods: {
+        closeModal() {
+            this.showModal = false;
+            if (this.onCloseModal) {
+                this.onCloseModal();
+            }
+        },
         closeOnEscPress(event) {
             if (event.key === "Escape") {
-                this.showModal = false;
+                this.closeModal();
             }
         }
     },
@@ -19,9 +25,7 @@ export default {
     },
     provide() {
         return {
-            closeModal: () => {
-                this.showModal = false;
-            }
+            closeModal: this.closeModal
         }
     }
 };

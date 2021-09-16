@@ -2,17 +2,26 @@ export default {
     inject: ["addNotification", "setConfirmModal"],
     data() {
         return {
-            headers: [
+            loading: false
+        };
+    },
+    computed: {
+        user() {
+            return this.$store.getters.user;
+        },
+        headers() {
+            const headers = [
                 { text: "Name", value: "name" },
                 { text: "Language", value: "language" },
                 { text: "Clone", value: "clone", sortable: false },
                 { text: "Edit", value: "edit", sortable: false },
                 { text: "Delete", value: "delete", sortable: false }
-            ],
-            loading: false
-        };
-    },
-    computed: {
+            ];
+            if (this.$options.name === "all-templates") {
+                headers.splice(2, 0, { text: "Creator", value: "creator" });
+            }
+            return headers;
+        },
         items() {
             return this.templates.map(template => ({
                 ...template,
@@ -34,7 +43,8 @@ export default {
                     templateId: null,
                     templateData: {
                         ...template,
-                        name: `${template.name || "Unnamed"} (copy)`
+                        name: `${template.name || "Unnamed"} (copy)`,
+                        isPublic: template.isPublic && this.user.accountType === "admin"
                     },
                     draftId: null,
                     finishEditing: false

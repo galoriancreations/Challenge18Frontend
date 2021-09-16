@@ -40,6 +40,29 @@ export const planOptions = [
     }
 ];
 
+export const roleOptions = [
+    {
+        value: "player",
+        label: "Player"
+    },
+    {
+        value: "leader",
+        label: "Educator/Group Leader"
+    },
+    {
+        value: "ideator",
+        label: "Ideator"
+    },
+    {
+        value: "technologist",
+        label: "Technologist"
+    },
+    {
+        value: "influencer",
+        label: "Influencer"
+    }
+];
+
 export const labels = {
     individual: {
         username: "Username",

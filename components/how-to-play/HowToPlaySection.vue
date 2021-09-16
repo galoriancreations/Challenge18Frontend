@@ -82,6 +82,7 @@ export default {
     font-size: 3rem;
     color: $color-blue-2;
     margin-bottom: 2rem;
+    font-weight: 700;
 
     @include respond(mobile) {
       font-size: 2.4rem;

@@ -24,7 +24,7 @@
           :key="template.id"
         >
           <label @click="selectTemplate(template)">
-            {{ template.name }}
+            {{ template.name || "(Unnamed)" }}
           </label>
         </div>
       </div>
@@ -124,6 +124,9 @@ export default {
     userLanguage() {
       this.autoSetLanguage();
     }
+  },
+  created() {
+    this.autoSetLanguage();
   }
 };
 </script>

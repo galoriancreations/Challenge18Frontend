@@ -80,7 +80,7 @@ export default {
           preMessages: initialPreMessages(template.preMessages),
           options: initialOptions(template.days),
           draftId: null,
-          isTemplatePublic: template.isPublic && user?.accountType === "admin",
+          isTemplatePublic: template.isPublic && user.accountType === "admin",
           templateId: template.id
         };
       } else {
@@ -90,7 +90,7 @@ export default {
           preMessages: initialPreMessages(),
           options: initialOptions(),
           draftId: null,
-          isTemplatePublic: user?.accountType === "admin",
+          isTemplatePublic: user.accountType === "admin",
           templateId: null
         };
       }
@@ -224,7 +224,7 @@ export default {
               throw "One or more tasks were left empty";
             }
             if (!task.emoji) {
-              throw "One or moret tasks were left with no emoji";
+              throw "One or more tasks were left with no emoji";
             }
             if (selectedEmojis.includes(task.emoji)) {
               throw "The same emoji was selected for multiple tasks. Please select a different emoji for each task";

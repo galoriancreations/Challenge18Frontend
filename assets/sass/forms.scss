@@ -225,3 +225,63 @@
 .radio-input:checked + .radio-label .radio-button::after {
   opacity: 1;
 }
+
+// PHONE NUMBER INPUT
+.phone-number-input {
+  * {
+    font-family: inherit !important;
+    z-index: 5 !important;
+  }
+
+  & > div {
+    height: 5.4rem !important;
+
+    @include respond(mobile) {
+      height: 5.2rem !important;
+    }
+  }
+
+  input,
+  label {
+    font-size: inherit !important;
+  }
+
+  input {
+    height: 5.4rem !important;
+    border-width: 0.2rem !important;
+
+    @include respond(mobile) {
+      height: 5.2rem !important;
+    }
+  }
+
+  .select-country-container {
+    min-width: initial !important;
+    max-width: initial !important;
+    width: 15rem !important;
+    flex: 0 0 15rem !important;
+
+    @include respond(mobile) {
+      width: 14.5rem !important;
+      flex: 0 0 14.5rem !important;
+    }
+  }
+
+  .country-selector__toggle {
+    top: calc(50% - 4.5px) !important;
+
+    @include respond(mobile) {
+      top: calc(50% - 4.75px) !important;
+    }
+  }
+
+  input:not(:placeholder-shown) ~ label,
+  label[style="color: orangered;"] {
+    font-size: 1.2rem !important;
+  }
+
+  .country-selector__list {
+    top: 5.4rem !important;
+    z-index: 10 !important;
+  }
+}

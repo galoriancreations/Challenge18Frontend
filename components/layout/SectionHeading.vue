@@ -33,7 +33,7 @@ export default {
   display: inline-block;
   font-size: 3.85rem;
   letter-spacing: -0.5px;
-  font-weight: 600;
+  font-weight: 700;
   position: relative;
   color: $color-blue-2;
   margin-bottom: 7rem;
@@ -62,9 +62,5 @@ export default {
     max-width: 18rem;
     border-top: 0.5rem solid $color-blue-3;
   }
-}
-
-.challenge-editor .section-heading {
-  max-width: 100%;
 }
 </style>

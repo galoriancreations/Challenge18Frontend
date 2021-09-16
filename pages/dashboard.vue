@@ -6,7 +6,7 @@
       @confirm="confirmAction"
     />
     <AccountDetails />
-    <!-- <ClubPlayers v-if="isOrganization" /> -->
+    <ClubPlayers v-if="isOrganization" />
     <CreatedChallenges />
     <PublicTemplates v-if="isAdmin" />
     <MyTemplates />

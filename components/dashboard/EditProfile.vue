@@ -50,7 +50,7 @@ export default {
   props: {
     active: Boolean
   },
-  inject: ["labels", "closeModal"],
+  inject: ["labels", "closeModal", "addNotification"],
   data() {
     return {
       formData: initialData({ ...this.labels, language: "Challenge language" }),
@@ -71,9 +71,11 @@ export default {
       this.loading = true;
       this.error = null;
       try {
-        console.log("formData", this.formData);
         await this.$store.dispatch("updateUser", this.formData);
         this.closeModal();
+        this.addNotification(
+          "<strong>Your profile details</strong> were successfully updated."
+        );
       } catch (error) {
         this.error = error;
       }

@@ -21,7 +21,9 @@ export default {
     errorText() {
       return this.error.statusCode === 404
         ? "The page you're looking for does not exist."
-        : this.error.message || "Something went wrong.";
+        : this.error.response?.data?.msg ||
+            this.error.message ||
+            "Something went wrong.";
     },
     buttonText() {
       return this.error.statusCode === 404 ? "Go to homepage" : "Go back";

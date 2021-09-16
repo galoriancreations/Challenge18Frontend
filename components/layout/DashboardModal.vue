@@ -40,13 +40,13 @@ export default {
       default: true
     }
   },
+  inject: ["closeModal"],
   data() {
     return {
       containerHeight: null,
       contentMinHeight: null
     };
   },
-  inject: ["closeModal"],
   computed: {
     classes() {
       return {

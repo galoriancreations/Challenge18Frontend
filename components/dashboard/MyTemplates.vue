@@ -34,11 +34,12 @@ import templatesTable from "../../mixins/templates-table";
 import dashboardModal from "../../mixins/dashboard-modal";
 
 export default {
+  name: "my-templates",
   mixins: [templatesTable, dashboardModal],
   computed: {
     templates() {
       return this.$store.getters.templates.filter(
-        template => !template.isPublic
+        template => !template.isPublic && template.creator === this.user?.id
       );
     }
   }

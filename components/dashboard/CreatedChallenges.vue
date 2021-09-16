@@ -14,22 +14,22 @@
       </v-app>
     </div>
     <template slot="button">
-      <ActionButton type="add" color="blue" @click="modalOpen = true" />
+      <ActionButton type="add" color="blue" @click="showModal = true" />
     </template>
     <template slot="modal">
-      <CreateChallenge :active="modalOpen" />
+      <CreateChallenge :active="showModal" />
     </template>
   </DashboardSection>
 </template>
 
 <script>
 import { dataArrayFromObject, currentDay } from "../../assets/util/functions";
+import dashboardModal from "../../mixins/dashboard-modal";
 
 export default {
-  inject: ["io"],
+  mixins: [dashboardModal],
   data() {
     return {
-      modalOpen: false,
       headers: [
         { text: "Name", value: "name" },
         { text: "Language", value: "language" },
@@ -67,13 +67,6 @@ export default {
       this.$cookies.remove("draftId");
       this.$router.push("/challenge-editor");
     }
-  },
-  provide() {
-    return {
-      closeModal: () => {
-        this.modalOpen = false;
-      }
-    };
   }
 };
 </script>

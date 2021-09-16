@@ -22,6 +22,12 @@ export const mutations = {
     },
     setTemplates(state, payload) {
         state.templates = payload;
+    },
+    setDrafts(state, payload) {
+        state.user.drafts = payload;
+    },
+    setClubPlayers(state, payload) {
+        state.user.players = payload;
     }
 };
 
@@ -36,7 +42,6 @@ export const actions = {
         this.$cookies.set("userId", user.id);
         this.$cookies.set("token", token);
         this.$cookies.set("expirationDate", new Date(exp));
-        console.log("cookies set")
 
         const timeLeft = new Date(exp).getTime() - Date.now();
         logoutTimer = setTimeout(() => context.dispatch("logout"), timeLeft);

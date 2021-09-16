@@ -130,50 +130,12 @@
 </template>
 
 <script>
-import VuePhoneNumberInput from "vue-phone-number-input";
-import "vue-phone-number-input/dist/vue-phone-number-input.css";
-import countryOptions from "../../assets/data/countries";
-import languageOptions from "../../assets/data/languages";
-import _ from "lodash";
+import registration from "../../mixins/registration";
 
 export default {
-  components: { VuePhoneNumberInput },
+  mixins: [registration],
   inject: ["getSelectedPlan"],
-  data() {
-    return {
-      formData: {
-        username: "",
-        phone: "",
-        fullName: "",
-        organization: "",
-        country: "",
-        memberName: "",
-        memberRole: "",
-        email: "",
-        language: "English",
-        accountType: "organization"
-      },
-      phoneInput: {
-        value: null,
-        isValid: false
-      },
-      availability: {
-        username: null,
-        phone: null
-      },
-      countryOptions,
-      languageOptions,
-      loading: false,
-      error: null
-    };
-  },
   computed: {
-    username() {
-      return this.formData.username;
-    },
-    phone() {
-      return this.formData.phone;
-    },
     plan() {
       return this.getSelectedPlan();
     },
@@ -182,49 +144,12 @@ export default {
     }
   },
   methods: {
-    updatePhoneNumber(data) {
-      if (data.formattedNumber) {
-        this.formData.phone = data.formattedNumber;
-      }
-      this.phoneInput.isValid = data.isValid;
-      this.formData.country = data.countryCode;
-    },
-    checkAvailability(key, value, apiKey) {
-      clearTimeout(this.timeout);
-      if (!value.trim()) {
-        this.availability[key] = null;
-      } else {
-        this.timeout = setTimeout(async () => {
-          this.availability[key] = "loading";
-          const { result } = await this.$axios.$post("/api", {
-            [apiKey]: value
-          });
-          this.availability[key] = result ? "available" : "taken";
-        }, 500);
-      }
-    },
-    validateData() {
+    async submitHandler() {
       if (!this.plan) {
         this.error =
           "No plan has been selected. Please select on of the plans above.";
-        return false;
+        return;
       }
-      if (!this.phoneInput.isValid) {
-        this.error =
-          "The phone number you entered is invalid. Please enter a valid number.";
-        return false;
-      }
-      for (let key in this.availability) {
-        if (this.availability[key] === "taken") {
-          this.error = `${_.capitalize(key)}
-            is already taken. Please try a different ${key}.`;
-          return false;
-        }
-      }
-      this.error = null;
-      return true;
-    },
-    async submitHandler() {
       if (!this.validateData()) return;
       this.loading = true;
       try {
@@ -233,18 +158,9 @@ export default {
           data: { ...this.formData, plan: this.plan.type }
         });
       } catch (error) {
-        console.log(error);
         this.error = error;
         this.loading = false;
       }
-    }
-  },
-  watch: {
-    username(value) {
-      this.checkAvailability("username", value, "checkUsername");
-    },
-    phone(value) {
-      this.checkAvailability("phone", value, "checkPhone");
     }
   }
 };
@@ -296,65 +212,6 @@ export default {
     @include respond(mobile) {
       font-size: 2rem;
     }
-  }
-}
-
-.phone-number-input {
-  * {
-    font-family: inherit !important;
-    z-index: 5 !important;
-  }
-
-  & > div {
-    height: 5.4rem !important;
-
-    @include respond(mobile) {
-      height: 5.2rem !important;
-    }
-  }
-
-  input,
-  label {
-    font-size: inherit !important;
-  }
-
-  input {
-    height: 5.4rem !important;
-    border-width: 0.2rem !important;
-
-    @include respond(mobile) {
-      height: 5.2rem !important;
-    }
-  }
-
-  .select-country-container {
-    min-width: initial !important;
-    max-width: initial !important;
-    width: 15rem !important;
-    flex: 0 0 15rem !important;
-
-    @include respond(mobile) {
-      width: 14.5rem !important;
-      flex: 0 0 14.5rem !important;
-    }
-  }
-
-  .country-selector__toggle {
-    top: calc(50% - 4.5px) !important;
-
-    @include respond(mobile) {
-      top: calc(50% - 4.75px) !important;
-    }
-  }
-
-  input:not(:placeholder-shown) ~ label,
-  label[style="color: orangered;"] {
-    font-size: 1.2rem !important;
-  }
-
-  .country-selector__list {
-    top: 5.4rem !important;
-    z-index: 10 !important;
   }
 }
 </style>
