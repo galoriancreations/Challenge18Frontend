@@ -1,5 +1,5 @@
 <template>
-  <ColoredSection class="create-challenge-cta">
+  <section class="create-challenge-cta">
     <h2 class="create-challenge-cta__title">
       Try our advanced Challenge Editor
     </h2>
@@ -11,7 +11,7 @@
     <BaseButton variant="blue" link="/challenge-editor">
       Create your own challenge
     </BaseButton>
-  </ColoredSection>
+  </section>
 </template>
 
 <script>

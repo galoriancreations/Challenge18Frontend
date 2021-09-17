@@ -1,5 +1,5 @@
 <template>
-  <WhiteSection class="top-challenges">
+  <section class="top-challenges">
     <SectionHeading small>Top Challenges</SectionHeading>
     <div class="top-challenges__grid">
       <TopChallengesItem
@@ -8,7 +8,7 @@
         :challenge="item"
       />
     </div>
-  </WhiteSection>
+  </section>
 </template>
 
 <script>

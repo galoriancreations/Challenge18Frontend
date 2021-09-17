@@ -1,5 +1,5 @@
 <template>
-  <ColoredSection class="latest-news">
+  <section class="latest-news">
     <SectionHeading>Latest News</SectionHeading>
     <agile class="latest-news__slider" :options="sliderOptions">
       <div
@@ -15,7 +15,7 @@
     <BaseButton link="/articles" variant="blue" class="view-all-button">
       View All
     </BaseButton>
-  </ColoredSection>
+  </section>
 </template>
 
 <script>
