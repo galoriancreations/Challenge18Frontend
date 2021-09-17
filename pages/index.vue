@@ -1,16 +1,12 @@
 <template>
   <Page name="home" :showHeading="false" :mainSection="false">
     <Intro />
-    <WhiteSection tag="main" class="home">
+    <main class="home">
       <TopChallenges />
-      <SectionSeperator />
       <CreateChallengeCTA />
-      <SectionSeperator />
       <Testimonials />
-      <SectionSeperator />
       <LatestNews />
-      <SectionSeperator />
-      <Partners />
-    </WhiteSection>
+      <Partners class="section-white" />
+    </main>
   </Page>
 </template>

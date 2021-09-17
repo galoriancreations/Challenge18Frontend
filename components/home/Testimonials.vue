@@ -1,5 +1,5 @@
 <template>
-  <section class="testimonials">
+  <section class="section-white testimonials">
     <SectionHeading>Testimonials</SectionHeading>
     <agile :options="sliderOptions" class="testimonials__slider">
       <div
