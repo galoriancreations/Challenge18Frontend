@@ -23,11 +23,13 @@
 </template>
 
 <script>
-import articles from "../../assets/data/articles";
+import articles from "~/assets/data/articles";
+import ColoredSection from "~/components/layout/ColoredSection";
+import SectionHeading from "~/components/layout/SectionHeading";
 import NewsItem from "../UI/NewsItem";
 
 export default {
-  components: { NewsItem },
+  components: { ColoredSection, SectionHeading, NewsItem },
   data() {
     return {
       sliderOptions: {
