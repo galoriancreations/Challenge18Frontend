@@ -32,7 +32,8 @@ export default {
   },
 
   plugins: [
-    "~/plugins/main"
+    "~/plugins/main",
+    "~/plugins/vue-agile"
   ],
 
   components: {

@@ -1,21 +1,25 @@
 <template>
-  <section class="latest-news">
-    <SectionHeading>Latest News</SectionHeading>
-    <agile class="latest-news__slider" :options="sliderOptions">
-      <div
-        v-for="article in articles"
-        :key="article.link"
-        class="latest-news__slide"
-      >
-        <NewsItem :article="article" :showButton="false" />
-      </div>
-      <template slot="prevButton"><i class="fas fa-chevron-left"/></template>
-      <template slot="nextButton"><i class="fas fa-chevron-right"/></template>
-    </agile>
-    <BaseButton link="/articles" variant="blue" class="view-all-button">
-      View All
-    </BaseButton>
-  </section>
+  <ColoredSection class="latest-news">
+    <WavePatternTop />
+    <div class="latest-news__wrapper">
+      <SectionHeading>Latest News</SectionHeading>
+      <agile class="latest-news__slider" :options="sliderOptions">
+        <div
+          v-for="article in articles"
+          :key="article.link"
+          class="latest-news__slide"
+        >
+          <NewsItem :article="article" :showButton="false" />
+        </div>
+        <template slot="prevButton"><i class="fas fa-chevron-left"/></template>
+        <template slot="nextButton"><i class="fas fa-chevron-right"/></template>
+      </agile>
+      <BaseButton link="/articles" variant="blue" class="view-all-button">
+        View All
+      </BaseButton>
+    </div>
+    <WavePatternBottom />
+  </ColoredSection>
 </template>
 
 <script>
@@ -48,8 +52,10 @@ export default {
     }
   },
   mounted() {
-    this.sliderOptions.navButtons = true;
-    this.sliderOptions.dots = true;
+    setTimeout(() => {
+      this.sliderOptions.navButtons = true;
+      this.sliderOptions.dots = true;
+    }, 100);
   }
 };
 </script>
