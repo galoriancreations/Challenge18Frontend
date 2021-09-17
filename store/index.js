@@ -9,7 +9,6 @@ export const actions = {
                 dispatch("players/loadPlayers")
             ]);
         } catch (err) {
-            console.log(err)
             error("Could not load user data.");
         }
     }

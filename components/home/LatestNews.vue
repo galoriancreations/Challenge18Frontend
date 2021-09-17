@@ -1,5 +1,6 @@
 <template>
-  <ColoredSection class="latest-news">
+  <section class="latest-news section-colored section-colored--azure">
+    <WavePatternTop />
     <SectionHeading>Latest News</SectionHeading>
     <agile class="latest-news__slider" :options="sliderOptions">
       <div
@@ -15,7 +16,8 @@
     <BaseButton link="/articles" variant="blue" class="view-all-button">
       View All
     </BaseButton>
-  </ColoredSection>
+    <WavePatternBottom />
+  </section>
 </template>
 
 <script>

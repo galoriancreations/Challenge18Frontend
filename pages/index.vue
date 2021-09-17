@@ -3,7 +3,7 @@
     <Intro />
     <main class="home">
       <TopChallenges />
-      <CreateChallengeCTA />
+      <TryItYourself />
       <Testimonials />
       <LatestNews />
       <Partners class="section-white" />
