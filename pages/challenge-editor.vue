@@ -244,7 +244,7 @@ export default {
     },
     async createNewChallenge() {
       await this.saveTemplate();
-      const challenge = await this.$axios.$post("/xapi", {
+      await this.$axios.$post("/xapi", {
         createChallenge: {
           draftId: this.draftId,
           templateId: this.templateId,
@@ -253,7 +253,7 @@ export default {
       });
       this.$cookies.remove("draftId");
       this.addNotification(
-        `Successfully created new challenge: <strong>${challenge.name}</strong>.`
+        `Successfully created new challenge from template: <strong>${this.name}</strong>.`
       );
       this.$router.replace("/dashboard");
     },
@@ -268,7 +268,7 @@ export default {
       });
       this.$cookies.remove("draftId");
       this.addNotification(
-        `Successfully updated challenge: <strong>${this.name}</strong>.`
+        `Successfully updated challenge and template: <strong>${this.name}</strong>.`
       );
       this.$router.replace("/dashboard");
     },

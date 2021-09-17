@@ -20,7 +20,8 @@ export default {
     },
     errorText() {
       return this.error.statusCode === 404
-        ? "The page you're looking for does not exist."
+        ? this.error.response?.data?.msg ||
+            "The page you're looking for does not exist."
         : this.error.response?.data?.msg ||
             this.error.message ||
             "Something went wrong.";
