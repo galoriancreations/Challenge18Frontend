@@ -136,6 +136,16 @@ export default {
     }
   },
   methods: {
+    resetForm() {
+      this.formData.accountType = "individual";
+      for (let key in this.formData) {
+        this.formData[key] = "";
+      }
+      this.phoneInput.value = "";
+      this.formData.country = this.userCountry;
+      this.formData.language = this.userLanguage;
+      this.playerRole = "player";
+    },
     async submitHandler() {
       if (!this.validateData()) return;
       this.loading = true;
@@ -150,10 +160,11 @@ export default {
           }
         });
         await this.$store.dispatch("updateUser");
+        this.closeModal();
         this.addNotification(
           `Successfully added player: <strong>${this.formData.fullName}</strong>.`
         );
-        this.closeModal();
+        this.resetForm();
       } catch (error) {
         this.error = error;
       }
@@ -169,9 +180,7 @@ export default {
     }
   },
   created() {
-    this.formData.accountType = "individual";
-    this.formData.country = this.user.country;
-    this.formData.language = this.user.language;
+    this.resetForm();
   },
   mounted() {
     console.log(this.user);
