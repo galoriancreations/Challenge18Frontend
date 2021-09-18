@@ -42,6 +42,7 @@ export default {
   &__seperator {
     height: 0.2rem;
     flex: 1;
+    min-width: 2rem;
     background-color: #ccc;
     margin: 0 8rem;
 
