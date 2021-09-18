@@ -125,11 +125,11 @@ export default {
 .what-we-do {
   text-align: center;
 
-  .section-heading {
-    margin-bottom: 6rem;
+  .section-heading-wrapper {
+    margin-bottom: 4rem;
 
     @include respond(mobile) {
-      margin-bottom: 4.5rem;
+      margin-bottom: 3rem;
     }
   }
 
@@ -139,10 +139,10 @@ export default {
 }
 
 .our-goals {
-  margin-bottom: 8rem;
+  margin-bottom: 9rem;
 
   @include respond(mobile) {
-    margin-bottom: 6rem;
+    margin-bottom: 7rem;
   }
 
   strong {

@@ -65,13 +65,13 @@ export default {
 
 .about {
   .partners {
-    margin: 9.5rem 0 8.5rem;
+    margin: 10.5rem 0;
 
     @include respond(mobile) {
-      margin: 7rem 0 5.5rem;
+      margin: 8rem 0;
     }
 
-    .section-heading {
+    .section-heading-wrapper {
       margin-bottom: 5rem;
     }
   }

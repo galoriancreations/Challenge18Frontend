@@ -26,3 +26,15 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.about > section:not(.team-section) {
+  .section-heading-wrapper {
+    margin-bottom: 5rem;
+
+    @include respond(mobile) {
+      margin-bottom: 3.5rem;
+    }
+  }
+}
+</style>

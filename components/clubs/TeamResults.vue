@@ -76,7 +76,7 @@
   }
 
   &__item {
-    .section-heading {
+    .section-heading-wrapper {
       font-size: 2.8rem;
       color: $color-blue-2;
       word-wrap: break-word;

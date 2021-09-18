@@ -1,8 +1,8 @@
 <template>
   <ColoredSection class="create-challenge-cta">
-    <h2 class="create-challenge-cta__title">
+    <SectionHeading small>
       Try our advanced Challenge Editor
-    </h2>
+    </SectionHeading>
     <div class="create-challenge-cta__video">
       <video autoplay muted loop playsinline ref="video">
         <source src="../../assets/videos/challenge-editor.mp4" />

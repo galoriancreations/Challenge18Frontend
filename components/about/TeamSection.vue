@@ -23,19 +23,23 @@ export default {
 <style lang="scss">
 .team-section {
   &:not(:last-child) {
-    margin-bottom: 9rem;
+    margin-bottom: 10.5rem;
 
     @include respond(mobile) {
       margin-bottom: 7rem;
     }
   }
 
-  .section-heading {
-    margin-bottom: 5rem;
+  .section-heading-wrapper {
+    margin-bottom: 3.5rem;
 
     @include respond(mobile) {
-      margin-bottom: 4rem;
+      margin-bottom: 3rem;
     }
+  }
+
+  .section-heading {
+    max-width: 100%;
   }
 
   &__grid {

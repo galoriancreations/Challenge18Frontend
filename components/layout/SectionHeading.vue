@@ -1,8 +1,10 @@
 <template>
   <div class="section-heading-wrapper">
+    <div class="section-heading-wrapper__seperator" />
     <h2 :class="classes">
       <slot />
     </h2>
+    <div class="section-heading-wrapper__seperator" />
   </div>
 </template>
 
@@ -27,6 +29,26 @@ export default {
 <style lang="scss">
 .section-heading-wrapper {
   text-align: center;
+  margin: 0 -8rem;
+  margin-bottom: 6.5rem;
+  display: flex;
+  align-items: center;
+
+  @include respond(mobile) {
+    margin: 0 -2rem;
+    margin-bottom: 4.5rem;
+  }
+
+  &__seperator {
+    height: 0.2rem;
+    flex: 1;
+    background-color: #ccc;
+    margin: 0 8rem;
+
+    @include respond(mobile) {
+      margin: 0 2rem;
+    }
+  }
 }
 
 .section-heading {
@@ -36,12 +58,10 @@ export default {
   font-weight: 700;
   position: relative;
   color: $color-blue-2;
-  margin-bottom: 7rem;
   max-width: 50rem;
 
   @include respond(mobile) {
     font-size: 3rem;
-    margin-bottom: 6rem;
   }
 
   &--small {
@@ -50,17 +70,6 @@ export default {
     @include respond(mobile) {
       font-size: 2.8rem;
     }
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: calc(100% + 0.8rem);
-    width: 50%;
-    max-width: 18rem;
-    border-top: 0.5rem solid $color-blue-3;
   }
 }
 </style>

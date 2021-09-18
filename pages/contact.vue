@@ -59,7 +59,7 @@ export default {
 
 <style lang="scss">
 .contact {
-  .section-heading {
+  .section-heading-wrapper {
     margin-bottom: 6rem;
 
     @include respond(mobile) {

@@ -1,14 +1,12 @@
 <template>
   <form class="form" @submit.prevent="submitHandler">
     <div class="selected-plan">
-      <div class="selected-plan__seperator" />
       <p v-if="plan" class="selected-plan__plan">
         {{ plan.label }}
       </p>
       <p v-else class="selected-plan__text">
         Please pick one of the plans above
       </p>
-      <div class="selected-plan__seperator" />
     </div>
     <AccountTypeSelector v-model="formData.accountType" />
     <div class="form__field">
@@ -171,9 +169,6 @@ export default {
   text-align: center;
   margin-top: -1rem;
   margin-bottom: 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 
   @include respond(mobile) {
     margin-top: 0;
@@ -188,10 +183,14 @@ export default {
 
   &__text,
   &__plan {
-    margin: 0 4rem;
+    margin: -1rem 4rem 0;
+    display: inline-block;
+    padding: 0.5rem 2.5rem;
+    border: 0.2rem solid #ccc;
+    border-radius: 0.5rem;
 
     @include respond(mobile) {
-      margin: 0 1.5rem;
+      margin: -0.75rem 1.5rem 0;
     }
   }
 

@@ -43,19 +43,19 @@ export default {
 
 <style lang="scss">
 .inner-section {
-  .section-heading {
-    margin-bottom: 7rem;
+  .section-heading-wrapper {
+    margin-bottom: 6rem;
 
     @include respond(mobile) {
-      margin-bottom: 5rem;
+      margin-bottom: 4rem;
     }
   }
 
   &:not(:last-child) {
-    margin-bottom: 9rem;
+    margin-bottom: 10rem;
 
     @include respond(mobile) {
-      margin-bottom: 7rem;
+      margin-bottom: 8rem;
     }
   }
 }

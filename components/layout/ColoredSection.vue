@@ -36,7 +36,7 @@ export default {
 
 <style lang="scss">
 .section-colored {
-  padding: 15rem $padding-sides-desktop;
+  padding: 16rem $padding-sides-desktop;
   position: relative;
 
   @include respond(mobile) {

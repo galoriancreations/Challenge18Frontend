@@ -35,10 +35,10 @@
 
 <style lang="scss">
 .why-challenge-18 {
-  margin-top: 9.5rem;
+  margin-top: 10.5rem;
 
   @include respond(mobile) {
-    margin-top: 7rem;
+    margin-top: 8rem;
   }
 
   &__container {

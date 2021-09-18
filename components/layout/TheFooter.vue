@@ -165,7 +165,7 @@ export default {
 
     &:hover,
     &.active {
-      color: $color-azure;
+      color: $color-gold-4;
     }
   }
 
