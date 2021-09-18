@@ -6,7 +6,7 @@
       @confirm="confirmAction"
     />
     <AccountDetails />
-    <ClubPlayers v-if="isOrganization" />
+    <!-- <ClubPlayers v-if="isOrganization" /> -->
     <CreatedChallenges />
     <PublicTemplates v-if="isAdmin" />
     <MyTemplates />
@@ -22,14 +22,16 @@ export default {
   meta: {
     requiresAuth: true
   },
-  async asyncData({ store, from }) {
+  async asyncData({ store, from, error }) {
     if (process.client && !from.meta[0]?.forLoggingIn) {
       try {
         await Promise.all([
           store.dispatch("updateUser"),
           store.dispatch("loadTemplates")
         ]);
-      } catch {}
+      } catch {
+        error(err);
+      }
     }
   },
   computed: {

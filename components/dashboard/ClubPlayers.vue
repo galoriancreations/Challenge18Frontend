@@ -72,7 +72,7 @@ export default {
           });
           await this.$store.dispatch("updateUser");
           this.addNotification(
-            `Successfully deleted player: <strong>${player.name}</strong>.`
+            `Successfully deleted player: <strong>${player.fullName}</strong>.`
           );
           this.loading = false;
         }
