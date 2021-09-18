@@ -117,6 +117,7 @@ export default {
   props: {
     active: Boolean
   },
+  inject: ["addNotification", "closeModal"],
   data() {
     return {
       playerRole: "player",
@@ -139,15 +140,20 @@ export default {
       if (!this.validateData()) return;
       this.loading = true;
       try {
-        const { user: createdUser } = await this.$axios.$post("/api", {
-          register: this.formData
+        const { user } = await this.$axios.$post("/api", {
+          register: { ...this.formData, plan: this.user.plan }
         });
         await this.$axios.$post("/xapi", {
           addPlayer: {
-            playerId: createdUser.id,
+            playerId: user.id,
             role: this.playerRole
           }
         });
+        await this.$store.dispatch("updateUser");
+        this.addNotification(
+          `Successfully added player: <strong>${this.formData.fullName}</strong>.`
+        );
+        this.closeModal();
       } catch (error) {
         this.error = error;
       }
@@ -166,6 +172,9 @@ export default {
     this.formData.accountType = "individual";
     this.formData.country = this.user.country;
     this.formData.language = this.user.language;
+  },
+  mounted() {
+    console.log(this.user);
   }
 };
 </script>

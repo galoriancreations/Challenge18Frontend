@@ -26,7 +26,7 @@ export default {
     margin-bottom: 9rem;
 
     @include respond(mobile) {
-      margin-bottom: 6rem;
+      margin-bottom: 7rem;
     }
   }
 

@@ -7,11 +7,8 @@
     <div v-else class="my-challenges__table-container">
       <v-app>
         <v-data-table :headers="headers" :items="items" class="elevation-2">
-          <template v-slot:[`item.edit`]="{ item }">
-            <DashboardButton type="edit" @click="item.edit" />
-          </template>
           <template v-slot:[`item.delete`]="{ item }">
-            <DashboardButton type="delete" @click="item.edit" />
+            <DashboardButton type="delete" @click="item.delete" />
           </template>
         </v-data-table>
       </v-app>
@@ -27,17 +24,19 @@
 </template>
 
 <script>
-import dashboardModal from "../../mixins/dashboard-modal";
+import dashboardModal from "~/mixins/dashboard-modal";
+import { roleOptions } from "~/assets/util/options";
 
 export default {
   mixins: [dashboardModal],
-  inject: ["addNotification"],
+  inject: ["setConfirmModal", "addNotification"],
   data() {
     return {
       headers: [
-        { text: "Name", value: "fullName" },
-        { text: "Specialty", value: "specialty" },
-        { text: "Total Score", value: "score" },
+        { text: "Username", value: "username" },
+        { text: "Full Name", value: "fullName" },
+        { text: "Role/Specialty", value: "role" },
+        { text: "Total Score", value: "totalScore" },
         { text: "Delete", value: "delete", sortable: false }
       ],
       loading: false
@@ -53,6 +52,8 @@ export default {
     items() {
       return this.players.map(player => ({
         ...player,
+        role: roleOptions.find(role => role.value === player.role)?.label,
+        totalScore: player.totalScore || 0,
         delete: () => this.deletePlayer(player)
       }));
     },

@@ -1,4 +1,4 @@
-import uniqid from "uniqid";
+import { newNotification } from "~/assets/util/functions";
 
 const timeouts = {};
 
@@ -13,19 +13,17 @@ export const mutations = {
     removeItem(state, itemId) {
         state.items = state.items.filter(item => item.id !== itemId);
     },
+    setItems(state, items) {
+        state.items = items;
+    },
     clearItems(state) {
         state.items = [];
     }
 };
 
 export const actions = {
-    addItem(context, payload) {
-        let newItem = { id: uniqid() };
-        if (typeof payload === "string") {
-            newItem.html = payload;
-        } else {
-            newItem = { ...newItem, ...payload };
-        }
+    addItem(context, item) {
+        const newItem = newNotification(item);
         context.commit("addItem", newItem);
         if (!newItem.noAutoDismiss) {
             timeouts[newItem.id] = setTimeout(
@@ -37,6 +35,17 @@ export const actions = {
     removeItem(context, itemId) {
         context.commit("removeItem", itemId);
         clearTimeout(timeouts[itemId]);
+    },
+    setItems(context, items) {
+        context.dispatch("clearItems");
+        const newItems = items.map(item => newNotification(item));
+        context.commit("setItems", newItems);
+        for (let item of newItems) {
+            timeouts[item.id] = setTimeout(
+                () => context.dispatch("removeItem", item.id),
+                20000
+            );
+        }
     },
     clearItems(context) {
         context.commit("clearItems");

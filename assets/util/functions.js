@@ -127,3 +127,13 @@ export const currentDay = date => {
   };
   return moment(new Date()).diff(moment(date), "days");
 };
+
+export const newNotification = payload => {
+  let newItem = { id: uniqid() };
+  if (typeof payload === "string") {
+    newItem.html = payload;
+  } else {
+    newItem = { ...newItem, ...payload };
+  }
+  return newItem;
+};
