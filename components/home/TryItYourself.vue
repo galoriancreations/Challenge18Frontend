@@ -1,9 +1,15 @@
 <template>
-  <ColoredSection class="create-challenge-cta">
+  <ColoredSection class="try-it-yourself">
     <SectionHeading small>
       Try It Yourself
     </SectionHeading>
-    <div class="create-challenge-cta__video">
+    <p class="try-it-yourself__text">
+      Using our advanced
+      <strong>Challenge Editor</strong>, you can choose from our rich collection
+      of templates to start your own challenges, or build your own challenge
+      templates.
+    </p>
+    <div class="try-it-yourself__video">
       <video autoplay muted loop playsinline ref="video">
         <source src="../../assets/videos/challenge-editor.mp4" />
       </video>
@@ -23,7 +29,7 @@ export default {
 </script>
 
 <style lang="scss">
-.create-challenge-cta {
+.try-it-yourself {
   &__title {
     text-align: center;
     font-weight: 700;
@@ -37,6 +43,23 @@ export default {
     @include respond(mobile) {
       font-size: 2.7rem;
       margin-bottom: 4rem;
+    }
+  }
+
+  &__text {
+    text-align: center;
+    font-size: 1.9rem;
+    max-width: 80rem;
+    margin: auto;
+    margin-bottom: 6.5rem;
+
+    @include respond(mobile) {
+      font-size: 1.65rem;
+      margin-bottom: 4.5rem;
+    }
+
+    strong {
+      font-weight: 600;
     }
   }
 
