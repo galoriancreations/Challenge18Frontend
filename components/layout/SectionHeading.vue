@@ -69,11 +69,21 @@ export default {
   }
 }
 
-.dashboard-modal .section-heading {
-  margin: 0 3rem;
+.dashboard-modal {
+  .section-heading-wrapper {
+    margin-bottom: 5rem;
 
-  @include respond(mobile) {
-    margin: 0 0.5rem;
+    @include respond(mobile) {
+      margin-bottom: 3.5rem;
+    }
+  }
+
+  .section-heading {
+    margin: 0 3rem;
+
+    @include respond(mobile) {
+      margin: 0 1.5rem;
+    }
   }
 }
 </style>

@@ -16,7 +16,6 @@ export const mutations = {
     removeUser(state) {
         state.user = null;
         state.token = null;
-        state.templates = state.templates.filter(t => t.isPublic);
     },
     updateUser(state, payload) {
         state.user = payload;
@@ -67,6 +66,7 @@ export const actions = {
         context.commit("removeUser");
         this.$axios.setToken(false);
         this.$cookies.removeAll();
+        context.dispatch("loadTemplates", false);
         clearTimeout(logoutTimer);
     },
     async updateUser(context, data = {}) {
