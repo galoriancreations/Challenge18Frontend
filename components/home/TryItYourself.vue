@@ -15,14 +15,18 @@
         <source src="../../assets/videos/challenge-editor.mp4" />
       </video>
     </div>
-    <BaseButton variant="blue" link="/challenge-editor">
+    <BaseButton variant="blue" @click="showModal = true">
       Create your own challenge
     </BaseButton>
+    <CreateChallenge :active="showModal" />
   </ColoredSection>
 </template>
 
 <script>
+import dashboardModal from "~/mixins/dashboard-modal";
+
 export default {
+  mixins: [dashboardModal],
   mounted() {
     this.$refs.video?.play();
   }

@@ -16,6 +16,7 @@ export const mutations = {
     removeUser(state) {
         state.user = null;
         state.token = null;
+        state.templates = state.templates.filter(t => t.isPublic);
     },
     updateUser(state, payload) {
         state.user = payload;
@@ -74,8 +75,7 @@ export const actions = {
         });
         context.commit("updateUser", user);
     },
-    async loadTemplates(context) {
-        const { isAuth } = context.getters;
+    async loadTemplates(context, isAuth = true) {
         const endpoint = isAuth ? "/xapi" : "/api";
         const key = isAuth ? "getAvailableTemplates" : "getPublicTemplates";
         const { templates } = await this.$axios.$post(endpoint, { [key]: true });

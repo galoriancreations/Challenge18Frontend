@@ -29,13 +29,11 @@ export default {
 <style lang="scss">
 .section-heading-wrapper {
   text-align: center;
-  margin: 0 -8rem;
   margin-bottom: 6.5rem;
   display: flex;
   align-items: center;
 
   @include respond(mobile) {
-    margin: 0 -2rem;
     margin-bottom: 4.5rem;
   }
 
@@ -44,11 +42,6 @@ export default {
     flex: 1;
     min-width: 2rem;
     background-color: #ccc;
-    margin: 0 8rem;
-
-    @include respond(mobile) {
-      margin: 0 2rem;
-    }
   }
 }
 
@@ -60,9 +53,11 @@ export default {
   position: relative;
   color: $color-blue-2;
   max-width: 50rem;
+  margin: 0 8rem;
 
   @include respond(mobile) {
     font-size: 3rem;
+    margin: 0 2rem;
   }
 
   &--small {
@@ -71,6 +66,14 @@ export default {
     @include respond(mobile) {
       font-size: 2.8rem;
     }
+  }
+}
+
+.dashboard-modal .section-heading {
+  margin: 0 3rem;
+
+  @include respond(mobile) {
+    margin: 0 0.5rem;
   }
 }
 </style>

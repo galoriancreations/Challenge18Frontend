@@ -1,5 +1,4 @@
-export default context => {
-    const { store, route, redirect } = context;
+export default ({ store, route, redirect }) => {
     if (!route.meta?.length) return;
     const [{ requiresAuth, forLoggingIn }] = route.meta;
     const { isAuth } = store.getters;

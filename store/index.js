@@ -4,7 +4,7 @@ export const actions = {
         try {
             await Promise.all([
                 getters.isAuth && dispatch("updateUser"),
-                getters.isAuth && dispatch("loadTemplates"),
+                dispatch("loadTemplates", getters.isAuth),
                 dispatch("results/loadResults"),
                 dispatch("players/loadPlayers")
             ]);
