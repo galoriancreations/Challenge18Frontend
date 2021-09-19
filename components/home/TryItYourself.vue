@@ -5,9 +5,10 @@
     </SectionHeading>
     <p class="try-it-yourself__text">
       Using our advanced
-      <strong>Challenge Editor</strong>, you can choose from our rich collection
-      of templates to start your own challenges, or build your own challenge
-      templates.
+      <strong>Challenge Editor</strong>, you can start your own challenge by
+      choosing from our rich collection of templates, customize any template to
+      your needs, or build a new template from scratch. Any challenge you create
+      will be automatically integrated with WhatsApp.
     </p>
     <div class="try-it-yourself__video">
       <video autoplay muted loop playsinline ref="video">
@@ -49,7 +50,7 @@ export default {
   &__text {
     text-align: center;
     font-size: 1.9rem;
-    max-width: 80rem;
+    max-width: 90rem;
     margin: auto;
     margin-bottom: 6.5rem;
 
