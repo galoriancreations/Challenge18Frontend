@@ -75,9 +75,10 @@ export const actions = {
         context.commit("updateUser", user);
     },
     async loadTemplates(context) {
-        const { templates } = await this.$axios.$post("/xapi", {
-            getAvailableTemplates: true
-        });
+        const { isAuth } = context.getters;
+        const endpoint = isAuth ? "/xapi" : "/api";
+        const key = isAuth ? "getAvailableTemplates" : "getPublicTemplates";
+        const { templates } = await this.$axios.$post(endpoint, { [key]: true });
         context.commit("setTemplates", templates);
     }
 };
