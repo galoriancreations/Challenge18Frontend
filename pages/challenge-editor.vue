@@ -234,16 +234,10 @@ export default {
             if (!task.options.length) {
               throw "One or more tasks were left empty";
             }
-            if (!task.emoji) {
-              throw "One or more tasks were left with no emoji";
+            while (!task.emoji || selectedEmojis.includes(task.emoji)) {
+              task.emoji = randomEmoji();
             }
-            if (selectedEmojis.includes(task.emoji)) {
-              throw "The same emoji was selected for multiple tasks. Please select a different emoji for each task";
-            }
-            // while (!task.emoji || selectedEmojis.includes(task.emoji)) {
-            //   task.emoji = randomEmoji();
-            // }
-            // selectedEmojis.push(task.emoji);
+            selectedEmojis.push(task.emoji);
             if (!this.templateOnlyMode && !isSelectionMatching(task)) {
               throw "One or more tasks were left with no selection";
             }
