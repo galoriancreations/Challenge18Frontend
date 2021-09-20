@@ -32,9 +32,11 @@
     "vue-select": "^3.11.2",
     "vue-star-rating": "^1.7.0",
     "vue-textarea-autosize": "^1.1.1",
+    "vue-waypoint": "^4.2.1",
     "vue-youtube": "^1.4.0",
     "vue2-timepicker": "^1.1.6",
-    "vuescroll": "^4.17.3"
+    "vuescroll": "^4.17.3",
+    "waypoints": "^4.0.1"
   },
   "devDependencies": {
     "@nuxtjs/style-resources": "^1.2.1",

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import testimonials from "../../assets/data/testimonials";
+import testimonials from "~/assets/data/testimonials";
 import Testimonial from "./Testimonial";
 
 export default {

@@ -128,7 +128,7 @@ export default {
     width: 37.5vw;
     max-width: 54rem;
     min-width: 50rem;
-    font-size: 1.9rem;
+    font-size: 1.95rem;
     line-height: 1.6;
 
     @include respond(tablet) {

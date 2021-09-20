@@ -55,6 +55,14 @@ export default {
   max-width: 50rem;
   margin: 0 8rem;
 
+  @include respond(tablet) {
+    margin: 0 5rem;
+  }
+
+  @include respond(mobile-land) {
+    margin: 0 3rem;
+  }
+
   @include respond(mobile) {
     font-size: 3rem;
     margin: 0 2rem;

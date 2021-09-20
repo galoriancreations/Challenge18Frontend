@@ -40,7 +40,9 @@ export default {
     }
   },
   mounted() {
-    window.scrollTo(0, 0);
+    if (this.$route.name !== "login") {
+      window.scrollTo(0, 0);
+    }
   },
   provide() {
     return {
