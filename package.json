@@ -16,6 +16,7 @@
     "cookie-universal-nuxt": "^2.1.5",
     "core-js": "^3.9.1",
     "emailjs-com": "^2.6.4",
+    "emoji.json": "^13.1.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "nuxt": "^2.15.3",

@@ -9,10 +9,8 @@
     <section class="challenge-editor__top">
       <ChallengeNameField v-model.trim="name" />
       <ChallengeLanguageField v-model="language" />
-      <TemplateAvailabilityField
-        v-if="showVisibilitySelector"
-        v-model="isTemplatePublic"
-      />
+      <TemplateAvailabilityField v-if="isAdmin" v-model="isTemplatePublic" />
+      <!-- <AllowCopiesField v-if="showAllowCopies" v-model="allowTemplateCopies" /> -->
     </section>
     <SectionSeperator />
     <PreChallengeMessages />
@@ -28,7 +26,8 @@ import {
   initialPreMessages,
   initialOptions,
   clearedOptions,
-  isSelectionMatching
+  isSelectionMatching,
+  randomEmoji
 } from "../assets/util/functions";
 import confirmModal from "../mixins/confirm-modal";
 
@@ -54,6 +53,7 @@ export default {
           options: initialOptions(draft.days),
           draftId,
           isTemplatePublic: draft.isTemplatePublic,
+          allowTemplateCopies: draft.allowTemplateCopies,
           templateId: draft.templateId
         };
       } else if (challengeId) {
@@ -66,8 +66,8 @@ export default {
           preMessages: initialPreMessages(challenge.preMessages),
           options: initialOptions(challenge.days),
           draftId: null,
-          isTemplatePublic:
-            challenge.isTemplatePublic && user.accountType === "admin",
+          isTemplatePublic: challenge.isTemplatePublic,
+          allowTemplateCopies: challenge.allowTemplateCopies,
           templateId: challenge.template
         };
       } else if (selectedTemplate) {
@@ -80,7 +80,8 @@ export default {
           preMessages: initialPreMessages(template.preMessages),
           options: initialOptions(template.days),
           draftId: null,
-          isTemplatePublic: template.isPublic && user.accountType === "admin",
+          isTemplatePublic: template.isPublic,
+          allowTemplateCopies: template.allowCopies,
           templateId: template.id
         };
       } else {
@@ -91,6 +92,7 @@ export default {
           options: initialOptions(),
           draftId: null,
           isTemplatePublic: user.accountType === "admin",
+          allowTemplateCopies: user.accountType !== "admin",
           templateId: null
         };
       }
@@ -125,8 +127,14 @@ export default {
     user() {
       return this.$store.getters.user;
     },
-    showVisibilitySelector() {
-      return this.user?.accountType === "admin" && !this.editedChallengeId;
+    isAdmin() {
+      return this.user?.accountType === "admin";
+    },
+    showAllowCopies() {
+      return this.isAdmin && this.isTemplatePublic;
+    },
+    isTemplateEditable() {
+      return this.isAdmin || this.allowTemplateCopies || !this.isTemplatePublic;
     },
     isModalOpen() {
       return this.showIntroModal || this.showConfirmModal;
@@ -138,6 +146,7 @@ export default {
         preMessages: this.preMessages,
         days: this.options,
         isTemplatePublic: this.isTemplatePublic,
+        allowTemplateCopies: this.allowTemplateCopies,
         templateId: this.templateId,
         challengeId: this.editedChallengeId,
         templateOnly: this.templateOnlyMode
@@ -150,7 +159,8 @@ export default {
         language: this.language,
         preMessages: this.preMessages,
         days: clearedOptions(this.options),
-        isPublic: this.isTemplatePublic
+        isPublic: this.isTemplatePublic,
+        allowCopies: this.allowTemplateCopies
       };
     },
     finalSelections() {
@@ -178,6 +188,7 @@ export default {
       this.draftId = draftId;
     },
     async saveTemplate(finishEditing = false) {
+      if (!this.isTemplateEditable) return;
       const { templateId } = await this.$axios.$post("/xapi", {
         saveTemplate: {
           templateId: this.templateId,
@@ -229,7 +240,10 @@ export default {
             if (selectedEmojis.includes(task.emoji)) {
               throw "The same emoji was selected for multiple tasks. Please select a different emoji for each task";
             }
-            selectedEmojis.push(task.emoji);
+            // while (!task.emoji || selectedEmojis.includes(task.emoji)) {
+            //   task.emoji = randomEmoji();
+            // }
+            // selectedEmojis.push(task.emoji);
             if (!this.templateOnlyMode && !isSelectionMatching(task)) {
               throw "One or more tasks were left with no selection";
             }
@@ -258,6 +272,7 @@ export default {
       this.$router.replace("/dashboard");
     },
     async updateChallenge() {
+      await this.saveTemplate();
       await this.$axios.$post("/xapi", {
         updateChallenge: {
           challengeId: this.editedChallengeId,
@@ -305,7 +320,13 @@ export default {
     language() {
       this.autoSaveData();
     },
-    isTemplatePublic() {
+    isTemplatePublic(value) {
+      this.autoSaveData();
+      if (!value) {
+        this.allowTemplateCopies = true;
+      }
+    },
+    allowTemplateCopies() {
       this.autoSaveData();
     },
     preMessages: {
@@ -340,6 +361,7 @@ export default {
     return {
       templateOnlyMode: this.templateOnlyMode,
       editedChallengeId: this.editedChallengeId,
+      isTemplatePublic: this.isTemplateEditable,
       getLanguage: () => this.language,
       openIntroModal: () => {
         this.showIntroModal = true;

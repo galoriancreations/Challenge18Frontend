@@ -1,6 +1,7 @@
 import uniqid from "uniqid";
 import cloneDeep from "clone-deep";
 import moment from "moment";
+import emojis from "emoji.json/emoji-compact.json";
 
 export const initialPreMessages = messages => {
   if (!messages) {
@@ -95,6 +96,11 @@ export const isSelectionMatching = task => {
     }
   }
   return false;
+};
+
+export const randomEmoji = () => {
+  const index = Math.floor(Math.random() * emojis.length);
+  return emojis[index];
 };
 
 export const textInputKeys = labels => {
