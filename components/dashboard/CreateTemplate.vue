@@ -69,11 +69,17 @@ export default {
     user() {
       return this.$store.getters.user;
     },
+    isAdmin() {
+      return this.user?.accountType === "admin";
+    },
     userLanguage() {
       return this.user?.language;
     },
     templateOptions() {
-      return this.$store.getters.templates;
+      const filter = this.isAdmin
+        ? template => template.isPublic || template.creator === this.user?.id
+        : template => template.allowCopies || !template.isPublic;
+      return this.$store.getters.templates.filter(filter);
     },
     filteredTemplateOptions() {
       return this.templateOptions.filter(
