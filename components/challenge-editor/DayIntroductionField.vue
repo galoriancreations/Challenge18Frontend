@@ -35,7 +35,9 @@ export default {
   inject: ["isTemplateEditable"],
   computed: {
     introductionText() {
-      return convertTaskText(stripHTML(this.value)).split("\n");
+      return convertTaskText(stripHTML(this.value))
+        .split("\n")
+        .filter(p => !!p.trim());
     }
   },
   mounted() {

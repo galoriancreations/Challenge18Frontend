@@ -11,9 +11,11 @@
     />
     <div v-else class="pre-message-form__text" ref="text">
       <div class="pre-message-form__text-wrapper">
-        <p v-for="paragraph in messageText" :key="paragraph">
-          {{ paragraph }}
-        </p>
+        <p
+          v-for="paragraph in messageText"
+          :key="paragraph"
+          v-html="paragraph"
+        />
       </div>
     </div>
   </div>
@@ -21,6 +23,7 @@
 
 <script>
 import Scrollbar from "smooth-scrollbar";
+import { convertTaskText, stripHTML } from "~/assets/util/functions";
 
 export default {
   props: {
@@ -29,7 +32,9 @@ export default {
   inject: ["isTemplateEditable"],
   computed: {
     messageText() {
-      return this.message.text.split("\n");
+      return convertTaskText(stripHTML(this.message.text))
+        .split("\n")
+        .filter(p => !!p.trim());
     }
   },
   mounted() {

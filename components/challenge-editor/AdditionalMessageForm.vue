@@ -15,17 +15,21 @@
       class="task-form__extra"
       placeholder="Type your message here..."
       :rows="2"
-      :max-height="100"
+      :max-height="200"
     />
     <div v-else class="additional-message-form__text">
-      <p v-for="paragraph in messageText" :key="paragraph">
-        {{ paragraph }}
-      </p>
+      <p
+        v-for="paragraph in messageText"
+        :key="paragraph"
+        v-html="paragraph"
+      ></p>
     </div>
   </div>
 </template>
 
 <script>
+import { convertTaskText, stripHTML } from "~/assets/util/functions";
+
 export default {
   props: {
     message: Object,
@@ -40,7 +44,7 @@ export default {
       return this.selectedDayMessages().indexOf(this.message);
     },
     messageText() {
-      return this.message.content.split("\n");
+      return convertTaskText(stripHTML(this.message.content)).split("\n");
     }
   },
   provide() {
