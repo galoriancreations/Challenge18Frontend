@@ -49,13 +49,13 @@ export default {
       new Waypoint({
         element: this.$el,
         handler: () => {
-          setTimeout(() => {
-            this.visible = true;
-          }, this.delay);
           this.animation = `${this.type} ${this.duration / 1000}s`;
           if (this.delay) {
             this.animation += ` ${this.delay / 1000}s`;
           }
+          setTimeout(() => {
+            this.visible = true;
+          }, this.delay);
         },
         offset: "90%"
       });
@@ -68,7 +68,6 @@ export default {
 .animated-item {
   opacity: 0;
   visibility: hidden;
-  animation-fill-mode: backwards;
 
   &--visible {
     opacity: 1;

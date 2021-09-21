@@ -38,30 +38,7 @@
               @click="deleteMessage"
             />
           </div>
-          <div class="task-form pre-message-form">
-            <TaskTimeSelector :item="preMessages[dayIndex]" />
-            <textarea-autosize
-              v-if="isTemplateEditable"
-              v-model="preMessages[dayIndex].text"
-              class="task-form__extra"
-              placeholder="Type your message here..."
-              :rows="2"
-              :max-height="200"
-            />
-            <div
-              v-else
-              class="pre-message-form__text"
-              :id="`text-${preMessages[dayIndex].id}`"
-            >
-              <div>
-                <div class="pre-message-form__text-wrapper">
-                  <p v-for="paragraph in messageText" :key="paragraph">
-                    {{ paragraph }}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <PreMessageForm :message="preMessages[dayIndex]" />
         </div>
       </TransitionGroup>
     </div>
@@ -71,7 +48,6 @@
 <script>
 import uniqid from "uniqid";
 import { dayTranslations, rtlLanguages } from "../../assets/util/options";
-import Scrollbar from "smooth-scrollbar";
 
 export default {
   inject: ["preMessages", "getLanguage", "isTemplateEditable"],
@@ -116,9 +92,6 @@ export default {
     },
     dayIndex() {
       return this.days.findIndex(day => day.value === this.selectedDay);
-    },
-    messageText() {
-      return this.preMessages[this.dayIndex].text.split("\n");
     }
   },
   methods: {
@@ -138,14 +111,6 @@ export default {
         } else if (this.dayIndex >= this.days.length) {
           this.selectedDay = this.days[this.days.length - 1].value;
         }
-      }
-    },
-    initScrollbar() {
-      if (!this.isTemplateEditable) {
-        Scrollbar.init(
-          this.$el.querySelector(`#text-${this.preMessages[this.dayIndex].id}`),
-          { alwaysShowTracks: true }
-        );
       }
     }
   },
@@ -215,51 +180,6 @@ export default {
 
     @include respond(mobile) {
       font-size: 1.4rem;
-    }
-  }
-}
-
-.pre-message-form {
-  &__title {
-    color: $color-blue-2;
-    font-size: 1.95rem;
-    margin-right: 2rem;
-
-    @include respond(mobile) {
-      font-size: 1.75rem;
-    }
-
-    &:last-child {
-      margin: auto;
-    }
-  }
-
-  .task-form__time-selector {
-    margin-bottom: 2rem;
-  }
-
-  textarea {
-    border-radius: 0.5rem;
-    padding: 1rem 1.25rem;
-    line-height: 1.6;
-  }
-
-  &__text {
-    border: 0.2rem solid #ccc;
-    border-radius: 0.8rem;
-    max-height: 30rem;
-  }
-
-  &__text-wrapper {
-    padding: 1.5rem 2rem;
-
-    p {
-      font-size: inherit;
-      line-height: 1.7;
-
-      &:not(:last-child) {
-        margin-bottom: 1rem;
-      }
     }
   }
 }
