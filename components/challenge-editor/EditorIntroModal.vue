@@ -8,7 +8,10 @@
         On this page you can select which tasks you want to include in your
         challenge, and possibly customize your own challenge template.
       </p>
-      <p>You can use this editor to:</p>
+      <p>
+        If you're using an editable template (or creating your own new
+        template), you can use this editor to:
+      </p>
       <ul class="diamond-bullet-list">
         <li>Change the name and language of the template.</li>
         <li>Edit the title of each day in the template.</li>
@@ -22,16 +25,21 @@
         </li>
         <li>Edit all existing options.</li>
         <li>
-          Select which option, for each task, you want to include in the
-          challenge.
+          Add, edit or remove messages that would be sent to participants during
+          the challenge, or the days before the challenge.
         </li>
       </ul>
       <p>
+        Some of our public templates are not editable. If you chose such a
+        template, you can't make all these customizations – you can only use the
+        existing tasks and options in the template.
+      </p>
+      <p>
         For each task in your template, you have to choose one option that would
-        be included in the challenge itself (though you can add as many tasks as
-        you want). You can click the Shuffle button at the bottom to pick a
-        random option for every task. All other options will remain a part of
-        your template, and could be chosen when creating other challenges.
+        be included in the challenge itself. You can click the Shuffle button at
+        the bottom to pick a random option for every task. All other options
+        will remain a part of your template, and could be chosen when creating
+        other challenges.
       </p>
       <p>
         All changes you make on this page will be auto-saved as a draft into

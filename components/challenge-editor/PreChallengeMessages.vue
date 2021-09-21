@@ -48,10 +48,18 @@
               :rows="2"
               :max-height="200"
             />
-            <div v-else class="pre-message-form__text">
-              <p v-for="paragraph in messageText" :key="paragraph">
-                {{ paragraph }}
-              </p>
+            <div
+              v-else
+              class="pre-message-form__text"
+              :id="`text-${preMessages[dayIndex].id}`"
+            >
+              <div>
+                <div class="pre-message-form__text-wrapper">
+                  <p v-for="paragraph in messageText" :key="paragraph">
+                    {{ paragraph }}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -63,6 +71,7 @@
 <script>
 import uniqid from "uniqid";
 import { dayTranslations, rtlLanguages } from "../../assets/util/options";
+import Scrollbar from "smooth-scrollbar";
 
 export default {
   inject: ["preMessages", "getLanguage", "isTemplateEditable"],
@@ -130,6 +139,22 @@ export default {
           this.selectedDay = this.days[this.days.length - 1].value;
         }
       }
+    },
+    initScrollbar() {
+      if (!this.isTemplateEditable) {
+        Scrollbar.init(
+          this.$el.querySelector(`#text-${this.preMessages[this.dayIndex].id}`),
+          { alwaysShowTracks: true }
+        );
+      }
+    }
+  },
+  mounted() {
+    setTimeout(this.initScrollbar, 10);
+  },
+  watch: {
+    selectedDay() {
+      setTimeout(this.initScrollbar, 10);
     }
   }
 };
@@ -220,8 +245,17 @@ export default {
   }
 
   &__text {
+    border: 0.2rem solid #ccc;
+    border-radius: 0.8rem;
+    max-height: 30rem;
+  }
+
+  &__text-wrapper {
+    padding: 1.5rem 2rem;
+
     p {
       font-size: inherit;
+      line-height: 1.7;
 
       &:not(:last-child) {
         margin-bottom: 1rem;

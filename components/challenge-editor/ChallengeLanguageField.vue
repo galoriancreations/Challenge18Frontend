@@ -39,11 +39,17 @@ export default {
   .language-selector {
     font-weight: 600;
     font-size: 2.2rem;
-    height: 4.2rem;
 
     @include respond(mobile) {
       font-size: 1.9rem;
-      height: 3.8rem;
+    }
+
+    &:not(span) {
+      height: 4.2rem;
+
+      @include respond(mobile) {
+        height: 3.8rem;
+      }
     }
 
     .vs__clear {

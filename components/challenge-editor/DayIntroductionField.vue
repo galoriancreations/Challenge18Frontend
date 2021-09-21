@@ -69,7 +69,7 @@ export default {
     border-radius: 0.8rem;
     margin: auto;
     margin-top: 2rem;
-    height: 30rem;
+    max-height: 30rem;
   }
 
   &__introduction-text-wrapper {
