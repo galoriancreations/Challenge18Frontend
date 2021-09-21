@@ -5,7 +5,11 @@
       :key="message.id"
       :message="message"
     />
-    <div key="add" class="challenge-editor__add-message">
+    <div
+      v-if="isTemplateEditable"
+      key="add"
+      class="challenge-editor__add-message"
+    >
       <ActionButton type="add" color="white" @click="addMessage" />
     </div>
   </TransitionGroup>
@@ -18,7 +22,12 @@ export default {
   props: {
     messages: Array
   },
-  inject: ["getTransition", "setTransition", "setConfirmModal"],
+  inject: [
+    "getTransition",
+    "setTransition",
+    "setConfirmModal",
+    "isTemplateEditable"
+  ],
   computed: {
     transition() {
       return this.getTransition();

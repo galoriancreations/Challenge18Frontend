@@ -1,7 +1,11 @@
 <template>
   <div class="task-form__emoji-selector" :id="`emoji-${task.id}`">
     <label class="task-form__selector-label">Emoji</label>
-    <button @click="showPicker = !showPicker" class="task-form__emoji-button">
+    <button
+      v-if="isTemplateEditable"
+      @click="showPicker = !showPicker"
+      class="task-form__emoji-button"
+    >
       <span v-if="!task.emoji" class="task-form__no-emoji">
         Click to select
       </span>
@@ -9,6 +13,9 @@
         {{ task.emoji }}
       </span>
     </button>
+    <span v-else class="task-form__selected-emoji">
+      {{ task.emoji }}
+    </span>
     <Transition name="picker">
       <div v-if="showPicker" class="task-form__emoji-wrapper">
         <VEmojiPicker @select="selectEmoji" />
@@ -22,7 +29,7 @@ import { VEmojiPicker } from "v-emoji-picker";
 
 export default {
   components: { VEmojiPicker },
-  inject: ["task"],
+  inject: ["task", "isTemplateEditable"],
   data() {
     return {
       showPicker: false

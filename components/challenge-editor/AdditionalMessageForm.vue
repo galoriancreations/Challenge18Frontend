@@ -2,17 +2,26 @@
   <div class="task-form additional-message-form">
     <div class="additional-message-form__top">
       <TaskTimeSelector />
-      <div class="task-form__top-icons" v-if="deleteButton">
+      <div
+        class="task-form__top-icons"
+        v-if="deleteButton && isTemplateEditable"
+      >
         <IconButton type="delete" @click="deleteMessage(messageIndex)" />
       </div>
     </div>
     <textarea-autosize
+      v-if="isTemplateEditable"
       v-model="message.content"
       class="task-form__extra"
       placeholder="Type your message here..."
       :rows="2"
       :max-height="100"
     />
+    <div v-else class="additional-message-form__text">
+      <p v-for="paragraph in messageText" :key="paragraph">
+        {{ paragraph }}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -25,10 +34,13 @@ export default {
       default: true
     }
   },
-  inject: ["selectedDayMessages", "deleteMessage"],
+  inject: ["selectedDayMessages", "deleteMessage", "isTemplateEditable"],
   computed: {
     messageIndex() {
       return this.selectedDayMessages().indexOf(this.message);
+    },
+    messageText() {
+      return this.message.content.split("\n");
     }
   },
   provide() {
@@ -61,6 +73,17 @@ export default {
   textarea {
     border-radius: 0.5rem;
     padding: 1rem 1.25rem;
+    line-height: 1.6;
+  }
+
+  &__text {
+    p {
+      font-size: inherit;
+
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+    }
   }
 }
 </style>

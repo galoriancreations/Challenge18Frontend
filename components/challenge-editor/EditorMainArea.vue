@@ -3,7 +3,12 @@
     <div key="content" class="challenge-editor__content" :style="{ direction }">
       <section class="challenge-editor__tabs">
         <SideTabs v-model="selectedDay" :tabs="days" />
-        <ActionButton type="add" color="white" @click="addDay" />
+        <ActionButton
+          v-if="isTemplateEditable"
+          type="add"
+          color="white"
+          @click="addDay"
+        />
       </section>
       <section class="challenge-editor__day" ref="container">
         <DayTitleField
@@ -13,6 +18,7 @@
         />
         <DayActionButtons :key="`actions-${options[dayIndex].id}`" />
         <TransitionGroup
+          tag="div"
           class="challenge-editor__day-content"
           :name="transition"
         >
@@ -35,6 +41,7 @@
             <EditorTaskList :tasks="options[dayIndex].tasks" />
           </div>
           <div
+            v-if="showAdditionalMessages"
             :key="`messages-${options[dayIndex].id}`"
             class="challenge-editor__subsection"
           >
@@ -67,6 +74,7 @@ export default {
     "getLanguage",
     "templateOnlyMode",
     "editedChallengeId",
+    "isTemplateEditable",
     "setConfirmModal",
     "getTransition",
     "setTransition",
@@ -100,6 +108,11 @@ export default {
     },
     direction() {
       return rtlLanguages.includes(this.language) ? "rtl" : null;
+    },
+    showAdditionalMessages() {
+      const { messages } = this.options[this.dayIndex];
+      const isEmpty = !messages.length || !messages[0].content;
+      return this.isTemplateEditable || !isEmpty;
     },
     submitButtonText() {
       return this.templateOnlyMode
@@ -175,6 +188,10 @@ export default {
 
   &__day {
     position: relative;
+  }
+
+  &__day-title + &__day-content {
+    padding-top: 2rem;
   }
 
   &__subsection {

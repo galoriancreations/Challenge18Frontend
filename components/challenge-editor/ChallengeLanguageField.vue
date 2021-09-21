@@ -1,12 +1,16 @@
 <template>
   <EditorTopField label="Challenge language">
     <VueSelect
+      v-if="isTemplateEditable"
       :value="value"
       @input="$emit('input', $event)"
       :options="languageOptions"
       :reduce="option => option.name"
       class="language-selector"
     />
+    <span v-else class="language-selector">
+      {{ languageText }}
+    </span>
   </EditorTopField>
 </template>
 
@@ -17,8 +21,15 @@ export default {
   props: {
     value: String
   },
+  inject: ["isTemplateEditable"],
   data() {
     return { languageOptions };
+  },
+  computed: {
+    languageText() {
+      return languageOptions.find(language => language.name === this.value)
+        ?.label;
+    }
   }
 };
 </script>

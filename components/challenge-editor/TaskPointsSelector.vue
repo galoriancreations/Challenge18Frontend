@@ -2,6 +2,7 @@
   <div class="task-form__points-selector">
     <label class="task-form__selector-label">Awarded points</label>
     <NumberInput
+      v-if="isTemplateEditable"
       v-model="task.points"
       :min="1"
       :max="18"
@@ -11,6 +12,7 @@
       inline
       controls
     />
+    <span v-else>{{ task.points }}</span>
   </div>
 </template>
 
@@ -19,7 +21,7 @@ import NumberInput from "@chenfengyuan/vue-number-input";
 
 export default {
   components: { NumberInput },
-  inject: ["task"]
+  inject: ["task", "isTemplateEditable"]
 };
 </script>
 

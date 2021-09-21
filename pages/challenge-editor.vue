@@ -10,11 +10,11 @@
       <ChallengeNameField v-model.trim="name" />
       <ChallengeLanguageField v-model="language" />
       <TemplateAvailabilityField v-if="isAdmin" v-model="isTemplatePublic" />
-      <!-- <AllowCopiesField v-if="showAllowCopies" v-model="allowTemplateCopies" /> -->
+      <AllowCopiesField v-if="showAllowCopies" v-model="allowTemplateCopies" />
     </section>
     <SectionSeperator />
-    <PreChallengeMessages />
-    <SectionSeperator />
+    <PreChallengeMessages v-if="showPreMessages" />
+    <SectionSeperator v-if="showPreMessages" />
     <EditorMainArea />
     <EditorFloatingButtons />
     <EditorNotifications />
@@ -135,6 +135,12 @@ export default {
     },
     isTemplateEditable() {
       return this.isAdmin || this.allowTemplateCopies || !this.isTemplatePublic;
+    },
+    showPreMessages() {
+      return (
+        this.isTemplateEditable ||
+        (this.preMessages.length > 0 && !!this.preMessages[0].text)
+      );
     },
     isModalOpen() {
       return this.showIntroModal || this.showConfirmModal;
@@ -355,7 +361,7 @@ export default {
     return {
       templateOnlyMode: this.templateOnlyMode,
       editedChallengeId: this.editedChallengeId,
-      isTemplatePublic: this.isTemplateEditable,
+      isTemplateEditable: this.isTemplateEditable,
       getLanguage: () => this.language,
       openIntroModal: () => {
         this.showIntroModal = true;

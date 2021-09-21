@@ -6,9 +6,9 @@
     <p class="try-it-yourself__text">
       Using our advanced
       <strong>Challenge Editor</strong>, you can start your own challenge by
-      choosing from our rich collection of templates, customizing any template
-      to your needs, or building a new template from scratch. Any challenge you
-      create will be automatically integrated with WhatsApp.
+      choosing from our rich collection of templates, or by building a new
+      template from scratch. Any challenge you create will be automatically
+      integrated with WhatsApp.
     </p>
     <div class="try-it-yourself__video">
       <video autoplay muted loop playsinline ref="video">

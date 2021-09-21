@@ -1,5 +1,5 @@
 <template>
-  <div class="challenge-editor__day-actions" v-if="options.length > 1">
+  <div class="challenge-editor__day-actions" v-if="showActionButtons">
     <div class="challenge-editor__day-actions-wrapper">
       <IconButton type="delete" @click="deleteDay" />
     </div>
@@ -8,7 +8,12 @@
 
 <script>
 export default {
-  inject: ["options", "deleteDay"]
+  inject: ["options", "deleteDay", "isTemplateEditable"],
+  computed: {
+    showActionButtons() {
+      return this.isTemplateEditable && this.options.length > 1;
+    }
+  }
 };
 </script>
 

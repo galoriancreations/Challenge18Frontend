@@ -4,6 +4,7 @@
       Introduction message
     </h3>
     <textarea-autosize
+      v-if="isTemplateEditable"
       :value="value"
       @input="$emit('input', $event)"
       class="task-form__extra"
@@ -11,13 +12,36 @@
       :min-height="100"
       :max-height="300"
     />
+    <div v-else class="challenge-editor__introduction-text" ref="text">
+      <div class="challenge-editor__introduction-text-wrapper">
+        <p
+          v-for="paragraph in introductionText"
+          :key="paragraph"
+          v-html="paragraph"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { convertTaskText, stripHTML } from "~/assets/util/functions";
+import Scrollbar from "smooth-scrollbar";
+
 export default {
   props: {
     value: String
+  },
+  inject: ["isTemplateEditable"],
+  computed: {
+    introductionText() {
+      return convertTaskText(stripHTML(this.value)).split("\n");
+    }
+  },
+  mounted() {
+    if (!this.isTemplateEditable) {
+      Scrollbar.init(this.$refs.text, { alwaysShowTracks: true });
+    }
   }
 };
 </script>
@@ -36,6 +60,32 @@ export default {
       display: block;
       margin: auto;
       line-height: 1.6;
+    }
+  }
+
+  &__introduction-text {
+    max-width: 65rem;
+    border: 0.2rem solid #ccc;
+    border-radius: 0.8rem;
+    margin: auto;
+    margin-top: 2rem;
+    height: 30rem;
+  }
+
+  &__introduction-text-wrapper {
+    padding: 1.5rem 2rem;
+
+    p {
+      font-size: inherit;
+      line-height: 1.7;
+
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+    }
+
+    strong {
+      font-weight: 600;
     }
   }
 }

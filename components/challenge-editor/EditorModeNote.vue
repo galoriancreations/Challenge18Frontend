@@ -10,10 +10,7 @@
       <strong>{{ editedChallengeId }}</strong
       >).
     </p>
-    <p v-else>
-      You're currently building a <strong>new challenge</strong>. You can also
-      build your own custom template here.
-    </p>
+    <p v-else>You're currently building a <strong>new challenge</strong>.</p>
   </Notification>
 </template>
 

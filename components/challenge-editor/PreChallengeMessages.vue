@@ -4,14 +4,12 @@
       Pre-challenge messages
     </h2>
     <p class="challenge-editor__pre-messages-subheading">
-      Messages that would be sent to participants on the days before the
-      challenge, one message every day. You can add up to 5 pre-challenge
-      messages.
+      {{ subheading }}
     </p>
     <div class="challenge-editor__content" :style="{ direction }">
       <div class="challenge-editor__pre-messages-tabs">
         <ActionButton
-          v-if="preMessages.length < 5"
+          v-if="preMessages.length < 5 && isTemplateEditable"
           type="add"
           color="white"
           @click="addMessage"
@@ -34,18 +32,27 @@
             <h3 class="pre-message-form__title">
               {{ formTitle }}
             </h3>
-            <IconButton type="delete" @click="deleteMessage" />
+            <IconButton
+              v-if="isTemplateEditable"
+              type="delete"
+              @click="deleteMessage"
+            />
           </div>
           <div class="task-form pre-message-form">
             <TaskTimeSelector :item="preMessages[dayIndex]" />
-
             <textarea-autosize
+              v-if="isTemplateEditable"
               v-model="preMessages[dayIndex].text"
               class="task-form__extra"
               placeholder="Type your message here..."
               :rows="2"
-              :max-height="100"
+              :max-height="200"
             />
+            <div v-else class="pre-message-form__text">
+              <p v-for="paragraph in messageText" :key="paragraph">
+                {{ paragraph }}
+              </p>
+            </div>
           </div>
         </div>
       </TransitionGroup>
@@ -58,7 +65,7 @@ import uniqid from "uniqid";
 import { dayTranslations, rtlLanguages } from "../../assets/util/options";
 
 export default {
-  inject: ["preMessages", "getLanguage"],
+  inject: ["preMessages", "getLanguage", "isTemplateEditable"],
   data() {
     return {
       selectedDay: -1
@@ -84,6 +91,14 @@ export default {
     direction() {
       return rtlLanguages.includes(this.language) ? "rtl" : null;
     },
+    subheading() {
+      let text =
+        "Messages that would be sent to participants on the days before the challenge, one message every day.";
+      if (this.isTemplateEditable) {
+        text += " You can add up to 5 pre-challenge messages.";
+      }
+      return text;
+    },
     formTitle() {
       const dayCount = -this.selectedDay;
       return `${dayCount} ${
@@ -92,6 +107,9 @@ export default {
     },
     dayIndex() {
       return this.days.findIndex(day => day.value === this.selectedDay);
+    },
+    messageText() {
+      return this.preMessages[this.dayIndex].text.split("\n");
     }
   },
   methods: {
@@ -185,6 +203,10 @@ export default {
     @include respond(mobile) {
       font-size: 1.75rem;
     }
+
+    &:last-child {
+      margin: auto;
+    }
   }
 
   .task-form__time-selector {
@@ -194,6 +216,17 @@ export default {
   textarea {
     border-radius: 0.5rem;
     padding: 1rem 1.25rem;
+    line-height: 1.6;
+  }
+
+  &__text {
+    p {
+      font-size: inherit;
+
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+    }
   }
 }
 </style>

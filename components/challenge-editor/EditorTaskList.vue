@@ -1,7 +1,7 @@
 <template>
   <TransitionGroup class="challenge-editor__tasks" :name="transition">
     <TaskForm v-for="task in tasks" :key="task.id" :task="task" />
-    <div key="add" class="challenge-editor__add-task">
+    <div v-if="isTemplateEditable" key="add" class="challenge-editor__add-task">
       <ActionButton type="add" color="white" @click="addTask" />
     </div>
   </TransitionGroup>
@@ -14,7 +14,12 @@ export default {
   props: {
     tasks: Array
   },
-  inject: ["getTransition", "setTransition", "setConfirmModal"],
+  inject: [
+    "getTransition",
+    "setTransition",
+    "setConfirmModal",
+    "isTemplateEditable"
+  ],
   data() {
     return {
       editedOption: null

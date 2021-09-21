@@ -1,7 +1,8 @@
 <template>
   <div class="task-form__time-selector">
     <label class="task-form__selector-label">Time</label>
-    <vue-timepicker v-if="item" format="HH:mm:ss" v-model="item.time" />
+    <span v-if="!isTemplateEditable">{{ item ? item.time : task.time }}</span>
+    <vue-timepicker v-else-if="item" format="HH:mm:ss" v-model="item.time" />
     <vue-timepicker v-else format="HH:mm:ss" v-model="task.time" />
   </div>
 </template>
@@ -15,7 +16,7 @@ export default {
   props: {
     item: Object
   },
-  inject: ["task"]
+  inject: ["task", "isTemplateEditable"]
 };
 </script>
 

@@ -8,6 +8,7 @@
       @input="$emit('input', $event)"
       placeholder="Enter day title"
       :rows="1"
+      :readonly="!isTemplateEditable"
     />
   </div>
 </template>
@@ -17,7 +18,8 @@ export default {
   props: {
     value: String,
     label: String
-  }
+  },
+  inject: ["isTemplateEditable"]
 };
 </script>
 

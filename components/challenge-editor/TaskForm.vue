@@ -4,7 +4,7 @@
       <h3 class="task-form__title">
         {{ taskTitle }}
       </h3>
-      <div class="task-form__top-icons">
+      <div class="task-form__top-icons" v-if="isTemplateEditable">
         <IconButton
           type="mark"
           :filled="task.isBonus"
@@ -41,7 +41,7 @@
         class="task-form__text"
       >
         <span v-html="convertedOptions[optionIndex]" v-linkified />
-        <div class="task-form__option-actions">
+        <div class="task-form__option-actions" v-if="isTemplateEditable">
           <div class="task-form__option-actions-wrapper">
             <IconButton
               type="edit"
@@ -69,6 +69,7 @@
       />
     </div>
     <textarea-autosize
+      v-if="isTemplateEditable"
       :value="task.extraInput"
       @input="updateExtraInput"
       @keydown.native.enter="addOption"
@@ -97,7 +98,8 @@ export default {
     "setEditedOption",
     "finishEditOption",
     "setConfirmModal",
-    "setTransition"
+    "setTransition",
+    "isTemplateEditable"
   ],
   computed: {
     taskLabel() {

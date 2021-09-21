@@ -6,6 +6,7 @@
       class="challenge-editor__name"
       :placeholder="placeholder"
       :rows="1"
+      :readonly="!isTemplateEditable"
     />
   </EditorTopField>
 </template>
@@ -15,6 +16,7 @@ export default {
   props: {
     value: String
   },
+  inject: ["isTemplateEditable"],
   computed: {
     placeholder() {
       return process.client
