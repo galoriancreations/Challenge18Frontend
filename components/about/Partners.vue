@@ -1,7 +1,7 @@
 <template>
   <section class="partners">
     <SectionHeading :small="small">In Partnership With</SectionHeading>
-    <agile :options="sliderOptions">
+    <agile :options="sliderOptions" class="partners__slider">
       <div v-for="image in images" :key="image" class="partners__slide">
         <img class="partners__img" :src="image" />
       </div>
@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import reshet from "../../assets/images/partners/reshet.jpg";
-import fers from "../../assets/images/partners/fers.jpg";
-import hanson from "../../assets/images/partners/hanson.jpg";
-import hplus from "../../assets/images/partners/h+.jpg";
-import tlvseed from "../../assets/images/partners/tlvseed.jpg";
+import reshet from "../../assets/images/partners/reshet-big.png";
+import fers from "../../assets/images/partners/ifers-big.jpg";
+import hanson from "../../assets/images/partners/hanson-big.jpg";
+import hplus from "../../assets/images/partners/h+-big.png";
+import tlvseed from "../../assets/images/partners/tlvseed-big.jpg";
 import eretzir from "../../assets/images/partners/eretzir.jpg";
 
 export default {
@@ -25,7 +25,7 @@ export default {
     return {
       images: [reshet, fers, hanson, hplus, tlvseed, eretzir],
       sliderOptions: {
-        autoplay: true,
+        autoplay: false,
         autoplaySpeed: 2000,
         slidesToShow: 2,
         navButtons: false,
@@ -52,14 +52,30 @@ export default {
 
 <style lang="scss">
 .partners {
+  &__slider {
+    margin: 0 -5rem;
+
+    @include respond(mobile) {
+      margin: 0 -2rem;
+    }
+  }
+
+  &__slide {
+    padding: 0 5rem;
+
+    @include respond(mobile) {
+      padding: 0 2rem;
+    }
+  }
+
   &__img {
     width: 100%;
     display: block;
-  }
+    margin: auto;
 
-  &__slide:nth-child(6) &__img {
-    max-width: 10rem;
-    margin: 0 5rem;
+    @include respond(mobile) {
+      max-width: 18rem;
+    }
   }
 }
 
