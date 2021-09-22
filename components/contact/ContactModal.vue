@@ -32,6 +32,19 @@ export default {
         ? "We'll be in touch soon."
         : "Please try again in a few moments.";
     }
+  },
+  methods: {
+    closeOnEscPress(event) {
+      if (event.key === "Escape") {
+        this.closeModal();
+      }
+    }
+  },
+  mounted() {
+    document.addEventListener("keydown", this.closeOnEscPress);
+  },
+  beforeDestroy() {
+    document.removeEventListener("keydown", this.closeOnEscPress);
   }
 };
 </script>

@@ -142,9 +142,6 @@ export default {
         (this.preMessages.length > 0 && !!this.preMessages[0].text)
       );
     },
-    isModalOpen() {
-      return this.showIntroModal || this.showConfirmModal;
-    },
     draftData() {
       return {
         name: this.name,
@@ -181,9 +178,6 @@ export default {
     }
   },
   methods: {
-    onCloseModal() {
-      this.showIntroModal = false;
-    },
     async saveDraft() {
       const { draftId } = await this.$axios.$post("/xapi", {
         saveDraft: {
@@ -340,11 +334,6 @@ export default {
     },
     draftId(value) {
       this.$cookies.set("draftId", value);
-    },
-    isModalOpen(value) {
-      if (value) {
-        this.transition = null;
-      }
     }
   },
   mounted() {

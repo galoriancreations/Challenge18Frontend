@@ -17,17 +17,10 @@ export default {
         },
         closeModal() {
             this.showConfirmModal = false;
-            if (this.onCloseModal) {
-                this.onCloseModal();
-            }
+            this.showIntroModal = false;
         },
         keydownHandler(event) {
-            if (event.key === "Enter") {
-                if (this.showConfirmModal) {
-                    this.confirmAction();
-                }
-                this.closeModal();
-            } else if (event.key === "Escape") {
+            if (event.key === "Escape") {
                 this.closeModal();
             }
         }

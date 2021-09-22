@@ -34,10 +34,6 @@ export default {
     scrollbar: {
       type: Boolean,
       default: true
-    },
-    disableWindowScroll: {
-      type: Boolean,
-      default: true
     }
   },
   inject: ["closeModal"],
@@ -59,13 +55,6 @@ export default {
     adjustContainerHeight() {
       this.containerHeight = `${this.$refs.wrapper.offsetHeight}px`;
       this.contentMinHeight = this.containerHeight;
-    }
-  },
-  watch: {
-    active(value) {
-      if (this.disableWindowScroll) {
-        document.querySelector("html").style.overflow = value ? "hidden" : null;
-      }
     }
   },
   mounted() {
