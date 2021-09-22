@@ -6,7 +6,7 @@
     <textarea-autosize
       v-if="isTemplateEditable"
       :value="value"
-      @input="$emit('input', $event)"
+      @input="updateIntroduction"
       class="task-form__extra"
       placeholder="Message that would be displayed to the participants on the group chat, explaining about the day's subject"
       :min-height="100"
@@ -38,6 +38,11 @@ export default {
       return convertTaskText(stripHTML(this.value))
         .split("\n")
         .filter(p => !!p.trim());
+    }
+  },
+  methods: {
+    updateIntroduction(value) {
+      this.$emit("input", stripHTML(value));
     }
   },
   mounted() {

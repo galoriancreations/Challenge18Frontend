@@ -28,7 +28,7 @@
           >
             <DayIntroductionField
               :key="options[dayIndex].id"
-              v-model.trim="options[dayIndex].introduction"
+              v-model="options[dayIndex].introduction"
             />
           </div>
           <div
