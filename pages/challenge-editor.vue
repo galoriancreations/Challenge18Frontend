@@ -256,7 +256,8 @@ export default {
         createChallenge: {
           draftId: this.draftId,
           templateId: this.templateId,
-          selections: this.finalSelections
+          selections: this.finalSelections,
+          name: this.name
         }
       });
       this.$cookies.remove("draftId");
@@ -272,7 +273,8 @@ export default {
           challengeId: this.editedChallengeId,
           draftId: this.draftId,
           templateId: this.templateId,
-          selections: this.finalSelections
+          selections: this.finalSelections,
+          name: this.name
         }
       });
       this.$cookies.remove("draftId");

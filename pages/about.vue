@@ -2,7 +2,7 @@
   <Page title="About Us" name="about">
     <OurCompany />
     <WhyChallenge18 />
-    <Partners small />
+    <Partners />
     <TeamSection v-for="team in teams" :key="team.title" v-bind="team" />
   </Page>
 </template>

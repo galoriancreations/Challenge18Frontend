@@ -6,11 +6,11 @@
 
 <style lang="scss">
 .whatsapp-icon {
-  width: 6rem;
-  height: 6rem;
+  width: 5.5rem;
+  height: 5.5rem;
   position: fixed;
-  bottom: 2rem;
-  right: 2rem;
+  bottom: 1.5rem;
+  right: 1.5rem;
   z-index: 5;
 
   @include respond(mobile) {
