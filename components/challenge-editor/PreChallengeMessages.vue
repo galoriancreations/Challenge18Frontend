@@ -50,7 +50,12 @@ import uniqid from "uniqid";
 import { dayTranslations, rtlLanguages } from "../../assets/util/options";
 
 export default {
-  inject: ["preMessages", "getLanguage", "isTemplateEditable"],
+  inject: [
+    "preMessages",
+    "getLanguage",
+    "isTemplateEditable",
+    "setConfirmModal"
+  ],
   data() {
     return {
       selectedDay: -1
@@ -104,22 +109,20 @@ export default {
       this.selectedDay = this.days[0].value;
     },
     deleteMessage() {
-      this.preMessages.splice(this.dayIndex, 1);
-      if (this.days.length) {
-        if (this.dayIndex < 0) {
-          this.selectedDay = this.days[0].value;
-        } else if (this.dayIndex >= this.days.length) {
-          this.selectedDay = this.days[this.days.length - 1].value;
-        }
-      }
-    }
-  },
-  mounted() {
-    setTimeout(this.initScrollbar, 10);
-  },
-  watch: {
-    selectedDay() {
-      setTimeout(this.initScrollbar, 10);
+      this.setConfirmModal(
+        "Are you sure you want to delete this message? This action is irreversible.",
+        () => {
+          this.preMessages.splice(this.dayIndex, 1);
+          if (this.days.length) {
+            if (this.dayIndex < 0) {
+              this.selectedDay = this.days[0].value;
+            } else if (this.dayIndex >= this.days.length) {
+              this.selectedDay = this.days[this.days.length - 1].value;
+            }
+          }
+        },
+        !this.preMessages[this.dayIndex].text.trim()
+      );
     }
   }
 };

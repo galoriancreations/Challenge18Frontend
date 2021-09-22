@@ -11,7 +11,8 @@
     </div>
     <textarea-autosize
       v-if="isTemplateEditable"
-      v-model="message.content"
+      :value="message.content"
+      @input="updateMessageContent"
       class="task-form__extra"
       placeholder="Type your message here..."
       :rows="2"
@@ -45,6 +46,11 @@ export default {
     },
     messageText() {
       return convertTaskText(stripHTML(this.message.content)).split("\n");
+    }
+  },
+  methods: {
+    updateMessageContent(value) {
+      this.message.content = stripHTML(value);
     }
   },
   provide() {

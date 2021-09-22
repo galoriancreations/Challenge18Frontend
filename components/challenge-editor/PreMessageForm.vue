@@ -3,7 +3,8 @@
     <TaskTimeSelector />
     <textarea-autosize
       v-if="isTemplateEditable"
-      v-model="message.text"
+      :value="message.text"
+      @input="updateMessageText"
       class="task-form__extra"
       placeholder="Type your message here..."
       :rows="2"
@@ -35,6 +36,11 @@ export default {
       return convertTaskText(stripHTML(this.message.text))
         .split("\n")
         .filter(p => !!p.trim());
+    }
+  },
+  methods: {
+    updateMessageText(value) {
+      this.message.text = stripHTML(value);
     }
   },
   mounted() {
