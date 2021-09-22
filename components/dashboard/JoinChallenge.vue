@@ -1,5 +1,5 @@
 <template>
-  <DashboardModal
+  <PopupModal
     title="Join a Challenge"
     :active="active"
     class="new-challenge-modal join-challenge"
@@ -46,7 +46,7 @@
         {{ link }}
       </a>
     </div>
-  </DashboardModal>
+  </PopupModal>
 </template>
 
 <script>

@@ -24,11 +24,11 @@
 </template>
 
 <script>
-import dashboardModal from "~/mixins/dashboard-modal";
+import popupModal from "~/mixins/popup-modal";
 import { roleOptions } from "~/assets/util/options";
 
 export default {
-  mixins: [dashboardModal],
+  mixins: [popupModal],
   inject: ["setConfirmModal", "addNotification"],
   data() {
     return {

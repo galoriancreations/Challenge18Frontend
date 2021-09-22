@@ -1,5 +1,5 @@
 <template>
-  <DashboardModal :active="active" class="challenge-editor-intro">
+  <PopupModal :active="active" class="challenge-editor-intro">
     <h3 class="challenge-editor-intro__title">
       Welcome to the Challenge & Template Editor
     </h3>
@@ -58,7 +58,7 @@
       </p>
     </div>
     <BaseButton variant="blue" @click="closeModal">Got it</BaseButton>
-  </DashboardModal>
+  </PopupModal>
 </template>
 
 <script>

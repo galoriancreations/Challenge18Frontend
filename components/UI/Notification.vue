@@ -36,6 +36,7 @@ export default {
   @include respond(mobile) {
     font-size: 1.35rem;
     text-align: center;
+    width: 100%;
   }
 
   &__content {
@@ -46,6 +47,8 @@ export default {
 
     @include respond(mobile) {
       padding: 1.2rem;
+      flex: 1;
+      max-width: initial;
     }
 
     & > p {

@@ -1,5 +1,5 @@
 <template>
-  <DashboardModal
+  <PopupModal
     title="Create a Challenge"
     :active="active"
     class="new-challenge-modal create-challenge"
@@ -39,7 +39,7 @@
         Create new template
       </BaseButton>
     </div>
-  </DashboardModal>
+  </PopupModal>
 </template>
 
 <script>

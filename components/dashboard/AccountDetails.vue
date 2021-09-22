@@ -41,10 +41,10 @@
 import { labels, planOptions } from "../../assets/util/options";
 import languageOptions from "../../assets/data/languages";
 import countryOptions from "../../assets/data/countries";
-import dashboardModal from "../../mixins/dashboard-modal";
+import popupModal from "../../mixins/popup-modal";
 
 export default {
-  mixins: [dashboardModal],
+  mixins: [popupModal],
   computed: {
     user() {
       return this.$store.getters.user;

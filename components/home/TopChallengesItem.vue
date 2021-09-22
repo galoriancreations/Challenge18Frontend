@@ -3,7 +3,7 @@
     <div class="top-challenges__img" @click="showModal = true">
       <img :src="challenge.image" :alt="challenge.title" />
     </div>
-    <DashboardModal :active="showModal" class="top-challenges__modal">
+    <PopupModal :active="showModal" class="top-challenges__modal">
       <h2 class="top-challenges__title">
         {{ challenge.title }}
       </h2>
@@ -15,15 +15,15 @@
       <BaseButton v-if="!isLoggedIn" variant="blue" link="/join">
         Join Us
       </BaseButton>
-    </DashboardModal>
+    </PopupModal>
   </div>
 </template>
 
 <script>
-import dashboardModal from "../../mixins/dashboard-modal";
+import popupModal from "../../mixins/popup-modal";
 
 export default {
-  mixins: [dashboardModal],
+  mixins: [popupModal],
   props: {
     challenge: Object
   },

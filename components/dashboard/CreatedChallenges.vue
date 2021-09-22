@@ -24,10 +24,10 @@
 
 <script>
 import { dataArrayFromObject, currentDay } from "../../assets/util/functions";
-import dashboardModal from "../../mixins/dashboard-modal";
+import popupModal from "../../mixins/popup-modal";
 
 export default {
-  mixins: [dashboardModal],
+  mixins: [popupModal],
   data() {
     return {
       headers: [

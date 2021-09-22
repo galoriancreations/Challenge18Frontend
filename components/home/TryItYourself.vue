@@ -23,10 +23,10 @@
 </template>
 
 <script>
-import dashboardModal from "~/mixins/dashboard-modal";
+import popupModal from "~/mixins/popup-modal";
 
 export default {
-  mixins: [dashboardModal],
+  mixins: [popupModal],
   mounted() {
     this.$refs.video?.play();
   }

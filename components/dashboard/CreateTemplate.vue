@@ -1,5 +1,5 @@
 <template>
-  <DashboardModal
+  <PopupModal
     title="Create New Template"
     :active="active"
     class="new-challenge-modal create-challenge"
@@ -40,7 +40,7 @@
       </BaseButton>
     </div>
     <BaseSpinner v-if="loading" />
-  </DashboardModal>
+  </PopupModal>
 </template>
 
 <script>

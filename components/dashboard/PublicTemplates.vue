@@ -38,10 +38,10 @@
 
 <script>
 import templatesTable from "../../mixins/templates-table";
-import dashboardModal from "../../mixins/dashboard-modal";
+import popupModal from "../../mixins/popup-modal";
 
 export default {
-  mixins: [templatesTable, dashboardModal],
+  mixins: [templatesTable, popupModal],
   computed: {
     templates() {
       return this.$store.getters.templates.filter(

@@ -1,5 +1,5 @@
 <template>
-  <DashboardModal class="confirm-modal" :active="active" :scrollbar="false">
+  <PopupModal class="confirm-modal" :active="active" :scrollbar="false">
     <div class="confirm-modal__text">
       <p v-for="paragraph in confirmText" :key="paragraph">
         {{ text }}
@@ -13,7 +13,7 @@
         Yes, I'm sure
       </BaseButton>
     </div>
-  </DashboardModal>
+  </PopupModal>
 </template>
 
 <script>
@@ -70,7 +70,7 @@ export default {
         margin-right: 2.5rem;
 
         @include respond(mobile) {
-          margin-right: 0;
+          margin-right: auto;
           margin-bottom: 1rem;
         }
       }

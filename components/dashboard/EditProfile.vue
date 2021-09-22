@@ -1,5 +1,5 @@
 <template>
-  <DashboardModal title="Edit Profile" :active="active">
+  <PopupModal title="Edit Profile" :active="active">
     <form class="form" @submit.prevent="submitHandler">
       <div class="form__field" v-for="key in textInputKeys" :key="key">
         <label :for="key" class="form__label">
@@ -38,7 +38,7 @@
       <BaseSpinner v-if="loading" />
       <ErrorMessage v-else-if="error" :error="error" />
     </form>
-  </DashboardModal>
+  </PopupModal>
 </template>
 
 <script>

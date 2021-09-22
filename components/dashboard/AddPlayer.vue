@@ -1,5 +1,5 @@
 <template>
-  <DashboardModal title="Add a Player" :active="active" class="add-player">
+  <PopupModal title="Add a Player" :active="active" class="add-player">
     <div class="add-player__intro">
       <p>
         When registering a player, a new account will be created for that player
@@ -105,7 +105,7 @@
       <BaseSpinner v-if="loading" />
       <ErrorMessage v-else-if="error" :error="error" />
     </form>
-  </DashboardModal>
+  </PopupModal>
 </template>
 
 <script>

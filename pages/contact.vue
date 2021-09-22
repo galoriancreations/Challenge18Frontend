@@ -14,11 +14,12 @@
 
 <script>
 import emailjs from "emailjs-com";
+import popupModal from "~/mixins/popup-modal";
 
 export default {
+  mixins: [popupModal],
   data() {
     return {
-      showModal: false,
       sending: false,
       error: false
     };
@@ -43,15 +44,11 @@ export default {
         this.showModal = true;
         return false;
       }
-    },
-    closeModal() {
-      this.showModal = false;
     }
   },
   provide() {
     return {
-      sendMessage: this.submitHanlder,
-      closeModal: this.closeModal
+      sendMessage: this.submitHanlder
     };
   }
 };
