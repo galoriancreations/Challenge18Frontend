@@ -320,11 +320,8 @@ export default {
     language() {
       this.autoSaveData();
     },
-    isTemplatePublic(value) {
+    isTemplatePublic() {
       this.autoSaveData();
-      if (!value) {
-        this.allowTemplateCopies = true;
-      }
     },
     allowTemplateCopies() {
       this.autoSaveData();

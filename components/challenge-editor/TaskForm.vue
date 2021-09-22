@@ -40,7 +40,14 @@
         :for="option.id"
         class="task-form__text"
       >
-        <span v-html="convertedOptions[optionIndex]" v-linkified />
+        <span class="task-form__text-wrapper">
+          <span
+            v-for="paragraph in convertedOptions[optionIndex]"
+            :key="paragraph"
+            v-html="paragraph"
+            v-linkified
+          />
+        </span>
         <div class="task-form__option-actions" v-if="isTemplateEditable">
           <div class="task-form__option-actions-wrapper">
             <IconButton
@@ -113,7 +120,9 @@ export default {
       return this.getEditedOption();
     },
     convertedOptions() {
-      return this.task.options.map(option => convertTaskText(option.text));
+      return this.task.options
+        .map(option => convertTaskText(option.text))
+        .map(option => option.split("\n").filter(p => !!p.trim()));
     },
     taskTitle() {
       let title = `${this.taskLabel} ${this.taskIndex + 1}`;
@@ -283,10 +292,10 @@ export default {
     }
 
     &:not(:last-child) {
-      margin-bottom: 2.5rem;
+      margin-bottom: 3rem;
 
       @media (hover: hover) {
-        margin-bottom: 1.5rem;
+        margin-bottom: 2.5rem;
       }
     }
   }
@@ -311,6 +320,14 @@ export default {
 
     span {
       display: block;
+    }
+  }
+
+  &__text-wrapper {
+    span {
+      &:not(:last-child) {
+        margin-bottom: 0.75rem;
+      }
     }
 
     a {

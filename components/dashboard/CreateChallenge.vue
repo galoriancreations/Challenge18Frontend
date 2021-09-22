@@ -71,7 +71,9 @@ export default {
       return this.user?.language;
     },
     templateOptions() {
-      return this.$store.getters.templates;
+      return this.$store.getters.templates.filter(
+        template => template.isPublic || template.creator === this.user?.id
+      );
     },
     filteredTemplateOptions() {
       return this.templateOptions.filter(
