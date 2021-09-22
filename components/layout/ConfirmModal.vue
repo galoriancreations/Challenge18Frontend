@@ -70,7 +70,7 @@ export default {
         margin-right: 2.5rem;
 
         @include respond(mobile) {
-          margin-right: auto;
+          margin: auto;
           margin-bottom: 1rem;
         }
       }
