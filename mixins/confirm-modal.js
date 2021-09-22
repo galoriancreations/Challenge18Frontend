@@ -23,12 +23,6 @@ export default {
         },
         keydownHandler(event) {
             if (event.key === "Enter") {
-                if (
-                    event.target.nodeName === "TEXTAREA" &&
-                    !event.target.classList.contains("challenge-editor__introduction-input")
-                ) {
-                    event.preventDefault();
-                }
                 if (this.showConfirmModal) {
                     this.confirmAction();
                 }

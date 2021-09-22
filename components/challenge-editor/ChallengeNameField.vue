@@ -3,6 +3,7 @@
     <textarea-autosize
       :value="value"
       @input="$emit('input', $event)"
+      @keydown.native.enter.prevent
       class="challenge-editor__name"
       :placeholder="placeholder"
       :rows="1"

@@ -67,7 +67,7 @@
         v-else
         :value="option.text"
         @input="editOption($event, optionIndex)"
-        @keydown.native.enter="finishEditOption"
+        @keydown.native.enter.prevent="finishEditOption"
         @keydown.native.esc="finishEditOption"
         class="task-form__option-edit"
         :id="`edit-${option.id}`"
@@ -79,7 +79,7 @@
       v-if="isTemplateEditable"
       :value="task.extraInput"
       @input="updateExtraInput"
-      @keydown.native.enter="addOption"
+      @keydown.native.enter.prevent="addOption"
       class="task-form__extra"
       :placeholder="extraInputPlaceholder"
       :rows="1"
@@ -398,12 +398,8 @@ export default {
     padding: 1rem 2rem;
     border: 0.2rem solid #ccc;
     border-radius: 20px;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     transition: all 0.5s;
-
-    @include respond(tablet-sm) {
-      margin-top: 0.5rem;
-    }
 
     &:focus {
       border-color: $color-azure;

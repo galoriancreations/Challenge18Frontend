@@ -6,6 +6,7 @@
     <textarea-autosize
       :value="value"
       @input="$emit('input', $event)"
+      @keydown.native.enter.prevent
       placeholder="Enter day title"
       :rows="1"
       :readonly="!isTemplateEditable"
