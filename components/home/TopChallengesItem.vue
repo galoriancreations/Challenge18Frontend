@@ -1,8 +1,8 @@
 <template>
   <div class="top-challenges__item" v-on="$listeners">
-    <div class="top-challenges__img" @click="showModal = true">
+    <button class="top-challenges__img" @click="showModal = true">
       <img :src="challenge.image" :alt="challenge.title" />
-    </div>
+    </button>
     <PopupModal :active="showModal" class="top-challenges__modal">
       <h2 class="top-challenges__title">
         {{ challenge.title }}
@@ -41,11 +41,6 @@ export default {
 <style lang="scss">
 .top-challenges {
   &__item {
-    display: block;
-    border-radius: 0.8rem;
-    box-shadow: $boxshadow2;
-    overflow: hidden;
-
     @include respond(mobile) {
       max-width: 25rem;
       margin: auto;
@@ -54,6 +49,10 @@ export default {
 
   &__img {
     cursor: pointer;
+    display: block;
+    border-radius: 0.8rem;
+    box-shadow: $boxshadow2;
+    overflow: hidden;
     position: relative;
 
     &::after {
@@ -69,11 +68,11 @@ export default {
     &:hover::after {
       background-color: rgba($color-azure, 0.4);
     }
-  }
 
-  img {
-    width: 100%;
-    display: block;
+    img {
+      width: 100%;
+      display: block;
+    }
   }
 
   &__title {

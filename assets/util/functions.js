@@ -40,7 +40,7 @@ export const initialOptions = (options = emptyDays()) =>
     })),
     messages: (day.messages || [{}]).map(message => ({
       id: message.id || uniqid(),
-      type: message.type || "text",
+      file: message.file || null,
       content: message.content || "",
       time: message.time || "18:00:00"
     }))
