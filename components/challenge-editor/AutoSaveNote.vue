@@ -37,6 +37,10 @@ export default {
 
 <style lang="scss">
 .auto-save-note {
+  @include respond(mobile) {
+    max-width: 65%;
+  }
+
   strong {
     margin-right: 0.5rem;
 

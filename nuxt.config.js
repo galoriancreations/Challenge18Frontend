@@ -48,7 +48,8 @@ export default {
       "~/components/dashboard",
       "~/components/home",
       "~/components/clubs",
-      "~/components/how-to-play"
+      "~/components/how-to-play",
+      "~/components/marketplace"
     ]
   },
 

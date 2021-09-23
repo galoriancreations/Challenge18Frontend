@@ -171,7 +171,7 @@ export default {
     position: relative;
 
     @include respond(tablet) {
-      grid-template-columns: 1fr;
+      grid-template-columns: 100%;
       gap: 9rem;
     }
 

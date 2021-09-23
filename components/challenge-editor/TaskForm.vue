@@ -310,7 +310,6 @@ export default {
   }
 
   &__text {
-    word-wrap: break-word;
     flex: 1;
     position: relative;
 
@@ -325,6 +324,8 @@ export default {
 
   &__text-wrapper {
     span {
+      word-wrap: break-word;
+
       &:not(:last-child) {
         margin-bottom: 0.75rem;
       }
@@ -333,6 +334,10 @@ export default {
     a {
       color: $color-blue-2;
       transition: color 0.5s;
+
+      @include respond(mobile) {
+        word-break: break-all;
+      }
 
       &:hover {
         color: $color-gold-3;
