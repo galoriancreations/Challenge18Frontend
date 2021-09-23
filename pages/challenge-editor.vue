@@ -137,9 +137,14 @@ export default {
       return this.isAdmin || this.allowTemplateCopies || !this.isTemplatePublic;
     },
     showPreMessages() {
+      const hasContent = () => {
+        for (let message of this.preMessages) {
+          if (!!message.text.trim()) return true;
+        }
+        return false;
+      };
       return (
-        this.isTemplateEditable ||
-        (this.preMessages.length > 0 && !!this.preMessages[0].text)
+        this.isTemplateEditable || (this.preMessages.length && hasContent())
       );
     },
     draftData() {

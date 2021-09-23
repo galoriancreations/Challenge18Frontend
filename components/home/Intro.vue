@@ -1,6 +1,8 @@
 <template>
   <section class="intro">
-    <div class="intro__bg" />
+    <div class="intro__bg">
+      <WavePatternBottom />
+    </div>
     <div class="intro__top">
       <h1 class="intro__heading">Challenge Yourself to the Top</h1>
       <p class="intro__subheading">
@@ -29,7 +31,6 @@
         Go do dashboard <i class="fas fa-chevron-right" />
       </BaseButton>
     </div>
-    <WavePatternBottom />
   </section>
 </template>
 

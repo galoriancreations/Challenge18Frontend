@@ -18,6 +18,7 @@
           v-for="paragraph in introductionText"
           :key="paragraph"
           v-html="paragraph"
+          v-linkified
         />
       </div>
     </div>

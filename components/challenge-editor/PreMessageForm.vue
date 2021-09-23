@@ -16,6 +16,7 @@
           v-for="paragraph in messageText"
           :key="paragraph"
           v-html="paragraph"
+          v-linkified
         />
       </div>
     </div>

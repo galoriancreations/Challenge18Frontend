@@ -330,19 +330,6 @@ export default {
         margin-bottom: 0.75rem;
       }
     }
-
-    a {
-      color: $color-blue-2;
-      transition: color 0.5s;
-
-      @include respond(mobile) {
-        word-break: break-all;
-      }
-
-      &:hover {
-        color: $color-gold-3;
-      }
-    }
   }
 
   &__option-actions {
@@ -409,6 +396,19 @@ export default {
 
     &:focus {
       border-color: $color-azure;
+    }
+  }
+
+  a {
+    color: $color-blue-2;
+    transition: color 0.5s;
+
+    @include respond(tablet-sm) {
+      word-break: break-all;
+    }
+
+    &:hover {
+      color: $color-gold-3;
     }
   }
 }
