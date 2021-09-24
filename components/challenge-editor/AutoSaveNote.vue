@@ -38,7 +38,7 @@ export default {
 <style lang="scss">
 .auto-save-note {
   @include respond(mobile) {
-    max-width: 65%;
+    width: fit-content !important;
   }
 
   strong {
