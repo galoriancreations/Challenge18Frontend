@@ -51,7 +51,7 @@ import { dayTranslations, rtlLanguages } from "../../assets/util/options";
 
 export default {
   inject: [
-    "preMessages",
+    "getPreMessages",
     "getLanguage",
     "isTemplateEditable",
     "setConfirmModal"
@@ -62,6 +62,9 @@ export default {
     };
   },
   computed: {
+    preMessages() {
+      return this.getPreMessages();
+    },
     days() {
       return this.preMessages.map((message, index) => {
         const day = index - this.preMessages.length;

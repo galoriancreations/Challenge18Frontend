@@ -8,10 +8,15 @@
 
 <script>
 export default {
-  inject: ["options", "deleteDay", "isTemplateEditable"],
+  inject: ["getOptions", "deleteDay", "isTemplateEditable"],
+  computed: {
+    options() {
+      return this.getOptions();
+    }
+  },
   computed: {
     showActionButtons() {
-      return this.isTemplateEditable && this.options.length > 1;
+      return this.isTemplateEditable && this.options?.length > 1;
     }
   }
 };

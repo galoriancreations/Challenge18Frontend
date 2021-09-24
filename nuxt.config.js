@@ -33,7 +33,8 @@ export default {
 
   plugins: [
     "~/plugins/main",
-    "~/plugins/vue-agile"
+    "~/plugins/vue-agile",
+    "~/plugins/challenge-editor"
   ],
 
   components: {

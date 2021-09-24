@@ -1,30 +1,34 @@
 <template>
   <Page title="Challenge Editor" name="challenge-editor">
-    <EditorIntroModal :active="showIntroModal" />
-    <ConfirmModal
-      :active="showConfirmModal"
-      :text="confirmText"
-      @confirm="confirmAction"
-    />
-    <section class="challenge-editor__top">
-      <ChallengeNameField v-model.trim="name" />
-      <ChallengeLanguageField v-model="language" />
-      <TemplateAvailabilityField v-if="isAdmin" v-model="isTemplatePublic" />
-      <AllowCopiesField v-if="showAllowCopies" v-model="allowTemplateCopies" />
-    </section>
-    <SectionSeperator />
-    <PreChallengeMessages v-if="showPreMessages" />
-    <SectionSeperator v-if="showPreMessages" />
-    <EditorMainArea />
-    <EditorFloatingButtons />
-    <EditorNotifications />
+    <BaseSpinner v-if="loading" />
+    <div v-else class="challenge-editor__page-content">
+      <EditorIntroModal :active="showIntroModal" />
+      <ConfirmModal
+        :active="showConfirmModal"
+        :text="confirmText"
+        @confirm="confirmAction"
+      />
+      <section class="challenge-editor__top">
+        <ChallengeNameField v-model.trim="name" />
+        <ChallengeLanguageField v-model="language" />
+        <TemplateAvailabilityField v-if="isAdmin" v-model="isTemplatePublic" />
+        <AllowCopiesField
+          v-if="showAllowCopies"
+          v-model="allowTemplateCopies"
+        />
+      </section>
+      <SectionSeperator />
+      <PreChallengeMessages v-if="showPreMessages" />
+      <SectionSeperator v-if="showPreMessages" />
+      <EditorMainArea />
+      <EditorFloatingButtons />
+      <EditorNotifications />
+    </div>
   </Page>
 </template>
 
 <script>
 import {
-  initialPreMessages,
-  initialOptions,
   clearedOptions,
   isSelectionMatching,
   randomEmoji
@@ -37,68 +41,9 @@ export default {
   meta: {
     requiresAuth: true
   },
-  async asyncData({ app, store, $axios, error }) {
-    try {
-      const { draftId, challengeId, selectedTemplate } = app.$cookies.getAll();
-      const { user } = store.getters;
-
-      if (draftId) {
-        const draft = await $axios.$post("/xapi", {
-          getDraftData: draftId
-        });
-        return {
-          name: draft.name,
-          language: draft.language,
-          preMessages: initialPreMessages(draft.preMessages),
-          options: initialOptions(draft.days),
-          draftId,
-          isTemplatePublic: draft.isTemplatePublic,
-          allowTemplateCopies: draft.allowTemplateCopies,
-          templateId: draft.templateId
-        };
-      } else if (challengeId) {
-        const challenge = await $axios.$post("/api", {
-          getChallengeData: challengeId
-        });
-        return {
-          name: challenge.name,
-          language: challenge.language,
-          preMessages: initialPreMessages(challenge.preMessages),
-          options: initialOptions(challenge.days),
-          draftId: null,
-          isTemplatePublic: challenge.isTemplatePublic,
-          allowTemplateCopies: challenge.allowTemplateCopies,
-          templateId: challenge.template
-        };
-      } else if (selectedTemplate) {
-        const template = await $axios.$post("/xapi", {
-          getTemplateData: selectedTemplate
-        });
-        return {
-          name: template.name,
-          language: template.language,
-          preMessages: initialPreMessages(template.preMessages),
-          options: initialOptions(template.days),
-          draftId: null,
-          isTemplatePublic: template.isPublic,
-          allowTemplateCopies: template.allowCopies,
-          templateId: template.id
-        };
-      } else {
-        return {
-          name: "",
-          language: user?.language || "English",
-          preMessages: initialPreMessages(),
-          options: initialOptions(),
-          draftId: null,
-          isTemplatePublic: user.accountType === "admin",
-          allowTemplateCopies: user.accountType !== "admin",
-          templateId: null
-        };
-      }
-    } catch (err) {
-      error(err);
-    }
+  async asyncData(context) {
+    const data = await context.$getEditorData();
+    return data;
   },
   data() {
     return {
@@ -343,8 +288,13 @@ export default {
       this.$cookies.set("draftId", value);
     }
   },
-  mounted() {
-    if (!this.user?.drafts) {
+  async mounted() {
+    if (this.loading) {
+      const data = await this.$getEditorData();
+      for (let key in data) {
+        this[key] = data[key];
+      }
+    } else if (!this.user?.drafts) {
       setTimeout(() => {
         this.showIntroModal = true;
       }, 1500);
@@ -359,8 +309,8 @@ export default {
       openIntroModal: () => {
         this.showIntroModal = true;
       },
-      preMessages: this.preMessages,
-      options: this.options,
+      getPreMessages: () => this.preMessages,
+      getOptions: () => this.options,
       autoSave: this.autoSave,
       submit: this.submit,
       getTransition: () => this.transition,

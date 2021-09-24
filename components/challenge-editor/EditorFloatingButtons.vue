@@ -12,7 +12,17 @@
 
 <script>
 export default {
-  inject: ["templateOnlyMode", "options", "openIntroModal", "setConfirmModal"],
+  inject: [
+    "templateOnlyMode",
+    "getOptions",
+    "openIntroModal",
+    "setConfirmModal"
+  ],
+  computed: {
+    options() {
+      return this.getOptions();
+    }
+  },
   methods: {
     selectRandomOptions() {
       this.setConfirmModal(

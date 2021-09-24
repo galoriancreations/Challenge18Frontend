@@ -70,7 +70,7 @@ import uniqid from "uniqid";
 
 export default {
   inject: [
-    "options",
+    "getOptions",
     "getLanguage",
     "templateOnlyMode",
     "editedChallengeId",
@@ -87,6 +87,9 @@ export default {
     };
   },
   computed: {
+    options() {
+      return this.getOptions();
+    },
     transition() {
       return this.getTransition();
     },
