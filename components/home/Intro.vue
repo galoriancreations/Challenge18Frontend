@@ -1,8 +1,5 @@
 <template>
   <section class="intro">
-    <div class="intro__bg">
-      <WavePatternBottom />
-    </div>
     <div class="intro__top">
       <h1 class="intro__heading">Challenge Yourself to the Top</h1>
       <p class="intro__subheading">
@@ -31,6 +28,7 @@
         Go do dashboard <i class="fas fa-chevron-right" />
       </BaseButton>
     </div>
+    <WavePatternBottom />
   </section>
 </template>
 
@@ -47,8 +45,20 @@ export default {
 <style lang="scss">
 .intro {
   padding: 18rem $padding-sides-desktop;
+  background-image: linear-gradient(
+      to right,
+      rgba(#4189bd, 0.75),
+      rgba(#4189bd, 0.75)
+    ),
+    url(../../assets/images/backgrounds/join-bg.jpg);
+  background-position: center;
+  background-size: cover;
   color: #fff;
   position: relative;
+
+  @media (hover: hover) {
+    background-attachment: fixed;
+  }
 
   @include respond(tablet) {
     padding: 17rem $padding-sides-desktop 16rem;
@@ -56,31 +66,6 @@ export default {
 
   @include respond(mobile) {
     padding: 13rem $padding-sides-mobile 12rem;
-  }
-
-  &__bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(
-        to right,
-        rgba(#4189bd, 0.75),
-        rgba(#4189bd, 0.75)
-      ),
-      url(../../assets/images/backgrounds/join-bg.jpg);
-    background-position: center;
-    background-size: cover;
-
-    @media (hover: hover) {
-      background-attachment: fixed;
-    }
-  }
-
-  & > *:not(.intro__bg) {
-    position: relative;
-    z-index: 1;
   }
 
   &__top {

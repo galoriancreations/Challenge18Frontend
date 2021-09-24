@@ -9,15 +9,15 @@
   width: 5.5rem;
   height: 5.5rem;
   position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
+  bottom: 1rem;
+  right: 1rem;
   z-index: 5;
 
   @include respond(mobile) {
-    width: 5rem;
-    height: 5rem;
-    bottom: 1rem;
-    right: 1rem;
+    width: 4.5rem;
+    height: 4.5rem;
+    bottom: 0.5rem;
+    right: 0.5rem;
   }
 }
 </style>
