@@ -84,13 +84,12 @@ export default {
     showPreMessages() {
       const hasContent = () => {
         for (let message of this.preMessages) {
-          if (!!message.text.trim()) return true;
+          if (message.text.trim()) return true;
         }
         return false;
       };
-      return (
-        this.isTemplateEditable || (this.preMessages.length && hasContent())
-      );
+      const isEmpty = !this.preMessages.length || !hasContent();
+      return this.isTemplateEditable || !isEmpty;
     },
     draftData() {
       return {

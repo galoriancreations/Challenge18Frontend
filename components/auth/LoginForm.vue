@@ -11,7 +11,6 @@
         required
         class="form__input"
         ref="username"
-        autofocus
       />
     </div>
     <div class="form__field">
@@ -61,6 +60,10 @@ export default {
   },
   mounted() {
     this.$refs.username.focus();
+    setTimeout(() => {
+      const { top } = this.$el.getBoundingClientRect();
+      window.scrollTo(0, window.scrollY + top - 150);
+    }, 10);
   }
 };
 </script>

@@ -114,7 +114,13 @@ export default {
     },
     showAdditionalMessages() {
       const { messages } = this.options[this.dayIndex];
-      const isEmpty = !messages.length || !messages[0].content;
+      const hasContent = () => {
+        for (let message of messages) {
+          if (message.content.trim()) return true;
+        }
+        return false;
+      };
+      const isEmpty = !messages.length || !hasContent();
       return this.isTemplateEditable || !isEmpty;
     },
     submitButtonText() {
