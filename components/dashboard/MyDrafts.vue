@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       headers: [
-        { text: "ID", value: "id", sortable: false },
+        { text: "Draft Type", value: "type" },
         { text: "Name", value: "name" },
         { text: "Language", value: "language" },
         { text: "Edit", value: "edit", sortable: false },
@@ -51,9 +51,14 @@ export default {
     items() {
       return this.drafts.map(draft => ({
         ...draft,
+        type: draft.challengeId
+          ? "Update challenge"
+          : draft.templateOnly
+          ? "Template only"
+          : "New challenge",
         name: draft.name || "(Unnamed)",
         edit: () => this.editDraft(draft),
-        delete: () => this.deleteDraft(draft.id)
+        delete: () => this.deleteDraft(draft)
       }));
     }
   },
@@ -72,17 +77,17 @@ export default {
       }
       this.$router.push(redirect);
     },
-    deleteDraft(draftId) {
+    deleteDraft(draft) {
       this.setConfirmModal(
         "Are you sure you want to delete this draft? This action is irreversible.",
         async () => {
           this.loading = true;
           await this.$axios.$post("/xapi", {
-            deleteDraft: draftId
+            deleteDraft: draft.id
           });
           await this.$store.dispatch("updateUser");
           this.addNotification(
-            `Successfully deleted draft: <strong>${draftId}</strong>.`
+            `Successfully deleted draft: <strong>${draft.name}</strong>.`
           );
           this.loading = false;
         }
