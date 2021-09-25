@@ -36,14 +36,14 @@ export default {
 <style lang="scss">
 .notifications {
   position: fixed;
-  bottom: 3rem;
-  left: 3rem;
+  bottom: 2rem;
+  left: 2rem;
   z-index: 10;
 
   @include respond(mobile) {
-    bottom: 1.5rem;
-    left: 1.5rem;
-    width: calc(100% - 3rem);
+    bottom: 1rem;
+    left: 1rem;
+    width: calc(100% - 2rem);
   }
 
   &__wrapper {

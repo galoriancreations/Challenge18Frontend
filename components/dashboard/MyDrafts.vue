@@ -43,7 +43,14 @@ export default {
       return this.$store.getters.user;
     },
     drafts() {
-      return dataArrayFromObject(this.user.drafts);
+      return dataArrayFromObject(this.user.drafts).map(draft => ({
+        ...draft,
+        type: draft.challengeId
+          ? "Update challenge"
+          : draft.templateOnly
+          ? "Template only"
+          : "New challenge"
+      }));
     },
     hasDrafts() {
       return this.user?.drafts && this.drafts.length > 0;
@@ -51,11 +58,6 @@ export default {
     items() {
       return this.drafts.map(draft => ({
         ...draft,
-        type: draft.challengeId
-          ? "Update challenge"
-          : draft.templateOnly
-          ? "Template only"
-          : "New challenge",
         name: draft.name || "(Unnamed)",
         edit: () => this.editDraft(draft),
         delete: () => this.deleteDraft(draft)
@@ -87,7 +89,9 @@ export default {
           });
           await this.$store.dispatch("updateUser");
           this.addNotification(
-            `Successfully deleted draft: <strong>${draft.name}</strong>.`
+            `Successfully deleted draft: <strong>${
+              draft.name
+            } (${draft.type.toLowerCase()})</strong>.`
           );
           this.loading = false;
         }
