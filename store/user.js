@@ -38,6 +38,7 @@ export const actions = {
         this.$axios.setToken(token, "Bearer");
         await context.dispatch("loadTemplates");
         context.commit("setUser", { user, token });
+        console.log(user)
 
         this.$cookies.set("userId", user.id);
         this.$cookies.set("token", token);

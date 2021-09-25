@@ -50,9 +50,8 @@ export default {
     },
     items() {
       return this.drafts.map(draft => ({
-        id: draft.id,
-        name: draft.name,
-        language: draft.language,
+        ...draft,
+        name: draft.name || "(Unnamed)",
         edit: () => this.editDraft(draft),
         delete: () => this.deleteDraft(draft.id)
       }));
@@ -62,7 +61,7 @@ export default {
     editDraft(draft) {
       this.$cookies.set("draftId", draft.id);
       if (draft.challengeId) {
-        this.$cookies.set("challengeId");
+        this.$cookies.set("challengeId", draft.challengeId);
       } else {
         this.$cookies.remove("challengeId");
       }
