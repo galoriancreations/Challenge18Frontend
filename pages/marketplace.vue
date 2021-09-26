@@ -1,5 +1,9 @@
 <template>
   <Page title="Marketplace" name="marketplace">
+    <section class="marketplace__items">
+      <MarketplaceItem v-for="item in items" :key="item.title" :item="item" />
+    </section>
+    <SectionSeperator />
     <section class="marketplace__intro">
       <p>You can be rewarded for Ting coins with either:</p>
       <ul class="diamond-bullet-list">
@@ -21,8 +25,28 @@
   </Page>
 </template>
 
+<script>
+import items from "~/assets/data/marketplace";
+
+export default {
+  data() {
+    return { items };
+  }
+};
+</script>
+
 <style lang="scss">
 .marketplace {
+  &__items {
+    display: grid;
+    gap: 4rem;
+    grid-template-columns: 1fr 1fr;
+
+    @include respond(tablet) {
+      grid-template-columns: 1fr;
+    }
+  }
+
   &__intro {
     font-size: 1.75rem;
     line-height: 1.6;

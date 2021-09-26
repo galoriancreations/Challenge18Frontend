@@ -1,0 +1,16 @@
+[
+    {
+        "image": "littlesophia.png",
+        "title": "Little Sophia",
+        "description": "An educational robot by Hanson Robotics, the little sister of Sophia the Robot.",
+        "cost": 50000,
+        "link": "https://www.hansonrobotics.com/little-sophia-2/"
+    },
+    {
+        "image": "professor.jpg",
+        "title": "Professor Einstein",
+        "description": "The first personal robot by Hanson Robotics.",
+        "cost": 50000,
+        "link": "https://www.hansonrobotics.com/professor-einstein/"
+    }
+]
