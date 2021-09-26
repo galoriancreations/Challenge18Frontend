@@ -126,7 +126,7 @@ export default {
     font-size: 2.2rem;
     color: $color-gold-4;
     margin-bottom: 2rem;
-    font-weight: 600;
+    font-weight: 700;
 
     @include respond(mobile) {
       font-size: 2rem;

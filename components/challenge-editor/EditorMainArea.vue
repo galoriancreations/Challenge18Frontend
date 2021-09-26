@@ -16,7 +16,10 @@
           v-model="options[dayIndex].title"
           :label="`${dayLabel} ${selectedDay}`"
         />
-        <DayActionButtons :key="`actions-${options[dayIndex].id}`" />
+        <DayActionButtons
+          v-if="showActionButtons"
+          :key="`actions-${options[dayIndex].id}`"
+        />
         <TransitionGroup
           tag="div"
           class="challenge-editor__day-content"
@@ -111,6 +114,9 @@ export default {
     },
     direction() {
       return rtlLanguages.includes(this.language) ? "rtl" : null;
+    },
+    showActionButtons() {
+      return this.isTemplateEditable && this.options.length > 1;
     },
     showAdditionalMessages() {
       const { messages } = this.options[this.dayIndex];
