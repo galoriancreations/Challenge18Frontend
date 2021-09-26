@@ -89,9 +89,8 @@ export default {
           });
           await this.$store.dispatch("updateUser");
           this.addNotification(
-            `Successfully deleted draft: <strong>${
-              draft.name
-            } (${draft.type.toLowerCase()})</strong>.`
+            `Successfully deleted draft: <strong>${draft.name || "(Unnamed)"} 
+            (${draft.type.toLowerCase()})</strong>.`
           );
           this.loading = false;
         }

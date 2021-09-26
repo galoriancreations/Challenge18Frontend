@@ -7,16 +7,16 @@
 <style lang="scss">
 .floating-buttons {
   position: fixed;
-  bottom: 3rem;
-  right: 3rem;
+  bottom: 2rem;
+  right: 2rem;
   z-index: 15;
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
 
   @include respond(mobile) {
-    bottom: 1.5rem;
-    right: 1.5rem;
+    bottom: 1rem;
+    right: 1rem;
     gap: 1rem;
   }
 }

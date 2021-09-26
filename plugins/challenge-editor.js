@@ -53,6 +53,7 @@ export default ({ app, store, $axios, error }, inject) => {
                 const template = await $axios.$post("/xapi", {
                     getTemplateData: selectedTemplate
                 });
+                console.log(JSON.stringify(template))
                 return {
                     name: template.name,
                     language: template.language,

@@ -43,7 +43,8 @@ export default {
     grid-template-columns: 1fr 1fr;
 
     @include respond(tablet) {
-      grid-template-columns: 1fr;
+      // grid-template-columns: 1fr;
+      gap: 2.5rem;
     }
   }
 
