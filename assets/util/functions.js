@@ -72,24 +72,21 @@ export const newTask = index => ({
 
 export const newMessage = () => ({
   id: uniqid(),
-  type: "text",
   content: "",
   time: "18:00:00"
 });
 
 export const defaultDate = () => {
-  let date = new Date();
+  const date = new Date();
   date.setDate(date.getDate() + 7);
   return date;
 };
 
-export const clearedOptions = (options, removeSelections = true) => {
+export const clearedOptions = options => {
   const optionsClone = cloneDeep(options, true);
   optionsClone.forEach(day => {
     day.tasks.forEach(task => {
-      if (removeSelections) {
-        delete task.selection;
-      }
+      delete task.selection;
       delete task.extraInput;
     });
   });

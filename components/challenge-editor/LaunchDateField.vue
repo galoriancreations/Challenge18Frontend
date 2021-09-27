@@ -4,9 +4,9 @@
       :value="value"
       @selected="$emit('input', $event)"
       :disabled-dates="disabledDates"
-      class="challenge-editor__datepicker"
       full-month-name
       format="dd MMMM yyyy"
+      class="challenge-editor__datepicker"
     />
   </EditorTopField>
 </template>
@@ -21,9 +21,7 @@ export default {
   },
   data() {
     return {
-      disabledDates: {
-        to: new Date()
-      }
+      disabledDates: { to: new Date() }
     };
   }
 };
@@ -32,10 +30,8 @@ export default {
 <style lang="scss">
 .challenge-editor {
   &__datepicker {
-    text-align: center !important;
-
     input {
-      font-size: 2rem;
+      font-size: 1.9rem;
       font-weight: 600;
       padding: 0.75rem;
       border: 1px solid rgba(60, 60, 60, 0.26) !important;

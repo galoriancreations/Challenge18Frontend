@@ -10,6 +10,7 @@ export default ({ app, store, $axios, error }, inject) => {
             return {
                 name: null,
                 language: null,
+                image: null,
                 date: null,
                 preMessages: [],
                 options: [],
@@ -31,6 +32,7 @@ export default ({ app, store, $axios, error }, inject) => {
                 return {
                     name: draft.name,
                     language: draft.language,
+                    image: draft.image,
                     date: new Date(draft.date) || defaultDate(),
                     preMessages: initialPreMessages(draft.preMessages),
                     options: initialOptions(draft.days),
@@ -47,6 +49,7 @@ export default ({ app, store, $axios, error }, inject) => {
                 return {
                     name: challenge.name,
                     language: challenge.language,
+                    image: challenge.image,
                     date: new Date(challenge.date) || defaultDate(),
                     preMessages: initialPreMessages(challenge.preMessages),
                     options: initialOptions(challenge.days),
@@ -63,6 +66,7 @@ export default ({ app, store, $axios, error }, inject) => {
                 return {
                     name: template.name,
                     language: template.language,
+                    image: template.image,
                     date: defaultDate(),
                     preMessages: initialPreMessages(template.preMessages),
                     options: initialOptions(template.days),
@@ -76,6 +80,7 @@ export default ({ app, store, $axios, error }, inject) => {
                 return {
                     name: "",
                     language: user?.language || "English",
+                    image: null,
                     date: defaultDate(),
                     preMessages: initialPreMessages(),
                     options: initialOptions(),

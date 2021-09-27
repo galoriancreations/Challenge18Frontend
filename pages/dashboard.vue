@@ -29,7 +29,7 @@ export default {
           store.dispatch("updateUser"),
           store.dispatch("loadTemplates")
         ]);
-      } catch {
+      } catch (err) {
         error(err);
       }
     }
