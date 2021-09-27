@@ -1,4 +1,8 @@
-import { initialPreMessages, initialOptions } from "~/assets/util/functions";
+import {
+    initialPreMessages,
+    initialOptions,
+    defaultDate
+} from "~/assets/util/functions";
 
 export default ({ app, store, $axios, error }, inject) => {
     inject("getEditorData", async () => {
@@ -6,6 +10,7 @@ export default ({ app, store, $axios, error }, inject) => {
             return {
                 name: null,
                 language: null,
+                date: null,
                 preMessages: [],
                 options: [],
                 draftId: null,
@@ -26,6 +31,7 @@ export default ({ app, store, $axios, error }, inject) => {
                 return {
                     name: draft.name,
                     language: draft.language,
+                    date: new Date(draft.date) || defaultDate(),
                     preMessages: initialPreMessages(draft.preMessages),
                     options: initialOptions(draft.days),
                     draftId,
@@ -41,6 +47,7 @@ export default ({ app, store, $axios, error }, inject) => {
                 return {
                     name: challenge.name,
                     language: challenge.language,
+                    date: new Date(challenge.date) || defaultDate(),
                     preMessages: initialPreMessages(challenge.preMessages),
                     options: initialOptions(challenge.days),
                     draftId: null,
@@ -53,10 +60,10 @@ export default ({ app, store, $axios, error }, inject) => {
                 const template = await $axios.$post("/xapi", {
                     getTemplateData: selectedTemplate
                 });
-                console.log(JSON.stringify(template))
                 return {
                     name: template.name,
                     language: template.language,
+                    date: defaultDate(),
                     preMessages: initialPreMessages(template.preMessages),
                     options: initialOptions(template.days),
                     draftId: null,
@@ -69,11 +76,12 @@ export default ({ app, store, $axios, error }, inject) => {
                 return {
                     name: "",
                     language: user?.language || "English",
+                    date: defaultDate(),
                     preMessages: initialPreMessages(),
                     options: initialOptions(),
                     draftId: null,
-                    isTemplatePublic: user.accountType === "admin",
-                    allowTemplateCopies: user.accountType !== "admin",
+                    isTemplatePublic: user?.accountType === "admin",
+                    allowTemplateCopies: user?.accountType !== "admin",
                     templateId: null,
                     loading: false
                 };

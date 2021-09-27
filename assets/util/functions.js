@@ -77,6 +77,12 @@ export const newMessage = () => ({
   time: "18:00:00"
 });
 
+export const defaultDate = () => {
+  let date = new Date();
+  date.setDate(date.getDate() + 7);
+  return date;
+};
+
 export const clearedOptions = (options, removeSelections = true) => {
   const optionsClone = cloneDeep(options, true);
   optionsClone.forEach(day => {
@@ -130,7 +136,7 @@ export const dataArrayFromObject = data =>
 
 export const currentDay = date => {
   if (!date) {
-    date = moment(new Date()).add(7, "days")
+    date = defaultDate();
   };
   return moment(new Date()).diff(moment(date), "days");
 };

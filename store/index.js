@@ -3,10 +3,10 @@ export const actions = {
         dispatch("checkAuth");
         try {
             await Promise.all([
-                getters.isAuth && dispatch("updateUser"),
-                dispatch("loadTemplates", getters.isAuth),
-                dispatch("results/loadResults"),
-                dispatch("players/loadPlayers")
+                // getters.isAuth && dispatch("updateUser"),
+                // dispatch("loadTemplates", getters.isAuth),
+                // dispatch("results/loadResults"),
+                // dispatch("players/loadPlayers")
             ]);
         } catch (err) {
             error(err);

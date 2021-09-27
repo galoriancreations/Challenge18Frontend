@@ -11,6 +11,7 @@
       <section class="challenge-editor__top">
         <ChallengeNameField v-model.trim="name" />
         <ChallengeLanguageField v-model="language" />
+        <LaunchDateField v-if="!templateOnlyMode" v-model="date" />
         <TemplateAvailabilityField v-if="isAdmin" v-model="isTemplatePublic" />
         <AllowCopiesField
           v-if="showAllowCopies"
@@ -38,9 +39,9 @@ import confirmModal from "../mixins/confirm-modal";
 export default {
   mixins: [confirmModal],
   inject: ["addNotification"],
-  meta: {
-    requiresAuth: true
-  },
+  // meta: {
+  //   requiresAuth: true
+  // },
   async asyncData(context) {
     const data = await context.$getEditorData();
     return data;
@@ -95,6 +96,7 @@ export default {
       return {
         name: this.name,
         language: this.language,
+        date: this.date,
         preMessages: this.preMessages,
         days: this.options,
         isTemplatePublic: this.isTemplatePublic,
@@ -206,6 +208,7 @@ export default {
           draftId: this.draftId,
           templateId: this.templateId,
           selections: this.finalSelections,
+          date: this.date,
           name: this.name
         }
       });
@@ -223,6 +226,7 @@ export default {
           draftId: this.draftId,
           templateId: this.templateId,
           selections: this.finalSelections,
+          date: this.date,
           name: this.name
         }
       });
@@ -263,6 +267,9 @@ export default {
       this.autoSaveData();
     },
     language() {
+      this.autoSaveData();
+    },
+    date() {
       this.autoSaveData();
     },
     isTemplatePublic() {
