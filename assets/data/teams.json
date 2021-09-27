@@ -28,24 +28,6 @@
                 "role": "Developer",
                 "description": "Full-stack web developer, specializing in planning and building modern websites and web applications, with advanced designs and optimized user experience.",
                 "link": "https://yinonhever.com/"
-            },
-            {
-                "name": "Nadav Raz",
-                "image": "nadav.jpeg",
-                "role": "Developer",
-                "description": "Game developer, programming in C# in Unity and Blueprint in Unreal Engine. Developing modern games for all platforms both online and offline while maintaining high quality code documentation."
-            },
-            {
-                "name": "Ido Herzmann",
-                "image": "ido.jpeg",
-                "role": "Developer",
-                "description": "Applications and Games Programmer, Using Unity.sys to improve the world a bit by bit. Specializing in networking and solving problems with simple SOLID solutions."
-            },
-            {
-                "name": "Ori Baruch",
-                "image": "ori.jpeg",
-                "role": "Developer",
-                "description": "Program Developer and Game Designer, designing applications and games on multiple platforms, specializing in Player and User experience."
             }
         ]
     },

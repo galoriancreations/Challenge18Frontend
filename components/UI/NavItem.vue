@@ -33,16 +33,7 @@
       ref="dropdown"
     >
       <ul class="header__nav-dropdown-list">
-        <li
-          v-for="item in dropdown"
-          :key="item.link"
-          class="header__nav-subitem"
-          @click="closeNav"
-        >
-          <NuxtLink :to="item.link" activeClass="active" exact>
-            {{ item.text }}
-          </NuxtLink>
-        </li>
+        <NavSubitem v-for="item in dropdown" :key="item.text" v-bind="item" />
       </ul>
     </nav>
   </li>
@@ -262,7 +253,7 @@ export default {
     align-items: center;
     text-align: center;
     background-color: #f0f4fc;
-    border-radius: 1rem;
+    border-radius: 0.8rem;
     padding: 2rem 2.5rem;
     width: fit-content;
     min-width: 15rem;

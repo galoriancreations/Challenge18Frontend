@@ -41,10 +41,12 @@ export const actions = {
         const newItems = items.map(item => newNotification(item));
         context.commit("setItems", newItems);
         for (let item of newItems) {
-            timeouts[item.id] = setTimeout(
-                () => context.dispatch("removeItem", item.id),
-                20000
-            );
+            if (!item.noAutoDismiss) {
+                timeouts[item.id] = setTimeout(
+                    () => context.dispatch("removeItem", item.id),
+                    20000
+                );
+            }
         }
     },
     clearItems(context) {

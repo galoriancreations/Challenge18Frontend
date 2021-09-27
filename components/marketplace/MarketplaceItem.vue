@@ -49,6 +49,8 @@ export default {
     flex-direction: column;
     align-items: stretch;
     text-align: center;
+    max-width: 35rem;
+    margin: auto;
   }
 
   &:hover {
