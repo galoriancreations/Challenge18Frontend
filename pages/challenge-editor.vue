@@ -107,7 +107,7 @@ export default {
         templateOnly: this.templateOnlyMode
       };
     },
-    finalTemplateData() {
+    templateData() {
       return {
         id: this.templateId,
         name: this.name,
@@ -119,7 +119,7 @@ export default {
         allowCopies: this.allowTemplateCopies
       };
     },
-    finalSelections() {
+    selections() {
       const selections = {};
       this.options.forEach(day => {
         selections[day.id] = {};
@@ -145,7 +145,7 @@ export default {
       const { templateId } = await this.$axios.$post("/xapi", {
         saveTemplate: {
           templateId: this.templateId,
-          templateData: this.finalTemplateData,
+          templateData: this.templateData,
           draftId: this.draftId,
           finishEditing
         }
@@ -209,7 +209,7 @@ export default {
         createChallenge: {
           draftId: this.draftId,
           templateId: this.templateId,
-          selections: this.finalSelections,
+          selections: this.selections,
           date: this.date,
           name: this.name
         }
@@ -227,7 +227,7 @@ export default {
           challengeId: this.editedChallengeId,
           draftId: this.draftId,
           templateId: this.templateId,
-          selections: this.finalSelections,
+          selections: this.selections,
           date: this.date,
           name: this.name
         }
