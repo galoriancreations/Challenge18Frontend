@@ -96,6 +96,7 @@ export default {
       return {
         name: this.name,
         language: this.language,
+        image: this.image,
         date: this.date,
         preMessages: this.preMessages,
         days: this.options,
@@ -111,6 +112,7 @@ export default {
         id: this.templateId,
         name: this.name,
         language: this.language,
+        image: this.image,
         preMessages: this.preMessages,
         days: clearedOptions(this.options),
         isPublic: this.isTemplatePublic,
