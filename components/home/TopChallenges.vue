@@ -56,20 +56,6 @@ export default {
         }
       ]
     };
-  },
-  methods: {
-    setChallenge(challenge) {
-      this.selectedChallenge = challenge;
-      this.showModal = true;
-    },
-    closeModal() {
-      this.showModal = false;
-    }
-  },
-  provide() {
-    return {
-      closeModal: this.closeModal
-    };
   }
 };
 </script>
@@ -80,7 +66,6 @@ export default {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 3rem;
-    align-items: center;
 
     @include respond(mobile-land) {
       gap: 2.5rem;

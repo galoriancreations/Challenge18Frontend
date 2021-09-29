@@ -1,5 +1,5 @@
 <template>
-  <div class="top-challenges__item" v-on="$listeners">
+  <div class="top-challenges__item">
     <button class="top-challenges__img" @click="showModal = true">
       <img :src="challenge.image" :alt="challenge.title" />
     </button>
@@ -47,9 +47,12 @@ export default {
 <style lang="scss">
 .top-challenges {
   &__item {
+    // height: 100%;
+    position: relative;
+    margin: auto;
+
     @include respond(mobile) {
       max-width: 25rem;
-      margin: auto;
     }
   }
 
@@ -58,6 +61,7 @@ export default {
     display: block;
     border-radius: 0.8rem;
     box-shadow: $boxshadow2;
+    height: 100%;
     overflow: hidden;
     position: relative;
 
@@ -77,6 +81,8 @@ export default {
 
     img {
       width: 100%;
+      // height: 100%;
+      // object-fit: cover;
       display: block;
     }
   }

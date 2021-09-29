@@ -55,7 +55,7 @@ export default {
     setTimeout(() => {
       if (this.$cookies.get("newRegistration")) {
         this.showWelcomeModal = true;
-        this.$cookies.set("newRegistration", false);
+        this.$cookies.remove("newRegistration");
       }
     }, 500);
   },
