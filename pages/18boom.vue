@@ -62,15 +62,11 @@
           />
         </div>
       </div>
-      <client-only>
-        <div class="boom18__paypal">
-          <PayPal
-            :amount="selectedAmount"
-            currency="USD"
-            :client="credentials"
-          />
-        </div>
-      </client-only>
+      <div class="boom18__paypal">
+        <client-only>
+          <PayPal :amount="amountText" currency="USD" :client="credentials" />
+        </client-only>
+      </div>
     </section>
   </Page>
 </template>
@@ -92,6 +88,11 @@ export default {
         production: this.$config.paypalLive
       }
     };
+  },
+  computed: {
+    amountText() {
+      return this.selectedAmount.toFixed(2).toString();
+    }
   }
 };
 </script>
