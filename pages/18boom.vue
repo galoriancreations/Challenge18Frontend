@@ -54,6 +54,7 @@
         <div class="points-selector">
           <NumberInput
             v-model="selectedAmount"
+            @input="selectedAmount = +$event.target.value"
             :min="10"
             :step="10"
             :center="true"
@@ -63,11 +64,11 @@
           />
         </div>
       </div>
-      <div class="boom18__paypal">
-        <client-only>
+      <client-only>
+        <div class="boom18__paypal">
           <PayPal :amount="amountText" currency="USD" :client="credentials" />
-        </client-only>
-      </div>
+        </div>
+      </client-only>
     </section>
   </Page>
 </template>
