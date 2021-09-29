@@ -132,6 +132,7 @@ export default {
   },
   methods: {
     async saveDraft() {
+      if (this.templateOnlyMode) return;
       const { draftId } = await this.$axios.$post("/xapi", {
         saveDraft: {
           draftId: this.draftId,
