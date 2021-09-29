@@ -180,23 +180,28 @@ export default {
           throw "Please choose a language for the template";
         }
         const selectedEmojis = [];
-        for (let day of this.options) {
-          if (!day.tasks.length) {
-            throw "One or more days were left empty";
+        this.options.forEach((day, dayIndex) => {
+          const isDayEmpty =
+            !day.introduction.trim() &&
+            !day.tasks.length &&
+            !day.messages.length;
+          if (isDayEmpty) {
+            throw `Day ${dayIndex + 1} was left empty`;
           }
-          for (let task of day.tasks) {
+          day.tasks.forEach((task, taskIndex) => {
+            const taskLabel = `Task ${taskIndex + 1} on day ${dayIndex + 1}`;
             if (!task.options.length) {
-              throw "One or more tasks were left empty";
+              throw `${taskLabel} was left empty`;
+            }
+            if (!this.templateOnlyMode && !isSelectionMatching(task)) {
+              throw `${taskLabel} was left with no selection`;
             }
             while (!task.emoji || selectedEmojis.includes(task.emoji)) {
               task.emoji = randomEmoji();
             }
             selectedEmojis.push(task.emoji);
-            if (!this.templateOnlyMode && !isSelectionMatching(task)) {
-              throw "One or more tasks were left with no selection";
-            }
-          }
-        }
+          });
+        });
         this.submit.error = null;
         return true;
       } catch (error) {
