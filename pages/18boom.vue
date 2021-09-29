@@ -37,6 +37,7 @@
             class="boom18__option"
             v-for="option in options"
             :key="option"
+            @click="selectedAmount = option"
           >
             <input
               type="radio"
@@ -225,6 +226,7 @@ export default {
     display: block;
     font: inherit;
     border: none;
+    outline: none;
 
     input {
       display: none;
