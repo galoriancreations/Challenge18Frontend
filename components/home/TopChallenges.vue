@@ -45,6 +45,14 @@ export default {
           title: "The Hero's Journey",
           text:
             "In literature, the hero’s journey is a common structure of many stories that unfold the story of a hero who embarks on an adventure, wins a victory after a crucial crisis, and then returns home. The structure was presented by Joseph Campbell in his book The Hero with a Thousand Faces, which described the basic plot as it would be described and as we would experience together during the days of the challenge. Thus every day we will advance in a journey of heroes shared by all of us, in which together we will present beloved characters from literature or cinema and share their journey and ours in all its stages. Ready?"
+        },
+        {
+          image: require("~/assets/images/logos/18boom.jpeg"),
+          title: "18 Boom",
+          text:
+            "When you join 18 Boom WhatsApp Group and donates a sum of 10, 20, 50 or more dollars and passes the envelope in a message to friends so that the envelope passes until it reaches 18 people in total who have donated to us.",
+          link: "/18boom",
+          linkText: "Join 18 Boom"
         }
       ]
     };
@@ -70,10 +78,9 @@ export default {
 .top-challenges {
   &__grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 3.5rem;
-    max-width: 100rem;
-    margin: auto;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 3rem;
+    align-items: center;
 
     @include respond(mobile-land) {
       gap: 2.5rem;

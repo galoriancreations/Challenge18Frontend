@@ -12,8 +12,8 @@
           {{ paragraph }}
         </p>
       </div>
-      <BaseButton v-if="!isLoggedIn" variant="blue" link="/join">
-        Join Us
+      <BaseButton v-if="showButton" variant="blue" :link="link">
+        {{ challenge.linkText || "Join Us" }}
       </BaseButton>
     </PopupModal>
   </div>
@@ -33,6 +33,12 @@ export default {
     },
     isLoggedIn() {
       return this.$store.getters.isAuth;
+    },
+    link() {
+      return this.challenge.link || "/join";
+    },
+    showButton() {
+      return !this.isLoggedIn || !!this.challenge.link;
     }
   }
 };

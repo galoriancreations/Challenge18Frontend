@@ -10,10 +10,10 @@
         <h3 class="boom18__title">How It Works</h3>
         <div class="boom18__text">
           <p>
-            When you join 18 Boom WhatsApp Group and donates a sum of 10, 20, 50
-            or more dollars and passes the envelope in a message to friends so
-            that the envelope passes until it reaches 18 people in total who
-            have donated to us.
+            When you join <strong>18 Boom WhatsApp Group</strong> and donates a
+            sum of 10, 20, 50 or more dollars and passes the envelope in a
+            message to friends so that the envelope passes until it reaches 18
+            people in total who have donated to us.
           </p>
           <p>
             So lottery takes place when one of them receives a gift (something
@@ -158,6 +158,10 @@ export default {
           margin-bottom: 1.5rem;
         }
       }
+    }
+
+    strong {
+      font-weight: 600;
     }
   }
 
