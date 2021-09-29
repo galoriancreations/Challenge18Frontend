@@ -206,7 +206,7 @@ export default {
     margin-bottom: 2rem;
 
     @include respond(mobile) {
-      font-size: 1.7rem;
+      font-size: 1.55rem;
       margin-bottom: 1.5rem;
     }
   }
