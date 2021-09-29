@@ -8,6 +8,7 @@
       <p>You can be rewarded for Ting coins with either:</p>
       <ul class="diamond-bullet-list">
         <li>Cash</li>
+        <li>Gifts</li>
         <li>
           Discounts on a wide selection of products and in various businesses
         </li>

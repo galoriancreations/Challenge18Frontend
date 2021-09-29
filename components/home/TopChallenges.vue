@@ -39,6 +39,12 @@ export default {
           title: "Friendly AI",
           text:
             "Join us on an amazing process of 18 Days challenge of Friendly AI with each day focusing on a certain value of how to better live and shape our future."
+        },
+        {
+          image: require("~/assets/images/logos/hero-journey.jpeg"),
+          title: "The Hero's Journey",
+          text:
+            "In literature, the hero’s journey is a common structure of many stories that unfold the story of a hero who embarks on an adventure, wins a victory after a crucial crisis, and then returns home. The structure was presented by Joseph Campbell in his book The Hero with a Thousand Faces, which described the basic plot as it would be described and as we would experience together during the days of the challenge. Thus every day we will advance in a journey of heroes shared by all of us, in which together we will present beloved characters from literature or cinema and share their journey and ours in all its stages. Ready?"
         }
       ]
     };
@@ -64,9 +70,9 @@ export default {
 .top-challenges {
   &__grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 4.5rem;
-    max-width: 90rem;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3.5rem;
+    max-width: 100rem;
     margin: auto;
 
     @include respond(mobile-land) {

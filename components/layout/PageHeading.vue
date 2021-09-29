@@ -135,7 +135,8 @@ export default {
       url(../../assets/images/backgrounds/register-bg.jpg);
   }
 
-  &#membership {
+  &#membership,
+  &#boom18 {
     background-image: linear-gradient(
         to right,
         rgba(#4189bd, 0.8),
