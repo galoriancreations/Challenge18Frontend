@@ -155,6 +155,7 @@ export default {
           mode: "register",
           data: { ...this.formData, plan: this.plan.type }
         });
+        this.$cookies.set("newRegistration", true);
       } catch (error) {
         this.error = error;
         this.loading = false;

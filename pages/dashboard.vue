@@ -1,5 +1,6 @@
 <template>
   <Page title="Dashboard" name="dashboard">
+    <WelcomeModal :active="showWelcomeModal" />
     <ConfirmModal
       :active="showConfirmModal"
       :text="confirmText"
@@ -15,7 +16,7 @@
 </template>
 
 <script>
-import confirmModal from "../mixins/confirm-modal";
+import confirmModal from "~/mixins/confirm-modal";
 
 export default {
   mixins: [confirmModal],
@@ -34,6 +35,11 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      showWelcomeModal: false
+    };
+  },
   computed: {
     user() {
       return this.$store.getters.user;
@@ -44,6 +50,21 @@ export default {
     isAdmin() {
       return this.user?.accountType === "admin";
     }
+  },
+  mounted() {
+    setTimeout(() => {
+      if (this.$cookies.get("newRegistration")) {
+        this.showWelcomeModal = true;
+        this.$cookies.set("newRegistration", false);
+      }
+    }, 500);
+  },
+  provide() {
+    return {
+      closeModal: () => {
+        this.showWelcomeModal = false;
+      }
+    };
   }
 };
 </script>
