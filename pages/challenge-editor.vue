@@ -130,28 +130,6 @@ export default {
     }
   },
   methods: {
-    async saveDraft() {
-      if (this.templateOnlyMode) return;
-      const { draftId } = await this.$axios.$post("/xapi", {
-        saveDraft: {
-          draftId: this.draftId,
-          draftData: this.draftData
-        }
-      });
-      this.draftId = draftId;
-    },
-    async saveTemplate(finishEditing = false) {
-      if (!this.isTemplateEditable) return;
-      const { templateId } = await this.$axios.$post("/xapi", {
-        saveTemplate: {
-          templateId: this.templateId,
-          templateData: this.templateData,
-          draftId: this.draftId,
-          finishEditing
-        }
-      });
-      this.templateId = templateId;
-    },
     autoSaveData() {
       if (this.submit.error) {
         this.validateData();
@@ -169,6 +147,50 @@ export default {
         }
         this.autoSave.loading = false;
       }, 5000);
+    },
+    async saveDraft() {
+      if (this.templateOnlyMode) return;
+      const { draftId } = await this.$axios.$post("/xapi", {
+        saveDraft: {
+          draftId: this.draftId,
+          draftData: this.draftData
+        }
+      });
+      this.draftId = draftId;
+    },
+    async saveTemplate() {
+      if (!this.isTemplateEditable) return;
+      const { templateId } = await this.$axios.$post("/xapi", {
+        saveTemplate: {
+          templateId: this.templateId,
+          templateData: this.templateData,
+          draftId: this.draftId,
+          finishEditing: false
+        }
+      });
+      this.templateId = templateId;
+    },
+    async saveChallenge() {
+      await this.saveTemplate();
+      const mode = this.editedChallengeId
+        ? "updateChallenge"
+        : "createChallenge";
+      const successText = this.editedChallengeId
+        ? "Successfully updated challenge"
+        : "Successfully created new challenge from template";
+      await this.$axios.$post("/xapi", {
+        [mode]: {
+          challengeId: this.editedChallengeId,
+          draftId: this.draftId,
+          templateId: this.templateId,
+          selections: this.selections,
+          date: this.date,
+          name: this.name
+        }
+      });
+      this.$cookies.remove("draftId");
+      this.addNotification(`${successText}: <strong>${this.name}</strong>.`);
+      this.$router.replace("/dashboard");
     },
     validateData() {
       try {
@@ -208,61 +230,15 @@ export default {
         return false;
       }
     },
-    async createNewChallenge() {
-      await this.saveTemplate();
-      await this.$axios.$post("/xapi", {
-        createChallenge: {
-          draftId: this.draftId,
-          templateId: this.templateId,
-          selections: this.selections,
-          date: this.date,
-          name: this.name
-        }
-      });
-      this.$cookies.remove("draftId");
-      this.addNotification(
-        `Successfully created new challenge from template: <strong>${this.name}</strong>.`
-      );
-      this.$router.replace("/dashboard");
-    },
-    async updateChallenge() {
-      await this.saveTemplate();
-      await this.$axios.$post("/xapi", {
-        updateChallenge: {
-          challengeId: this.editedChallengeId,
-          draftId: this.draftId,
-          templateId: this.templateId,
-          selections: this.selections,
-          date: this.date,
-          name: this.name
-        }
-      });
-      this.$cookies.remove("draftId");
-      this.addNotification(
-        `Successfully updated challenge and template: <strong>${this.name}</strong>.`
-      );
-      this.$router.replace("/dashboard");
-    },
-    async saveTemplateAndRedirect() {
-      await this.saveTemplate(true);
-      this.$cookies.remove("draftId");
-      this.addNotification(
-        `Successfully saved template: <strong>${this.name}</strong>.`
-      );
-      this.$router.replace("/dashboard");
-    },
     async submitHandler() {
+      if (this.templateOnlyMode) {
+        return this.$router.replace("/dashboard");
+      }
       if (!this.validateData()) return;
       clearTimeout(this.autoSave.timeout);
       this.submit.loading = true;
       try {
-        if (this.templateOnlyMode) {
-          await this.saveTemplateAndRedirect();
-        } else if (this.editedChallengeId) {
-          await this.updateChallenge();
-        } else {
-          await this.createNewChallenge();
-        }
+        await this.saveChallenge();
       } catch (error) {
         this.submit.error = error;
         this.submit.loading = false;

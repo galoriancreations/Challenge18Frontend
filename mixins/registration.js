@@ -63,23 +63,42 @@ export default {
             }
         },
         validateData() {
-            for (let key in this.availability) {
-                if (this.availability[key] === "taken") {
-                    this.error = `${_.capitalize(key)}
-                  is already taken. Please try a different ${key}.`;
-                    return false;
+            try {
+                for (let key in this.availability) {
+                    if (this.availability[key] === "taken") {
+                        throw `${_.capitalize(key)} is already taken. Please try a different ${key}.`;
+                    }
                 }
-            }
-            if (!this.phoneInput.isValid) {
-                this.error =
-                    "The phone number you entered is invalid. Please enter a valid number.";
+                if (!this.phoneInput.isValid) {
+                    throw "The phone number you entered is invalid. Please enter a valid number.";
+                }
+                this.error = null;
+                return true;
+            } catch (error) {
+                this.error = error;
                 return false;
             }
-            this.error = null;
-            return true;
+
+
         }
     },
     watch: {
+        formData: {
+            handler() {
+                if (this.error) {
+                    this.validateData();
+                }
+            },
+            deep: true
+        },
+        availability: {
+            handler() {
+                if (this.error) {
+                    this.validateData();
+                }
+            },
+            deep: true
+        },
         username(value) {
             this.checkAvailability("username", value, "checkUsername");
         },
@@ -88,6 +107,7 @@ export default {
                 this.checkAvailability("phone", value, "checkPhone");
             } else {
                 this.availability.phone = null;
+                clearTimeout(this.timeout);
             }
 
         }
