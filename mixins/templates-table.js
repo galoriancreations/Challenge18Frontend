@@ -2,6 +2,7 @@ export default {
     inject: ["addNotification", "setConfirmModal"],
     data() {
         return {
+            selected: [],
             loading: false
         };
     },
@@ -88,5 +89,5 @@ export default {
                 }
             );
         }
-    }
+    },
 };

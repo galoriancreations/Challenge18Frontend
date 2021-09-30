@@ -15,7 +15,7 @@
         <LaunchDateField v-if="!templateOnlyMode" v-model="date" />
         <TemplateAvailabilityField v-if="isAdmin" v-model="isTemplatePublic" />
         <AllowCopiesField
-          v-if="showAllowCopies"
+          v-if="isAdmin && isTemplatePublic"
           v-model="allowTemplateCopies"
         />
       </section>
@@ -75,9 +75,6 @@ export default {
     },
     isAdmin() {
       return this.user?.accountType === "admin";
-    },
-    showAllowCopies() {
-      return this.isAdmin && this.isTemplatePublic;
     },
     isTemplateEditable() {
       return this.isAdmin || this.allowTemplateCopies || !this.isTemplatePublic;
@@ -286,7 +283,8 @@ export default {
       for (let key in data) {
         this[key] = data[key];
       }
-    } else if (!this.user?.drafts) {
+    }
+    if (!this.user?.drafts) {
       setTimeout(() => {
         this.showIntroModal = true;
       }, 1500);

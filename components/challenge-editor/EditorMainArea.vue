@@ -35,6 +35,7 @@
             />
           </div>
           <div
+            v-if="showTasks"
             :key="`tasks-${options[dayIndex].id}`"
             class="challenge-editor__subsection"
           >
@@ -49,7 +50,7 @@
             class="challenge-editor__subsection"
           >
             <h3 class="challenge-editor__subsection-heading">
-              Additional Messages
+              Day Messages
             </h3>
             <AdditionalMessagesList :messages="options[dayIndex].messages" />
           </div>
@@ -117,6 +118,11 @@ export default {
     },
     showActionButtons() {
       return this.isTemplateEditable && this.options.length > 1;
+    },
+    showTasks() {
+      return (
+        this.isTemplateEditable || this.options[this.dayIndex].tasks.length > 0
+      );
     },
     showAdditionalMessages() {
       const { messages } = this.options[this.dayIndex];

@@ -15,7 +15,7 @@ export default {
 
 <style lang="scss">
 .page-heading {
-  height: 50rem;
+  height: 45rem;
   position: relative;
   background-color: #4c9cd4;
   background-position: center;
@@ -27,7 +27,7 @@ export default {
   }
 
   @include respond(mobile) {
-    height: 40rem;
+    height: 35rem;
   }
 
   &#clubs {

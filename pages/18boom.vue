@@ -10,16 +10,10 @@
         <h3 class="boom18__title">How It Works</h3>
         <div class="boom18__text">
           <p>
-            When you join <strong>18 Boom WhatsApp Group</strong> and donates a
-            sum of 10, 20, 50 or more dollars and passes the envelope in a
-            message to friends so that the envelope passes until it reaches 18
-            people in total who have donated to us.
-          </p>
-          <p>
-            So lottery takes place when one of them receives a gift (something
-            from our basket), at the moment it is a Prof. Einstein robot. The
-            winning gift can be requested for winner himself or donated to any
-            school.
+            Pass the envelope in a message to friends so that the envelope
+            passes until it reaches 18 people who donated in total. Then a
+            lottery takes place when one of the players wins Prof. Einstein
+            Robot for its personal use or to be donated to a school.
           </p>
           <p>
             P.s. Whoever the envelope reaches after 18 People then has the
@@ -29,7 +23,7 @@
       </div>
     </section>
     <section class="boom18__donate">
-      <h3 class="boom18__title">Ready to join?</h3>
+      <h3 class="boom18__title">Ready?</h3>
       <div class="boom18__subsection">
         <p class="boom18__subtitle">Select an amount to donate:</p>
         <div class="boom18__options">
@@ -107,7 +101,7 @@ export default {
     margin-bottom: 9rem;
 
     @include respond(tablet-sm) {
-      flex-direction: column;
+      flex-direction: column-reverse;
     }
 
     @include respond(mobile) {
@@ -117,18 +111,26 @@ export default {
 
   &__img {
     display: block;
-    width: 28vw;
+    width: 22vw;
+    min-width: 20rem;
+    max-width: 30rem;
+    box-shadow: $boxshadow2;
+    border-radius: 0.8rem;
     margin-right: 9rem;
+
+    @include respond(tablet) {
+      margin-right: 5rem;
+    }
 
     @include respond(tablet-sm) {
       width: 100%;
       max-width: 40rem;
       margin: auto;
-      margin-bottom: 8rem;
+      margin-top: 8rem;
     }
 
     @include respond(mobile) {
-      margin-bottom: 6rem;
+      margin-top: 6rem;
     }
   }
 
