@@ -69,7 +69,11 @@ export default {
 
     @include respond(tablet) {
       grid-template-columns: repeat(3, 1fr);
-      gap: 4rem;
+      gap: 5rem;
+    }
+
+    @include respond(tablet-sm) {
+      gap: 3rem;
     }
 
     @include respond(mobile-land) {

@@ -46,16 +46,6 @@ export default {
 
 <style lang="scss">
 .top-challenges {
-  &__item {
-    // height: 100%;
-    position: relative;
-    margin: auto;
-
-    @include respond(mobile) {
-      max-width: 25rem;
-    }
-  }
-
   &__img {
     cursor: pointer;
     display: block;
@@ -63,26 +53,18 @@ export default {
     box-shadow: $boxshadow2;
     height: 100%;
     overflow: hidden;
+    transition: transform 0.4s;
     position: relative;
 
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      transition: all 0.5s;
-    }
-
-    &:hover::after {
-      background-color: rgba($color-azure, 0.4);
+    &:hover {
+      @media (hover: hover) {
+        transform: scale(1.3);
+        z-index: 1;
+      }
     }
 
     img {
       width: 100%;
-      // height: 100%;
-      // object-fit: cover;
       display: block;
     }
   }
