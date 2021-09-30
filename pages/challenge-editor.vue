@@ -103,8 +103,7 @@ export default {
         isTemplatePublic: this.isTemplatePublic,
         allowTemplateCopies: this.allowTemplateCopies,
         templateId: this.templateId,
-        challengeId: this.editedChallengeId,
-        templateOnly: this.templateOnlyMode
+        challengeId: this.editedChallengeId
       };
     },
     templateData() {

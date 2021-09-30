@@ -42,18 +42,16 @@ export default {
     user() {
       return this.$store.getters.user;
     },
-    drafts() {
-      return dataArrayFromObject(this.user.drafts).map(draft => ({
-        ...draft,
-        type: draft.challengeId
-          ? "Update challenge"
-          : draft.templateOnly
-          ? "Template only"
-          : "New challenge"
-      }));
-    },
     hasDrafts() {
       return this.user?.drafts && this.drafts.length > 0;
+    },
+    drafts() {
+      return dataArrayFromObject(this.user.drafts)
+        .filter(draft => !draft.templateOnly)
+        .map(draft => ({
+          ...draft,
+          type: draft.challengeId ? "Update challenge" : "New challenge"
+        }));
     },
     items() {
       return this.drafts.map(draft => ({

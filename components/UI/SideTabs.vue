@@ -4,15 +4,9 @@
       v-for="tab in tabs"
       :key="tab.id"
       class="side-tabs__tab"
-      @keydown.enter="$emit('change', tab.value)"
+      @click="$emit('change', tab.value)"
     >
-      <input
-        type="radio"
-        :id="tab.id"
-        :value="tab.value"
-        :checked="selectedTab === tab.value"
-        @change="$emit('change', tab.value)"
-      />
+      <input type="radio" :id="tab.id" :checked="selectedTab === tab.value" />
       <label :for="tab.id">{{ tab.label }}</label>
     </button>
   </div>

@@ -54,6 +54,8 @@ export default {
 <style lang="scss">
 .testimonials {
   .section-heading-wrapper {
+    margin-bottom: 4.5rem;
+
     @include respond(mobile) {
       margin-bottom: 3.5rem;
     }
