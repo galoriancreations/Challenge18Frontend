@@ -16,6 +16,9 @@
             Robot for its personal use or to be donated to a school.
           </p>
           <p>
+            Delivery time: February 2022.
+          </p>
+          <p>
             P.s. Whoever the envelope reaches after 18 People then has the
             option to open a new group.
           </p>
