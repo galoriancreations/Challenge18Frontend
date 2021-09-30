@@ -58,14 +58,6 @@ export default {
         this.$cookies.remove("newRegistration");
       }
     }, 500);
-  },
-  provide() {
-    return {
-      closeModal: () => {
-        this.showWelcomeModal = false;
-        this.showConfirmModal = false;
-      }
-    };
   }
 };
 </script>

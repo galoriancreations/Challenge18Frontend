@@ -81,7 +81,6 @@
       <input
         v-model="formData.memberName"
         id="memberName"
-        required
         class="form__input"
         placeholder="Lead staff member's name"
       />
@@ -93,7 +92,6 @@
       <input
         v-model="formData.memberRole"
         id="memberRole"
-        required
         class="form__input"
         placeholder="Lead staff member's role"
       />

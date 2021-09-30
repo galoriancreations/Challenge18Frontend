@@ -18,6 +18,7 @@ export default {
         closeModal() {
             this.showConfirmModal = false;
             this.showIntroModal = false;
+            this.showWelcomeModal = false;
         },
         keydownHandler(event) {
             if (event.key === "Escape") {

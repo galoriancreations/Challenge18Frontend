@@ -44,9 +44,7 @@ export default {
     },
     methods: {
         updatePhoneNumber(data) {
-            if (data.formattedNumber) {
-                this.formData.phone = data.formattedNumber;
-            }
+            this.formData.phone = data.formattedNumber;
             this.phoneInput.isValid = data.isValid;
             this.formData.country = data.countryCode;
         },
@@ -86,7 +84,12 @@ export default {
             this.checkAvailability("username", value, "checkUsername");
         },
         phone(value) {
-            this.checkAvailability("phone", value, "checkPhone");
+            if (this.phoneInput.isValid) {
+                this.checkAvailability("phone", value, "checkPhone");
+            } else {
+                this.availability.phone = null;
+            }
+
         }
     }
 };
