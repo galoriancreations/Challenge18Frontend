@@ -63,6 +63,7 @@ export default {
     return {
       closeModal: () => {
         this.showWelcomeModal = false;
+        this.showConfirmModal = false;
       }
     };
   }

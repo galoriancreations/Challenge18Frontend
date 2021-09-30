@@ -13,7 +13,7 @@
       <section class="challenge-editor__day" ref="container">
         <DayTitleField
           :key="`title-${options[dayIndex].id}`"
-          v-model="options[dayIndex].title"
+          v-model.trim="options[dayIndex].title"
           :label="`${dayLabel} ${selectedDay}`"
         />
         <DayActionButtons
