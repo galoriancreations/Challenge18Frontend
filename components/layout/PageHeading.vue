@@ -135,8 +135,7 @@ export default {
       url(../../assets/images/backgrounds/register-bg.jpg);
   }
 
-  &#membership,
-  &#boom18 {
+  &#membership {
     background-image: linear-gradient(
         to right,
         rgba(#4189bd, 0.8),
@@ -161,6 +160,15 @@ export default {
         rgba(#4189bd, 0.8)
       ),
       url(../../assets/images/backgrounds/challenge-editor-bg.jpeg);
+  }
+
+  &#boom18 {
+    background-image: linear-gradient(
+        to right,
+        rgba(#4189bd, 0.75),
+        rgba(#4189bd, 0.75)
+      ),
+      url(../../assets/images/backgrounds/18boom-bg.jpeg);
   }
 
   &#error-page {
