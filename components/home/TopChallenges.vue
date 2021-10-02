@@ -50,7 +50,7 @@ export default {
           image: require("~/assets/images/logos/18boom-einstein-logo.jpeg"),
           title: "18 Boom",
           text:
-            "Join 18 Boom WhatsApp Group, donate a sum of 10, 20, 50 dollars or more and pass the envelope in a message to friends so that the envelope passes until it reaches 18 people in total. Then a lottery takes place when one of the players wins Prof. Einstein Robot for its personal use or to be donated to a school.\nInvite more friends to the challenge and grow the chances to receive your own Prof. Einstein Robot or join us in helping more schools around the world with their Climate education and learning the SDG’s.",
+            "Join 18 Boom WhatsApp Group.\nDonate a sum of 10, 20, 50 dollars or more.\nPass the envelope in a message to friends so that the envelope passes until it reaches 18 people who donated in total. Then a lottery takes place when one of the players wins Prof. Einstein Robot for its personal use or to be donated to a school.\nInvite more friends to the challenge together with an image of your tongue out as the famous Prof. Einstein, share on social media and grow the chances to receive your own Prof. Einstein Robot or join us in helping more schools around the world with their Climate education and learning the SDG’s.",
           link: "/18boom",
           linkText: "Join 18 Boom"
         }

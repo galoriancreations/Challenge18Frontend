@@ -1,14 +1,27 @@
 <template>
-  <Page title="18 Boom" name="boom18">
+  <Page title="18 Boom Challenge!" name="boom18">
+    <section class="boom18__intro">
+      <p>
+        Donate 10 or more dollars to our charity and get a ticket to win your
+        very own Prof. Einstein Robot.
+      </p>
+    </section>
     <section class="boom18__container">
-      <img
-        class="boom18__img"
+      <!-- <img
+        class="boom18__main-img"
         src="~/assets/images/18boom-einstein.jpg"
         alt="Boom 18 - Prof. Einstein"
-      />
+      /> -->
       <div class="boom18__content">
-        <h3 class="boom18__title">How It Works</h3>
+        <h3 class="boom18__title">How does it work?</h3>
         <div class="boom18__text">
+          <p>Join 18 Boom WhatsApp Group.</p>
+          <p>Donate a sum of 10, 20, 50 dollars or more.</p>
+          <img
+            class="boom18__img"
+            src="~/assets/images/einstein-tongue.jpeg"
+            alt="18 Boom - Prof. Einstein - tongue out"
+          />
           <p>
             Pass the envelope in a message to friends so that the envelope
             passes until it reaches 18 people who donated in total. Then a
@@ -16,11 +29,15 @@
             Robot for its personal use or to be donated to a school.
           </p>
           <p>
-            Delivery time: February 2022.
+            Invite more friends to the challenge together with an image of your
+            tongue out as the famous Prof. Einstein, share on social media and
+            grow the chances to receive your own Prof. Einstein Robot or join us
+            in helping more schools around the world with their Climate
+            education and learning the SDG’s.
           </p>
+          <p>Remember to add <strong>#18boom</strong>.</p>
           <p>
-            P.s. Whoever the envelope reaches after 18 People then has the
-            option to open a new group.
+            Delivery time: 17 February 2022.
           </p>
         </div>
       </div>
@@ -98,6 +115,26 @@ export default {
 
 <style lang="scss">
 .boom18 {
+  text-align: center;
+  &__intro {
+    max-width: 70rem;
+    margin: auto;
+    margin-bottom: 8rem;
+
+    @include respond(mobile) {
+      margin-bottom: 5rem;
+    }
+
+    p {
+      font-size: 2rem;
+      line-height: 1.7;
+
+      @include respond(mobile) {
+        font-size: 1.7rem;
+      }
+    }
+  }
+
   &__container {
     display: flex;
     align-items: center;
@@ -112,11 +149,9 @@ export default {
     }
   }
 
-  &__img {
+  &__main-img {
     display: block;
-    width: 22vw;
-    min-width: 20rem;
-    max-width: 30rem;
+    width: 30vw;
     box-shadow: $boxshadow2;
     border-radius: 0.8rem;
     margin-right: 9rem;
@@ -139,26 +174,31 @@ export default {
 
   &__content {
     flex: 1;
-
-    @include respond(tablet-sm) {
-      text-align: center;
-    }
+    max-width: 95rem;
+    margin: auto;
   }
 
   &__title {
     color: $color-blue-2;
     font-size: 3.5rem;
     font-weight: 700;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
 
     @include respond(mobile) {
       font-size: 2.7rem;
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
     }
   }
 
   &__text {
     p {
+      font-size: 1.8rem;
+      line-height: 1.7;
+
+      @include respond(mobile) {
+        font-size: 1.55rem;
+      }
+
       &:not(:last-child) {
         margin-bottom: 2rem;
 
@@ -173,17 +213,16 @@ export default {
     }
   }
 
+  &__img {
+    display: block;
+    margin: 3rem auto;
+    border-radius: 50%;
+    box-shadow: $boxshadow2;
+    width: 100%;
+    max-width: 25rem;
+  }
+
   &__donate {
-    text-align: center;
-
-    h3 {
-      margin-bottom: 4rem;
-
-      @include respond(mobile) {
-        margin-bottom: 2.5rem;
-      }
-    }
-
     .points-selector {
       input {
         font-size: 1.9rem !important;
