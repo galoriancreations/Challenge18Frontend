@@ -1,5 +1,5 @@
 <template>
-  <section class="page-heading" :id="name">
+  <section class="page-heading" :id="name" :title="title">
     <h1 class="page-heading__heading">
       {{ title }}
     </h1>

@@ -68,7 +68,6 @@
         <div class="points-selector">
           <NumberInput
             v-model="selectedAmount"
-            @input="selectedAmount = +$event.target.value"
             :min="10"
             :step="10"
             :center="true"
@@ -94,6 +93,16 @@ export default {
   components: {
     NumberInput,
     PayPal: () => (process.client ? import("vue-paypal-checkout") : null)
+  },
+  head: {
+    meta: [
+      {
+        hid: "description",
+        name: "description",
+        content:
+          "Donate 10 or more dollars to our charity and get a ticket to win your very own Prof. Einstein Robot."
+      }
+    ]
   },
   data() {
     return {

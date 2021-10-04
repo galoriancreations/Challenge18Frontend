@@ -1,5 +1,5 @@
 <template>
-  <EditorTopField label="Challenge image">
+  <EditorTopField v-if="value || isTemplateEditable" label="Challenge image">
     <textarea-autosize
       class="challenge-editor__img-input"
       :value="value"
