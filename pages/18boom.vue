@@ -45,6 +45,31 @@
     <section class="boom18__donate">
       <h3 class="boom18__title">Ready?</h3>
       <div class="boom18__subsection">
+        <!-- <p class="boom18__subtitle">Choose a payment method:</p>
+        <form
+          action="https://www.paypal.com/donate"
+          method="post"
+          target="_blank"
+        >
+          <input type="hidden" name="hosted_button_id" value="9VPU46W3U8EK6" />
+          <input
+            type="image"
+            src="https://www.paypalobjects.com/en_US/IL/i/btn/btn_donateCC_LG.gif"
+            border="0"
+            name="submit"
+            title="PayPal - The safer, easier way to pay online!"
+            alt="Donate with PayPal button"
+            class="boom18__paypal-img"
+          />
+          <img
+            alt=""
+            border="0"
+            src="https://www.paypal.com/en_IL/i/scr/pixel.gif"
+            width="1"
+            height="1"
+          />
+        </form>
+      </div> -->
         <p class="boom18__subtitle">Select an amount to donate:</p>
         <div class="boom18__options">
           <button
