@@ -1,5 +1,5 @@
 export default ({ store, route, redirect }) => {
-    if (route.name === "challenge-editor") {
+    if (route.path === "/challenge-editor") {
         return redirect("/editor");
     }
     if (!route.meta?.length || !Array.isArray(route.meta)) return;
