@@ -1,5 +1,5 @@
 <template>
-  <Page title="Challenge Editor" name="challenge-editor">
+  <Page :title="title" name="challenge-editor">
     <BaseSpinner v-if="loading" />
     <div v-else class="challenge-editor__page-content">
       <EditorIntroModal :active="showIntroModal" />
@@ -69,6 +69,9 @@ export default {
     templateOnlyMode() {
       const { templateOnly } = this.$route.query;
       return templateOnly === "true" && !this.editedChallengeId;
+    },
+    title() {
+      return this.templateOnlyMode ? "Template Editor" : "Challenge Editor";
     },
     user() {
       return this.$store.getters.user;
