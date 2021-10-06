@@ -1,5 +1,9 @@
 <template>
-  <TransitionGroup class="challenge-editor__wrapper" :name="transition">
+  <TransitionGroup
+    tag="div"
+    class="challenge-editor__wrapper"
+    :name="transition"
+  >
     <div key="content" class="challenge-editor__content" :style="{ direction }">
       <section class="challenge-editor__tabs">
         <SideTabs v-model="selectedDay" :tabs="days" />

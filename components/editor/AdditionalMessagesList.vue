@@ -1,5 +1,9 @@
 <template>
-  <TransitionGroup class="challenge-editor__day-messages" :name="transition">
+  <TransitionGroup
+    tag="div"
+    class="challenge-editor__day-messages"
+    :name="transition"
+  >
     <AdditionalMessageForm
       v-for="message in messages"
       :key="message.id"

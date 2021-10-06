@@ -17,6 +17,7 @@
         <SideTabs v-if="days.length" v-model="selectedDay" :tabs="days" />
       </div>
       <TransitionGroup
+        tag="div"
         class="challenge-editor__pre-messages-content"
         name="task"
       >

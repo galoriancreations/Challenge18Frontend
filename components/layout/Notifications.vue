@@ -1,7 +1,8 @@
 <template>
   <div class="notifications">
     <component
-      :is="isMounted ? 'TransitionGroup' : 'div'"
+      :is="isMounted ? 'transition-group' : 'div'"
+      tag="div"
       class="notifications__wrapper"
       name="notification"
     >
