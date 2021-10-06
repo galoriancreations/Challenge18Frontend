@@ -92,6 +92,14 @@ export default {
     margin-bottom: 1.5rem;
     width: 100%;
     align-self: flex-start;
+
+    & > .button {
+      margin-top: 4rem !important;
+
+      i {
+        margin-right: 0.5rem;
+      }
+    }
   }
 
   &__table {

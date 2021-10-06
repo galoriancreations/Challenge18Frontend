@@ -22,13 +22,14 @@
           </template>
         </v-data-table>
       </v-app>
+      <DeleteSelectedButton :disabled="!selected.length" />
     </div>
     <BaseSpinner v-if="loading" />
   </DashboardSection>
 </template>
 
 <script>
-import { dataArrayFromObject } from "../../assets/util/functions";
+import { dataArrayFromObject } from "~/assets/util/functions";
 
 export default {
   inject: ["setConfirmModal", "addNotification"],
@@ -94,21 +95,40 @@ export default {
           });
           await this.$store.dispatch("updateUser");
           this.addNotification(
-            `Successfully deleted draft: <strong>${draft.name || "(Unnamed)"} 
+            `Successfully deleted draft: <strong>${draft.name || "(Unnamed)"}
             (${draft.type.toLowerCase()})</strong>.`
+          );
+          this.loading = false;
+        }
+      );
+    },
+    deleteSelected() {
+      if (!this.selected.length) return;
+      const draftsText =
+        this.selected.length > 1
+          ? `these ${this.selected.length} drafts`
+          : "this draft";
+      this.setConfirmModal(
+        `Are you sure you want to delete ${draftsText}? This action is irreversible.`,
+        async () => {
+          this.loading = true;
+          const requests = this.selected.map(draft =>
+            this.$axios.$post("/xapi", { deleteDraft: draft.id })
+          );
+          await Promise.all(requests);
+          await this.$store.dispatch("updateUser");
+          this.addNotification(
+            `Successfully deleted <strong>${requests.length} drafts</strong>.`
           );
           this.loading = false;
         }
       );
     }
   },
-  watch: {
-    selected: {
-      handler(val) {
-        console.log(val);
-      },
-      deep: true
-    }
+  provide() {
+    return {
+      deleteSelected: this.deleteSelected
+    };
   }
 };
 </script>

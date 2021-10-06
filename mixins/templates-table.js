@@ -88,6 +88,38 @@ export default {
                     this.loading = false;
                 }
             );
+        },
+        deleteSelected() {
+            if (!this.selected.length) return;
+            const templatesText =
+                this.selected.length > 1
+                    ? `these ${this.selected.length} templates`
+                    : "this template";
+            this.setConfirmModal(
+                `Are you sure you want to delete ${templatesText}? This action is irreversible.`,
+                async () => {
+                    this.loading = true;
+                    const requests = this.selected.map(template =>
+                        this.$axios.$post("/xapi", {
+                            deleteTemplate: {
+                                templateId: template.id,
+                                isPublic: template.isPublic
+                            }
+                        })
+                    );
+                    await Promise.all(requests);
+                    await this.$store.dispatch("loadTemplates");
+                    this.addNotification(
+                        `Successfully deleted <strong>${requests.length} templates</strong>.`
+                    );
+                    this.loading = false;
+                }
+            );
         }
     },
+    provide() {
+        return {
+            deleteSelected: this.deleteSelected
+        }
+    }
 };

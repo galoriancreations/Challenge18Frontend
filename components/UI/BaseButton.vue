@@ -91,6 +91,15 @@ export default {
     }
   }
 
+  &:disabled,
+  &:disabled:hover {
+    background-color: transparent;
+    border-color: #ccc;
+    color: #ccc;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+
   &.view-all-button {
     margin-top: 5rem;
     font-size: 1.5rem;

@@ -1,7 +1,7 @@
 // VUETIFY TABLE ADJUSTMENTS
 .v-data-table {
   table {
-    * {
+    *:not(.v-icon) {
       font-size: inherit !important;
       text-align: left;
     }
