@@ -3,14 +3,11 @@
 </template>
 
 <script>
-import AutoSaveNote from "./AutoSaveNote";
-import EditorModeNote from "./EditorModeNote";
-
 export default {
   inject: ["autoSave"],
   data() {
     return {
-      items: [{ id: "editor-mode", component: EditorModeNote, props: {} }]
+      items: [{ id: "editor-mode", component: "EditorModeNote", props: {} }]
     };
   },
   computed: {
@@ -23,7 +20,7 @@ export default {
       if (value) {
         this.items.push({
           id: "auto-save",
-          component: AutoSaveNote,
+          component: "AutoSaveNote",
           props: this.autoSave
         });
       }
