@@ -1,4 +1,7 @@
 export default ({ store, route, redirect }) => {
+    if (route.name === "challenge-editor") {
+        return redirect("/editor");
+    }
     if (!route.meta?.length || !Array.isArray(route.meta)) return;
     const [{ requiresAuth, forLoggingIn }] = route.meta;
     const { isAuth } = store.getters;
