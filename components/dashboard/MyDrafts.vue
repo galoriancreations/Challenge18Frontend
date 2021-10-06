@@ -93,7 +93,10 @@ export default {
           await this.$axios.$post("/xapi", {
             deleteDraft: draft.id
           });
-          await this.$store.dispatch("updateUser");
+          this.$store.commit(
+            "setDrafts",
+            this.drafts.filter(item => item.id !== draft.id)
+          );
           this.addNotification(
             `Successfully deleted draft: <strong>${draft.name || "(Unnamed)"}
             (${draft.type.toLowerCase()})</strong>.`
@@ -116,7 +119,13 @@ export default {
             this.$axios.$post("/xapi", { deleteDraft: draft.id })
           );
           await Promise.all(requests);
-          await this.$store.dispatch("updateUser");
+          this.$store.commit(
+            "setDrafts",
+            this.drafts.filter(
+              item =>
+                !this.selected.map(selection => selection.id).includes(item.id)
+            )
+          );
           this.addNotification(
             `Successfully deleted <strong>${requests.length} drafts</strong>.`
           );
