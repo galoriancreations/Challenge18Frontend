@@ -66,7 +66,7 @@ export default {
             this.$cookies.remove("challengeId");
             this.$cookies.remove("draftId");
             this.$router.push({
-                path: "/challenge-editor",
+                path: "/editor",
                 query: { templateOnly: true }
             });
         },

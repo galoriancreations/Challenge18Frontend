@@ -98,7 +98,7 @@ export default {
       }
       this.$cookies.remove("draftId");
       this.$cookies.remove("challengeId");
-      this.$router.push("/challenge-editor");
+      this.$router.push("/editor");
     }
   },
   watch: {

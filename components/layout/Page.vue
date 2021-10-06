@@ -6,11 +6,8 @@
       <slot />
     </WhiteSection>
     <slot v-else />
-    <WhatsappButton v-if="$route.name !== 'challenge-editor'" />
-    <Notifications
-      v-if="$route.name !== 'challenge-editor'"
-      :items="notifications"
-    />
+    <WhatsappButton v-if="$route.name !== 'editor'" />
+    <Notifications v-if="$route.name !== 'editor'" :items="notifications" />
     <TheFooter />
   </div>
 </template>

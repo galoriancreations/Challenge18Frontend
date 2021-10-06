@@ -41,7 +41,7 @@ export default {
       "~/components/layout",
       "~/components/UI",
       "~/components/extras",
-      "~/components/challenge-editor",
+      "~/components/editor",
       "~/components/about",
       "~/components/auth",
       "~/components/contact",

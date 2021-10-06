@@ -65,7 +65,7 @@ export default {
       this.$cookies.set("challengeId", challengeId);
       this.$cookies.remove("selectedTemplate");
       this.$cookies.remove("draftId");
-      this.$router.push("/challenge-editor");
+      this.$router.push("/editor");
     }
   }
 };

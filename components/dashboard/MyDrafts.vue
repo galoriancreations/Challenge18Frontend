@@ -7,7 +7,13 @@
     </div>
     <div v-else class="my-challenges__table-container">
       <v-app>
-        <v-data-table :headers="headers" :items="items" class="elevation-2">
+        <v-data-table
+          v-model="selected"
+          :headers="headers"
+          :items="items"
+          show-select
+          class="elevation-2"
+        >
           <template v-slot:[`item.edit`]="{ item }">
             <DashboardButton type="edit" @click="item.edit" />
           </template>
@@ -35,6 +41,7 @@ export default {
         { text: "Edit", value: "edit", sortable: false },
         { text: "Delete", value: "delete", sortable: false }
       ],
+      selected: [],
       loading: false
     };
   },
@@ -71,7 +78,7 @@ export default {
         this.$cookies.remove("challengeId");
       }
       this.$cookies.remove("selectedTemplate");
-      const redirect = { path: "/challenge-editor" };
+      const redirect = { path: "/editor" };
       if (draft.templateOnly) {
         redirect.query = { templateOnly: true };
       }
@@ -93,6 +100,14 @@ export default {
           this.loading = false;
         }
       );
+    }
+  },
+  watch: {
+    selected: {
+      handler(val) {
+        console.log(val);
+      },
+      deep: true
     }
   }
 };

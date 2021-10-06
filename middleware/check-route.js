@@ -1,5 +1,5 @@
 export default ({ store, route, redirect }) => {
-    if (!route.meta?.length) return;
+    if (!route.meta?.length || !Array.isArray(route.meta)) return;
     const [{ requiresAuth, forLoggingIn }] = route.meta;
     const { isAuth } = store.getters;
     if (requiresAuth && !isAuth) {
