@@ -102,32 +102,34 @@ export default {
             (${draft.type.toLowerCase()})</strong>.`
           );
           this.loading = false;
+          this.selected = this.selected.filter(
+            selection => selection.id !== draft.id
+          );
         }
       );
     },
     deleteSelected() {
-      if (this.selected.length === 1) {
-        return this.deleteDraft(this.selected[0]);
+      const selections = [...this.selected];
+      if (selections.length === 1) {
+        return this.deleteDraft(selections[0]);
       }
       this.setConfirmModal(
-        `Are you sure you want to delete these ${this.selected.length} drafts? This action is irreversible.`,
+        `Are you sure you want to delete these ${selections.length} drafts? This action is irreversible.`,
         async () => {
           this.loading = true;
-          const requests = this.selected.map(draft =>
+          const requests = selections.map(draft =>
             this.$axios.$post("/xapi", { deleteDraft: draft.id })
           );
           await Promise.all(requests);
-          this.$store.commit(
-            "setDrafts",
-            this.drafts.filter(
-              item =>
-                !this.selected.map(selection => selection.id).includes(item.id)
-            )
+          const updatedDrafts = this.drafts.filter(
+            item => !selections.map(selection => selection.id).includes(item.id)
           );
+          this.$store.commit("setDrafts", updatedDrafts);
           this.addNotification(
-            `Successfully deleted <strong>${requests.length} drafts</strong>.`
+            `Successfully deleted <strong>${selections.length} drafts</strong>.`
           );
           this.loading = false;
+          this.selected = [];
         }
       );
     }

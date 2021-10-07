@@ -81,24 +81,31 @@ export default {
                             isPublic: template.isPublic
                         }
                     });
-                    // this.$store.commit("setTemplates", this.$store.getters.templates.filter(item => item.id !== template.id))
+                    // this.$store.commit(
+                    //     "setTemplates",
+                    //     this.$store.getters.templates.filter(item => item.id !== template.id)
+                    // );
                     await this.$store.dispatch("loadTemplates");
                     this.addNotification(
                         `Successfully deleted template: <strong>${template.name || "(Unnamed)"}</strong>.`
                     );
                     this.loading = false;
+                    this.selected = this.selected.filter(
+                        selection => selection.id !== template.id
+                    );
                 }
             );
         },
         deleteSelected() {
-            if (this.selected.length === 1) {
-                return this.deleteTemplate(this.selected[0]);
+            const selections = [...this.selected];
+            if (selections.length === 1) {
+                return this.deleteTemplate(selections[0]);
             }
             this.setConfirmModal(
-                `Are you sure you want to delete these ${this.selected.length} templates? This action is irreversible.`,
+                `Are you sure you want to delete these ${selections.length} templates? This action is irreversible.`,
                 async () => {
                     this.loading = true;
-                    const requests = this.selected.map(template =>
+                    const requests = selections.map(template =>
                         this.$axios.$post("/xapi", {
                             deleteTemplate: {
                                 templateId: template.id,
@@ -107,11 +114,19 @@ export default {
                         })
                     );
                     await Promise.all(requests);
+                    // this.$store.commit(
+                    //     "setTemplates",
+                    //     this.$store.getters.templates.filter(
+                    //         item =>
+                    //             !selections.map(selection => selection.id).includes(item.id)
+                    //     )
+                    // );
                     await this.$store.dispatch("loadTemplates");
                     this.addNotification(
-                        `Successfully deleted <strong>${requests.length} templates</strong>.`
+                        `Successfully deleted <strong>${selections.length} templates</strong>.`
                     );
                     this.loading = false;
+                    this.selected = [];
                 }
             );
         }
