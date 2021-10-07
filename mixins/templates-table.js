@@ -113,14 +113,11 @@ export default {
                             }
                         })
                     );
-                    await Promise.all(requests);
-                    // this.$store.commit(
-                    //     "setTemplates",
-                    //     this.$store.getters.templates.filter(
-                    //         item =>
-                    //             !selections.map(selection => selection.id).includes(item.id)
-                    //     )
+                    // await Promise.all(requests);
+                    // const updatedTemplates = this.$store.getters.templates.filter(item =>
+                    //     !selections.map(selection => selection.id).includes(item.id)
                     // );
+                    // this.$store.commit("setTemplates", updatedTemplates);
                     await this.$store.dispatch("loadTemplates");
                     this.addNotification(
                         `Successfully deleted <strong>${selections.length} templates</strong>.`

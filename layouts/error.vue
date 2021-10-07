@@ -32,7 +32,10 @@ export default {
     buttonAction() {
       return this.error.statusCode === 404
         ? () => this.$router.push("/")
-        : () => this.$router.back();
+        : () =>
+            this.$route.meta.requiresAuth
+              ? location.reload()
+              : this.$router.back();
     }
   }
 };

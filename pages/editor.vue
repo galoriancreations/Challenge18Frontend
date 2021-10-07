@@ -44,7 +44,8 @@ export default {
     requiresAuth: true
   },
   async asyncData(context) {
-    return await context.$getEditorData();
+    const data = await context.$getEditorData();
+    return data;
   },
   data() {
     return {
