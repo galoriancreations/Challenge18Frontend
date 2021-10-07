@@ -81,6 +81,7 @@ export default {
                             isPublic: template.isPublic
                         }
                     });
+                    // this.$store.commit("setTemplates", this.$store.getters.templates.filter(item => item.id !== template.id))
                     await this.$store.dispatch("loadTemplates");
                     this.addNotification(
                         `Successfully deleted template: <strong>${template.name || "(Unnamed)"}</strong>.`
@@ -90,13 +91,11 @@ export default {
             );
         },
         deleteSelected() {
-            if (!this.selected.length) return;
-            const templatesText =
-                this.selected.length > 1
-                    ? `these ${this.selected.length} templates`
-                    : "this template";
+            if (this.selected.length === 1) {
+                return this.deleteTemplate(this.selected[0]);
+            }
             this.setConfirmModal(
-                `Are you sure you want to delete ${templatesText}? This action is irreversible.`,
+                `Are you sure you want to delete these ${this.selected.length} templates? This action is irreversible.`,
                 async () => {
                     this.loading = true;
                     const requests = this.selected.map(template =>

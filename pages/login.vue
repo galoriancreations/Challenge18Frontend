@@ -27,9 +27,6 @@ export default {
       }
       return link;
     }
-  },
-  mounted() {
-    console.log(this.$route.path);
   }
 };
 </script>

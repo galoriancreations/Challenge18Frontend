@@ -106,13 +106,11 @@ export default {
       );
     },
     deleteSelected() {
-      if (!this.selected.length) return;
-      const draftsText =
-        this.selected.length > 1
-          ? `these ${this.selected.length} drafts`
-          : "this draft";
+      if (this.selected.length === 1) {
+        return this.deleteDraft(this.selected[0]);
+      }
       this.setConfirmModal(
-        `Are you sure you want to delete ${draftsText}? This action is irreversible.`,
+        `Are you sure you want to delete these ${this.selected.length} drafts? This action is irreversible.`,
         async () => {
           this.loading = true;
           const requests = this.selected.map(draft =>

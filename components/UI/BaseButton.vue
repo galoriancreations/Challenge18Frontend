@@ -97,7 +97,7 @@ export default {
     border-color: #ccc;
     color: #ccc;
     box-shadow: none;
-    cursor: not-allowed;
+    cursor: initial;
   }
 
   &.view-all-button {
