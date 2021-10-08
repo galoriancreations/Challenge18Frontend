@@ -24,10 +24,29 @@ import {
   clearedOptions,
   isSelectionMatching,
   randomEmoji
-} from "../assets/util/functions";
-import confirmModal from "../mixins/confirm-modal";
+} from "~/assets/util/functions";
+import confirmModal from "~/mixins/confirm-modal";
+
+import EditorIntroModal from "~/components/editor/EditorIntroModal";
+import EditorTopArea from "~/components/editor/EditorTopArea";
+import PreChallengeMessages from "~/components/editor/PreChallengeMessages";
+import EditorMainArea from "~/components/editor/EditorMainArea";
+import EditorFloatingButtons from "~/components/editor/EditorFloatingButtons";
+import EditorNotifications from "~/components/editor/EditorNotifications";
+import ConfirmModal from "~/components/layout/ConfirmModal";
+import SectionSeperator from "~/components/extras/SectionSeperator";
 
 export default {
+  components: {
+    EditorIntroModal,
+    EditorTopArea,
+    PreChallengeMessages,
+    EditorMainArea,
+    EditorFloatingButtons,
+    EditorNotifications,
+    ConfirmModal,
+    SectionSeperator
+  },
   mixins: [confirmModal],
   inject: ["addNotification"],
   meta: {
