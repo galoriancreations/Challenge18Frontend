@@ -16,13 +16,13 @@
       </section>
       <section class="challenge-editor__day" ref="container">
         <DayTitleField
-          :key="`title-${options[dayIndex].id}`"
-          v-model.trim="options[dayIndex].title"
+          :key="`title-${data.options[dayIndex].id}`"
+          v-model.trim="data.options[dayIndex].title"
           :label="`${dayLabel} ${selectedDay}`"
         />
         <DayActionButtons
           v-if="showActionButtons"
-          :key="`actions-${options[dayIndex].id}`"
+          :key="`actions-${data.options[dayIndex].id}`"
         />
         <TransitionGroup
           tag="div"
@@ -30,33 +30,35 @@
           :name="transition"
         >
           <div
-            :key="`introduction-${options[dayIndex].id}`"
+            :key="`introduction-${data.options[dayIndex].id}`"
             class="challenge-editor__subsection"
           >
             <DayIntroductionField
-              :key="options[dayIndex].id"
-              v-model="options[dayIndex].introduction"
+              :key="data.options[dayIndex].id"
+              v-model="data.options[dayIndex].introduction"
             />
           </div>
           <div
             v-if="showTasks"
-            :key="`tasks-${options[dayIndex].id}`"
+            :key="`tasks-${data.options[dayIndex].id}`"
             class="challenge-editor__subsection"
           >
             <h3 class="challenge-editor__subsection-heading">
               Day Tasks
             </h3>
-            <EditorTaskList :tasks="options[dayIndex].tasks" />
+            <EditorTaskList :tasks="data.options[dayIndex].tasks" />
           </div>
           <div
             v-if="showAdditionalMessages"
-            :key="`messages-${options[dayIndex].id}`"
+            :key="`messages-${data.options[dayIndex].id}`"
             class="challenge-editor__subsection"
           >
             <h3 class="challenge-editor__subsection-heading">
               Day Messages
             </h3>
-            <AdditionalMessagesList :messages="options[dayIndex].messages" />
+            <AdditionalMessagesList
+              :messages="data.options[dayIndex].messages"
+            />
           </div>
         </TransitionGroup>
       </section>
@@ -72,13 +74,13 @@
 </template>
 
 <script>
-import { newMessage, newTask } from "../../assets/util/functions";
-import { rtlLanguages, dayTranslations } from "../../assets/util/options";
+import { newMessage, newTask } from "~/assets/util/functions";
+import { rtlLanguages, dayTranslations } from "~/assets/util/options";
 import uniqid from "uniqid";
 
 export default {
   inject: [
-    "getOptions",
+    "data",
     "getLanguage",
     "templateOnlyMode",
     "editedChallengeId",
@@ -95,9 +97,6 @@ export default {
     };
   },
   computed: {
-    options() {
-      return this.getOptions();
-    },
     transition() {
       return this.getTransition();
     },
@@ -105,7 +104,7 @@ export default {
       return this.getLanguage();
     },
     days() {
-      return this.options.map((day, index) => ({
+      return this.data.options.map((day, index) => ({
         id: day.id,
         value: index + 1,
         label: `${this.dayLabel} ${index + 1}`
@@ -121,15 +120,16 @@ export default {
       return rtlLanguages.includes(this.language) ? "rtl" : null;
     },
     showActionButtons() {
-      return this.isTemplateEditable && this.options.length > 1;
+      return this.isTemplateEditable && this.data.options.length > 1;
     },
     showTasks() {
       return (
-        this.isTemplateEditable || this.options[this.dayIndex].tasks.length > 0
+        this.isTemplateEditable ||
+        this.data.options[this.dayIndex].tasks.length > 0
       );
     },
     showAdditionalMessages() {
-      const { messages } = this.options[this.dayIndex];
+      const { messages } = this.data.options[this.dayIndex];
       const hasContent = () => {
         for (let message of messages) {
           if (message.content.trim()) return true;
@@ -149,13 +149,13 @@ export default {
   },
   methods: {
     addDay() {
-      this.options.push({
+      this.data.options.push({
         id: uniqid(),
         title: "",
         tasks: [newTask(0)],
         messages: [newMessage()]
       });
-      this.selectedDay = this.options.length;
+      this.selectedDay = this.data.options.length;
       this.setTransition("task");
     },
     deleteDay() {
@@ -163,8 +163,8 @@ export default {
         "Are you sure you want to delete this day and all its tasks? This action is irreversible.",
         () => {
           this.setTransition("task");
-          this.options.splice(this.dayIndex, 1);
-          if (this.selectedDay > this.options.length) {
+          this.data.options.splice(this.dayIndex, 1);
+          if (this.selectedDay > this.data.options.length) {
             this.selectedDay--;
           }
         }

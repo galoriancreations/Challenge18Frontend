@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import templatesTable from "../../mixins/templates-table";
-import popupModal from "../../mixins/popup-modal";
+import templatesTable from "~/mixins/templates-table";
+import popupModal from "~/mixins/popup-modal";
 
 export default {
   mixins: [templatesTable, popupModal],

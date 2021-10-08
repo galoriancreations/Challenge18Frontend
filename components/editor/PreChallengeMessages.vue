@@ -9,7 +9,7 @@
     <div class="challenge-editor__content" :style="{ direction }">
       <div class="challenge-editor__pre-messages-tabs">
         <ActionButton
-          v-if="preMessages.length < 5 && isTemplateEditable"
+          v-if="data.preMessages.length < 5 && isTemplateEditable"
           type="add"
           color="white"
           @click="addMessage"
@@ -28,7 +28,7 @@
         >
           Click the button to add a new message.
         </p>
-        <div v-else :key="preMessages[dayIndex].id">
+        <div v-else :key="data.preMessages[dayIndex].id">
           <div class="task-form__top">
             <h3 class="pre-message-form__title">
               {{ formTitle }}
@@ -39,7 +39,7 @@
               @click="deleteMessage"
             />
           </div>
-          <PreMessageForm :message="preMessages[dayIndex]" />
+          <PreMessageForm :message="data.preMessages[dayIndex]" />
         </div>
       </TransitionGroup>
     </div>
@@ -51,24 +51,16 @@ import uniqid from "uniqid";
 import { dayTranslations, rtlLanguages } from "../../assets/util/options";
 
 export default {
-  inject: [
-    "getPreMessages",
-    "getLanguage",
-    "isTemplateEditable",
-    "setConfirmModal"
-  ],
+  inject: ["data", "getLanguage", "isTemplateEditable", "setConfirmModal"],
   data() {
     return {
       selectedDay: -1
     };
   },
   computed: {
-    preMessages() {
-      return this.getPreMessages();
-    },
     days() {
-      return this.preMessages.map((message, index) => {
-        const day = index - this.preMessages.length;
+      return this.data.preMessages.map((message, index) => {
+        const day = index - this.data.preMessages.length;
         return {
           id: message.id,
           value: day,
@@ -105,7 +97,7 @@ export default {
   },
   methods: {
     addMessage() {
-      this.preMessages.unshift({
+      this.data.preMessages.unshift({
         id: uniqid(),
         text: "",
         time: "18:00:00"
@@ -116,7 +108,7 @@ export default {
       this.setConfirmModal(
         "Are you sure you want to delete this message? This action is irreversible.",
         () => {
-          this.preMessages.splice(this.dayIndex, 1);
+          this.data.preMessages.splice(this.dayIndex, 1);
           if (this.days.length) {
             if (this.dayIndex < 0) {
               this.selectedDay = this.days[0].value;
@@ -125,7 +117,7 @@ export default {
             }
           }
         },
-        !this.preMessages[this.dayIndex].text.trim()
+        !this.data.preMessages[this.dayIndex].text.trim()
       );
     }
   }

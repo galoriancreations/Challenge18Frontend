@@ -27,7 +27,7 @@ export default {
             return this.templates.map(template => ({
                 ...template,
                 name: template.name || "(Unnamed)",
-                clone: () => this.cloneTemplate(template),
+                clone: () => this.cloneTemplate(template.id),
                 edit: () => this.editTemplate(template.id),
                 delete: () => this.deleteTemplate(template)
             }));
@@ -37,23 +37,31 @@ export default {
         }
     },
     methods: {
-        async cloneTemplate(template) {
+        async cloneTemplate(templateId) {
             this.loading = true;
-            await this.$axios.$post("/xapi", {
+            const template = await this.$axios.$post("/xapi", {
+                getTemplateData: templateId
+            });
+            const newTemplate = {
+                ...template,
+                name: `${template.name || "Unnamed"} (copy)`,
+                isPublic: template.isPublic && this.user.accountType === "admin"
+            };
+            const { templateId: newId } = await this.$axios.$post("/xapi", {
                 saveTemplate: {
                     templateId: null,
-                    templateData: {
-                        ...template,
-                        name: `${template.name || "Unnamed"} (copy)`,
-                        isPublic: template.isPublic && this.user.accountType === "admin"
-                    },
+                    templateData: newTemplate,
                     draftId: null,
                     finishEditing: false
                 }
             });
-            await this.$store.dispatch("loadTemplates");
+            newTemplate.id = newId;
+            this.$store.commit(
+                "setTemplates",
+                this.$store.getters.templates.concat(newTemplate)
+            );
             this.addNotification(
-                `Created new template: <strong>${template.name || "Unnamed"} (copy)</strong>.`
+                `Created new template: <strong>${newTemplate.name}</strong>.`
             );
             this.loading = false;
         },
@@ -113,7 +121,7 @@ export default {
                             }
                         })
                     );
-                    // await Promise.all(requests);
+                    await Promise.all(requests);
                     // const updatedTemplates = this.$store.getters.templates.filter(item =>
                     //     !selections.map(selection => selection.id).includes(item.id)
                     // );

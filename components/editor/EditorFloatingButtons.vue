@@ -12,23 +12,13 @@
 
 <script>
 export default {
-  inject: [
-    "templateOnlyMode",
-    "getOptions",
-    "openIntroModal",
-    "setConfirmModal"
-  ],
-  computed: {
-    options() {
-      return this.getOptions();
-    }
-  },
+  inject: ["templateOnlyMode", "data", "openIntroModal", "setConfirmModal"],
   methods: {
     selectRandomOptions() {
       this.setConfirmModal(
         "Do you want to select a random option for each task? All your selections would be overwritten.",
         () => {
-          this.options.forEach(day => {
+          this.data.options.forEach(day => {
             day.tasks.forEach(task => {
               const optionIndex = Math.floor(
                 Math.random() * task.options.length

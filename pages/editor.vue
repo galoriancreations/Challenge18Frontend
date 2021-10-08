@@ -1,24 +1,14 @@
 <template>
   <Page :title="title" name="challenge-editor">
     <BaseSpinner v-if="loading" />
-    <div v-else class="challenge-editor__page-content">
+    <div v-else>
       <EditorIntroModal :active="showIntroModal" />
       <ConfirmModal
         :active="showConfirmModal"
         :text="confirmText"
         @confirm="confirmAction"
       />
-      <section class="challenge-editor__top">
-        <ChallengeNameField v-model.trim="name" />
-        <ChallengeLanguageField v-model="language" />
-        <ChallengeImageField v-model="image" />
-        <LaunchDateField v-if="!templateOnlyMode" v-model="date" />
-        <TemplateAvailabilityField v-if="isAdmin" v-model="isTemplatePublic" />
-        <AllowCopiesField
-          v-if="isAdmin && isTemplatePublic"
-          v-model="allowTemplateCopies"
-        />
-      </section>
+      <EditorTopArea />
       <SectionSeperator />
       <PreChallengeMessages v-if="showPreMessages" />
       <SectionSeperator v-if="showPreMessages" />
@@ -44,8 +34,25 @@ export default {
     requiresAuth: true
   },
   async asyncData(context) {
-    const data = await context.$getEditorData();
-    return data;
+    if (process.client) {
+      return await context.$getEditorData();
+    } else {
+      return {
+        data: {
+          name: null,
+          language: null,
+          image: null,
+          date: null,
+          preMessages: [],
+          options: [],
+          isTemplatePublic: null,
+          allowTemplateCopies: null
+        },
+        draftId: null,
+        templateId: null,
+        loading: true
+      };
+    }
   },
   data() {
     return {
@@ -81,28 +88,29 @@ export default {
       return this.user?.accountType === "admin";
     },
     isTemplateEditable() {
-      return this.isAdmin || this.allowTemplateCopies || !this.isTemplatePublic;
+      const { allowTemplateCopies, isTemplatePublic } = this.data;
+      return this.isAdmin || allowTemplateCopies || !isTemplatePublic;
     },
     showPreMessages() {
       const hasContent = () => {
-        for (let message of this.preMessages) {
+        for (let message of this.data.preMessages) {
           if (message.text.trim()) return true;
         }
         return false;
       };
-      const isEmpty = !this.preMessages.length || !hasContent();
+      const isEmpty = !this.data.preMessages.length || !hasContent();
       return this.isTemplateEditable || !isEmpty;
     },
     draftData() {
       return {
-        name: this.name,
-        language: this.language,
-        image: this.image,
-        date: this.date,
-        preMessages: this.preMessages,
-        days: this.options,
-        isTemplatePublic: this.isTemplatePublic,
-        allowTemplateCopies: this.allowTemplateCopies,
+        name: this.data.name,
+        language: this.data.language,
+        image: this.data.image,
+        date: this.data.date,
+        preMessages: this.data.preMessages,
+        days: this.data.options,
+        isTemplatePublic: this.data.isTemplatePublic,
+        allowTemplateCopies: this.data.allowTemplateCopies,
         templateId: this.templateId,
         challengeId: this.editedChallengeId
       };
@@ -110,18 +118,18 @@ export default {
     templateData() {
       return {
         id: this.templateId,
-        name: this.name,
-        language: this.language,
-        image: this.image,
-        preMessages: this.preMessages,
-        days: clearedOptions(this.options),
-        isPublic: this.isTemplatePublic,
-        allowCopies: this.allowTemplateCopies
+        name: this.data.name,
+        language: this.data.language,
+        image: this.data.image,
+        preMessages: this.data.preMessages,
+        days: clearedOptions(this.data.options),
+        isPublic: this.data.isTemplatePublic,
+        allowCopies: this.data.allowTemplateCopies
       };
     },
     selections() {
       const selections = {};
-      this.options.forEach(day => {
+      this.data.options.forEach(day => {
         selections[day.id] = {};
         day.tasks.forEach(task => {
           selections[day.id][task.id] = task.selection;
@@ -195,14 +203,14 @@ export default {
     },
     validateData() {
       try {
-        if (!this.name) {
+        if (!this.data.name) {
           throw "Challenge name can't be empty";
         }
-        if (!this.language) {
+        if (!this.data.language) {
           throw "Please choose a language for the template";
         }
         const selectedEmojis = [];
-        this.options.forEach((day, dayIndex) => {
+        this.data.options.forEach((day, dayIndex) => {
           const isDayEmpty =
             !day.introduction.trim() &&
             !day.tasks.length &&
@@ -247,31 +255,7 @@ export default {
     }
   },
   watch: {
-    name() {
-      this.autoSaveData();
-    },
-    language() {
-      this.autoSaveData();
-    },
-    image() {
-      this.autoSaveData();
-    },
-    date() {
-      this.autoSaveData();
-    },
-    isTemplatePublic() {
-      this.autoSaveData();
-    },
-    allowTemplateCopies() {
-      this.autoSaveData();
-    },
-    preMessages: {
-      handler() {
-        this.autoSaveData();
-      },
-      deep: true
-    },
-    options: {
+    data: {
       handler() {
         this.autoSaveData();
       },
@@ -284,9 +268,12 @@ export default {
   async mounted() {
     if (this.loading) {
       const data = await this.$getEditorData();
-      for (let key in data) {
-        this[key] = data[key];
+      for (let key in data.data) {
+        this.data[key] = data.data[key];
       }
+      this.templateId = data.templateId;
+      this.draftId = data.draftId;
+      this.loading = false;
     }
     if (!this.user?.drafts) {
       setTimeout(() => {
@@ -299,12 +286,11 @@ export default {
       templateOnlyMode: this.templateOnlyMode,
       editedChallengeId: this.editedChallengeId,
       isTemplateEditable: this.isTemplateEditable,
-      getLanguage: () => this.language,
+      data: this.data,
+      getLanguage: () => this.data.language,
       openIntroModal: () => {
         this.showIntroModal = true;
       },
-      getPreMessages: () => this.preMessages,
-      getOptions: () => this.options,
       autoSave: this.autoSave,
       submit: this.submit,
       getTransition: () => this.transition,

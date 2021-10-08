@@ -111,10 +111,6 @@
     ::placeholder {
       opacity: 0.7;
     }
-
-    .vs__dropdown-menu {
-      z-index: 80 !important;
-    }
   }
 
   &__plans {
@@ -184,6 +180,10 @@
 
   * {
     font: inherit;
+  }
+
+  .vs__dropdown-menu {
+    z-index: 80 !important;
   }
 }
 
