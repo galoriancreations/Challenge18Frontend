@@ -1,21 +1,23 @@
 <template>
   <Page :title="title" name="challenge-editor">
-    <BaseSpinner v-if="loading" />
-    <div v-else>
-      <EditorIntroModal :active="showIntroModal" />
-      <ConfirmModal
-        :active="showConfirmModal"
-        :text="confirmText"
-        @confirm="confirmAction"
-      />
-      <EditorTopArea />
-      <SectionSeperator />
-      <PreChallengeMessages v-if="showPreMessages" />
-      <SectionSeperator v-if="showPreMessages" />
-      <EditorMainArea />
-      <EditorFloatingButtons />
-      <EditorNotifications />
-    </div>
+    <client-only>
+      <BaseSpinner v-if="loading" />
+      <div v-else>
+        <EditorIntroModal :active="showIntroModal" />
+        <ConfirmModal
+          :active="showConfirmModal"
+          :text="confirmText"
+          @confirm="confirmAction"
+        />
+        <EditorTopArea />
+        <SectionSeperator />
+        <PreChallengeMessages v-if="showPreMessages" />
+        <SectionSeperator v-if="showPreMessages" />
+        <EditorMainArea />
+        <EditorFloatingButtons />
+        <EditorNotifications />
+      </div>
+    </client-only>
   </Page>
 </template>
 
