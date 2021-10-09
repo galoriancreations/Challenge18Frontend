@@ -18,6 +18,9 @@
 
 <script>
 import {
+  initialPreMessages,
+  initialOptions,
+  defaultDate,
   clearedOptions,
   isSelectionMatching,
   randomEmoji
@@ -30,8 +33,48 @@ export default {
   meta: {
     requiresAuth: true
   },
-  async asyncData(context) {
-    return await context.$getEditorData();
+  async asyncData({ app, store, $axios, error }) {
+    try {
+      const { draftId, challengeId, selectedTemplate } = app.$cookies.getAll();
+      const { user } = store.getters;
+      const endpoint = !draftId && challengeId ? "/api" : "/xapi";
+      const key = draftId
+        ? "getDraftData"
+        : challengeId
+        ? "getChallengeData"
+        : selectedTemplate && "getTemplateData";
+      const data = key
+        ? await $axios.$post(endpoint, {
+            [key]: draftId || challengeId || selectedTemplate
+          })
+        : {};
+      return {
+        data: {
+          name: data.name || "",
+          language: data.language || user?.language,
+          image: data.image || null,
+          date: new Date(data.date || defaultDate()),
+          preMessages: initialPreMessages(data.preMessages),
+          options: initialOptions(data.days),
+          isTemplatePublic:
+            draftId || challengeId
+              ? data.isTemplatePublic
+              : selectedTemplate
+              ? data.isPublic
+              : user?.accountType === "admin",
+          allowTemplateCopies:
+            draftId || challengeId
+              ? data.allowTemplateCopies
+              : selectedTemplate
+              ? data.allowCopies
+              : user?.accountType !== "admin"
+        },
+        draftId: draftId || null,
+        templateId: data.templateId || data.template || selectedTemplate || null
+      };
+    } catch (err) {
+      error(err);
+    }
   },
   data() {
     return {
@@ -131,6 +174,7 @@ export default {
           this.autoSave.date = new Date();
           this.autoSave.error = false;
         } catch (err) {
+          console.error(err);
           this.autoSave.error = true;
         }
         this.autoSave.loading = false;
@@ -165,19 +209,21 @@ export default {
         : "createChallenge";
       const successText = this.editedChallengeId
         ? "Successfully updated challenge"
-        : "Successfully created new challenge from template";
+        : "Created new challenge from template";
       await this.$axios.$post("/xapi", {
         [mode]: {
           challengeId: this.editedChallengeId,
           draftId: this.draftId,
           templateId: this.templateId,
           selections: this.selections,
-          date: this.date,
-          name: this.name
+          date: this.data.date,
+          name: this.data.name
         }
       });
       this.$cookies.remove("draftId");
-      this.addNotification(`${successText}: <strong>${this.name}</strong>.`);
+      this.addNotification(
+        `${successText}: <strong>${this.data.name}</strong>.`
+      );
       this.$router.replace("/dashboard");
     },
     validateData() {

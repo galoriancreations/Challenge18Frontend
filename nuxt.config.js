@@ -32,8 +32,7 @@ export default {
   },
 
   plugins: [
-    "~/plugins/main",
-    "~/plugins/editor-data"
+    "~/plugins/main"
   ],
 
   components: {

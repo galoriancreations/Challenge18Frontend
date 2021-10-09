@@ -90,17 +90,19 @@
       </div>
       <div class="boom18__subsection">
         <p class="boom18__subtitle">Or enter your own amount (USD):</p>
-        <div class="points-selector">
-          <NumberInput
-            v-model="selectedAmount"
-            :min="10"
-            :step="10"
-            :center="true"
-            size="large"
-            inline
-            controls
-          />
-        </div>
+        <client-only>
+          <div class="points-selector">
+            <NumberInput
+              v-model="selectedAmount"
+              :min="10"
+              :step="10"
+              :center="true"
+              size="large"
+              inline
+              controls
+            />
+          </div>
+        </client-only>
       </div>
       <client-only>
         <div class="boom18__paypal">
@@ -112,11 +114,10 @@
 </template>
 
 <script>
-import NumberInput from "@chenfengyuan/vue-number-input";
-
 export default {
   components: {
-    NumberInput,
+    NumberInput: () =>
+      process.client ? import("@chenfengyuan/vue-number-input") : null,
     PayPal: () => (process.client ? import("vue-paypal-checkout") : null)
   },
   head: {

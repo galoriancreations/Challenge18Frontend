@@ -20,8 +20,11 @@ export const emptyDays = () => [{
   messages: [newMessage()]
 }];
 
-export const initialOptions = (options = emptyDays()) =>
-  options.map(day => ({
+export const initialOptions = options => {
+  if (!options) {
+    options = emptyDays();
+  }
+  return options.map(day => ({
     ...day,
     id: day.id || uniqid(),
     title: day.title.replace(" - ", " – "),
@@ -45,6 +48,7 @@ export const initialOptions = (options = emptyDays()) =>
       time: message.time || "18:00:00"
     }))
   }));
+};
 
 export const stripHTML = text => text.replace(/(<([^>]+)>)/ig, "");
 
