@@ -1,20 +1,18 @@
 <template>
   <Page :title="title" name="challenge-editor">
-    <client-only>
-      <EditorIntroModal :active="showIntroModal" />
-      <ConfirmModal
-        :active="showConfirmModal"
-        :text="confirmText"
-        @confirm="confirmAction"
-      />
-      <EditorTopArea />
-      <SectionSeperator />
-      <PreChallengeMessages v-if="showPreMessages" />
-      <SectionSeperator v-if="showPreMessages" />
-      <EditorMainArea />
-      <EditorFloatingButtons />
-      <EditorNotifications />
-    </client-only>
+    <EditorIntroModal :active="showIntroModal" />
+    <ConfirmModal
+      :active="showConfirmModal"
+      :text="confirmText"
+      @confirm="confirmAction"
+    />
+    <EditorTopArea />
+    <SectionSeperator />
+    <PreChallengeMessages v-if="showPreMessages" />
+    <SectionSeperator v-if="showPreMessages" />
+    <EditorMainArea />
+    <EditorFloatingButtons />
+    <EditorNotifications />
   </Page>
 </template>
 

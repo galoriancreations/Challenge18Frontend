@@ -1,21 +1,23 @@
 <template>
   <EditorTopField label="Challenge launch date">
-    <Datepicker
-      :value="value"
-      @selected="$emit('input', $event)"
-      :disabled-dates="disabledDates"
-      full-month-name
-      format="dd MMMM yyyy"
-      class="challenge-editor__datepicker"
-    />
+    <client-only>
+      <Datepicker
+        :value="value"
+        @selected="$emit('input', $event)"
+        :disabled-dates="disabledDates"
+        full-month-name
+        format="dd MMMM yyyy"
+        class="challenge-editor__datepicker"
+      />
+    </client-only>
   </EditorTopField>
 </template>
 
 <script>
-import Datepicker from "vuejs-datepicker";
-
 export default {
-  components: { Datepicker },
+  components: {
+    Datepicker: () => (process.client ? import("vuejs-datepicker") : null)
+  },
   props: {
     value: Date
   },
