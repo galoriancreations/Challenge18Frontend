@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import { isTouchDevice } from "~/assets/util/functions";
+
 export default {
   props: {
     active: Boolean,
@@ -60,6 +62,14 @@ export default {
   mounted() {
     if (this.scrollbar) {
       this.adjustContainerHeight();
+    }
+  },
+  watch: {
+    active(value) {
+      console.log(isTouchDevice());
+      if (isTouchDevice()) {
+        document.querySelector("html").style.overflow = value ? "hidden" : null;
+      }
     }
   }
 };
