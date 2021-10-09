@@ -29,10 +29,10 @@ import confirmModal from "~/mixins/confirm-modal";
 export default {
   mixins: [confirmModal],
   inject: ["addNotification"],
+  meta: {
+    requiresAuth: true
+  },
   async asyncData(context) {
-    if (!context.store.getters.isAuth) {
-      return context.redirect("/login");
-    }
     return await context.$getEditorData();
   },
   data() {

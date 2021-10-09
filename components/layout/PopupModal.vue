@@ -11,12 +11,12 @@
               class="modal__content"
               :style="{ minHeight: contentMinHeight }"
             >
-              <SectionHeading v-if="title" small> {{ title }} </SectionHeading>
+              <SectionHeading v-if="title" small>{{ title }}</SectionHeading>
               <slot />
             </div>
           </vue-scroll>
           <div v-else class="modal__content">
-            <SectionHeading v-if="title" small> {{ title }} </SectionHeading>
+            <SectionHeading v-if="title" small>{{ title }}</SectionHeading>
             <slot />
           </div>
         </div>
@@ -66,7 +66,6 @@ export default {
   },
   watch: {
     active(value) {
-      console.log(isTouchDevice());
       if (isTouchDevice()) {
         document.querySelector("html").style.overflow = value ? "hidden" : null;
       }
