@@ -182,7 +182,7 @@ export default {
       this.draftId = draftId;
     },
     async saveTemplate() {
-      if (!this.isTemplateEditable || !this.editedChallengeId) return;
+      if (!this.isTemplateEditable || this.editedChallengeId) return;
       const { templateId } = await this.$axios.$post("/xapi", {
         saveTemplate: {
           templateId: this.templateId,
