@@ -18,6 +18,7 @@
 
 <script>
 import {
+  transformData,
   initialPreMessages,
   initialOptions,
   defaultDate,
@@ -37,29 +38,17 @@ export default {
     try {
       const { draftId, challengeId, selectedTemplate } = app.$cookies.getAll();
       const { user } = store.getters;
+      const isAdmin = user?.accountType === "admin";
       const endpoint = !draftId && challengeId ? "/api" : "/xapi";
       const key = draftId
         ? "getDraftData"
         : challengeId
         ? "getChallengeData"
         : selectedTemplate && "getTemplateData";
+      const value = draftId || challengeId || selectedTemplate;
       const data = key
-        ? await $axios.$post(endpoint, {
-            [key]: draftId || challengeId || selectedTemplate
-          })
+        ? transformData(await $axios.$post(endpoint, { [key]: value }))
         : {};
-      const isTemplatePublic =
-        draftId || challengeId
-          ? data.isTemplatePublic
-          : selectedTemplate
-          ? data.isPublic
-          : user?.accountType === "admin";
-      const allowTemplateCopies =
-        draftId || challengeId
-          ? data.allowTemplateCopies
-          : selectedTemplate
-          ? data.allowCopies
-          : user?.accountType !== "admin";
       return {
         data: {
           name: data.name || "",
@@ -68,11 +57,11 @@ export default {
           date: new Date(data.date || defaultDate()),
           preMessages: initialPreMessages(data.preMessages),
           options: initialOptions(data.days),
-          isTemplatePublic,
-          allowTemplateCopies
+          isTemplatePublic: key ? data.isTemplatePublic : isAdmin,
+          allowTemplateCopies: key ? data.allowTemplateCopies : !isAdmin
         },
         draftId: draftId || null,
-        templateId: data.templateId || data.template || selectedTemplate || null
+        templateId: data.templateId || selectedTemplate || null
       };
     } catch (err) {
       error(err);

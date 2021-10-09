@@ -3,6 +3,19 @@ import cloneDeep from "clone-deep";
 import moment from "moment";
 import emojis from "emoji.json/emoji-compact.json";
 
+export const transformData = data => {
+  if (!("isTemplatePublic" in data)) {
+    data.isTemplatePublic = data.isPublic;
+  }
+  if (!("allowTemplateCopies" in data)) {
+    data.allowTemplateCopies = data.allowCopies;
+  }
+  if (!("templateId" in data)) {
+    data.templateId = data.template;
+  }
+  return data;
+};
+
 export const initialPreMessages = messages => {
   if (!messages) {
     messages = [{}];
