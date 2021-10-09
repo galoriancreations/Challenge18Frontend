@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import mainImg from "../../assets/images/about-img.jpg";
+import mainImg from "~/assets/images/about-img.jpg";
 
 export default {
   head: {

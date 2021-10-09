@@ -48,6 +48,18 @@ export default {
             [key]: draftId || challengeId || selectedTemplate
           })
         : {};
+      const isTemplatePublic =
+        draftId || challengeId
+          ? data.isTemplatePublic
+          : selectedTemplate
+          ? data.isPublic
+          : user?.accountType === "admin";
+      const allowTemplateCopies =
+        draftId || challengeId
+          ? data.allowTemplateCopies
+          : selectedTemplate
+          ? data.allowCopies
+          : user?.accountType !== "admin";
       return {
         data: {
           name: data.name || "",
@@ -56,18 +68,8 @@ export default {
           date: new Date(data.date || defaultDate()),
           preMessages: initialPreMessages(data.preMessages),
           options: initialOptions(data.days),
-          isTemplatePublic:
-            draftId || challengeId
-              ? data.isTemplatePublic
-              : selectedTemplate
-              ? data.isPublic
-              : user?.accountType === "admin",
-          allowTemplateCopies:
-            draftId || challengeId
-              ? data.allowTemplateCopies
-              : selectedTemplate
-              ? data.allowCopies
-              : user?.accountType !== "admin"
+          isTemplatePublic,
+          allowTemplateCopies
         },
         draftId: draftId || null,
         templateId: data.templateId || data.template || selectedTemplate || null

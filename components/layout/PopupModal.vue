@@ -66,9 +66,8 @@ export default {
   },
   watch: {
     active(value) {
-      if (isTouchDevice()) {
-        document.querySelector("html").style.overflow = value ? "hidden" : null;
-      }
+      document.querySelector("html").style.overflow =
+        value && isTouchDevice() ? "hidden" : null;
     }
   }
 };
