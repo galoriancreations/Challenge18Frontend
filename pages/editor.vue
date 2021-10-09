@@ -27,30 +27,12 @@ import {
 import confirmModal from "~/mixins/confirm-modal";
 
 export default {
-  components: {
-    EditorIntroModal: () =>
-      process.client ? import("~/components/editor/EditorIntroModal") : null,
-    EditorTopArea: () =>
-      process.client ? import("~/components/editor/EditorTopArea") : null,
-    PreChallengeMessages: () =>
-      process.client
-        ? import("~/components/editor/PreChallengeMessages")
-        : null,
-    EditorMainArea: () =>
-      process.client ? import("~/components/editor/EditorMainArea") : null,
-    EditorFloatingButtons: () =>
-      process.client
-        ? import("~/components/editor/EditorFloatingButtons")
-        : null,
-    EditorNotifications: () =>
-      process.client ? import("~/components/editor/EditorNotifications") : null
-  },
   mixins: [confirmModal],
   inject: ["addNotification"],
-  meta: {
-    requiresAuth: true
-  },
   async asyncData(context) {
+    if (!context.store.getters.isAuth) {
+      return context.redirect("/login");
+    }
     return await context.$getEditorData();
   },
   data() {
