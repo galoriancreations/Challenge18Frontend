@@ -13,13 +13,7 @@
     </div>
     <div v-else class="my-challenges__table-container">
       <v-app>
-        <v-data-table
-          v-model="selected"
-          :headers="headers"
-          :items="items"
-          show-select
-          class="elevation-2"
-        >
+        <v-data-table :headers="headers" :items="items" class="elevation-2">
           <template v-slot:[`item.clone`]="{ item }">
             <DashboardButton type="clone" @click="item.clone" />
           </template>
@@ -31,7 +25,6 @@
           </template>
         </v-data-table>
       </v-app>
-      <DeleteSelectedButton :disabled="!selected.length" />
     </div>
     <template slot="button">
       <ActionButton type="add" color="blue" @click="showModal = true" />
