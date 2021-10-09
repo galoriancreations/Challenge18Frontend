@@ -1,22 +1,19 @@
 <template>
   <Page :title="title" name="challenge-editor">
     <client-only>
-      <BaseSpinner v-if="loading" />
-      <div v-else>
-        <EditorIntroModal :active="showIntroModal" />
-        <ConfirmModal
-          :active="showConfirmModal"
-          :text="confirmText"
-          @confirm="confirmAction"
-        />
-        <EditorTopArea />
-        <SectionSeperator />
-        <PreChallengeMessages v-if="showPreMessages" />
-        <SectionSeperator v-if="showPreMessages" />
-        <EditorMainArea />
-        <EditorFloatingButtons />
-        <EditorNotifications />
-      </div>
+      <EditorIntroModal :active="showIntroModal" />
+      <ConfirmModal
+        :active="showConfirmModal"
+        :text="confirmText"
+        @confirm="confirmAction"
+      />
+      <EditorTopArea />
+      <SectionSeperator />
+      <PreChallengeMessages v-if="showPreMessages" />
+      <SectionSeperator v-if="showPreMessages" />
+      <EditorMainArea />
+      <EditorFloatingButtons />
+      <EditorNotifications />
     </client-only>
   </Page>
 </template>
@@ -36,25 +33,7 @@ export default {
     requiresAuth: true
   },
   async asyncData(context) {
-    if (process.client) {
-      return await context.$getEditorData();
-    } else {
-      return {
-        data: {
-          name: null,
-          language: null,
-          image: null,
-          date: null,
-          preMessages: [],
-          options: [],
-          isTemplatePublic: null,
-          allowTemplateCopies: null
-        },
-        draftId: null,
-        templateId: null,
-        loading: true
-      };
-    }
+    return await context.$getEditorData();
   },
   data() {
     return {
@@ -267,16 +246,7 @@ export default {
       this.$cookies.set("draftId", value);
     }
   },
-  async mounted() {
-    if (this.loading) {
-      const data = await this.$getEditorData();
-      for (let key in data.data) {
-        this.data[key] = data.data[key];
-      }
-      this.templateId = data.templateId;
-      this.draftId = data.draftId;
-      this.loading = false;
-    }
+  mounted() {
     if (!this.user?.drafts) {
       setTimeout(() => {
         this.showIntroModal = true;

@@ -26,8 +26,7 @@ export default ({ app, store, $axios, error }, inject) => {
                         allowTemplateCopies: draft.allowTemplateCopies
                     },
                     draftId,
-                    templateId: draft.templateId,
-                    loading: false
+                    templateId: draft.templateId
                 };
             } else if (challengeId) {
                 const challenge = await $axios.$post("/api", {
@@ -45,8 +44,7 @@ export default ({ app, store, $axios, error }, inject) => {
                         allowTemplateCopies: challenge.allowTemplateCopies
                     },
                     draftId: null,
-                    templateId: challenge.template,
-                    loading: false
+                    templateId: challenge.template
                 };
             } else if (selectedTemplate) {
                 const template = await $axios.$post("/xapi", {
@@ -64,8 +62,7 @@ export default ({ app, store, $axios, error }, inject) => {
                         allowTemplateCopies: template.allowCopies,
                     },
                     draftId: null,
-                    templateId: template.id,
-                    loading: false
+                    templateId: template.id
                 };
             } else {
                 return {
@@ -80,8 +77,7 @@ export default ({ app, store, $axios, error }, inject) => {
                         allowTemplateCopies: user?.accountType !== "admin"
                     },
                     draftId: null,
-                    templateId: null,
-                    loading: false
+                    templateId: null
                 };
             }
         } catch (err) {
