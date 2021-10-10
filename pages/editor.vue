@@ -69,6 +69,7 @@ export default {
   },
   data() {
     return {
+      showIntroModal: false,
       autoSave: {
         timeout: null,
         date: null,
@@ -78,9 +79,7 @@ export default {
       submit: {
         loading: false,
         error: null
-      },
-      showIntroModal: false,
-      transition: "task"
+      }
     };
   },
   computed: {
@@ -282,7 +281,8 @@ export default {
     }
   },
   mounted() {
-    if (!this.user?.drafts) {
+    const { drafts } = this.user;
+    if (!drafts || !Object.keys(drafts).length) {
       setTimeout(() => {
         this.showIntroModal = true;
       }, 1500);
@@ -294,16 +294,11 @@ export default {
       editedChallengeId: this.editedChallengeId,
       isTemplateEditable: this.isTemplateEditable,
       data: this.data,
-      getLanguage: () => this.data.language,
       openIntroModal: () => {
         this.showIntroModal = true;
       },
       autoSave: this.autoSave,
       submit: this.submit,
-      getTransition: () => this.transition,
-      setTransition: value => {
-        this.transition = value;
-      },
       submitHandler: this.submitHandler
     };
   }

@@ -81,28 +81,20 @@ import uniqid from "uniqid";
 export default {
   inject: [
     "data",
-    "getLanguage",
     "templateOnlyMode",
     "editedChallengeId",
     "isTemplateEditable",
     "setConfirmModal",
-    "getTransition",
-    "setTransition",
     "submit",
     "submitHandler"
   ],
   data() {
     return {
-      selectedDay: 1
+      selectedDay: 1,
+      transition: "task"
     };
   },
   computed: {
-    transition() {
-      return this.getTransition();
-    },
-    language() {
-      return this.getLanguage();
-    },
     days() {
       return this.data.options.map((day, index) => ({
         id: day.id,
@@ -114,10 +106,10 @@ export default {
       return this.selectedDay - 1;
     },
     dayLabel() {
-      return dayTranslations[this.language] || "Day";
+      return dayTranslations[this.data.language] || "Day";
     },
     direction() {
-      return rtlLanguages.includes(this.language) ? "rtl" : null;
+      return rtlLanguages.includes(this.data.language) ? "rtl" : null;
     },
     showActionButtons() {
       return this.isTemplateEditable && this.data.options.length > 1;
@@ -156,13 +148,13 @@ export default {
         messages: [newMessage()]
       });
       this.selectedDay = this.data.options.length;
-      this.setTransition("task");
+      this.transition = "task";
     },
     deleteDay() {
       this.setConfirmModal(
         "Are you sure you want to delete this day and all its tasks? This action is irreversible.",
         () => {
-          this.setTransition("task");
+          this.transition = "task";
           this.data.options.splice(this.dayIndex, 1);
           if (this.selectedDay > this.data.options.length) {
             this.selectedDay--;
@@ -173,14 +165,18 @@ export default {
   },
   watch: {
     selectedDay() {
-      this.setTransition("task");
+      this.transition = "task";
       const optionsTop = this.$refs.container.getBoundingClientRect().top;
       window.scrollTo(0, window.scrollY + optionsTop - 150);
     }
   },
   provide() {
     return {
-      deleteDay: this.deleteDay
+      deleteDay: this.deleteDay,
+      getTransition: () => this.transition,
+      setTransition: value => {
+        this.transition = value;
+      }
     };
   }
 };

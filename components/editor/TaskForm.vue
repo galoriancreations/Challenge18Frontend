@@ -97,8 +97,8 @@ export default {
     task: Object
   },
   inject: [
+    "data",
     "selectedDayTasks",
-    "getLanguage",
     "deleteTask",
     "templateOnlyMode",
     "getEditedOption",
@@ -110,8 +110,7 @@ export default {
   ],
   computed: {
     taskLabel() {
-      const language = this.getLanguage();
-      return taskTranslations[language] || "Task";
+      return taskTranslations[this.data.language] || "Task";
     },
     taskIndex() {
       return this.selectedDayTasks().indexOf(this.task);

@@ -51,7 +51,7 @@ import uniqid from "uniqid";
 import { dayTranslations, rtlLanguages } from "../../assets/util/options";
 
 export default {
-  inject: ["data", "getLanguage", "isTemplateEditable", "setConfirmModal"],
+  inject: ["data", "isTemplateEditable", "setConfirmModal"],
   data() {
     return {
       selectedDay: -1
@@ -68,14 +68,11 @@ export default {
         };
       });
     },
-    language() {
-      return this.getLanguage();
-    },
     dayLabel() {
-      return dayTranslations[this.language] || "Day";
+      return dayTranslations[this.data.language] || "Day";
     },
     direction() {
-      return rtlLanguages.includes(this.language) ? "rtl" : null;
+      return rtlLanguages.includes(this.data.language) ? "rtl" : null;
     },
     subheading() {
       let text =
