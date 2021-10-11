@@ -32,7 +32,7 @@ export default {
   color: #fff;
   letter-spacing: 1.3px;
   border-radius: 100px;
-  border: none;
+  border: 1.5px solid transparent;
   transition: all 0.5s;
   text-align: center;
   cursor: pointer;
@@ -94,7 +94,7 @@ export default {
   &:disabled,
   &:disabled:hover {
     background-color: transparent;
-    border-color: #ccc;
+    border: 1.5px solid #ccc;
     color: #ccc;
     box-shadow: none;
     cursor: initial;

@@ -252,9 +252,9 @@ export default {
     display: block;
     margin: 3rem auto;
     border-radius: 50%;
+    border: 5px solid $color-azure;
     box-shadow: $boxshadow2;
-    width: 100%;
-    max-width: 25rem;
+    width: 250px;
   }
 
   &__donate {

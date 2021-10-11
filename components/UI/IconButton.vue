@@ -48,9 +48,7 @@ export default {
   }
 
   &:hover {
-    @media (hover: hover) {
-      color: $color-azure;
-    }
+    color: $color-azure;
   }
 }
 </style>

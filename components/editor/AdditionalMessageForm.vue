@@ -81,6 +81,10 @@ export default {
     }
   }
 
+  .task-form__top-icons {
+    grid-template-columns: 1fr;
+  }
+
   textarea {
     border-radius: 0.5rem;
     padding: 1rem 1.25rem;

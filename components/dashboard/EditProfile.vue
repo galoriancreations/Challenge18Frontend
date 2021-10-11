@@ -34,7 +34,7 @@
           class="language-selector"
         />
       </div>
-      <BaseButton variant="blue">Save profile</BaseButton>
+      <BaseButton variant="blue" :disabled="loading">Save profile</BaseButton>
       <BaseSpinner v-if="loading" />
       <ErrorMessage v-else-if="error" :error="error" />
     </form>
@@ -68,6 +68,7 @@ export default {
       }
     },
     async submitHandler() {
+      if (this.loading) return;
       this.loading = true;
       this.error = null;
       try {
