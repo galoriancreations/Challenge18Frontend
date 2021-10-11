@@ -70,7 +70,7 @@ export default {
       return this.$store.getters.user;
     },
     isAdmin() {
-      return this.user?.accountType === "admin";
+      return this.$store.getters.isAdmin;
     },
     userLanguage() {
       return this.user?.language;

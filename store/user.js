@@ -26,7 +26,7 @@ export const mutations = {
     setDrafts(state, payload) {
         state.user.drafts = payload;
     },
-    setClubPlayers(state, payload) {
+    setPlayers(state, payload) {
         state.user.players = payload;
     }
 };
@@ -92,6 +92,9 @@ export const getters = {
     },
     user(state) {
         return state.user;
+    },
+    isAdmin({ user }) {
+        return user?.accountType === "admin" || user?.isAdmin;
     },
     templates(state) {
         return state.templates;

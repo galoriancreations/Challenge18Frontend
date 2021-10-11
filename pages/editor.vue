@@ -37,8 +37,7 @@ export default {
   async asyncData({ app, store, $axios, error }) {
     try {
       const { draftId, challengeId, selectedTemplate } = app.$cookies.getAll();
-      const { user } = store.getters;
-      const isAdmin = user?.accountType === "admin";
+      const { user, isAdmin } = store.getters;
       const endpoint = !draftId && challengeId ? "/api" : "/xapi";
       const key = draftId
         ? "getDraftData"
@@ -93,15 +92,10 @@ export default {
     title() {
       return this.templateOnlyMode ? "Template Editor" : "Challenge Editor";
     },
-    user() {
-      return this.$store.getters.user;
-    },
-    isAdmin() {
-      return this.user?.accountType === "admin";
-    },
     isTemplateEditable() {
+      const { isAdmin } = this.$store.getters;
       const { allowTemplateCopies, isTemplatePublic } = this.data;
-      return this.isAdmin || allowTemplateCopies || !isTemplatePublic;
+      return isAdmin || allowTemplateCopies || !isTemplatePublic;
     },
     showPreMessages() {
       const hasContent = () => {
@@ -281,7 +275,7 @@ export default {
     }
   },
   mounted() {
-    const { drafts } = this.user;
+    const { drafts } = this.$store.getters.user;
     if (!drafts || !Object.keys(drafts).length) {
       setTimeout(() => {
         this.showIntroModal = true;

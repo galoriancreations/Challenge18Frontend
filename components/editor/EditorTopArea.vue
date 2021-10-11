@@ -17,7 +17,7 @@ export default {
   inject: ["data", "templateOnlyMode"],
   computed: {
     isAdmin() {
-      return this.$store.getters.user?.accountType === "admin";
+      return this.$store.getters.isAdmin;
     }
   }
 };

@@ -48,7 +48,7 @@ export default {
       return this.user?.accountType === "organization";
     },
     isAdmin() {
-      return this.user?.accountType === "admin";
+      return this.$store.getters.isAdmin;
     }
   },
   mounted() {
