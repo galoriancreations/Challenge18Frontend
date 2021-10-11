@@ -4,6 +4,7 @@
     :class="classes"
     :style="{ animation }"
     v-bind="$attrs"
+    v-waypoint="{ active: true, callback: onWaypoint, options }"
   >
     <slot />
   </component>
@@ -22,11 +23,17 @@ export default {
     },
     duration: {
       type: Number,
-      default: 600
+      default: 700
     },
     delay: {
       type: Number,
       default: 0
+    },
+    offset: {
+      type: Array,
+      default() {
+        return [0.25, 0.75];
+      }
     }
   },
   data() {
@@ -36,6 +43,13 @@ export default {
     };
   },
   computed: {
+    options() {
+      return {
+        root: null,
+        rootMargin: "0px 0px 0px 0px",
+        threshold: this.offset
+      };
+    },
     classes() {
       return {
         "animated-item": true,
@@ -43,23 +57,18 @@ export default {
       };
     }
   },
-  mounted() {
-    require("waypoints/lib/noframework.waypoints.min.js");
-    setTimeout(() => {
-      new Waypoint({
-        element: this.$el,
-        handler: () => {
-          this.animation = `${this.type} ${this.duration / 1000}s`;
-          if (this.delay) {
-            this.animation += ` ${this.delay / 1000}s`;
-          }
-          setTimeout(() => {
-            this.visible = true;
-          }, this.delay);
-        },
-        offset: "90%"
-      });
-    }, 100);
+  methods: {
+    onWaypoint({ going }) {
+      if (going === this.$waypointMap.GOING_IN) {
+        this.animation = `${this.type} ${this.duration / 1000}s`;
+        if (this.delay) {
+          this.animation += ` ${this.delay / 1000}s`;
+        }
+        setTimeout(() => {
+          this.visible = true;
+        }, this.delay);
+      }
+    }
   }
 };
 </script>

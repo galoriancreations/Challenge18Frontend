@@ -32,7 +32,8 @@ export default {
   },
 
   plugins: [
-    "~/plugins/main"
+    "~/plugins/main",
+    "~/plugins/v-waypoint.client.js"
   ],
 
   components: {

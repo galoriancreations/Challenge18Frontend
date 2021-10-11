@@ -181,9 +181,6 @@ export default {
   },
   created() {
     this.resetForm();
-  },
-  mounted() {
-    console.log(this.user);
   }
 };
 </script>

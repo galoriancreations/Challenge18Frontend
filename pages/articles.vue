@@ -1,17 +1,19 @@
 <template>
   <Page title="Articles" name="articles">
     <div class="articles__grid">
-      <NewsItem
+      <AnimatedItem
+        component="NewsItem"
         v-for="article in articles"
         :key="article.link"
         :article="article"
+        :offset="[0.1, 0.9]"
       />
     </div>
   </Page>
 </template>
 
 <script>
-import articles from "../assets/data/articles";
+import articles from "~/assets/data/articles";
 
 articles.sort((a, b) => new Date(b.date) - new Date(a.date));
 
