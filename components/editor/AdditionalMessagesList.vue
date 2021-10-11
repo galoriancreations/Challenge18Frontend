@@ -1,19 +1,11 @@
 <template>
-  <TransitionGroup
-    tag="div"
-    class="challenge-editor__day-messages"
-    :name="transition"
-  >
+  <TransitionGroup tag="div" class="editor__day-messages" :name="transition">
     <AdditionalMessageForm
       v-for="message in messages"
       :key="message.id"
       :message="message"
     />
-    <div
-      v-if="isTemplateEditable"
-      key="add"
-      class="challenge-editor__add-message"
-    >
+    <div v-if="isTemplateEditable" key="add" class="editor__add-message">
       <ActionButton type="add" color="white" @click="addMessage" />
     </div>
   </TransitionGroup>

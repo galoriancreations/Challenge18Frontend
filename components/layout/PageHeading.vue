@@ -153,7 +153,7 @@ export default {
       url(../../assets/images/backgrounds/dashboard-bg.jpeg);
   }
 
-  &#challenge-editor {
+  &#editor {
     background-image: linear-gradient(
         to right,
         rgba(#4189bd, 0.8),

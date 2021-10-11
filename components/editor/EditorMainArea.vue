@@ -1,11 +1,7 @@
 <template>
-  <TransitionGroup
-    tag="div"
-    class="challenge-editor__wrapper"
-    :name="transition"
-  >
-    <div key="content" class="challenge-editor__content" :style="{ direction }">
-      <section class="challenge-editor__tabs">
+  <TransitionGroup tag="div" class="editor__wrapper" :name="transition">
+    <div key="content" class="editor__content" :style="{ direction }">
+      <section class="editor__tabs">
         <SideTabs v-model="selectedDay" :tabs="days" />
         <ActionButton
           v-if="isTemplateEditable"
@@ -14,7 +10,7 @@
           @click="addDay"
         />
       </section>
-      <section class="challenge-editor__day" ref="container">
+      <section class="editor__day" ref="container">
         <DayTitleField
           :key="`title-${data.options[dayIndex].id}`"
           v-model.trim="data.options[dayIndex].title"
@@ -26,12 +22,12 @@
         />
         <TransitionGroup
           tag="div"
-          class="challenge-editor__day-content"
+          class="editor__day-content"
           :name="transition"
         >
           <div
             :key="`introduction-${data.options[dayIndex].id}`"
-            class="challenge-editor__subsection"
+            class="editor__subsection"
           >
             <DayIntroductionField
               :key="data.options[dayIndex].id"
@@ -41,9 +37,9 @@
           <div
             v-if="showTasks"
             :key="`tasks-${data.options[dayIndex].id}`"
-            class="challenge-editor__subsection"
+            class="editor__subsection"
           >
-            <h3 class="challenge-editor__subsection-heading">
+            <h3 class="editor__subsection-heading">
               Day Tasks
             </h3>
             <EditorTaskList :tasks="data.options[dayIndex].tasks" />
@@ -51,9 +47,9 @@
           <div
             v-if="showAdditionalMessages"
             :key="`messages-${data.options[dayIndex].id}`"
-            class="challenge-editor__subsection"
+            class="editor__subsection"
           >
-            <h3 class="challenge-editor__subsection-heading">
+            <h3 class="editor__subsection-heading">
               Day Messages
             </h3>
             <AdditionalMessagesList
@@ -63,7 +59,7 @@
         </TransitionGroup>
       </section>
     </div>
-    <div key="submit" class="challenge-editor__submit-wrapper">
+    <div key="submit" class="editor__submit-wrapper">
       <BaseButton variant="blue" @click="submitHandler">
         {{ submitButtonText }}
       </BaseButton>
@@ -183,7 +179,7 @@ export default {
 </script>
 
 <style lang="scss">
-.challenge-editor {
+.editor {
   &__content {
     display: grid;
     justify-content: space-between;

@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style lang="scss">
-.challenge-editor {
+.editor {
   .language-selector {
     font-weight: 600;
     font-size: 2.2rem;

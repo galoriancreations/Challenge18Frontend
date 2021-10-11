@@ -1,6 +1,6 @@
 <template>
-  <div class="challenge-editor__introduction-field">
-    <h3 for="introduction" class="challenge-editor__top-label">
+  <div class="editor__introduction-field">
+    <h3 for="introduction" class="editor__top-label">
       Introduction message
     </h3>
     <textarea-autosize
@@ -12,8 +12,8 @@
       :min-height="100"
       :max-height="300"
     />
-    <div v-else class="challenge-editor__introduction-text" ref="text">
-      <div class="challenge-editor__introduction-text-wrapper">
+    <div v-else class="editor__introduction-text" ref="text">
+      <div class="editor__introduction-text-wrapper">
         <p
           v-for="paragraph in introductionText"
           :key="paragraph"
@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style lang="scss">
-.challenge-editor {
+.editor {
   &__introduction-field {
     h3 {
       text-align: center;

@@ -1,6 +1,6 @@
 <template>
-  <div class="challenge-editor__top-field">
-    <h3 class="challenge-editor__top-label">
+  <div class="editor__top-field">
+    <h3 class="editor__top-label">
       {{ label }}
     </h3>
     <slot />
@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style lang="scss">
-.challenge-editor {
+.editor {
   &__top-field {
     display: flex;
     flex-direction: column;

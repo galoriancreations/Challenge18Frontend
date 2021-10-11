@@ -1,7 +1,7 @@
 <template>
-  <TransitionGroup tag="div" class="challenge-editor__tasks" :name="transition">
+  <TransitionGroup tag="div" class="editor__tasks" :name="transition">
     <TaskForm v-for="task in tasks" :key="task.id" :task="task" />
-    <div v-if="isTemplateEditable" key="add" class="challenge-editor__add-task">
+    <div v-if="isTemplateEditable" key="add" class="editor__add-task">
       <ActionButton type="add" color="white" @click="addTask" />
     </div>
   </TransitionGroup>
@@ -91,7 +91,7 @@ export default {
 </script>
 
 <style lang="scss">
-.challenge-editor {
+.editor {
   &__add-task {
     position: relative;
     z-index: 5;

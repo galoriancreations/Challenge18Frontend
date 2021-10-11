@@ -7,7 +7,7 @@
         :disabled-dates="disabledDates"
         full-month-name
         format="dd MMMM yyyy"
-        class="challenge-editor__datepicker"
+        class="editor__datepicker"
       />
     </client-only>
   </EditorTopField>
@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style lang="scss">
-.challenge-editor {
+.editor {
   &__datepicker {
     input {
       font-size: 1.9rem;

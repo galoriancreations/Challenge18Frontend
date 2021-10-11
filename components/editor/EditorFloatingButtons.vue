@@ -34,7 +34,7 @@ export default {
 </script>
 
 <style lang="scss">
-.challenge-editor {
+.editor {
   .floating-buttons {
     & > .action-button {
       outline: none;

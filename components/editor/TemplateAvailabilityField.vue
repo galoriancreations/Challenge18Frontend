@@ -1,10 +1,10 @@
 <template>
   <EditorTopField label="Template availability">
-    <div class="challenge-editor__visibility-options">
+    <div class="editor__visibility-options">
       <div
         v-for="option in options"
         :key="option.id"
-        class="challenge-editor__visibility-option"
+        class="editor__visibility-option"
       >
         <input
           type="radio"
@@ -17,7 +17,7 @@
         <label :for="option.id" class="radio-label">
           <span class="radio-button" />
         </label>
-        <label :for="option.id" class="challenge-editor__visibility-label">
+        <label :for="option.id" class="editor__visibility-label">
           {{ option.label }}
         </label>
       </div>
@@ -46,7 +46,7 @@ export default {
 </script>
 
 <style lang="scss">
-.challenge-editor {
+.editor {
   &__visibility-options {
     margin: auto;
     display: grid;

@@ -1,6 +1,6 @@
 <template>
-  <div class="challenge-editor__day-actions">
-    <div class="challenge-editor__day-actions-wrapper">
+  <div class="editor__day-actions">
+    <div class="editor__day-actions-wrapper">
       <IconButton type="delete" @click="deleteDay" />
     </div>
   </div>
@@ -13,7 +13,7 @@ export default {
 </script>
 
 <style lang="scss">
-.challenge-editor {
+.editor {
   &__day-actions {
     margin-bottom: 6rem;
 

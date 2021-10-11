@@ -66,7 +66,7 @@ export default {
   }
 }
 
-.challenge-editor .action-button {
+.editor .action-button {
   width: 6.5rem;
   height: 6.5rem;
   font-size: 1.9rem;

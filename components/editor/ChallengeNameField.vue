@@ -4,7 +4,7 @@
       :value="value"
       @input="$emit('input', $event)"
       @keydown.native.enter.prevent
-      class="challenge-editor__name"
+      class="editor__name"
       :placeholder="placeholder"
       :rows="1"
       :readonly="!isTemplateEditable"
@@ -31,7 +31,7 @@ export default {
 </script>
 
 <style lang="scss">
-.challenge-editor {
+.editor {
   &__name {
     font: inherit;
     font-size: 5rem;

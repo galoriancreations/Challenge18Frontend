@@ -1,13 +1,13 @@
 <template>
-  <section class="challenge-editor__pre-messages">
-    <h2 class="challenge-editor__pre-messages-heading">
+  <section class="editor__pre-messages">
+    <h2 class="editor__pre-messages-heading">
       Pre-challenge messages
     </h2>
-    <p class="challenge-editor__pre-messages-subheading">
+    <p class="editor__pre-messages-subheading">
       {{ subheading }}
     </p>
-    <div class="challenge-editor__content" :style="{ direction }">
-      <div class="challenge-editor__pre-messages-tabs">
+    <div class="editor__content" :style="{ direction }">
+      <div class="editor__pre-messages-tabs">
         <ActionButton
           v-if="data.preMessages.length < 5 && isTemplateEditable"
           type="add"
@@ -18,14 +18,10 @@
       </div>
       <TransitionGroup
         tag="div"
-        class="challenge-editor__pre-messages-content"
+        class="editor__pre-messages-content"
         name="task"
       >
-        <p
-          v-if="!days.length"
-          key="empty"
-          class="challenge-editor__pre-messages-empty"
-        >
+        <p v-if="!days.length" key="empty" class="editor__pre-messages-empty">
           Click the button to add a new message.
         </p>
         <div v-else :key="data.preMessages[dayIndex].id">
@@ -122,9 +118,9 @@ export default {
 </script>
 
 <style lang="scss">
-.challenge-editor {
+.editor {
   &__pre-messages {
-    .challenge-editor__content {
+    .editor__content {
       @include respond(tablet) {
         gap: 7rem;
       }

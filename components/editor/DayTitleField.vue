@@ -1,5 +1,5 @@
 <template>
-  <div class="challenge-editor__day-title">
+  <div class="editor__day-title">
     <h3 class="challende-editor__top-label">
       {{ label }}
     </h3>
@@ -25,7 +25,7 @@ export default {
 </script>
 
 <style lang="scss">
-.challenge-editor {
+.editor {
   &__day-title {
     margin-bottom: 4.5rem;
     display: flex;

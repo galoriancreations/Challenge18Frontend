@@ -1,5 +1,5 @@
 <template>
-  <Page :title="title" name="challenge-editor">
+  <Page :title="title" name="editor">
     <EditorIntroModal :active="showIntroModal" />
     <ConfirmModal
       :active="showConfirmModal"

@@ -1,9 +1,9 @@
 <template>
-  <PopupModal :active="active" class="challenge-editor-intro">
-    <h3 class="challenge-editor-intro__title">
+  <PopupModal :active="active" class="editor-intro">
+    <h3 class="editor-intro__title">
       Welcome to the Challenge & Template Editor
     </h3>
-    <div class="challenge-editor-intro__text">
+    <div class="editor-intro__text">
       <p>
         On this page you can select which tasks you want to include in your
         challenge, and possibly customize your own challenge template.
@@ -71,7 +71,7 @@ export default {
 </script>
 
 <style lang="scss">
-.challenge-editor-intro {
+.editor-intro {
   &__title {
     color: $color-blue-2;
     font-size: 3rem;

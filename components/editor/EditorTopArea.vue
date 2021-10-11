@@ -1,5 +1,5 @@
 <template>
-  <section class="challenge-editor__top">
+  <section class="editor__top">
     <ChallengeNameField v-model.trim="data.name" />
     <ChallengeLanguageField v-model="data.language" />
     <ChallengeImageField v-model="data.image" />

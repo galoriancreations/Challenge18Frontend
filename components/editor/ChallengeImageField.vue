@@ -1,7 +1,7 @@
 <template>
   <EditorTopField v-if="value || isTemplateEditable" label="Challenge image">
     <textarea-autosize
-      class="challenge-editor__img-input"
+      class="editor__img-input"
       :value="value"
       @input="$emit('input', $event)"
       :disabled="!isTemplateEditable"
@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style lang="scss">
-.challenge-editor__img-input {
+.editor__img-input {
   font: inherit;
   outline: none;
   display: block;
