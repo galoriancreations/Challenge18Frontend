@@ -126,7 +126,7 @@ export default {
         hid: "description",
         name: "description",
         content:
-          "Donate 10 or more dollars to our charity and get a ticket to win your very own Prof. Einstein Robot."
+          "Donate 18 or more dollars to our charity and get a ticket to win your very own Prof. Einstein Robot."
       }
     ]
   },
