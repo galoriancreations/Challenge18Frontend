@@ -2,7 +2,7 @@
   <Page title="18 Boom Challenge!" name="boom18">
     <section class="boom18__intro">
       <p>
-        Donate 10 or more dollars to our charity and get a ticket to win your
+        Donate 18 or more dollars to our charity and get a ticket to win your
         very own Prof. Einstein Robot.
       </p>
     </section>
@@ -16,7 +16,7 @@
         <h3 class="boom18__title">How does it work?</h3>
         <div class="boom18__text">
           <p>Join 18 Boom WhatsApp Group.</p>
-          <p>Donate a sum of 10, 20, 50 dollars or more.</p>
+          <p>Donate a sum of 18 dollars or more.</p>
           <img
             class="boom18__img"
             src="~/assets/images/einstein-tongue.jpeg"
@@ -132,8 +132,8 @@ export default {
   },
   data() {
     return {
-      selectedAmount: 10,
-      options: [10, 20, 50],
+      selectedAmount: 18,
+      options: [18, 48, 180],
       credentials: {
         sandbox: this.$config.paypalSandbox,
         production: this.$config.paypalLive

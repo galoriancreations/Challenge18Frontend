@@ -36,7 +36,7 @@ export default {
   transition: all 0.5s;
   text-align: center;
   cursor: pointer;
-  padding: 1rem 3rem;
+  padding: 0.85rem 3rem;
   margin: auto;
 
   @include respond(mobile) {

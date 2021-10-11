@@ -6,8 +6,8 @@
       class="side-tabs__tab"
       @click="$emit('change', tab.value)"
     >
-      <input type="radio" :id="tab.id" :checked="selectedTab === tab.value" />
-      <label :for="tab.id">{{ tab.label }}</label>
+      <input type="radio" :checked="selectedTab === tab.value" />
+      <label>{{ tab.label }}</label>
     </button>
   </div>
 </template>
