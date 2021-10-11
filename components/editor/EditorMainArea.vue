@@ -12,13 +12,13 @@
       </section>
       <section class="editor__day" ref="container">
         <DayTitleField
-          :key="`title-${data.options[dayIndex].id}`"
-          v-model.trim="data.options[dayIndex].title"
+          :key="`title-${data.days[dayIndex].id}`"
+          v-model.trim="data.days[dayIndex].title"
           :label="`${dayLabel} ${selectedDay}`"
         />
         <DayActionButtons
           v-if="showActionButtons"
-          :key="`actions-${data.options[dayIndex].id}`"
+          :key="`actions-${data.days[dayIndex].id}`"
         />
         <TransitionGroup
           tag="div"
@@ -26,35 +26,33 @@
           :name="transition"
         >
           <div
-            :key="`introduction-${data.options[dayIndex].id}`"
+            :key="`introduction-${data.days[dayIndex].id}`"
             class="editor__subsection"
           >
             <DayIntroductionField
-              :key="data.options[dayIndex].id"
-              v-model="data.options[dayIndex].introduction"
+              :key="data.days[dayIndex].id"
+              v-model="data.days[dayIndex].introduction"
             />
           </div>
           <div
             v-if="showTasks"
-            :key="`tasks-${data.options[dayIndex].id}`"
+            :key="`tasks-${data.days[dayIndex].id}`"
             class="editor__subsection"
           >
             <h3 class="editor__subsection-heading">
               Day Tasks
             </h3>
-            <EditorTaskList :tasks="data.options[dayIndex].tasks" />
+            <EditorTaskList :tasks="data.days[dayIndex].tasks" />
           </div>
           <div
             v-if="showAdditionalMessages"
-            :key="`messages-${data.options[dayIndex].id}`"
+            :key="`messages-${data.days[dayIndex].id}`"
             class="editor__subsection"
           >
             <h3 class="editor__subsection-heading">
               Day Messages
             </h3>
-            <AdditionalMessagesList
-              :messages="data.options[dayIndex].messages"
-            />
+            <AdditionalMessagesList :messages="data.days[dayIndex].messages" />
           </div>
         </TransitionGroup>
       </section>
@@ -92,7 +90,7 @@ export default {
   },
   computed: {
     days() {
-      return this.data.options.map((day, index) => ({
+      return this.data.days.map((day, index) => ({
         id: day.id,
         value: index + 1,
         label: `${this.dayLabel} ${index + 1}`
@@ -108,16 +106,16 @@ export default {
       return rtlLanguages.includes(this.data.language) ? "rtl" : null;
     },
     showActionButtons() {
-      return this.isTemplateEditable && this.data.options.length > 1;
+      return this.isTemplateEditable && this.data.days.length > 1;
     },
     showTasks() {
       return (
         this.isTemplateEditable ||
-        this.data.options[this.dayIndex].tasks.length > 0
+        this.data.days[this.dayIndex].tasks.length > 0
       );
     },
     showAdditionalMessages() {
-      const { messages } = this.data.options[this.dayIndex];
+      const { messages } = this.data.days[this.dayIndex];
       const hasContent = () => {
         for (let message of messages) {
           if (message.content.trim()) return true;
@@ -137,13 +135,13 @@ export default {
   },
   methods: {
     addDay() {
-      this.data.options.push({
+      this.data.days.push({
         id: uniqid(),
         title: "",
         tasks: [newTask(0)],
         messages: [newMessage()]
       });
-      this.selectedDay = this.data.options.length;
+      this.selectedDay = this.data.days.length;
       this.transition = "task";
     },
     deleteDay() {
@@ -151,8 +149,8 @@ export default {
         "Are you sure you want to delete this day and all its tasks? This action is irreversible.",
         () => {
           this.transition = "task";
-          this.data.options.splice(this.dayIndex, 1);
-          if (this.selectedDay > this.data.options.length) {
+          this.data.days.splice(this.dayIndex, 1);
+          if (this.selectedDay > this.data.days.length) {
             this.selectedDay--;
           }
         }

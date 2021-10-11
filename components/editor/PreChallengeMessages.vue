@@ -39,6 +39,7 @@
         </div>
       </TransitionGroup>
     </div>
+    <SectionSeperator />
   </section>
 </template>
 

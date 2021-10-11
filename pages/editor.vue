@@ -7,9 +7,7 @@
       @confirm="confirmAction"
     />
     <EditorTopArea />
-    <SectionSeperator />
     <PreChallengeMessages v-if="showPreMessages" />
-    <SectionSeperator v-if="showPreMessages" />
     <EditorMainArea />
     <EditorFloatingButtons />
     <EditorNotifications />
@@ -55,7 +53,7 @@ export default {
           image: data.image || null,
           date: new Date(data.date || defaultDate()),
           preMessages: initialPreMessages(data.preMessages),
-          options: initialOptions(data.days),
+          days: initialOptions(data.days),
           isTemplatePublic: key ? data.isTemplatePublic : isAdmin,
           allowTemplateCopies: key ? data.allowTemplateCopies : !isAdmin
         },
@@ -109,14 +107,7 @@ export default {
     },
     draftData() {
       return {
-        name: this.data.name,
-        language: this.data.language,
-        image: this.data.image,
-        date: this.data.date,
-        preMessages: this.data.preMessages,
-        days: this.data.options,
-        isTemplatePublic: this.data.isTemplatePublic,
-        allowTemplateCopies: this.data.allowTemplateCopies,
+        ...this.data,
         templateId: this.templateId,
         challengeId: this.editedChallengeId
       };
@@ -128,14 +119,14 @@ export default {
         language: this.data.language,
         image: this.data.image,
         preMessages: this.data.preMessages,
-        days: clearedOptions(this.data.options),
+        days: clearedOptions(this.data.days),
         isPublic: this.data.isTemplatePublic,
         allowCopies: this.data.allowTemplateCopies
       };
     },
     selections() {
       const selections = {};
-      this.data.options.forEach(day => {
+      this.data.days.forEach(day => {
         selections[day.id] = {};
         day.tasks.forEach(task => {
           selections[day.id][task.id] = task.selection;
@@ -157,8 +148,7 @@ export default {
           await this.saveDraft();
           this.autoSave.date = new Date();
           this.autoSave.error = false;
-        } catch (err) {
-          console.error(err);
+        } catch {
           this.autoSave.error = true;
         }
         this.autoSave.loading = false;
@@ -219,7 +209,7 @@ export default {
           throw "Please choose a language for the template";
         }
         const selectedEmojis = [];
-        this.data.options.forEach((day, dayIndex) => {
+        this.data.days.forEach((day, dayIndex) => {
           const isDayEmpty =
             !day.introduction.trim() &&
             !day.tasks.length &&

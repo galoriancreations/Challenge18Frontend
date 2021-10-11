@@ -18,7 +18,7 @@ export default {
       this.setConfirmModal(
         "Do you want to select a random option for each task? All your selections would be overwritten.",
         () => {
-          this.data.options.forEach(day => {
+          this.data.days.forEach(day => {
             day.tasks.forEach(task => {
               const optionIndex = Math.floor(
                 Math.random() * task.options.length

@@ -9,6 +9,7 @@
       v-if="isAdmin && data.isTemplatePublic"
       v-model="data.allowTemplateCopies"
     />
+    <SectionSeperator />
   </section>
 </template>
 
