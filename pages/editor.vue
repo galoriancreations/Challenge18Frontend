@@ -181,23 +181,24 @@ export default {
       const mode = this.editedChallengeId
         ? "updateChallenge"
         : "createChallenge";
+      const data = {
+        draftId: this.draftId,
+        templateId: this.templateId,
+        selections: this.selections,
+        date: this.data.date,
+        name: this.data.name
+      };
+      if (this.editedChallengeId) {
+        data.challengeId = this.editedChallengeId;
+      }
+      await this.$axios.$post("/xapi", { [mode]: data });
       const successText = this.editedChallengeId
         ? "Successfully updated challenge"
         : "Created new challenge from template";
-      await this.$axios.$post("/xapi", {
-        [mode]: {
-          challengeId: this.editedChallengeId,
-          draftId: this.draftId,
-          templateId: this.templateId,
-          selections: this.selections,
-          date: this.data.date,
-          name: this.data.name
-        }
-      });
-      this.$cookies.remove("draftId");
       this.addNotification(
         `${successText}: <strong>${this.data.name}</strong>.`
       );
+      this.$cookies.remove("draftId");
       this.$router.replace("/dashboard");
     },
     validateData() {
