@@ -1,5 +1,5 @@
 <template>
-  <section class="editor__pre-messages">
+  <section class="editor__pre-messages" v-if="showPreMessages">
     <h2 class="editor__pre-messages-heading">
       Pre-challenge messages
     </h2>
@@ -55,6 +55,16 @@ export default {
     };
   },
   computed: {
+    showPreMessages() {
+      const hasContent = () => {
+        for (let message of this.data.preMessages) {
+          if (message.text.trim()) return true;
+        }
+        return false;
+      };
+      const isEmpty = !this.data.preMessages.length || !hasContent();
+      return this.isTemplateEditable || !isEmpty;
+    },
     days() {
       return this.data.preMessages.map((message, index) => {
         const day = index - this.data.preMessages.length;

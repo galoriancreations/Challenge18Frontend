@@ -7,7 +7,7 @@
       @confirm="confirmAction"
     />
     <EditorTopArea />
-    <PreChallengeMessages v-if="showPreMessages" />
+    <PreChallengeMessages />
     <EditorMainArea />
     <EditorFloatingButtons />
     <EditorNotifications />
@@ -95,16 +95,6 @@ export default {
       const { allowTemplateCopies, isTemplatePublic } = this.data;
       return isAdmin || allowTemplateCopies || !isTemplatePublic;
     },
-    showPreMessages() {
-      const hasContent = () => {
-        for (let message of this.data.preMessages) {
-          if (message.text.trim()) return true;
-        }
-        return false;
-      };
-      const isEmpty = !this.data.preMessages.length || !hasContent();
-      return this.isTemplateEditable || !isEmpty;
-    },
     draftData() {
       return {
         ...this.data,
@@ -169,9 +159,7 @@ export default {
       const { templateId } = await this.$axios.$post("/xapi", {
         saveTemplate: {
           templateId: this.templateId,
-          templateData: this.templateData,
-          draftId: this.draftId,
-          finishEditing: false
+          templateData: this.templateData
         }
       });
       this.templateId = templateId;
@@ -182,15 +170,13 @@ export default {
         ? "updateChallenge"
         : "createChallenge";
       const data = {
+        challengeId: this.editedChallengeId,
         draftId: this.draftId,
         templateId: this.templateId,
         selections: this.selections,
         date: this.data.date,
         name: this.data.name
       };
-      if (this.editedChallengeId) {
-        data.challengeId = this.editedChallengeId;
-      }
       await this.$axios.$post("/xapi", { [mode]: data });
       const successText = this.editedChallengeId
         ? "Successfully updated challenge"

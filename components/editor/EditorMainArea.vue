@@ -261,10 +261,10 @@ export default {
 [style="direction: rtl;"] {
   .task-leave-to,
   .task-delete-leave-to {
-    transform: translateX(-100vw);
+    transform: translateX(-100vw) !important;
 
     @include respond(mobile) {
-      transform: translateX(-150vw);
+      transform: translateX(-150vw) !important;
     }
   }
 }
