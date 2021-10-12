@@ -12,47 +12,44 @@
       </section>
       <section class="editor__day" ref="container">
         <DayTitleField
-          :key="`title-${data.days[dayIndex].id}`"
-          v-model.trim="data.days[dayIndex].title"
+          :key="`title-${dayData.id}`"
+          v-model.trim="dayData.title"
           :label="`${dayLabel} ${selectedDay}`"
         />
         <DayActionButtons
           v-if="showActionButtons"
-          :key="`actions-${data.days[dayIndex].id}`"
+          :key="`actions-${dayData.id}`"
         />
         <TransitionGroup
           tag="div"
           class="editor__day-content"
           :name="transition"
         >
-          <div
-            :key="`introduction-${data.days[dayIndex].id}`"
-            class="editor__subsection"
-          >
+          <div :key="`introduction-${dayData.id}`" class="editor__subsection">
             <DayIntroductionField
-              :key="data.days[dayIndex].id"
-              v-model="data.days[dayIndex].introduction"
+              :key="dayData.id"
+              v-model="dayData.introduction"
             />
           </div>
           <div
             v-if="showTasks"
-            :key="`tasks-${data.days[dayIndex].id}`"
+            :key="`tasks-${dayData.id}`"
             class="editor__subsection"
           >
             <h3 class="editor__subsection-heading">
               Day Tasks
             </h3>
-            <EditorTaskList :tasks="data.days[dayIndex].tasks" />
+            <EditorTaskList :tasks="dayData.tasks" />
           </div>
           <div
             v-if="showAdditionalMessages"
-            :key="`messages-${data.days[dayIndex].id}`"
+            :key="`messages-${dayData.id}`"
             class="editor__subsection"
           >
             <h3 class="editor__subsection-heading">
               Day Messages
             </h3>
-            <AdditionalMessagesList :messages="data.days[dayIndex].messages" />
+            <AdditionalMessagesList :messages="dayData.messages" />
           </div>
         </TransitionGroup>
       </section>
@@ -108,14 +105,14 @@ export default {
     showActionButtons() {
       return this.isTemplateEditable && this.data.days.length > 1;
     },
+    dayData() {
+      return this.data.days[this.dayIndex];
+    },
     showTasks() {
-      return (
-        this.isTemplateEditable ||
-        this.data.days[this.dayIndex].tasks.length > 0
-      );
+      return this.isTemplateEditable || this.dayData.tasks.length > 0;
     },
     showAdditionalMessages() {
-      const { messages } = this.data.days[this.dayIndex];
+      const { messages } = this.dayData;
       const hasContent = () => {
         for (let message of messages) {
           if (message.content.trim()) return true;
