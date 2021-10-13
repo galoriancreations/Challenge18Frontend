@@ -195,7 +195,8 @@ export default {
       margin-top: 21rem;
       padding-bottom: 6rem;
       height: calc(100% - 21rem);
-      overflow: auto;
+      overflow-x: hidden;
+      overflow-y: auto;
       text-align: center;
 
       @include respond(mobile) {
