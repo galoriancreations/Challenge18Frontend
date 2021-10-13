@@ -64,7 +64,7 @@
           <div class="points-selector">
             <NumberInput
               v-model="selectedAmount"
-              :min="10"
+              :min="18"
               :step="10"
               :center="true"
               size="large"
