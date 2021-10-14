@@ -45,7 +45,7 @@ export default {
     color: $color-gold-4;
     text-align: center;
     padding: 1.75rem 1rem 1.5rem;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 2.5rem;
 
     @include respond(mobile) {
