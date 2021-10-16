@@ -5,7 +5,10 @@
     <div class="auth-switch">
       <p class="auth-switch__text">Don't have an account yet?</p>
       <div class="auth-switch__links">
-        <BaseButton :link="registerLink" variant="gold">
+        <BaseButton
+          :link="{ path: '/join', query: $route.query }"
+          variant="gold"
+        >
           Register for free
         </BaseButton>
       </div>
@@ -17,16 +20,6 @@
 export default {
   meta: {
     forLoggingIn: true
-  },
-  computed: {
-    registerLink() {
-      const link = { path: "/join" };
-      const { redirect } = this.$route.query;
-      if (redirect) {
-        link.query = { redirect };
-      }
-      return link;
-    }
   }
 };
 </script>

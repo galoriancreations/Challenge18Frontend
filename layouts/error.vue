@@ -32,10 +32,9 @@ export default {
     buttonAction() {
       return this.error.statusCode === 404
         ? () => this.$router.push("/")
-        : () =>
-            this.$route.meta.requiresAuth
-              ? location.reload()
-              : this.$router.back();
+        : this.$route.name === "dashboard"
+        ? () => location.reload()
+        : () => this.$router.back();
     }
   }
 };

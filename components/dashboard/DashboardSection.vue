@@ -70,5 +70,14 @@ export default {
       font-weight: 600;
     }
   }
+
+  &__link {
+    cursor: pointer;
+    transition: color 0.5s;
+
+    &:hover {
+      color: $color-gold-3;
+    }
+  }
 }
 </style>

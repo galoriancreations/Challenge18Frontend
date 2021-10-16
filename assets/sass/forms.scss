@@ -187,6 +187,17 @@
   }
 }
 
+.editor .language-selector {
+  width: fit-content;
+  max-width: 100%;
+  min-width: 37rem;
+
+  @include respond(mobile) {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
 // CUSTOM RADIO INPUT
 .radio-input {
   display: none;

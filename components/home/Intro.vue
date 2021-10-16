@@ -55,10 +55,7 @@ export default {
   background-size: cover;
   color: #fff;
   position: relative;
-
-  @media (hover: hover) {
-    background-attachment: fixed;
-  }
+  background-attachment: fixed;
 
   @include respond(tablet) {
     padding: 17rem $padding-sides-desktop 16rem;
@@ -66,6 +63,7 @@ export default {
 
   @include respond(mobile) {
     padding: 13rem $padding-sides-mobile 12rem;
+    background-attachment: initial;
   }
 
   &__top {
