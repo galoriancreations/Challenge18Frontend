@@ -27,6 +27,7 @@ export default {
             return this.templates.map(template => ({
                 ...template,
                 name: template.name || "(Unnamed)",
+                newChallenge: () => this.createChallenge(template.id),
                 clone: () => this.cloneTemplate(template.id),
                 edit: () => this.editTemplate(template.id),
                 delete: () => this.deleteTemplate(template)
@@ -37,6 +38,9 @@ export default {
         }
     },
     methods: {
+        createChallenge(templateId) {
+            this.editTemplate(templateId, true);
+        },
         async cloneTemplate(templateId) {
             this.loading = true;
             const template = await this.$axios.$post("/xapi", {
@@ -65,7 +69,7 @@ export default {
             );
             this.loading = false;
         },
-        editTemplate(templateId) {
+        editTemplate(templateId, newChallenge = false) {
             if (templateId) {
                 this.$cookies.set("selectedTemplate", templateId);
             } else {
@@ -73,10 +77,11 @@ export default {
             }
             this.$cookies.remove("challengeId");
             this.$cookies.remove("draftId");
-            this.$router.push({
-                path: "/editor",
-                query: { templateOnly: true }
-            });
+            const redirect = { path: "/editor" };
+            if (!newChallenge) {
+                redirect.query = { templateOnly: true };
+            }
+            this.$router.push(redirect);
         },
         deleteTemplate(template) {
             this.setConfirmModal(

@@ -8,6 +8,9 @@ export const actions = {
                 dispatch("results/loadResults"),
                 dispatch("players/loadPlayers")
             ]);
+            if (getters.isAdmin) {
+                await dispatch("users/loadUsers");
+            }
         } catch (err) {
             error(err);
         }

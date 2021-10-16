@@ -80,4 +80,11 @@ export default {
     }
   }
 }
+
+.my-drafts,
+.all-users {
+  .my-challenges__table-container {
+    margin: 0;
+  }
+}
 </style>

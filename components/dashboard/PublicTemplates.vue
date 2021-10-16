@@ -20,6 +20,9 @@
           show-select
           class="elevation-2"
         >
+          <template v-slot:[`item.newChallenge`]="{ item }">
+            <DashboardButton type="clone" @click="item.newChallenge" />
+          </template>
           <template v-slot:[`item.clone`]="{ item }">
             <DashboardButton type="clone" @click="item.clone" />
           </template>

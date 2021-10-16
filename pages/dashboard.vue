@@ -11,6 +11,7 @@
     <CreatedChallenges />
     <PublicTemplates v-if="isAdmin" />
     <MyTemplates />
+    <AllUsers v-if="isAdmin" />
     <MyDrafts />
   </Page>
 </template>
@@ -23,12 +24,13 @@ export default {
   meta: {
     requiresAuth: true
   },
-  async asyncData({ store, from, error }) {
+  async asyncData({ store: { getters, dispatch }, from, error }) {
     if (process.client && !from.meta[0]?.forLoggingIn) {
       try {
         await Promise.all([
-          store.dispatch("updateUser"),
-          store.dispatch("loadTemplates")
+          dispatch("updateUser"),
+          dispatch("loadTemplates"),
+          getters.isAdmin && dispatch("users/loadUsers")
         ]);
       } catch (err) {
         error(err);

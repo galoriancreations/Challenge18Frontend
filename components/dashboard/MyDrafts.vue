@@ -142,10 +142,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.my-drafts {
-  .my-challenges__table-container {
-    margin: 0;
-  }
-}
-</style>
+<style lang="scss"></style>
