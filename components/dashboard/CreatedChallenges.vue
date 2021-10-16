@@ -7,6 +7,11 @@
     <div v-else class="my-challenges__table-container">
       <v-app>
         <v-data-table :headers="headers" :items="items" class="elevation-2">
+          <template v-slot:[`item.name`]="{ item }">
+            <span class="dashboard-section__link" @click="item.edit">
+              {{ item.name }}
+            </span>
+          </template>
           <template v-slot:[`item.edit`]="{ item }">
             <DashboardButton type="edit" @click="item.edit" />
           </template>
@@ -55,7 +60,7 @@ export default {
         ...challenge,
         numOfUsers: Object.keys(challenge.scores).length,
         isActive: challenge.isActive ? "Yes" : "No",
-        currentDay: currentDay(challenge.startDate),
+        currentDay: currentDay(challenge.date),
         edit: () => this.editChallenge(challenge.id)
       }));
     }
