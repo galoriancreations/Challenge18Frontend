@@ -5,6 +5,7 @@
       @input="$emit('input', $event)"
       @keydown.native.enter.prevent
       class="editor__name"
+      :style="{ direction }"
       :placeholder="placeholder"
       :rows="1"
       :readonly="!isTemplateEditable"
@@ -13,12 +14,17 @@
 </template>
 
 <script>
+import { rtlLanguages } from "~/assets/util/options";
+
 export default {
   props: {
     value: String
   },
-  inject: ["isTemplateEditable"],
+  inject: ["data", "isTemplateEditable"],
   computed: {
+    direction() {
+      return rtlLanguages.includes(this.data.language) ? "rtl" : null;
+    },
     placeholder() {
       return process.client
         ? window.innerWidth > 600
