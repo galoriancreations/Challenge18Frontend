@@ -148,12 +148,8 @@ export const numbersArray = n =>
 export const dataArrayFromObject = data =>
   Object.keys(data).map(id => ({ id, ...data[id] }));
 
-export const currentDay = date => {
-  if (!date) {
-    date = defaultDate();
-  };
-  return moment(new Date()).diff(moment(date), "days");
-};
+export const currentDay = date =>
+  moment(new Date()).diff(moment(date), "days");;
 
 export const newNotification = payload => {
   let newItem = { id: uniqid() };

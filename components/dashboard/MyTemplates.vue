@@ -13,11 +13,6 @@
           show-select
           class="elevation-2"
         >
-          <template v-slot:[`item.name`]="{ item }">
-            <span class="dashboard-section__link" @click="item.edit">
-              {{ item.name }}
-            </span>
-          </template>
           <template v-slot:[`item.clone`]="{ item }">
             <DashboardButton type="clone" @click="item.clone" />
           </template>

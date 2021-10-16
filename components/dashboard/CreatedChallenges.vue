@@ -6,17 +6,22 @@
     </div>
     <div v-else class="my-challenges__table-container">
       <v-app>
-        <v-data-table :headers="headers" :items="items" class="elevation-2">
-          <template v-slot:[`item.name`]="{ item }">
-            <span class="dashboard-section__link" @click="item.edit">
-              {{ item.name }}
-            </span>
-          </template>
+        <v-data-table
+          v-model="selected"
+          :headers="headers"
+          :items="items"
+          show-select
+          class="elevation-2"
+        >
           <template v-slot:[`item.edit`]="{ item }">
             <DashboardButton type="edit" @click="item.edit" />
           </template>
+          <template v-slot:[`item.delete`]="{ item }">
+            <DashboardButton type="delete" @click="item.delete" />
+          </template>
         </v-data-table>
       </v-app>
+      <DeleteSelectedButton :disabled="!selected.length" />
     </div>
     <template slot="button">
       <ActionButton type="add" color="blue" @click="showModal = true" />
@@ -24,6 +29,7 @@
     <template slot="modal">
       <CreateChallenge :active="showModal" />
     </template>
+    <BaseSpinner v-if="loading" />
   </DashboardSection>
 </template>
 
@@ -33,6 +39,7 @@ import popupModal from "../../mixins/popup-modal";
 
 export default {
   mixins: [popupModal],
+  inject: ["setConfirmModal", "addNotification"],
   data() {
     return {
       headers: [
@@ -41,8 +48,11 @@ export default {
         { text: "No. of Users", value: "numOfUsers" },
         { text: "Active", value: "isActive" },
         { text: "Current Day", value: "currentDay" },
-        { text: "Edit", value: "edit", sortable: false }
-      ]
+        { text: "Edit", value: "edit", sortable: false },
+        { text: "Delete", value: "delete", sortable: false }
+      ],
+      selected: [],
+      loading: false
     };
   },
   computed: {
@@ -61,7 +71,8 @@ export default {
         numOfUsers: Object.keys(challenge.scores).length,
         isActive: challenge.isActive ? "Yes" : "No",
         currentDay: currentDay(challenge.date),
-        edit: () => this.editChallenge(challenge.id)
+        edit: () => this.editChallenge(challenge.id),
+        delete: () => this.deleteChallenge(challenge)
       }));
     }
   },
@@ -71,7 +82,54 @@ export default {
       this.$cookies.remove("selectedTemplate");
       this.$cookies.remove("draftId");
       this.$router.push("/editor");
+    },
+    deleteChallenge(challenge) {
+      this.setConfirmModal(
+        "Are you sure you want to delete this challenge? This action is irreversible.",
+        async () => {
+          this.loading = true;
+          await this.$axios.$post("/xapi", { deleteChallenge: challenge.id });
+          await this.$store.dispatch("updateUser");
+          this.loading = false;
+          this.addNotification(
+            `Successfully deleted challenge: <strong>${challenge.name}</strong>.`
+          );
+          this.selected = this.selected.filter(
+            selection => selection.id !== challenge.id
+          );
+        }
+      );
+    },
+    deleteSelected() {
+      const selections = [...this.selected];
+      if (selections.length === 1) {
+        return this.deleteChallenge(selections[0]);
+      }
+      this.setConfirmModal(
+        `Are you sure you want to delete these ${selections.length} challenges? This action is irreversible.`,
+        async () => {
+          this.loading = true;
+          const requests = selections.map(challenge =>
+            this.$axios.$post("/xapi", { deleteChallenge: challenge.id })
+          );
+          await Promise.all(requests);
+          await this.$store.dispatch("updateUser");
+          this.addNotification(
+            `Successfully deleted <strong>${selections.length} challenges</strong>.`
+          );
+          this.loading = false;
+          this.selected = [];
+        }
+      );
     }
+  },
+  provide() {
+    return {
+      deleteSelected: this.deleteSelected
+    };
+  },
+  mounted() {
+    console.log(this.user);
   }
 };
 </script>
