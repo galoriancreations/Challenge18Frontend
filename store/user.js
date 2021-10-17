@@ -36,7 +36,12 @@ export const actions = {
         const authData = await this.$axios.$post("/api", { [mode]: data });
         const { access_token: token, user, exp } = authData;
         this.$axios.setToken(token, "Bearer");
-        await context.dispatch("loadTemplates");
+
+        const isAdmin = user.isAdmin || user.accountType === "admin";
+        await Promise.all([
+            context.dispatch("loadTemplates"),
+            isAdmin && context.dispatch("admin/loadData")
+        ]);
         context.commit("setUser", { user, token });
 
         this.$cookies.set("userId", user.id);

@@ -30,7 +30,7 @@ export default {
         await Promise.all([
           dispatch("updateUser"),
           dispatch("loadTemplates"),
-          getters.isAdmin && dispatch("users/loadUsers")
+          getters.isAdmin && dispatch("admin/loadData")
         ]);
       } catch (err) {
         error(err);

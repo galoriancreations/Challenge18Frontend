@@ -7,7 +7,6 @@
           :headers="headers"
           :items="items"
           show-select
-          item-key="username"
           class="elevation-2"
         >
           <template v-slot:[`item.delete`]="{ item }">
@@ -41,7 +40,7 @@ export default {
   },
   computed: {
     users() {
-      return this.$store.getters["users/users"];
+      return this.$store.getters["admin/users"];
     },
     items() {
       return this.users.map(user => ({

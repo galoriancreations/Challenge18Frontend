@@ -9,7 +9,7 @@ export const actions = {
                 dispatch("players/loadPlayers")
             ]);
             if (getters.isAdmin) {
-                await dispatch("users/loadUsers");
+                await dispatch("admin/loadData");
             }
         } catch (err) {
             error(err);

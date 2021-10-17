@@ -127,9 +127,6 @@ export default {
     return {
       deleteSelected: this.deleteSelected
     };
-  },
-  mounted() {
-    console.log(this.user);
   }
 };
 </script>
