@@ -1,17 +1,10 @@
 <template>
   <DashboardSection
-    title="Public Templates"
-    class="public-templates"
-    id="public-templates"
+    title="All Templates"
+    class="all-templates"
+    id="all-templates"
   >
-    <div v-if="!hasTemplates" class="my-challenges__empty">
-      <p>
-        Public templates will appear here. These templates will be available for
-        all users.
-      </p>
-      <p>Click below to create a new public template.</p>
-    </div>
-    <div v-else class="my-challenges__table-container">
+    <div class="my-challenges__table-container">
       <v-app>
         <v-data-table
           v-model="selected"
@@ -20,9 +13,6 @@
           show-select
           class="elevation-2"
         >
-          <template v-slot:[`item.newChallenge`]="{ item }">
-            <DashboardButton type="clone" @click="item.newChallenge" />
-          </template>
           <template v-slot:[`item.clone`]="{ item }">
             <DashboardButton type="clone" @click="item.clone" />
           </template>
@@ -51,12 +41,11 @@ import templatesTable from "~/mixins/templates-table";
 import popupModal from "~/mixins/popup-modal";
 
 export default {
+  name: "all-templates",
   mixins: [templatesTable, popupModal],
   computed: {
     templates() {
-      return this.$store.getters.templates.filter(
-        template => template.isPublic
-      );
+      return this.$store.getters["admin/templates"];
     }
   }
 };

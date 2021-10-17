@@ -12,6 +12,7 @@
     <PublicTemplates v-if="isAdmin" />
     <MyTemplates />
     <AllUsers v-if="isAdmin" />
+    <AllTemplates v-if="isAdmin" />
     <MyDrafts />
   </Page>
 </template>

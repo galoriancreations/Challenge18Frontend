@@ -55,7 +55,11 @@
       </section>
     </div>
     <div key="submit" class="editor__submit-wrapper">
-      <BaseButton variant="blue" @click="submitHandler">
+      <BaseButton
+        variant="blue"
+        @click="submitHandler"
+        :disabled="submit.loading"
+      >
         {{ submitButtonText }}
       </BaseButton>
       <BaseSpinner v-if="submit.loading" />

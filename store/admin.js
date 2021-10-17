@@ -1,10 +1,14 @@
 export const state = () => ({
-    users: []
+    users: [],
+    templates: []
 });
 
 export const mutations = {
     setUsers(state, payload) {
         state.users = payload;
+    },
+    setTemplates(state, payload) {
+        state.templates = payload;
     }
 };
 
@@ -20,7 +24,11 @@ export const actions = {
         context.commit("setUsers", users);
     },
     async loadTemplates(context) {
-
+        const templates = await this.$axios.$post("/xapi", {
+            getAllTemplates: true
+        });
+        console.log(templates)
+        context.commit("setTemplates", templates);
     },
     async loadChallenges(context) {
 
@@ -30,5 +38,8 @@ export const actions = {
 export const getters = {
     users(state) {
         return state.users;
+    },
+    templates(state) {
+        return state.templates;
     }
 };
