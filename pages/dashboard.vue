@@ -11,9 +11,9 @@
     <CreatedChallenges />
     <PublicTemplates v-if="isAdmin" />
     <MyTemplates />
+    <MyDrafts />
     <AllUsers v-if="isAdmin" />
     <AllTemplates v-if="isAdmin" />
-    <MyDrafts />
   </Page>
 </template>
 

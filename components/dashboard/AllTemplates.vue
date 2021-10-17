@@ -26,23 +26,16 @@
       </v-app>
       <DeleteSelectedButton :disabled="!selected.length" />
     </div>
-    <template slot="button">
-      <ActionButton type="add" color="blue" @click="showModal = true" />
-    </template>
-    <template slot="modal">
-      <CreateTemplate :active="showModal" />
-    </template>
     <BaseSpinner v-if="loading" />
   </DashboardSection>
 </template>
 
 <script>
 import templatesTable from "~/mixins/templates-table";
-import popupModal from "~/mixins/popup-modal";
 
 export default {
   name: "all-templates",
-  mixins: [templatesTable, popupModal],
+  mixins: [templatesTable],
   computed: {
     templates() {
       return this.$store.getters["admin/templates"];

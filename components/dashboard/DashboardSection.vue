@@ -82,7 +82,9 @@ export default {
 }
 
 .my-drafts,
-.all-users {
+.all-users,
+.all-templates,
+.all-challenges {
   .my-challenges__table-container {
     margin: 0;
   }

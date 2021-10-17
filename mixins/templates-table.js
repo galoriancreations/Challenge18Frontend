@@ -1,7 +1,17 @@
 export default {
     inject: ["addNotification", "setConfirmModal"],
     data() {
+        const { name } = this.$options;
         return {
+            headers: [
+                { text: "Name", value: "name" },
+                { text: "Language", value: "language" },
+                name === "all-templates" && { text: "Creator", value: "creator" },
+                name === "all-templates" && { text: "Type", value: "type" },
+                name !== "all-templates" && { text: "Clone", value: "clone", sortable: false },
+                { text: "Edit", value: "edit", sortable: false },
+                { text: "Delete", value: "delete", sortable: false }
+            ],
             selected: [],
             loading: false
         };
@@ -10,23 +20,11 @@ export default {
         user() {
             return this.$store.getters.user;
         },
-        headers() {
-            const headers = [
-                { text: "Name", value: "name" },
-                { text: "Language", value: "language" },
-                { text: "Clone", value: "clone", sortable: false },
-                { text: "Edit", value: "edit", sortable: false },
-                { text: "Delete", value: "delete", sortable: false }
-            ];
-            if (this.$options.name === "all-templates") {
-                headers.splice(2, 0, { text: "Creator", value: "creator" });
-            }
-            return headers;
-        },
         items() {
             return this.templates.map(template => ({
                 ...template,
                 name: template.name || "(Unnamed)",
+                type: template.isPublic ? "Public" : "Private",
                 newChallenge: () => this.createChallenge(template.id),
                 clone: () => this.cloneTemplate(template.id),
                 edit: () => this.editTemplate(template.id),
