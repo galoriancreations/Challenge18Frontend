@@ -28,6 +28,11 @@
                 "role": "Developer",
                 "description": "Full-stack web developer, specializing in planning and building modern websites and web applications, with advanced designs and optimized user experience.",
                 "link": "https://yinonhever.com/"
+            },
+            {
+                "name": "Veronica Aminov",
+                "image": "veronica.jpeg",
+                "role": "Content Writing and Administration"
             }
         ]
     },

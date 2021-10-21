@@ -92,6 +92,7 @@ export default {
   &__role {
     display: block;
     font-size: 1.7rem;
+    line-height: 1.4;
     color: #888;
     margin-top: 0.8rem;
   }
