@@ -7,6 +7,7 @@
         label="Search"
         single-line
         hide-details
+        class="search-field"
       />
       <v-data-table
         :value="selected"
@@ -79,14 +80,14 @@ export default {
       }
     }
 
-    .v-text-field {
+    .search-field {
       padding: 0;
-      margin: 0 auto 6rem;
+      margin: 0 auto 5rem;
       width: 100%;
       max-width: 55rem;
 
       @include respond(mobile) {
-        margin-bottom: 4.5rem;
+        margin-bottom: 4rem;
       }
     }
   }
