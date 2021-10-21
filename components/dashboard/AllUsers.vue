@@ -1,21 +1,6 @@
 <template>
   <DashboardSection title="All Users" class="all-users">
-    <div class="my-challenges__table-container">
-      <v-app>
-        <v-data-table
-          v-model="selected"
-          :headers="headers"
-          :items="items"
-          show-select
-          class="elevation-2"
-        >
-          <template v-slot:[`item.delete`]="{ item }">
-            <DashboardButton type="delete" @click="item.delete" />
-          </template>
-        </v-data-table>
-      </v-app>
-      <DeleteSelectedButton :disabled="!selected.length" />
-    </div>
+    <DashboardTable v-model="selected" :headers="headers" :items="items" />
     <BaseSpinner v-if="loading" />
   </DashboardSection>
 </template>
@@ -31,11 +16,12 @@ export default {
         { text: "Username", value: "username" },
         { text: "Full Name", value: "name" },
         { text: "Account Type", value: "accountType" },
-        { text: "Admin", value: "isAdmin" },
-        { text: "Delete", value: "delete", sortable: false }
+        { text: "Admin", value: "isAdmin", filterable: false },
+        { text: "Delete", value: "delete", sortable: false, filterable: false }
       ],
       loading: false,
-      selected: []
+      selected: [],
+      search: ""
     };
   },
   computed: {

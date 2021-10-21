@@ -165,7 +165,6 @@ export default {
       this.templateId = templateId;
     },
     async saveChallenge() {
-      await this.saveTemplate();
       const mode = this.editedChallengeId
         ? "updateChallenge"
         : "createChallenge";
@@ -230,7 +229,6 @@ export default {
         return this.$router.replace("/dashboard");
       }
       if (!this.validateData()) return;
-      clearTimeout(this.autoSave.timeout);
       this.submit.loading = true;
       try {
         await this.saveChallenge();

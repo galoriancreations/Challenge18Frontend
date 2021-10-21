@@ -4,28 +4,12 @@
       <p>Private templates you created will appear here.</p>
       <p>Click the button below to create a new template.</p>
     </div>
-    <div v-else class="my-challenges__table-container">
-      <v-app>
-        <v-data-table
-          v-model="selected"
-          :headers="headers"
-          :items="items"
-          show-select
-          class="elevation-2"
-        >
-          <template v-slot:[`item.clone`]="{ item }">
-            <DashboardButton type="clone" @click="item.clone" />
-          </template>
-          <template v-slot:[`item.edit`]="{ item }">
-            <DashboardButton type="edit" @click="item.edit" />
-          </template>
-          <template v-slot:[`item.delete`]="{ item }">
-            <DashboardButton type="delete" @click="item.delete" />
-          </template>
-        </v-data-table>
-      </v-app>
-      <DeleteSelectedButton :disabled="!selected.length" />
-    </div>
+    <DashboardTable
+      v-else
+      v-model="selected"
+      :headers="headers"
+      :items="items"
+    />
     <template slot="button">
       <ActionButton type="add" color="blue" @click="showModal = true" />
     </template>

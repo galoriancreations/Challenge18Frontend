@@ -20,6 +20,9 @@ export default {
     isAdmin() {
       return this.$store.getters.isAdmin;
     }
+  },
+  created() {
+    this.data.image = null;
   }
 };
 </script>

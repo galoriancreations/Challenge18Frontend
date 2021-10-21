@@ -32,8 +32,10 @@ export default {
   },
 
   plugins: [
-    "~/plugins/main",
-    "~/plugins/v-waypoint.client.js"
+    "~/plugins/core-components",
+    "~/plugins/v-waypoint.client.js",
+    "~/plugins/image-uploader.client.js",
+    "~/plugins/vue-plyr.client.js"
   ],
 
   components: {

@@ -27,7 +27,6 @@ export const actions = {
         const templates = await this.$axios.$post("/xapi", {
             getAllTemplates: true
         });
-        console.log(templates)
         context.commit("setTemplates", templates);
     },
     async loadChallenges(context) {

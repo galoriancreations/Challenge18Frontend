@@ -12,7 +12,7 @@
           v-if="data.preMessages.length < 5 && isTemplateEditable"
           type="add"
           color="white"
-          @click="addMessage"
+          @click="showModal = true"
         />
         <SideTabs v-if="days.length" v-model="selectedDay" :tabs="days" />
       </div>
@@ -26,7 +26,7 @@
         </p>
         <div v-else :key="data.preMessages[dayIndex].id">
           <div class="task-form__top">
-            <h3 class="pre-message-form__title">
+            <h3 class="editor__pre-day-title">
               {{ formTitle }}
             </h3>
             <IconButton
@@ -35,10 +35,17 @@
               @click="deleteMessage"
             />
           </div>
-          <PreMessageForm :message="data.preMessages[dayIndex]" />
+          <MessageForm
+            :message="data.preMessages[dayIndex]"
+            :deleteButton="false"
+            textKey="text"
+          />
         </div>
       </TransitionGroup>
     </div>
+    <client-only>
+      <MessageTypeModal :active="showModal" />
+    </client-only>
     <SectionSeperator />
   </section>
 </template>
@@ -46,8 +53,10 @@
 <script>
 import uniqid from "uniqid";
 import { dayTranslations, rtlLanguages } from "../../assets/util/options";
+import popupModal from "~/mixins/popup-modal";
 
 export default {
+  mixins: [popupModal],
   inject: ["data", "isTemplateEditable", "setConfirmModal"],
   data() {
     return {
@@ -58,7 +67,7 @@ export default {
     showPreMessages() {
       const hasContent = () => {
         for (let message of this.data.preMessages) {
-          if (message.text.trim()) return true;
+          if (message.text.trim() || message.file) return true;
         }
         return false;
       };
@@ -100,15 +109,19 @@ export default {
     }
   },
   methods: {
-    addMessage() {
+    addMessage(isAudio) {
+      this.closeModal();
       this.data.preMessages.unshift({
         id: uniqid(),
+        isAudio,
         text: "",
+        file: null,
         time: "18:00:00"
       });
       this.selectedDay = this.days[0].value;
     },
     deleteMessage() {
+      const message = this.data.preMessages[this.dayIndex];
       this.setConfirmModal(
         "Are you sure you want to delete this message? This action is irreversible.",
         () => {
@@ -121,9 +134,14 @@ export default {
             }
           }
         },
-        !this.data.preMessages[this.dayIndex].text.trim()
+        !message.text.trim() && !message.file
       );
     }
+  },
+  provide() {
+    return {
+      addMessage: this.addMessage
+    };
   }
 };
 </script>
@@ -183,6 +201,20 @@ export default {
 
     @include respond(mobile) {
       font-size: 1.4rem;
+    }
+  }
+
+  &__pre-day-title {
+    color: $color-blue-2;
+    font-size: 1.95rem;
+    margin-right: 2rem;
+
+    @include respond(mobile) {
+      font-size: 1.75rem;
+    }
+
+    &:last-child {
+      margin: auto;
     }
   }
 }

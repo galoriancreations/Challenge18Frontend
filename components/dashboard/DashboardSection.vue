@@ -70,15 +70,6 @@ export default {
       font-weight: 600;
     }
   }
-
-  &__link {
-    cursor: pointer;
-    transition: color 0.5s;
-
-    &:hover {
-      color: $color-gold-3;
-    }
-  }
 }
 
 .my-drafts,
@@ -87,6 +78,34 @@ export default {
 .all-challenges {
   .my-challenges__table-container {
     margin: 0;
+  }
+}
+
+.my-challenges {
+  &__table-container {
+    margin-bottom: 1.5rem;
+    width: 100%;
+    align-self: flex-start;
+
+    & > .button {
+      margin-top: 4rem !important;
+
+      i {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+
+    & > .dashboard-button {
+      margin: 0;
+
+      &:not(:last-child) {
+        margin-right: 0.75rem;
+      }
+    }
   }
 }
 </style>

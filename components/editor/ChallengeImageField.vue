@@ -1,12 +1,10 @@
 <template>
   <EditorTopField v-if="value || isTemplateEditable" label="Challenge image">
-    <textarea-autosize
-      class="editor__img-input"
+    <ImageSelector
       :value="value"
       @input="$emit('input', $event)"
-      :disabled="!isTemplateEditable"
-      placeholder="Enter image URL here..."
-      :rows="1"
+      :showImgElement="value && (!isTemplateEditable || !hasSelectedImage)"
+      :showInput="isTemplateEditable"
     />
   </EditorTopField>
 </template>
@@ -14,20 +12,13 @@
 <script>
 export default {
   props: {
-    value: String
+    value: [String, Object]
   },
-  inject: ["isTemplateEditable"]
+  inject: ["isTemplateEditable"],
+  computed: {
+    hasSelectedImage() {
+      return !!this.value && typeof this.value === "object";
+    }
+  }
 };
 </script>
-
-<style lang="scss">
-.editor__img-input {
-  font: inherit;
-  outline: none;
-  display: block;
-  width: 100%;
-  max-width: 100rem;
-  margin: auto;
-  text-align: center;
-}
-</style>

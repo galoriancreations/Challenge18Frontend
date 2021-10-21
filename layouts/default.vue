@@ -24,15 +24,6 @@ export default {
   },
   methods: {
     initSocketMethods() {
-      this.io.on("allBoards", ({ challenges }) =>
-        this.$store.dispatch("results/updateResults", challenges)
-      );
-      this.io.on("updateUser", userData =>
-        this.$store.commit("updateUser", userData)
-      );
-      this.io.on("myTemplates", templates =>
-        this.$store.commit("setTemplates", templates)
-      );
       if (this.isLoggedIn) {
         this.io.emit("joinRoom", this.user.id);
       }

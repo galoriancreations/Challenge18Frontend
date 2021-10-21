@@ -1,79 +1,93 @@
 <template>
-  <TransitionGroup tag="div" class="editor__wrapper" :name="transition">
-    <div key="content" class="editor__content" :style="{ direction }">
-      <section class="editor__tabs">
-        <SideTabs v-model="selectedDay" :tabs="days" />
-        <ActionButton
-          v-if="isTemplateEditable"
-          type="add"
-          color="white"
-          @click="addDay"
-        />
-      </section>
-      <section class="editor__day" ref="container">
-        <DayTitleField
-          :key="`title-${dayData.id}`"
-          v-model.trim="dayData.title"
-          :label="`${dayLabel} ${selectedDay}`"
-        />
-        <DayActionButtons
-          v-if="showActionButtons"
-          :key="`actions-${dayData.id}`"
-        />
-        <TransitionGroup
-          tag="div"
-          class="editor__day-content"
-          :name="transition"
+  <div class="editor__main">
+    <TransitionGroup tag="div" class="editor__wrapper" :name="transition">
+      <div key="content" class="editor__content" :style="{ direction }">
+        <section class="editor__tabs">
+          <SideTabs v-model="selectedDay" :tabs="days" />
+          <ActionButton
+            v-if="isTemplateEditable"
+            type="add"
+            color="white"
+            @click="addDay"
+          />
+        </section>
+        <section class="editor__day" ref="container">
+          <DayTitleField
+            :key="`title-${dayData.id}`"
+            v-model.trim="dayData.title"
+            :label="`${dayLabel} ${selectedDay}`"
+          />
+          <DayActionButtons
+            v-if="showActionButtons"
+            :key="`actions-${dayData.id}`"
+          />
+          <TransitionGroup
+            tag="div"
+            class="editor__day-content"
+            :name="transition"
+          >
+            <div
+              v-if="dayData.introduction || isTemplateEditable"
+              :key="`introduction-${dayData.id}`"
+              class="editor__subsection"
+            >
+              <DayIntroductionField
+                :key="dayData.id"
+                v-model="dayData.introduction"
+              />
+            </div>
+            <div
+              v-if="showTasks"
+              :key="`tasks-${dayData.id}`"
+              class="editor__subsection"
+            >
+              <h3 class="editor__subsection-heading">
+                Day Tasks
+              </h3>
+              <EditorTaskList :tasks="dayData.tasks" />
+            </div>
+            <div
+              v-if="showAdditionalMessages"
+              :key="`messages-${dayData.id}`"
+              class="editor__subsection"
+            >
+              <h3 class="editor__subsection-heading">
+                Day Messages
+              </h3>
+              <AdditionalMessagesList
+                :messages="dayData.messages"
+                @add-click="showModal = true"
+              />
+            </div>
+          </TransitionGroup>
+        </section>
+      </div>
+      <div key="submit" class="editor__submit-wrapper">
+        <BaseButton
+          variant="blue"
+          @click="submitHandler"
+          :disabled="submit.loading"
         >
-          <div :key="`introduction-${dayData.id}`" class="editor__subsection">
-            <DayIntroductionField
-              :key="dayData.id"
-              v-model="dayData.introduction"
-            />
-          </div>
-          <div
-            v-if="showTasks"
-            :key="`tasks-${dayData.id}`"
-            class="editor__subsection"
-          >
-            <h3 class="editor__subsection-heading">
-              Day Tasks
-            </h3>
-            <EditorTaskList :tasks="dayData.tasks" />
-          </div>
-          <div
-            v-if="showAdditionalMessages"
-            :key="`messages-${dayData.id}`"
-            class="editor__subsection"
-          >
-            <h3 class="editor__subsection-heading">
-              Day Messages
-            </h3>
-            <AdditionalMessagesList :messages="dayData.messages" />
-          </div>
-        </TransitionGroup>
-      </section>
-    </div>
-    <div key="submit" class="editor__submit-wrapper">
-      <BaseButton
-        variant="blue"
-        @click="submitHandler"
-        :disabled="submit.loading"
-      >
-        {{ submitButtonText }}
-      </BaseButton>
-      <BaseSpinner v-if="submit.loading" />
-      <ErrorMessage v-else-if="submit.error" :error="submit.error" />
-    </div>
-  </TransitionGroup>
+          {{ submitButtonText }}
+        </BaseButton>
+        <BaseSpinner v-if="submit.loading" />
+        <ErrorMessage v-else-if="submit.error" :error="submit.error" />
+      </div>
+    </TransitionGroup>
+    <client-only>
+      <MessageTypeModal key="modal" :active="showModal" />
+    </client-only>
+  </div>
 </template>
 
 <script>
 import { newMessage, newTask } from "~/assets/util/functions";
 import { rtlLanguages, dayTranslations } from "~/assets/util/options";
 import uniqid from "uniqid";
+import popupModal from "~/mixins/popup-modal";
 
 export default {
+  mixins: [popupModal],
   inject: [
     "data",
     "templateOnlyMode",
@@ -119,7 +133,7 @@ export default {
       const { messages } = this.dayData;
       const hasContent = () => {
         for (let message of messages) {
-          if (message.content.trim()) return true;
+          if (message.content.trim() || message.file) return true;
         }
         return false;
       };
@@ -156,6 +170,11 @@ export default {
           }
         }
       );
+    },
+    addMessage(isAudio) {
+      this.closeModal();
+      this.transition = "task";
+      this.dayData.messages.push(newMessage(isAudio));
     }
   },
   watch: {
@@ -168,6 +187,7 @@ export default {
   provide() {
     return {
       deleteDay: this.deleteDay,
+      addMessage: this.addMessage,
       getTransition: () => this.transition,
       setTransition: value => {
         this.transition = value;

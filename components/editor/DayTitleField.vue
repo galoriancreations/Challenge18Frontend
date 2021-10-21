@@ -1,13 +1,13 @@
 <template>
   <div class="editor__day-title">
-    <h3 class="challende-editor__top-label">
+    <h3 v-if="value || isTemplateEditable" class="challende-editor__top-label">
       {{ label }}
     </h3>
     <textarea-autosize
       :value="value"
       @input="$emit('input', $event)"
       @keydown.native.enter.prevent
-      placeholder="Enter day title"
+      :placeholder="placeholder"
       :rows="1"
       :readonly="!isTemplateEditable"
     />
@@ -20,7 +20,12 @@ export default {
     value: String,
     label: String
   },
-  inject: ["isTemplateEditable"]
+  inject: ["isTemplateEditable"],
+  computed: {
+    placeholder() {
+      return this.isTemplateEditable ? "Enter day title" : this.label;
+    }
+  }
 };
 </script>
 
@@ -61,6 +66,10 @@ export default {
 
       @include respond(mobile) {
         font-size: 2.9rem;
+      }
+
+      &:read-only::placeholder {
+        color: $color-blue-2;
       }
     }
   }

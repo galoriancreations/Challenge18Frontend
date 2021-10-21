@@ -5,25 +5,12 @@
         Unpublished drafts of your challenges will appear here.
       </p>
     </div>
-    <div v-else class="my-challenges__table-container">
-      <v-app>
-        <v-data-table
-          v-model="selected"
-          :headers="headers"
-          :items="items"
-          show-select
-          class="elevation-2"
-        >
-          <template v-slot:[`item.edit`]="{ item }">
-            <DashboardButton type="edit" @click="item.edit" />
-          </template>
-          <template v-slot:[`item.delete`]="{ item }">
-            <DashboardButton type="delete" @click="item.delete" />
-          </template>
-        </v-data-table>
-      </v-app>
-      <DeleteSelectedButton :disabled="!selected.length" />
-    </div>
+    <DashboardTable
+      v-else
+      v-model="selected"
+      :headers="headers"
+      :items="items"
+    />
     <BaseSpinner v-if="loading" />
   </DashboardSection>
 </template>

@@ -22,9 +22,11 @@ export const initialPreMessages = messages => {
   }
   return messages.map(message => ({
     id: message.id || uniqid(),
+    isAudio: message.text || message.isAudio === false ? false : true,
     text: message.text || "",
+    file: message.file || null,
     time: message.time || "18:00:00"
-  }))
+  }));
 };
 
 export const emptyDays = () => [{
@@ -56,8 +58,10 @@ export const initialOptions = options => {
     })),
     messages: (day.messages || [{}]).map(message => ({
       id: message.id || uniqid(),
+      isAudio: message.content || message.isAudio === false ? false : true,
       file: message.file || null,
       content: message.content || "",
+      file: message.file || null,
       time: message.time || "18:00:00"
     }))
   }));
@@ -87,9 +91,11 @@ export const newTask = index => ({
   extraInput: ""
 });
 
-export const newMessage = () => ({
+export const newMessage = (isAudio = true) => ({
   id: uniqid(),
+  isAudio,
   content: "",
+  file: null,
   time: "18:00:00"
 });
 
@@ -140,6 +146,13 @@ export const initialData = labels => {
     formData[key] = "";
   }
   return formData;
+};
+
+export const initialsImg = user => {
+  const { organization, fullName, username } = user || {};
+  let name = organization || fullName || username || "";
+  name = name.split(" ").join("+");
+  return `https://ui-avatars.com/api/?name=${name}&size=512`;
 };
 
 export const numbersArray = n =>

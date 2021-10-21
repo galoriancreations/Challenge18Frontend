@@ -38,10 +38,11 @@
 </template>
 
 <script>
-import { labels, planOptions } from "../../assets/util/options";
-import languageOptions from "../../assets/data/languages";
-import countryOptions from "../../assets/data/countries";
-import popupModal from "../../mixins/popup-modal";
+import { labels, planOptions } from "~/assets/util/options";
+import { initialsImg } from "~/assets/util/functions";
+import languageOptions from "~/assets/data/languages";
+import countryOptions from "~/assets/data/countries";
+import popupModal from "~/mixins/popup-modal";
 
 export default {
   mixins: [popupModal],
@@ -54,6 +55,9 @@ export default {
     },
     isOrganization() {
       return this.user?.accountType === "organization";
+    },
+    placeholderImg() {
+      return initialsImg(this.user);
     },
     languageText() {
       const matchingLanguage = languageOptions.find(
