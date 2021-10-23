@@ -107,7 +107,9 @@ export default {
       try {
         const { file } = this.message;
         if (process.server || !file) return;
-        return typeof file === "string" ? file : URL.createObjectURL(file);
+        return typeof file === "string"
+          ? this.$config.axios.baseURL + file
+          : URL.createObjectURL(file);
       } catch {
         return null;
       }

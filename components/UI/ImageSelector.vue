@@ -78,7 +78,7 @@ export default {
           return this.placeholderImg || null;
         }
         return typeof this.value === "string"
-          ? this.value
+          ? this.$config.axios.baseURL + this.value
           : process.client && URL.createObjectURL(this.value);
       } catch {
         return null;
