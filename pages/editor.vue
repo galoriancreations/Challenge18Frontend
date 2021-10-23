@@ -243,7 +243,6 @@ export default {
   watch: {
     data: {
       handler() {
-        console.log(clearedPreMessages(this.data.preMessages));
         this.autoSaveData();
       },
       deep: true
@@ -259,7 +258,6 @@ export default {
         this.showIntroModal = true;
       }, 1500);
     }
-    console.log(this.data);
   },
   provide() {
     return {

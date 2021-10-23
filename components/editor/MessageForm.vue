@@ -180,9 +180,6 @@ export default {
 
   &__top {
     margin-bottom: 1.75rem;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
     position: relative;
 
     .task-form__time-selector {
@@ -203,6 +200,9 @@ export default {
 
   .task-form__top-icons {
     grid-template-columns: 1fr;
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 
   &__content {
