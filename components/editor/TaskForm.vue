@@ -15,7 +15,7 @@
     </div>
     <div class="task-form__selectors">
       <TaskPointsSelector />
-      <TaskTimeSelector />
+      <TimeSelector v-model="task.time" />
       <TaskEmojiSelector />
     </div>
     <div

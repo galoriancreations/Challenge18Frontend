@@ -20,6 +20,7 @@ import {
   initialPreMessages,
   initialOptions,
   defaultDate,
+  clearedPreMessages,
   clearedOptions,
   isSelectionMatching,
   randomEmoji
@@ -67,6 +68,7 @@ export default {
   data() {
     return {
       showIntroModal: false,
+      uploading: [],
       autoSave: {
         timeout: null,
         date: null,
@@ -108,7 +110,7 @@ export default {
         name: this.data.name,
         language: this.data.language,
         image: this.data.image,
-        preMessages: this.data.preMessages,
+        preMessages: clearedPreMessages(this.data.preMessages),
         days: clearedOptions(this.data.days),
         isPublic: this.data.isTemplatePublic,
         allowCopies: this.data.allowTemplateCopies
@@ -256,6 +258,7 @@ export default {
         this.showIntroModal = true;
       }, 1500);
     }
+    console.log(this.data);
   },
   provide() {
     return {
@@ -266,6 +269,7 @@ export default {
       openIntroModal: () => {
         this.showIntroModal = true;
       },
+      uploading: this.uploading,
       autoSave: this.autoSave,
       submit: this.submit,
       submitHandler: this.submitHandler

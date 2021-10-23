@@ -1,6 +1,7 @@
 <template>
-  <p class="error-message">
+  <p class="error-message" v-on="$listeners">
     {{ message }}
+    <slot />
   </p>
 </template>
 
@@ -11,6 +12,7 @@ export default {
   },
   computed: {
     message() {
+      if (!this.error) return null;
       return typeof this.error === "string"
         ? this.error
         : this.error.response?.data?.msg ||

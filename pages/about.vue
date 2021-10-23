@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import teams from "../assets/data/teams";
+import teams from "~/assets/data/teams";
 
 export default {
   head: {

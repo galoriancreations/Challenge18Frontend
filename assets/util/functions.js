@@ -24,7 +24,8 @@ export const initialPreMessages = messages => {
     id: message.id || uniqid(),
     isAudio: message.text || message.isAudio === false ? false : true,
     text: message.text || "",
-    file: message.file || null,
+    file: message.fileUrl || null,
+    fileUrl: message.fileUrl || null,
     time: message.time || "18:00:00"
   }));
 };
@@ -61,7 +62,8 @@ export const initialOptions = options => {
       isAudio: message.content || message.isAudio === false ? false : true,
       file: message.file || null,
       content: message.content || "",
-      file: message.file || null,
+      file: message.fileUrl || null,
+      fileUrl: message.fileUrl || null,
       time: message.time || "18:00:00"
     }))
   }));
@@ -96,6 +98,7 @@ export const newMessage = (isAudio = true) => ({
   isAudio,
   content: "",
   file: null,
+  fileUrl: null,
   time: "18:00:00"
 });
 
@@ -105,12 +108,22 @@ export const defaultDate = () => {
   return date;
 };
 
+export const clearedPreMessages = messages => {
+  const messagesClone = cloneDeep(messages, true);
+  messagesClone.forEach(message => {
+    delete message.file;
+  });
+};
+
 export const clearedOptions = options => {
   const optionsClone = cloneDeep(options, true);
   optionsClone.forEach(day => {
     day.tasks.forEach(task => {
       delete task.selection;
       delete task.extraInput;
+    });
+    day.messages.forEach(message => {
+      delete message.file;
     });
   });
   return optionsClone;

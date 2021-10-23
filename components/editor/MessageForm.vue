@@ -1,25 +1,30 @@
 <template>
   <div :class="classes">
-    <div class="additional-message-form__top">
-      <TaskTimeSelector />
+    <div class="message-form__top">
+      <TimeSelector v-model="message.time" />
       <div
         class="task-form__top-icons"
         v-if="deleteButton && isTemplateEditable"
       >
         <IconButton type="delete" @click="$emit('delete')" />
       </div>
+      <i
+        v-if="loading"
+        class="fas fa-circle-notch fa-spin message-form__spinner"
+      />
+      <i
+        v-else-if="hasSelectedFile && message.file && !error"
+        class="fas fa-check message-form__check"
+      />
     </div>
-    <div class="additional-message-form__content">
-      <div v-if="message.isAudio" class="additional-message-form__field">
+    <div class="message-form__content">
+      <div v-if="message.isAudio" class="message-form__field">
         <label class="task-form__selector-label">
           Audio recording
         </label>
         <client-only>
-          <div
-            class="additional-message-form__audio-wrapper"
-            v-if="message.file"
-          >
-            <div class="additional-message-form__audio" v-if="showFile">
+          <div class="message-form__audio-wrapper" v-if="fileUrl">
+            <div class="message-form__audio" v-if="showPlayer">
               <vue-plyr>
                 <audio controls crossorigin playsinline>
                   <source :src="fileUrl" />
@@ -30,13 +35,17 @@
         </client-only>
         <v-app v-if="isTemplateEditable">
           <v-file-input
-            v-model="message.file"
+            :value="fileInputValue"
+            @change="updateMessageFile"
             accept="audio/*"
-            :placeholder="filePlaceholder"
+            :placeholder="fileInputPlaceholder"
           />
         </v-app>
+        <ErrorMessage v-if="error && message.file" @click="uploadFile">
+          Failed to upload file. Click here to retry
+        </ErrorMessage>
       </div>
-      <div v-else class="additional-message-form__field">
+      <div v-else class="message-form__field">
         <label class="task-form__selector-label">
           Message
         </label>
@@ -49,7 +58,7 @@
           :rows="2"
           :max-height="200"
         />
-        <div v-else class="additional-message-form__text">
+        <div v-else class="message-form__text">
           <p
             v-for="paragraph in messageText"
             :key="paragraph"
@@ -77,65 +86,94 @@ export default {
       default: "content"
     }
   },
+  emits: ["delete"],
+  inject: ["isTemplateEditable", "uploading"],
   data() {
     return {
-      showFile: true
+      showPlayer: true,
+      hasSelectedFile: false,
+      error: false
     };
   },
-  emits: ["delete"],
-  inject: ["isTemplateEditable"],
   computed: {
     classes() {
       return [
         "task-form",
-        "additional-message-form",
-        { "additional-message-form--readonly": !this.isTemplateEditable }
+        "message-form",
+        { "message-form--readonly": !this.isTemplateEditable }
       ];
+    },
+    fileUrl() {
+      try {
+        const { file } = this.message;
+        if (process.server || !file) return;
+        return typeof file === "string" ? file : URL.createObjectURL(file);
+      } catch {
+        return null;
+      }
+    },
+    fileInputValue() {
+      const { file } = this.message;
+      return typeof file === "string" ? null : file;
+    },
+    fileInputPlaceholder() {
+      return this.message.file
+        ? "Replace audio file..."
+        : "Upload audio file...";
+    },
+    loading() {
+      return this.uploading.includes(this.message.id);
     },
     messageText() {
       return convertTaskText(stripHTML(this.message[this.textKey]))
         .trim()
         .split("\n");
-    },
-    fileUrl() {
-      const { file } = this.message;
-      if (process.server || !file) return;
-      return typeof file === "string" ? file : URL.createObjectURL(file);
-    },
-    filePlaceholder() {
-      return this.message.file
-        ? "Replace audio file..."
-        : "Pick an audio file...";
     }
   },
   methods: {
+    updateMessageFile(value) {
+      this.message.file = value;
+      this.hasSelectedFile = true;
+      if (value) {
+        this.uploadFile();
+      } else {
+        this.message.fileUrl = null;
+        this.error = false;
+        if (this.loading) {
+          this.uploading.splice(this.uploading.indexOf(this.message.id), 1);
+        }
+      }
+    },
+    async uploadFile() {
+      this.uploading.push(this.message.id);
+      this.error = false;
+      try {
+        const data = new FormData();
+        data.append("file", this.message.file);
+        const fileUrl = await this.$axios.$post("/upload", data);
+        this.message.fileUrl = fileUrl;
+      } catch {
+        this.error = true;
+      }
+      this.uploading.splice(this.uploading.indexOf(this.message.id), 1);
+    },
     updateMessageContent(value) {
       this.message[this.textKey] = stripHTML(value);
     }
   },
   watch: {
     fileUrl() {
-      this.showFile = false;
+      this.showPlayer = false;
       setTimeout(() => {
-        this.showFile = true;
+        this.showPlayer = true;
       });
-    }
-  },
-  provide() {
-    return {
-      task: this.message
-    };
-  },
-  created() {
-    if (this.message.isAudio) {
-      this.message.file = null;
     }
   }
 };
 </script>
 
 <style lang="scss">
-.additional-message-form {
+.message-form {
   background-color: #fff;
 
   &__top {
@@ -143,6 +181,7 @@ export default {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+    position: relative;
 
     .task-form__time-selector {
       margin: auto;
@@ -153,6 +192,17 @@ export default {
         }
       }
     }
+  }
+
+  &__spinner,
+  &__check {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &__check {
+    color: $color-azure;
   }
 
   .task-form__top-icons {
@@ -202,6 +252,11 @@ export default {
         margin-bottom: 1rem;
       }
     }
+  }
+
+  .error-message {
+    cursor: pointer;
+    margin-top: 2rem !important;
   }
 }
 </style>

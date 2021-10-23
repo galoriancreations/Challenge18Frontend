@@ -66,7 +66,7 @@
         <BaseButton
           variant="blue"
           @click="submitHandler"
-          :disabled="submit.loading"
+          :disabled="submit.loading || uploading.length > 0"
         >
           {{ submitButtonText }}
         </BaseButton>
@@ -94,6 +94,7 @@ export default {
     "editedChallengeId",
     "isTemplateEditable",
     "setConfirmModal",
+    "uploading",
     "submit",
     "submitHandler"
   ],
@@ -141,7 +142,9 @@ export default {
       return this.isTemplateEditable || !isEmpty;
     },
     submitButtonText() {
-      return this.templateOnlyMode
+      return this.uploading.length
+        ? "Uploading files"
+        : this.templateOnlyMode
         ? "Finish editing"
         : this.editedChallengeId
         ? "Update challenge"

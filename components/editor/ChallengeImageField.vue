@@ -3,21 +3,33 @@
     <ImageSelector
       :value="value"
       @input="$emit('input', $event)"
-      :showImgElement="value && (!isTemplateEditable || !hasSelectedImage)"
-      :showInput="isTemplateEditable"
+      :showUploader="isTemplateEditable"
+      :loading="loading"
+      @start-upload="onStartUpload"
+      @end-upload="onFinishUpload"
     />
   </EditorTopField>
 </template>
 
 <script>
+const ITEM_ID = "image";
+
 export default {
   props: {
-    value: [String, Object]
+    value: null
   },
-  inject: ["isTemplateEditable"],
+  inject: ["isTemplateEditable", "uploading"],
   computed: {
-    hasSelectedImage() {
-      return !!this.value && typeof this.value === "object";
+    loading() {
+      return this.uploading.includes(ITEM_ID);
+    }
+  },
+  methods: {
+    onStartUpload() {
+      this.uploading.push(ITEM_ID);
+    },
+    onFinishUpload() {
+      this.uploading.splice(this.uploading.indexOf(ITEM_ID), 1);
     }
   }
 };

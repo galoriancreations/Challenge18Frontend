@@ -21,7 +21,7 @@ export default {
   props: {
     value: String
   },
-  inject: ["isTemplateEditable"],
+  inject: ["data", "isTemplateEditable"],
   data() {
     return { languageOptions };
   },
