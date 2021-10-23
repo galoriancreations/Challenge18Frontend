@@ -122,6 +122,10 @@ export default {
     border-radius: 0.8rem;
     box-shadow: $boxshadow2;
     margin: 1rem auto;
+
+    @include respond(mobile) {
+      width: 28rem !important;
+    }
   }
 
   #fileInput {
@@ -134,6 +138,11 @@ export default {
     top: 50%;
     right: calc(50% + 17rem);
     transform: translateY(-50%);
+
+    @include respond(mobile) {
+      right: initial;
+      left: -0.65rem;
+    }
   }
 
   &__check {
