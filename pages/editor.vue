@@ -243,6 +243,7 @@ export default {
   watch: {
     data: {
       handler() {
+        console.log(clearedPreMessages(this.data.preMessages));
         this.autoSaveData();
       },
       deep: true

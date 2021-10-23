@@ -60,7 +60,6 @@ export const initialOptions = options => {
     messages: (day.messages || [{}]).map(message => ({
       id: message.id || uniqid(),
       isAudio: message.content || message.isAudio === false ? false : true,
-      file: message.file || null,
       content: message.content || "",
       file: message.fileUrl || null,
       fileUrl: message.fileUrl || null,
@@ -113,6 +112,7 @@ export const clearedPreMessages = messages => {
   messagesClone.forEach(message => {
     delete message.file;
   });
+  return messagesClone;
 };
 
 export const clearedOptions = options => {
