@@ -187,12 +187,6 @@ export default {
 
     .task-form__time-selector {
       margin: auto;
-
-      @include respond(mobile) {
-        &:not(:last-child) {
-          margin: 0;
-        }
-      }
     }
   }
 

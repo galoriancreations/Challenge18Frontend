@@ -140,8 +140,7 @@ export default {
     transform: translateY(-50%);
 
     @include respond(mobile) {
-      right: initial;
-      left: -0.65rem;
+      right: calc(50% + 15rem);
     }
   }
 
