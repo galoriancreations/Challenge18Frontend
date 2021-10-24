@@ -57,6 +57,8 @@ export default {
 <style lang="scss">
 .editor {
   &__introduction-field {
+    margin-top: -2rem;
+
     h3 {
       text-align: center;
     }

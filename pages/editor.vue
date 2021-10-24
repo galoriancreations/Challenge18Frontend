@@ -7,8 +7,7 @@
       @confirm="confirmAction"
     />
     <EditorTopArea />
-    <PreChallengeMessages />
-    <EditorMainArea />
+    <EditorContent />
     <EditorFloatingButtons />
     <EditorNotifications />
   </Page>
@@ -17,11 +16,10 @@
 <script>
 import {
   transformData,
-  initialPreMessages,
-  initialOptions,
+  initialPreDays,
+  initialDays,
   defaultDate,
-  clearedPreMessages,
-  clearedOptions,
+  clearedDays,
   isSelectionMatching,
   randomEmoji
 } from "~/assets/util/functions";
@@ -47,14 +45,15 @@ export default {
       const data = key
         ? transformData(await $axios.$post(endpoint, { [key]: value }))
         : {};
+      console.log(JSON.stringify(data));
       return {
         data: {
           name: data.name || "",
           language: data.language || user?.language,
           image: data.image || null,
           date: new Date(data.date || defaultDate()),
-          preMessages: initialPreMessages(data.preMessages),
-          days: initialOptions(data.days),
+          preDays: initialPreDays(data.preDays),
+          days: initialDays(data.days),
           isTemplatePublic: key ? data.isTemplatePublic : isAdmin,
           allowTemplateCopies: key ? data.allowTemplateCopies : !isAdmin
         },
@@ -110,8 +109,8 @@ export default {
         name: this.data.name,
         language: this.data.language,
         image: this.data.image,
-        preMessages: clearedPreMessages(this.data.preMessages),
-        days: clearedOptions(this.data.days),
+        preDays: clearedDays(this.data.preDays),
+        days: clearedDays(this.data.days),
         isPublic: this.data.isTemplatePublic,
         allowCopies: this.data.allowTemplateCopies
       };

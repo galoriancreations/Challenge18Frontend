@@ -27,14 +27,18 @@
             :name="transition"
           >
             <div
+              v-if="dayData.image || isTemplateEditable"
+              :key="`image-${dayData.id}`"
+              class="editor__subsection"
+            >
+              <DayImageField v-model="dayData.image" />
+            </div>
+            <div
               v-if="dayData.introduction || isTemplateEditable"
               :key="`introduction-${dayData.id}`"
               class="editor__subsection"
             >
-              <DayIntroductionField
-                :key="dayData.id"
-                v-model="dayData.introduction"
-              />
+              <DayIntroductionField v-model="dayData.introduction" />
             </div>
             <div
               v-if="showTasks"
@@ -96,15 +100,19 @@ export default {
     "setConfirmModal",
     "uploading",
     "submit",
-    "submitHandler"
+    "submitHandler",
+    "getTransition",
+    "setTransition"
   ],
   data() {
     return {
-      selectedDay: 1,
-      transition: "task"
+      selectedDay: 1
     };
   },
   computed: {
+    transition() {
+      return this.getTransition();
+    },
     days() {
       return this.data.days.map((day, index) => ({
         id: day.id,
@@ -160,13 +168,13 @@ export default {
         messages: [newMessage()]
       });
       this.selectedDay = this.data.days.length;
-      this.transition = "task";
+      this.setTransition("task");
     },
     deleteDay() {
       this.setConfirmModal(
         "Are you sure you want to delete this day and all its tasks? This action is irreversible.",
         () => {
-          this.transition = "task";
+          this.setTransition("task");
           this.data.days.splice(this.dayIndex, 1);
           if (this.selectedDay > this.data.days.length) {
             this.selectedDay--;
@@ -176,25 +184,22 @@ export default {
     },
     addMessage(isAudio) {
       this.closeModal();
-      this.transition = "task";
+      this.setTransition("task");
       this.dayData.messages.push(newMessage(isAudio));
     }
   },
   watch: {
     selectedDay() {
-      this.transition = "task";
+      this.setTransition("task");
       const optionsTop = this.$refs.container.getBoundingClientRect().top;
       window.scrollTo(0, window.scrollY + optionsTop - 150);
     }
   },
   provide() {
     return {
+      dayData: this.dayData,
       deleteDay: this.deleteDay,
-      addMessage: this.addMessage,
-      getTransition: () => this.transition,
-      setTransition: value => {
-        this.transition = value;
-      }
+      addMessage: this.addMessage
     };
   }
 };

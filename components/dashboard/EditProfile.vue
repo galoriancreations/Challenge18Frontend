@@ -1,6 +1,19 @@
 <template>
   <PopupModal title="Edit Profile" :active="active">
     <form class="form" @submit.prevent="submitHandler">
+      <div class="form__field form__image-field">
+        <label for="fileInput" class="form__label">
+          {{ labels.image }}
+        </label>
+        <ImageSelector
+          v-model="formData.image"
+          :placeholderImg="placeholderImg"
+          :buttonSize="30"
+          :loading="uploadingFile"
+          @start-upload="uploadingFile = true"
+          @end-upload="uploadingFile = false"
+        />
+      </div>
       <div class="form__field" v-for="key in textInputKeys" :key="key">
         <label :for="key" class="form__label">
           {{ labels[key] }}
@@ -34,7 +47,9 @@
           class="language-selector"
         />
       </div>
-      <BaseButton variant="blue" :disabled="loading">Save profile</BaseButton>
+      <BaseButton variant="blue" :disabled="uploadingFile || loading">
+        {{ buttonText }}
+      </BaseButton>
       <BaseSpinner v-if="loading" />
       <ErrorMessage v-else-if="error" :error="error" />
     </form>
@@ -42,9 +57,13 @@
 </template>
 
 <script>
-import { initialData, textInputKeys } from "../../assets/util/functions";
-import languageOptions from "../../assets/data/languages";
-import countryOptions from "../../assets/data/countries";
+import {
+  initialData,
+  textInputKeys,
+  initialsImg
+} from "~/assets/util/functions";
+import languageOptions from "~/assets/data/languages";
+import countryOptions from "~/assets/data/countries";
 
 export default {
   props: {
@@ -57,14 +76,26 @@ export default {
       textInputKeys: textInputKeys(this.labels),
       languageOptions,
       countryOptions,
+      uploadingFile: false,
       loading: false,
       error: null
     };
   },
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    },
+    placeholderImg() {
+      return initialsImg(this.user);
+    },
+    buttonText() {
+      return this.uploadingFile ? "Uploading file" : "Save profile";
+    }
+  },
   methods: {
     initData() {
       for (let key in this.formData) {
-        this.formData[key] = this.$store.getters.user[key];
+        this.formData[key] = this.user[key];
       }
     },
     async submitHandler() {
@@ -88,3 +119,13 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.form {
+  &__image-field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+</style>

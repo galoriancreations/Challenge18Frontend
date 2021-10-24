@@ -2,10 +2,7 @@
   <div :class="classes">
     <div class="message-form__top">
       <TimeSelector v-model="message.time" />
-      <div
-        class="task-form__top-icons"
-        v-if="deleteButton && isTemplateEditable"
-      >
+      <div class="task-form__top-icons" v-if="isTemplateEditable">
         <IconButton type="delete" @click="$emit('delete')" />
       </div>
       <i
@@ -51,7 +48,7 @@
         </label>
         <textarea-autosize
           v-if="isTemplateEditable"
-          :value="message[textKey]"
+          :value="message.content"
           @input="updateMessageContent"
           class="task-form__extra"
           placeholder="Type your message here..."
@@ -76,15 +73,7 @@ import { convertTaskText, stripHTML } from "~/assets/util/functions";
 
 export default {
   props: {
-    message: Object,
-    deleteButton: {
-      type: Boolean,
-      default: true
-    },
-    textKey: {
-      type: String,
-      default: "content"
-    }
+    message: Object
   },
   emits: ["delete"],
   inject: ["isTemplateEditable", "uploading"],
@@ -127,7 +116,7 @@ export default {
       return this.uploading.includes(this.message.id);
     },
     messageText() {
-      return convertTaskText(stripHTML(this.message[this.textKey]))
+      return convertTaskText(stripHTML(this.message.content))
         .trim()
         .split("\n");
     }
@@ -160,7 +149,7 @@ export default {
       this.uploading.splice(this.uploading.indexOf(this.message.id), 1);
     },
     updateMessageContent(value) {
-      this.message[this.textKey] = stripHTML(value);
+      this.message.content = stripHTML(value);
     }
   },
   watch: {

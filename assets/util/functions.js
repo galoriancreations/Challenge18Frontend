@@ -16,34 +16,46 @@ export const transformData = data => {
   return data;
 };
 
-export const initialPreMessages = messages => {
-  if (!messages) {
-    messages = [{}];
+export const emptyDays = (tasks = true) => {
+  const day = {
+    messages: [newMessage()]
+  };
+  if (tasks) {
+    day.title = "";
+    day.tasks = [newTask()]
   }
-  return messages.map(message => ({
-    id: message.id || uniqid(),
-    isAudio: message.text || message.isAudio === false ? false : true,
-    text: message.text || "",
-    file: message.fileUrl || null,
-    fileUrl: message.fileUrl || null,
-    time: message.time || "18:00:00"
+  return [day];
+};
+
+export const initialPreDays = days => {
+  if (!days) {
+    days = emptyDays(false);
+  }
+  return days.map(day => ({
+    id: day.id || uniqid(),
+    messages: (day.messages || [{}]).map(message => ({
+      id: message.id || uniqid(),
+      isAudio: message.content || message.isAudio === false ? false : true,
+      content: message.content || "",
+      file: message.fileUrl || null,
+      hasSelectedFile: false,
+      error: false,
+      fileUrl: message.fileUrl || null,
+      time: message.time || "18:00:00"
+    }))
   }));
 };
 
-export const emptyDays = () => [{
-  title: "",
-  tasks: [newTask()],
-  messages: [newMessage()]
-}];
-
-export const initialOptions = options => {
-  if (!options) {
-    options = emptyDays();
+export const initialDays = days => {
+  if (!days) {
+    days = emptyDays();
   }
-  return options.map(day => ({
+  return days.map(day => ({
     ...day,
     id: day.id || uniqid(),
     title: day.title.replace(" - ", " – "),
+    image: day.image || null,
+    imageError: false,
     introduction: day.introduction || "",
     tasks: day.tasks.map((task, taskIndex) => ({
       ...task,
@@ -62,6 +74,8 @@ export const initialOptions = options => {
       isAudio: message.content || message.isAudio === false ? false : true,
       content: message.content || "",
       file: message.fileUrl || null,
+      hasSelectedFile: false,
+      error: false,
       fileUrl: message.fileUrl || null,
       time: message.time || "18:00:00"
     }))
@@ -97,6 +111,8 @@ export const newMessage = (isAudio = true) => ({
   isAudio,
   content: "",
   file: null,
+  hasSelectedFile: false,
+  error: false,
   fileUrl: null,
   time: "18:00:00"
 });
@@ -107,26 +123,22 @@ export const defaultDate = () => {
   return date;
 };
 
-export const clearedPreMessages = messages => {
-  const messagesClone = cloneDeep(messages, true);
-  messagesClone.forEach(message => {
-    delete message.file;
-  });
-  return messagesClone;
-};
-
-export const clearedOptions = options => {
-  const optionsClone = cloneDeep(options, true);
-  optionsClone.forEach(day => {
-    day.tasks.forEach(task => {
+export const clearedDays = days => {
+  const daysClone = cloneDeep(days, true);
+  daysClone.forEach(day => {
+    delete day.hasSelectedImage;
+    delete day.imageError;
+    day.tasks?.forEach(task => {
       delete task.selection;
       delete task.extraInput;
     });
     day.messages.forEach(message => {
       delete message.file;
+      delete message.hasSelectedFile;
+      delete message.error;
     });
   });
-  return optionsClone;
+  return daysClone;
 };
 
 export const isSelectionMatching = task => {
@@ -145,8 +157,9 @@ export const randomEmoji = () => {
 
 export const textInputKeys = labels => {
   const keys = [];
+  const excluded = ["language", "phone", "image"]
   for (let key in labels) {
-    if (key !== "language" && key !== "phone") {
+    if (!excluded.includes(key)) {
       keys.push(key);
     }
   }

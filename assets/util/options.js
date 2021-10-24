@@ -69,7 +69,8 @@ export const labels = {
         phone: "Phone number",
         fullName: "Full name",
         country: "Country",
-        email: "Email address"
+        email: "Email address",
+        image: "Profile image"
     },
     organization: {
         username: "Username",
@@ -78,14 +79,16 @@ export const labels = {
         country: "Country",
         memberName: "Lead staff member's name",
         memberRole: "Lead staff member's role",
-        email: "Email address"
+        email: "Email address",
+        image: "Logo image"
     },
     admin: {
         username: "Username",
         phone: "Phone number",
         fullName: "Full name",
         country: "Country",
-        email: "Email address"
+        email: "Email address",
+        image: "Profile image"
     }
 };
 

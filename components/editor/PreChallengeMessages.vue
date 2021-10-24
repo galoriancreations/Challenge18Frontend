@@ -1,63 +1,92 @@
 <template>
   <section class="editor__pre-messages" v-if="showPreMessages">
-    <h2 class="editor__pre-messages-heading">
-      Pre-challenge messages
-    </h2>
-    <p class="editor__pre-messages-subheading">
-      {{ subheading }}
-    </p>
-    <div class="editor__content" :style="{ direction }">
-      <div class="editor__pre-messages-tabs">
-        <ActionButton
-          v-if="data.preMessages.length < 5 && isTemplateEditable"
-          type="add"
-          color="white"
-          @click="showModal = true"
-        />
-        <SideTabs v-if="days.length" v-model="selectedDay" :tabs="days" />
-      </div>
-      <TransitionGroup
-        tag="div"
-        class="editor__pre-messages-content"
-        name="task"
-      >
-        <p v-if="!days.length" key="empty" class="editor__pre-messages-empty">
-          Click the button to add a new message.
+    <TransitionGroup
+      tag="div"
+      class="editor__pre-messages-wrapper"
+      :name="transition"
+    >
+      <div class="editor__pre-messages-container" key="content">
+        <h2 class="editor__pre-messages-heading">
+          Pre-challenge messages
+        </h2>
+        <p class="editor__pre-messages-subheading">
+          {{ subheading }}
         </p>
-        <div v-else :key="data.preMessages[dayIndex].id">
-          <div class="task-form__top">
-            <h3 class="editor__pre-day-title">
-              {{ formTitle }}
-            </h3>
-            <IconButton
-              v-if="isTemplateEditable"
-              type="delete"
-              @click="deleteMessage"
+        <div class="editor__content" :style="{ direction }">
+          <div class="editor__pre-messages-tabs">
+            <ActionButton
+              v-if="data.preDays.length < 5 && isTemplateEditable"
+              type="add"
+              color="white"
+              @click="addDay"
             />
+            <SideTabs v-if="days.length" v-model="selectedDay" :tabs="days" />
           </div>
-          <MessageForm
-            :message="data.preMessages[dayIndex]"
-            :deleteButton="false"
-            textKey="text"
-          />
+          <div class="editor__pre-messages-content">
+            <p v-if="!days.length" class="editor__pre-messages-empty">
+              Click the button to add a new message.
+            </p>
+            <div v-else>
+              <div class="task-form__top">
+                <h3 class="editor__pre-day-title">
+                  {{ formTitle }}
+                </h3>
+                <IconButton
+                  v-if="isTemplateEditable"
+                  type="delete"
+                  @click="deleteDay"
+                />
+              </div>
+              <TransitionGroup
+                tag="div"
+                class="editor__pre-messages-list"
+                :name="transition"
+              >
+                <MessageForm
+                  v-for="(message, index) in data.preDays[dayIndex].messages"
+                  :key="message.id"
+                  :message="message"
+                  @delete="deleteMessage(index)"
+                />
+                <div
+                  v-if="isTemplateEditable"
+                  key="add"
+                  class="editor__add-message"
+                >
+                  <ActionButton
+                    type="add"
+                    color="white"
+                    @click="showModal = true"
+                  />
+                </div>
+              </TransitionGroup>
+            </div>
+          </div>
         </div>
-      </TransitionGroup>
-    </div>
+      </div>
+      <div class="section-seperator" key="seperator" />
+    </TransitionGroup>
     <client-only>
       <MessageTypeModal :active="showModal" />
     </client-only>
-    <SectionSeperator />
   </section>
 </template>
 
 <script>
 import uniqid from "uniqid";
-import { dayTranslations, rtlLanguages } from "../../assets/util/options";
+import { newMessage } from "~/assets/util/functions";
+import { dayTranslations, rtlLanguages } from "~/assets/util/options";
 import popupModal from "~/mixins/popup-modal";
 
 export default {
   mixins: [popupModal],
-  inject: ["data", "isTemplateEditable", "setConfirmModal"],
+  inject: [
+    "data",
+    "isTemplateEditable",
+    "setConfirmModal",
+    "getTransition",
+    "setTransition"
+  ],
   data() {
     return {
       selectedDay: -1
@@ -66,21 +95,26 @@ export default {
   computed: {
     showPreMessages() {
       const hasContent = () => {
-        for (let message of this.data.preMessages) {
-          if (message.text.trim() || message.file) return true;
+        for (let day of this.data.preDays) {
+          for (let message of day.messages) {
+            if (message.content.trim() || message.file) return true;
+          }
         }
         return false;
       };
-      const isEmpty = !this.data.preMessages.length || !hasContent();
+      const isEmpty = !this.data.preDays.length || !hasContent();
       return this.isTemplateEditable || !isEmpty;
     },
+    transition() {
+      return this.getTransition();
+    },
     days() {
-      return this.data.preMessages.map((message, index) => {
-        const day = index - this.data.preMessages.length;
+      return this.data.preDays.map((day, index) => {
+        const dayNum = index - this.data.preDays.length;
         return {
-          id: message.id,
-          value: day,
-          label: `${this.dayLabel} ${day}`
+          id: day.id,
+          value: dayNum,
+          label: `${this.dayLabel} ${dayNum}`
         };
       });
     },
@@ -92,9 +126,9 @@ export default {
     },
     subheading() {
       let text =
-        "Messages that would be sent to participants on the days before the challenge, one message every day.";
+        "Messages that would be sent to participants on the days before the challenge.";
       if (this.isTemplateEditable) {
-        text += " You can add up to 5 pre-challenge messages.";
+        text += " You can send messages up to 5 days before the challenge.";
       }
       return text;
     },
@@ -109,23 +143,20 @@ export default {
     }
   },
   methods: {
-    addMessage(isAudio) {
-      this.closeModal();
-      this.data.preMessages.unshift({
+    addDay() {
+      this.setTransition("task");
+      this.data.preDays.unshift({
         id: uniqid(),
-        isAudio,
-        text: "",
-        file: null,
-        time: "18:00:00"
+        messages: [newMessage()]
       });
       this.selectedDay = this.days[0].value;
     },
-    deleteMessage() {
-      const message = this.data.preMessages[this.dayIndex];
+    deleteDay() {
       this.setConfirmModal(
-        "Are you sure you want to delete this message? This action is irreversible.",
+        "Are you sure you want to delete this day and all its messages? This action is irreversible.",
         () => {
-          this.data.preMessages.splice(this.dayIndex, 1);
+          this.setTransition("task");
+          this.data.preDays.splice(this.dayIndex, 1);
           if (this.days.length) {
             if (this.dayIndex < 0) {
               this.selectedDay = this.days[0].value;
@@ -133,9 +164,30 @@ export default {
               this.selectedDay = this.days[this.days.length - 1].value;
             }
           }
-        },
-        !message.text.trim() && !message.file
+        }
       );
+    },
+    addMessage(isAudio) {
+      this.closeModal();
+      this.setTransition("task");
+      this.data.preDays[this.dayIndex].messages.push(newMessage(isAudio));
+    },
+    deleteMessage(messageIndex) {
+      const { messages } = this.data.preDays[this.dayIndex];
+      const message = messages[messageIndex];
+      this.setConfirmModal(
+        "Are you sure you want to delete this message? This action is irreversible.",
+        () => {
+          this.setTransition("task-delete");
+          messages.splice(messageIndex, 1);
+        },
+        !message.content.trim() && !message.file
+      );
+    }
+  },
+  watch: {
+    selectedDay() {
+      this.setTransition("task");
     }
   },
   provide() {
@@ -216,6 +268,12 @@ export default {
     &:last-child {
       margin: auto;
     }
+  }
+
+  &__add-message,
+  .section-seperator {
+    position: relative;
+    z-index: 5;
   }
 }
 </style>

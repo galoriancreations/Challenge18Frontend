@@ -1,7 +1,7 @@
 <template>
   <div class="image-selector">
     <div class="image-selector__wrapper">
-      <img v-if="imageUrl" class="img-preview" :src="imageUrl" />
+      <img v-if="imageUrl" class="image-selector__image" :src="imageUrl" />
       <i
         v-if="loading"
         class="fas fa-circle-notch fa-spin image-selector__spinner"
@@ -14,6 +14,7 @@
     <client-only>
       <ImageUploader
         v-if="showUploader"
+        :id="id"
         :debug="1"
         :maxWidth="512"
         :quality="1"
@@ -24,22 +25,21 @@
         :preview="false"
         @input="updateImage"
       >
-        <label for="fileInput" slot="upload-label" class="image-button">
+        <label :for="id" slot="upload-label" class="image-selector__button">
           <figure>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
+              :width="buttonSize"
+              :height="buttonSize"
               viewBox="0 0 32 32"
             >
               <path
-                class="path1"
                 d="M9.5 19c0 3.59 2.91 6.5 6.5 6.5s6.5-2.91 6.5-6.5-2.91-6.5-6.5-6.5-6.5 2.91-6.5 6.5zM30 8h-7c-0.5-2-1-4-3-4h-8c-2 0-2.5 2-3 4h-7c-1.1 0-2 0.9-2 2v18c0 1.1 0.9 2 2 2h28c1.1 0 2-0.9 2-2v-18c0-1.1-0.9-2-2-2zM16 27.875c-4.902 0-8.875-3.973-8.875-8.875s3.973-8.875 8.875-8.875c4.902 0 8.875 3.973 8.875 8.875s-3.973 8.875-8.875 8.875zM30 14h-4v-2h4v2z"
               />
             </svg>
           </figure>
-          <span class="upload-caption">
-            {{ value ? "Replace" : "Upload" }}
+          <span class="image-selector__caption">
+            {{ buttonCaption }}
           </span>
         </label>
       </ImageUploader>
@@ -58,10 +58,18 @@ export default {
   },
   props: {
     value: null,
+    id: {
+      type: String,
+      default: "fileInput"
+    },
     placeholderImg: String,
     showUploader: {
       type: Boolean,
       default: true
+    },
+    buttonSize: {
+      type: Number,
+      default: 32
     },
     loading: Boolean
   },
@@ -83,13 +91,16 @@ export default {
       } catch {
         return null;
       }
+    },
+    buttonCaption() {
+      return this.value ? "Replace" : "Upload";
     }
   },
   methods: {
-    updateImage(value) {
-      this.$emit("input", value);
+    updateImage(file) {
+      this.$emit("input", file);
       this.hasSelectedImage = true;
-      this.uploadImage(value);
+      this.uploadImage(file);
     },
     async uploadImage(file) {
       this.$emit("start-upload");
@@ -116,19 +127,18 @@ export default {
     position: relative;
   }
 
-  .img-preview {
-    width: 30rem !important;
-    max-width: 100% !important;
+  &__image {
+    width: 30rem;
     border-radius: 0.8rem;
     box-shadow: $boxshadow2;
     margin: 1rem auto;
 
     @include respond(mobile) {
-      width: 28rem !important;
+      width: 28rem;
     }
   }
 
-  #fileInput {
+  input {
     display: none !important;
   }
 
@@ -148,31 +158,39 @@ export default {
     color: $color-azure;
   }
 
+  &__button {
+    cursor: pointer;
+
+    * {
+      transition: all 0.5s;
+    }
+
+    &:hover path {
+      fill: $color-azure;
+    }
+  }
+
+  &__caption {
+    font-weight: 500;
+  }
+
+  &__button:hover &__caption {
+    color: $color-azure;
+  }
+
   .error-message {
     margin-top: 2rem !important;
     cursor: pointer;
   }
 }
 
-.image-button {
-  cursor: pointer;
-
-  * {
-    transition: all 0.5s;
+.dashboard .image-selector {
+  &__image {
+    width: 25rem;
   }
 
-  .upload-caption {
-    font-weight: 500;
-  }
-
-  &:hover {
-    .path1 {
-      fill: $color-azure;
-    }
-
-    .upload-caption {
-      color: $color-azure;
-    }
+  &__caption {
+    font-size: 1.4rem;
   }
 }
 </style>
