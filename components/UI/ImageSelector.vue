@@ -128,7 +128,7 @@ export default {
     width: 30rem;
     border-radius: 0.8rem;
     box-shadow: $boxshadow2;
-    margin: 1rem auto;
+    margin: 1rem auto 1.5rem;
 
     @include respond(mobile) {
       width: 28rem;
