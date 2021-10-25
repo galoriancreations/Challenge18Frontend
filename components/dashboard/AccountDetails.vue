@@ -3,9 +3,9 @@
     <div class="account-details__container">
       <div class="account-details__img">
         <h4 class="account-details__title">
-          {{ labels.image }}
+          {{ labels && labels.image }}
         </h4>
-        <img :src="imageSrc" :alt="user.organization || user.fullName" />
+        <img :src="imageSrc" />
       </div>
       <div class="account-details__grid">
         <div
@@ -115,9 +115,14 @@ export default {
     align-items: center;
     margin-bottom: 5rem;
 
+    @include respond(mobile) {
+      margin-bottom: 4.5rem;
+    }
+
     img {
       display: block;
       width: 30rem;
+      max-width: 100%;
       box-shadow: $boxshadow2;
       border-radius: 0.8rem;
       margin-top: 2rem;
