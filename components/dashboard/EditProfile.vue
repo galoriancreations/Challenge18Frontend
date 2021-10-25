@@ -3,7 +3,7 @@
     <form class="form" @submit.prevent="submitHandler">
       <div class="form__field form__image-field">
         <label for="fileInput" class="form__label">
-          {{ labels && labels.image }} (square image recommended)
+          {{ labels && labels.image }}
         </label>
         <ImageSelector
           v-model="formData.image"
