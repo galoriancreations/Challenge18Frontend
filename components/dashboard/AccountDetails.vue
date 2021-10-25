@@ -1,5 +1,5 @@
 <template>
-  <DashboardSection title="Account Details" class="account-details">
+  <DashboardSection title="Profile Details" class="account-details">
     <div class="account-details__container">
       <div class="account-details__img">
         <h4 class="account-details__title">
