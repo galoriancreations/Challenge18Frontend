@@ -1,7 +1,9 @@
 <template>
   <div class="editor__day-actions">
     <div class="editor__day-actions-wrapper">
-      <IconButton type="delete" @click="deleteDay" />
+      <button class="editor__day-action-button" @click="deleteDay">
+        <i class="fas fa-trash-alt" />
+      </button>
     </div>
   </div>
 </template>
@@ -26,14 +28,30 @@ export default {
     display: flex;
     justify-content: center;
     margin: 0 -1rem;
+  }
 
-    .icon-button {
-      margin: 0 1rem;
-      font-size: 2rem;
+  &__day-action-button {
+    margin: 0 1rem;
+    font-size: 1.7rem;
+    width: 6rem;
+    height: 6rem;
+    border: 1.5px solid $color-blue-2;
+    border-radius: 50%;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s;
 
-      @include respond(mobile) {
-        font-size: 1.9rem;
-      }
+    @include respond(mobile) {
+      font-size: 1.45rem;
+      width: 5rem;
+      height: 5rem;
+    }
+
+    &:hover {
+      background-color: #cce4fc;
+      border-color: #cce4fc;
+      box-shadow: $boxshadow2;
     }
   }
 }
