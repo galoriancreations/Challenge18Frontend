@@ -1,31 +1,39 @@
 <template>
   <DashboardSection title="Account Details" class="account-details">
-    <div class="account-details__grid">
-      <div
-        v-for="(label, key) in labels"
-        :key="key"
-        class="account-details__field"
-      >
+    <div class="account-details__container">
+      <div class="account-details__img">
         <h4 class="account-details__title">
-          {{ label }}
+          {{ labels.image }}
         </h4>
-        <p class="account-details__text">
-          {{
-            (key === "country" ? countryText : user[key]) || "Not filled yet"
-          }}
-        </p>
+        <img :src="imageSrc" :alt="user.organization || user.fullName" />
       </div>
-      <div class="account-details__field" v-if="languageText">
-        <h4 class="account-details__title">Challenge language</h4>
-        <p class="account-details__text">
-          {{ languageText }}
-        </p>
-      </div>
-      <div class="account-details__field">
-        <h4 class="account-details__title">Membership plan</h4>
-        <p class="account-details__text">
-          {{ planText }}
-        </p>
+      <div class="account-details__grid">
+        <div
+          v-for="(label, key) in displayedLabels"
+          :key="key"
+          class="account-details__field"
+        >
+          <h4 class="account-details__title">
+            {{ label }}
+          </h4>
+          <p class="account-details__text">
+            {{
+              (key === "country" ? countryText : user[key]) || "Not filled yet"
+            }}
+          </p>
+        </div>
+        <div class="account-details__field" v-if="languageText">
+          <h4 class="account-details__title">Challenge language</h4>
+          <p class="account-details__text">
+            {{ languageText }}
+          </p>
+        </div>
+        <div class="account-details__field">
+          <h4 class="account-details__title">Membership plan</h4>
+          <p class="account-details__text">
+            {{ planText }}
+          </p>
+        </div>
       </div>
     </div>
     <template slot="button">
@@ -53,11 +61,20 @@ export default {
     labels() {
       return labels[this.user?.accountType];
     },
+    displayedLabels() {
+      const displayedLabels = { ...this.labels };
+      delete displayedLabels.image;
+      return displayedLabels;
+    },
     isOrganization() {
       return this.user?.accountType === "organization";
     },
     placeholderImg() {
       return initialsImg(this.user);
+    },
+    imageSrc() {
+      const { image } = this.user || {};
+      return image ? this.$config.axios.baseURL + image : this.placeholderImg;
     },
     languageText() {
       const matchingLanguage = languageOptions.find(
@@ -88,9 +105,27 @@ export default {
 
 <style lang="scss">
 .account-details {
-  &__grid {
+  &__container {
     width: 100%;
-    max-width: 80rem;
+  }
+
+  &__img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5rem;
+
+    img {
+      display: block;
+      width: 30rem;
+      box-shadow: $boxshadow2;
+      border-radius: 0.8rem;
+      margin-top: 2rem;
+    }
+  }
+
+  &__grid {
+    flex: 1;
     margin: auto;
     display: grid;
     grid-template-columns: 1fr 1fr;

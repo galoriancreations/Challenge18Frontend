@@ -190,5 +190,14 @@ export default {
   &__caption {
     font-size: 1.4rem;
   }
+
+  &__spinner,
+  &__check {
+    right: calc(50% + 14rem);
+
+    @include respond(mobile) {
+      right: calc(50% + 13.5rem);
+    }
+  }
 }
 </style>

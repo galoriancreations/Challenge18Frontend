@@ -12,6 +12,8 @@
           :loading="uploadingFile"
           @start-upload="uploadingFile = true"
           @end-upload="uploadingFile = false"
+          :hasSelectedImage.sync="hasSelectedImage"
+          :error.sync="errorUploading"
         />
       </div>
       <div class="form__field" v-for="key in textInputKeys" :key="key">
@@ -77,6 +79,8 @@ export default {
       languageOptions,
       countryOptions,
       uploadingFile: false,
+      hasSelectedImage: false,
+      errorUploading: false,
       loading: false,
       error: null
     };
@@ -114,8 +118,9 @@ export default {
       this.loading = false;
     }
   },
-  mounted() {
+  created() {
     this.initData();
+    console.log(this.formData);
   }
 };
 </script>

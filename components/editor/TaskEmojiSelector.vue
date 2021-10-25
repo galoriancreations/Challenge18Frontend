@@ -16,11 +16,9 @@
     <span v-else class="task-form__selected-emoji">
       {{ task.emoji }}
     </span>
-    <Transition name="picker">
-      <div v-if="showPicker" class="task-form__emoji-wrapper">
-        <VEmojiPicker @select="selectEmoji" />
-      </div>
-    </Transition>
+    <div v-if="showPicker" class="task-form__emoji-wrapper">
+      <VEmojiPicker @select="selectEmoji" />
+    </div>
   </div>
 </template>
 
@@ -104,15 +102,5 @@ export default {
     transform: translateX(-50%);
     z-index: 15;
   }
-}
-
-.picker-enter,
-.picker-leave-to {
-  opacity: 0;
-}
-
-.picker-enter-active,
-.picker-leave-active {
-  transition: opacity 0.4s;
 }
 </style>
