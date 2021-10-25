@@ -130,7 +130,8 @@ export default {
   }
 
   &__grid {
-    flex: 1;
+    width: 100%;
+    max-width: 80rem;
     margin: auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
