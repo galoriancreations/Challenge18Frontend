@@ -55,7 +55,7 @@ export const initialDays = days => {
     id: day.id || uniqid(),
     title: day.title.replace(" - ", " – "),
     image: day.image || null,
-    imageError: false,
+    error: false,
     introduction: day.introduction || "",
     tasks: day.tasks.map((task, taskIndex) => ({
       ...task,
@@ -127,7 +127,7 @@ export const clearedDays = days => {
   const daysClone = cloneDeep(days, true);
   daysClone.forEach(day => {
     delete day.hasSelectedImage;
-    delete day.imageError;
+    delete day.error;
     day.tasks?.forEach(task => {
       delete task.selection;
       delete task.extraInput;

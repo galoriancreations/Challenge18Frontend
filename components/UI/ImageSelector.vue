@@ -71,13 +71,9 @@ export default {
       type: Number,
       default: 32
     },
-    loading: Boolean
-  },
-  data() {
-    return {
-      hasSelectedImage: false,
-      error: false
-    };
+    hasSelectedImage: Boolean,
+    loading: Boolean,
+    error: Boolean
   },
   computed: {
     imageUrl() {
@@ -99,19 +95,19 @@ export default {
   methods: {
     updateImage(file) {
       this.$emit("input", file);
-      this.hasSelectedImage = true;
+      this.$emit("update:hasSelectedImage", true);
       this.uploadImage(file);
     },
     async uploadImage(file) {
       this.$emit("start-upload");
-      this.error = false;
+      this.$emit("update:error", false);
       try {
         const data = new FormData();
         data.append("file", file);
         const imageUrl = await this.$axios.$post("/upload", data);
         this.$emit("input", imageUrl);
-      } catch {
-        this.error = true;
+      } catch (err) {
+        this.$emit("update:error", true);
       }
       this.$emit("end-upload");
     }
@@ -121,6 +117,7 @@ export default {
 
 <style lang="scss">
 .image-selector {
+  width: 100%;
   text-align: center;
 
   &__wrapper {

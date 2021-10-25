@@ -7,6 +7,8 @@
       :loading="loading"
       @start-upload="onStartUpload"
       @end-upload="onFinishUpload"
+      :hasSelectedImage.sync="hasSelectedImage"
+      :error.sync="error"
     />
   </EditorTopField>
 </template>
@@ -19,6 +21,12 @@ export default {
     value: null
   },
   inject: ["isTemplateEditable", "uploading"],
+  data() {
+    return {
+      hasSelectedImage: false,
+      error: false
+    };
+  },
   computed: {
     loading() {
       return this.uploading.includes(ITEM_ID);

@@ -10,6 +10,8 @@
       :loading="loading"
       @start-upload="onStartUpload"
       @end-upload="onEndUpload"
+      :error.sync="dayData.error"
+      :hasSelectedImage.sync="dayData.hasSelectedImage"
     />
   </div>
 </template>
@@ -19,8 +21,11 @@ export default {
   props: {
     value: null
   },
-  inject: ["dayData", "uploading"],
+  inject: ["getDayData", "uploading"],
   computed: {
+    dayData() {
+      return this.getDayData();
+    },
     loading() {
       return this.uploading.includes(this.dayData.id);
     }

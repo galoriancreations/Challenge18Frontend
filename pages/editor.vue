@@ -45,7 +45,6 @@ export default {
       const data = key
         ? transformData(await $axios.$post(endpoint, { [key]: value }))
         : {};
-      console.log(JSON.stringify(data));
       return {
         data: {
           name: data.name || "",

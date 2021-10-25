@@ -10,7 +10,7 @@
         class="fas fa-circle-notch fa-spin message-form__spinner"
       />
       <i
-        v-else-if="hasSelectedFile && message.file && !error"
+        v-else-if="message.hasSelectedFile && message.file && !message.error"
         class="fas fa-check message-form__check"
       />
     </div>
@@ -38,7 +38,7 @@
             :placeholder="fileInputPlaceholder"
           />
         </v-app>
-        <ErrorMessage v-if="error && message.file" @click="uploadFile">
+        <ErrorMessage v-if="message.error && message.file" @click="uploadFile">
           Failed to upload file. Click here to retry
         </ErrorMessage>
       </div>
@@ -76,12 +76,10 @@ export default {
     message: Object
   },
   emits: ["delete"],
-  inject: ["isTemplateEditable", "uploading"],
+  inject: ["isTemplateEditable", "uploading", "setTransition"],
   data() {
     return {
-      showPlayer: true,
-      hasSelectedFile: false,
-      error: false
+      showPlayer: true
     };
   },
   computed: {
@@ -124,12 +122,12 @@ export default {
   methods: {
     updateMessageFile(value) {
       this.message.file = value;
-      this.hasSelectedFile = true;
+      this.message.hasSelectedFile = true;
       if (value) {
         this.uploadFile();
       } else {
         this.message.fileUrl = null;
-        this.error = false;
+        this.message.error = false;
         if (this.loading) {
           this.uploading.splice(this.uploading.indexOf(this.message.id), 1);
         }
@@ -137,14 +135,15 @@ export default {
     },
     async uploadFile() {
       this.uploading.push(this.message.id);
-      this.error = false;
+      this.message.error = false;
       try {
         const data = new FormData();
         data.append("file", this.message.file);
         const fileUrl = await this.$axios.$post("/upload", data);
         this.message.fileUrl = fileUrl;
-      } catch {
-        this.error = true;
+      } catch (err) {
+        console.log(err.response?.data?.msg || err.message);
+        this.message.error = true;
       }
       this.uploading.splice(this.uploading.indexOf(this.message.id), 1);
     },

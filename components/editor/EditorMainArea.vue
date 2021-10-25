@@ -197,7 +197,7 @@ export default {
   },
   provide() {
     return {
-      dayData: this.dayData,
+      getDayData: () => this.dayData,
       deleteDay: this.deleteDay,
       addMessage: this.addMessage
     };
@@ -240,6 +240,7 @@ export default {
 
   &__subsection {
     position: relative;
+    width: 100%;
     z-index: 5;
 
     &:not(:last-child) {
