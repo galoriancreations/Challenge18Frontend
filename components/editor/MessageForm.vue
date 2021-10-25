@@ -141,8 +141,7 @@ export default {
         data.append("file", this.message.file);
         const fileUrl = await this.$axios.$post("/upload", data);
         this.message.fileUrl = fileUrl;
-      } catch (err) {
-        console.log(err.response?.data?.msg || err.message);
+      } catch {
         this.message.error = true;
       }
       this.uploading.splice(this.uploading.indexOf(this.message.id), 1);

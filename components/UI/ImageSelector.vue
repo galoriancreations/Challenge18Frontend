@@ -106,7 +106,7 @@ export default {
         data.append("file", file);
         const imageUrl = await this.$axios.$post("/upload", data);
         this.$emit("input", imageUrl);
-      } catch (err) {
+      } catch {
         this.$emit("update:error", true);
       }
       this.$emit("end-upload");
@@ -128,10 +128,11 @@ export default {
     width: 30rem;
     border-radius: 0.8rem;
     box-shadow: $boxshadow2;
-    margin: 1rem auto 1.5rem;
+    margin: 0.75rem auto 1.5rem;
 
     @include respond(mobile) {
       width: 28rem;
+      margin: 0.4rem auto 1.25rem;
     }
   }
 
