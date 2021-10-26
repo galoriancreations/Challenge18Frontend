@@ -4,11 +4,13 @@
       Select message type:
     </h3>
     <div class="message-type-modal__options">
-      <button class="message-type-modal__option" @click="addMessage(false)">
-        Text message
-      </button>
-      <button class="message-type-modal__option" @click="addMessage(true)">
-        Audio recording
+      <button
+        v-for="option in options"
+        :key="option.value"
+        class="message-type-modal__option"
+        @click="addMessage(option.value)"
+      >
+        {{ option.label }}
       </button>
     </div>
   </PopupModal>
@@ -19,7 +21,16 @@ export default {
   props: {
     active: Boolean
   },
-  inject: ["addMessage"]
+  inject: ["addMessage"],
+  data() {
+    return {
+      options: [
+        { value: "text", label: "Text" },
+        { value: "audio", label: "Audio" },
+        { value: "image", label: "Image" }
+      ]
+    };
+  }
 };
 </script>
 
@@ -28,10 +39,10 @@ export default {
   direction: ltr;
 
   .modal__wrapper {
-    max-width: fit-content;
+    max-width: 50rem;
 
     @include respond(mobile) {
-      max-width: 100%;
+      max-width: 40rem;
     }
   }
 
@@ -49,8 +60,8 @@ export default {
 
   &__options {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
 
     @include respond(mobile) {
       grid-template-columns: 1fr;

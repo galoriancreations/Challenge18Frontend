@@ -181,7 +181,7 @@ export default {
           this.setTransition("task-delete");
           messages.splice(messageIndex, 1);
         },
-        !message.content.trim() && !message.file
+        !message.content.trim() && !message.file && !message.fileUrl
       );
     }
   },
@@ -210,6 +210,11 @@ export default {
         gap: 5rem;
       }
     }
+  }
+
+  &__pre-messages-content {
+    width: 100%;
+    position: relative;
   }
 
   &__pre-messages-heading {

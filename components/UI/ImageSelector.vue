@@ -3,11 +3,11 @@
     <div class="image-selector__wrapper">
       <img v-if="imageUrl" class="image-selector__image" :src="imageUrl" />
       <i
-        v-if="loading"
+        v-if="loading && showStatusIcon"
         class="fas fa-circle-notch fa-spin image-selector__spinner"
       />
       <i
-        v-else-if="hasSelectedImage && !error"
+        v-else-if="hasSelectedImage && !error && showStatusIcon"
         class="fas fa-check image-selector__check"
       />
     </div>
@@ -73,7 +73,11 @@ export default {
     },
     hasSelectedImage: Boolean,
     loading: Boolean,
-    error: Boolean
+    error: Boolean,
+    showStatusIcon: {
+      type: Boolean,
+      default: true
+    }
   },
   computed: {
     imageUrl() {
@@ -198,6 +202,28 @@ export default {
     @include respond(mobile) {
       right: calc(50% + 13.5rem);
     }
+  }
+}
+
+.message-form .image-selector {
+  margin-top: 1rem;
+
+  &__image {
+    box-shadow: none;
+    border: 0.2rem solid #ccc;
+    width: 28rem;
+  }
+
+  &__spinner,
+  &__check {
+    right: calc(50% + 15.5rem);
+
+    @include respond(mobile) {
+    }
+  }
+
+  &__caption {
+    font-size: 1.4rem;
   }
 }
 </style>

@@ -13,13 +13,22 @@ export const transformData = data => {
   if (!("templateId" in data)) {
     data.templateId = data.template;
   }
+  const fillMessageTypes = day => {
+    day.messages.forEach(message => {
+      if (message.isAudio) {
+        message.type = "audio";
+      } else if (!message.type) {
+        message.type = "text";
+      }
+    });
+  }
+  data.preDays.forEach(fillMessageTypes);
+  data.days.forEach(fillMessageTypes);
   return data;
 };
 
 export const emptyDays = (tasks = true) => {
-  const day = {
-    messages: [newMessage()]
-  };
+  const day = { messages: [newMessage()] };
   if (tasks) {
     day.title = "";
     day.tasks = [newTask()]
@@ -35,7 +44,8 @@ export const initialPreDays = days => {
     id: day.id || uniqid(),
     messages: (day.messages || [{}]).map(message => ({
       id: message.id || uniqid(),
-      isAudio: message.content || message.isAudio === false ? false : true,
+      isAudio: message.isAudio,
+      type: message.type || "text",
       content: message.content || "",
       file: message.fileUrl || null,
       hasSelectedFile: false,
@@ -71,7 +81,8 @@ export const initialDays = days => {
     })),
     messages: (day.messages || [{}]).map(message => ({
       id: message.id || uniqid(),
-      isAudio: message.content || message.isAudio === false ? false : true,
+      isAudio: message.isAudio,
+      type: message.type || "text",
       content: message.content || "",
       file: message.fileUrl || null,
       hasSelectedFile: false,
@@ -106,9 +117,9 @@ export const newTask = index => ({
   extraInput: ""
 });
 
-export const newMessage = (isAudio = true) => ({
+export const newMessage = (type = "audio") => ({
   id: uniqid(),
-  isAudio,
+  type,
   content: "",
   file: null,
   hasSelectedFile: false,

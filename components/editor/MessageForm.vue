@@ -10,21 +10,21 @@
         class="fas fa-circle-notch fa-spin message-form__spinner"
       />
       <i
-        v-else-if="message.hasSelectedFile && message.file && !message.error"
+        v-else-if="message.hasSelectedFile && message.fileUrl && !message.error"
         class="fas fa-check message-form__check"
       />
     </div>
     <div class="message-form__content">
-      <div v-if="message.isAudio" class="message-form__field">
+      <div v-if="isAudio" class="message-form__field">
         <label class="task-form__selector-label">
           Audio recording
         </label>
         <client-only>
-          <div class="message-form__audio-wrapper" v-if="fileUrl">
-            <div class="message-form__audio" v-if="showPlayer">
+          <div class="message-form__audio-wrapper" v-if="audioFileUrl">
+            <div class="message-form__audio" v-if="showAudioPlayer">
               <vue-plyr>
                 <audio controls crossorigin playsinline>
-                  <source :src="fileUrl" />
+                  <source :src="audioFileUrl" />
                 </audio>
               </vue-plyr>
             </div>
@@ -32,15 +32,31 @@
         </client-only>
         <v-app v-if="isTemplateEditable">
           <v-file-input
-            :value="fileInputValue"
-            @change="updateMessageFile"
+            :value="audioInputValue"
+            @change="updateAudioFile"
             accept="audio/*"
-            :placeholder="fileInputPlaceholder"
+            :placeholder="audioInputPlaceholder"
           />
         </v-app>
         <ErrorMessage v-if="message.error && message.file" @click="uploadFile">
           Failed to upload file. Click here to retry
         </ErrorMessage>
+      </div>
+      <div v-else-if="isImage" class="message-form__field">
+        <label class="task-form__selector-label">
+          Image
+        </label>
+        <ImageSelector
+          v-model="message.fileUrl"
+          :id="message.id"
+          :loading="loading"
+          @start-upload="onStartUpload"
+          @end-upload="onEndUpload"
+          :hasSelectedImage.sync="message.hasSelectedFile"
+          :error.sync="message.error"
+          :buttonSize="30"
+          :showStatusIcon="false"
+        />
       </div>
       <div v-else class="message-form__field">
         <label class="task-form__selector-label">
@@ -79,7 +95,7 @@ export default {
   inject: ["isTemplateEditable", "uploading", "setTransition"],
   data() {
     return {
-      showPlayer: true
+      showAudioPlayer: true
     };
   },
   computed: {
@@ -90,7 +106,13 @@ export default {
         { "message-form--readonly": !this.isTemplateEditable }
       ];
     },
-    fileUrl() {
+    isAudio() {
+      return this.message.type === "audio";
+    },
+    isImage() {
+      return this.message.type === "image";
+    },
+    audioFileUrl() {
       try {
         const { file } = this.message;
         if (process.server || !file) return;
@@ -101,11 +123,11 @@ export default {
         return null;
       }
     },
-    fileInputValue() {
+    audioInputValue() {
       const { file } = this.message;
       return typeof file === "string" ? null : file;
     },
-    fileInputPlaceholder() {
+    audioInputPlaceholder() {
       return this.message.file
         ? "Replace audio file..."
         : "Upload audio file...";
@@ -120,21 +142,21 @@ export default {
     }
   },
   methods: {
-    updateMessageFile(value) {
+    updateAudioFile(value) {
       this.message.file = value;
       this.message.hasSelectedFile = true;
       if (value) {
-        this.uploadFile();
+        this.uploadAudioFile();
       } else {
         this.message.fileUrl = null;
         this.message.error = false;
         if (this.loading) {
-          this.uploading.splice(this.uploading.indexOf(this.message.id), 1);
+          this.onEndUpload();
         }
       }
     },
-    async uploadFile() {
-      this.uploading.push(this.message.id);
+    async uploadAudioFile() {
+      this.onStartUpload();
       this.message.error = false;
       try {
         const data = new FormData();
@@ -144,17 +166,26 @@ export default {
       } catch {
         this.message.error = true;
       }
+      this.onEndUpload();
+    },
+    onStartUpload() {
+      this.uploading.push(this.message.id);
+    },
+    onEndUpload() {
       this.uploading.splice(this.uploading.indexOf(this.message.id), 1);
+      setTimeout(() => {
+        console.log(this.message);
+      }, 500);
     },
     updateMessageContent(value) {
       this.message.content = stripHTML(value);
     }
   },
   watch: {
-    fileUrl() {
-      this.showPlayer = false;
+    audioFileUrl() {
+      this.showAudioPlayer = false;
       setTimeout(() => {
-        this.showPlayer = true;
+        this.showAudioPlayer = true;
       });
     }
   }

@@ -37,7 +37,7 @@ export default {
           this.setTransition("task-delete");
           this.messages.splice(messageIndex, 1);
         },
-        !message.content.trim() && !message.file
+        !message.content.trim() && !message.file && !message.fileUrl
       );
     }
   }
