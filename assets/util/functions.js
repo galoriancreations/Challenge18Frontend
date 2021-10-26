@@ -22,8 +22,8 @@ export const transformData = data => {
       }
     });
   }
-  data.preDays.forEach(fillMessageTypes);
-  data.days.forEach(fillMessageTypes);
+  data.preDays?.forEach(fillMessageTypes);
+  data.days?.forEach(fillMessageTypes);
   return data;
 };
 
@@ -143,7 +143,7 @@ export const clearedDays = days => {
       delete task.selection;
       delete task.extraInput;
     });
-    day.messages.forEach(message => {
+    day.messages?.forEach(message => {
       delete message.file;
       delete message.hasSelectedFile;
       delete message.error;
