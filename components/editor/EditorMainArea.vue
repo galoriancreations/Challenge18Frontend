@@ -281,42 +281,4 @@ export default {
     }
   }
 }
-
-.task-leave-to,
-.task-delete-leave-to {
-  transform: translateX(100vw);
-
-  @include respond(mobile) {
-    transform: translateX(150vw);
-  }
-}
-
-[style="direction: rtl;"] {
-  .task-leave-to,
-  .task-delete-leave-to {
-    transform: translateX(-100vw) !important;
-
-    @include respond(mobile) {
-      transform: translateX(-150vw) !important;
-    }
-  }
-}
-
-.task-leave-active,
-.task-delete-leave-active {
-  transition: transform 0.5s;
-  position: absolute;
-}
-
-.task-enter-active {
-  animation: zoomIn 0.5s;
-}
-
-.task-move:not(.task-leave-active) {
-  transition: transform 0.375s;
-}
-
-.task-delete-move:not(.task-delete-leave-active) {
-  transition: transform 0.4s 0.4s;
-}
 </style>
