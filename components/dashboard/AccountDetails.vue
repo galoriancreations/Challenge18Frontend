@@ -116,7 +116,8 @@ export default {
     margin-bottom: 5rem;
 
     @include respond(mobile) {
-      margin-bottom: 4.5rem;
+      margin-bottom: 3.5rem;
+      margin-top: 1rem;
     }
 
     img {

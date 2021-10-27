@@ -117,7 +117,7 @@ export const newTask = index => ({
   extraInput: ""
 });
 
-export const newMessage = (type = "audio") => ({
+export const newMessage = (type = "text") => ({
   id: uniqid(),
   type,
   content: "",
