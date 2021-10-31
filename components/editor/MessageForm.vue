@@ -173,9 +173,6 @@ export default {
     },
     onEndUpload() {
       this.uploading.splice(this.uploading.indexOf(this.message.id), 1);
-      setTimeout(() => {
-        console.log(this.message);
-      }, 500);
     },
     updateMessageContent(value) {
       this.message.content = stripHTML(value);

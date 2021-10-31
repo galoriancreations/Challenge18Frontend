@@ -1,6 +1,6 @@
 <template>
   <section class="our-company">
-    <SectionHeading small>Our Company</SectionHeading>
+    <SectionHeading small>Our Organization</SectionHeading>
     <ImageWithText
       :image="{ src: mainImg, alt: 'Challenge 18 players' }"
       :text="aboutText"

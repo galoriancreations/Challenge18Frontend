@@ -120,7 +120,6 @@ export default {
   },
   created() {
     this.initData();
-    console.log(this.formData);
   }
 };
 </script>

@@ -52,7 +52,6 @@ export const actions = {
         logoutTimer = setTimeout(() => context.dispatch("logout"), timeLeft);
     },
     checkAuth(context) {
-        console.log("checkAuth")
         const { userId, token, expirationDate } = this.$cookies.getAll();
         if (!userId || !token || !expirationDate) return;
         const timeLeft = new Date(expirationDate).getTime() - Date.now();
