@@ -80,7 +80,7 @@ export default {
   }
 
   &--outline {
-    background-color: transparent;
+    background-color: #fff;
     color: $color-blue-3;
     border: 1.5px solid $color-blue-3;
 
@@ -93,7 +93,7 @@ export default {
 
   &:disabled,
   &:disabled:hover {
-    background-color: transparent;
+    background-color: #fff;
     border: 1.5px solid #ccc;
     color: #ccc;
     box-shadow: none;

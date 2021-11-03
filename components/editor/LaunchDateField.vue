@@ -4,7 +4,6 @@
       <Datepicker
         :value="value"
         @selected="$emit('input', $event)"
-        :disabled-dates="disabledDates"
         full-month-name
         format="dd MMMM yyyy"
         class="editor__datepicker"
@@ -23,7 +22,7 @@ export default {
   },
   data() {
     return {
-      disabledDates: { to: new Date() }
+      // disabledDates: { to: new Date() }
     };
   }
 };

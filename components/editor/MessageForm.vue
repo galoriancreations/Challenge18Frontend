@@ -156,6 +156,7 @@ export default {
       }
     },
     async uploadAudioFile() {
+      this.onEndUpload();
       this.onStartUpload();
       this.message.error = false;
       try {

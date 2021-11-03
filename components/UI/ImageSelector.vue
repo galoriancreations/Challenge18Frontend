@@ -103,6 +103,7 @@ export default {
       this.uploadImage(file);
     },
     async uploadImage(file) {
+      this.$emit("end-upload");
       this.$emit("start-upload");
       this.$emit("update:error", false);
       try {
