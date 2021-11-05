@@ -119,24 +119,59 @@
         class="language-selector"
       />
     </div>
-    <BaseButton variant="blue">Register</BaseButton>
+    <div
+      class="form__field form__confirm"
+      :style="{ direction: commitmentDirection }"
+    >
+      <v-app>
+        <v-checkbox
+          v-model="confirmed"
+          :label="commitmentText"
+          color="info"
+          :style="{ direction: commitmentDirection }"
+        />
+      </v-app>
+    </div>
+    <BaseButton variant="blue" :disabled="!confirmed || loading">
+      Register
+    </BaseButton>
     <BaseSpinner v-if="loading" />
     <ErrorMessage v-else-if="error" :error="error" />
   </form>
 </template>
 
 <script>
-import registration from "../../mixins/registration";
+import registration from "~/mixins/registration";
+import { commitmentTexts, rtlLanguages } from "~/assets/util/options";
 
 export default {
   mixins: [registration],
   inject: ["getSelectedPlan"],
+  data() {
+    return {
+      confirmed: false
+    };
+  },
   computed: {
     plan() {
       return this.getSelectedPlan();
     },
     isOrganization() {
       return this.formData.accountType === "organization";
+    },
+    commitmentLanguage() {
+      const { language } = this.formData;
+      return Object.keys(commitmentTexts).includes(language)
+        ? language
+        : "English";
+    },
+    commitmentText() {
+      const { fullName, organization, username } = this.formData;
+      const name = (this.isOrganization ? organization : fullName) || username;
+      return commitmentTexts[this.commitmentLanguage].replace("__", name);
+    },
+    commitmentDirection() {
+      return rtlLanguages.includes(this.commitmentLanguage) ? "rtl" : null;
     }
   },
   methods: {
@@ -209,6 +244,16 @@ export default {
 
     @include respond(mobile) {
       font-size: 2rem;
+    }
+  }
+}
+
+.form {
+  &__confirm {
+    .v-label {
+      color: #000;
+      display: block !important;
+      line-height: 1.7;
     }
   }
 }
