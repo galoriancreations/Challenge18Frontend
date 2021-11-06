@@ -41,7 +41,7 @@ export const planOptions = [
 ];
 
 export const commitmentTexts = {
-    "English": "I, __, commit to lead myself via 18-day challenge of sustainability & leadership and real change. I commit to dare to break through the horizons of life and succeed in transcending my private beings and my personal life circumstances.",
+    "English": "I, __, commit to lead myself and others via 18-day challenge of sustainability & leadership and real change. I commit to dare to break through the horizons of life and succeed in transcending my private beings and my personal life circumstances.",
     "Hebrew": "אני, __, מתחייב להוביל את עצמי ואת הקבוצה דרך אתגר של 18 ימים של קיימות ומנהיגות ומתחייב לשינוי אמיתי.  אני מתחייב להעז לפרוץ את אופקי החיים ולהצליח להתעלות מעל הישויות הפרטיות שלי ומעל נסיבות החיים."
 };
 
