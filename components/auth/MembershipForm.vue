@@ -127,7 +127,8 @@
         <v-checkbox
           v-model="confirmed"
           :label="commitmentText"
-          color="info"
+          :disabled="!name"
+          color="#007bff"
           :style="{ direction: commitmentDirection }"
         />
       </v-app>
@@ -159,6 +160,10 @@ export default {
     isOrganization() {
       return this.formData.accountType === "organization";
     },
+    name() {
+      const { fullName, organization, username } = this.formData;
+      return (this.isOrganization ? organization : fullName) || username;
+    },
     commitmentLanguage() {
       const { language } = this.formData;
       return Object.keys(commitmentTexts).includes(language)
@@ -166,9 +171,10 @@ export default {
         : "English";
     },
     commitmentText() {
-      const { fullName, organization, username } = this.formData;
-      const name = (this.isOrganization ? organization : fullName) || username;
-      return commitmentTexts[this.commitmentLanguage].replace("__", name);
+      return commitmentTexts[this.commitmentLanguage].replace(
+        "__",
+        this.name || "__"
+      );
     },
     commitmentDirection() {
       return rtlLanguages.includes(this.commitmentLanguage) ? "rtl" : null;
@@ -254,6 +260,25 @@ export default {
       color: #000;
       display: block !important;
       line-height: 1.7;
+
+      @include respond(mobile) {
+        font-size: 1.45rem;
+      }
+    }
+
+    .v-messages {
+      min-height: 0;
+    }
+
+    &[style="direction: rtl;"] {
+      .v-label {
+        text-align: right;
+      }
+
+      .v-input--selection-controls__input {
+        margin-right: 0;
+        margin-left: 8px;
+      }
     }
   }
 }
