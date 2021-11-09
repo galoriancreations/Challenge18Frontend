@@ -171,10 +171,11 @@ export default {
         : "English";
     },
     commitmentText() {
-      return commitmentTexts[this.commitmentLanguage].replace(
-        "__",
-        this.name || "__"
-      );
+      let text = commitmentTexts[this.commitmentLanguage];
+      if (this.name) {
+        text = text.replace("__", this.name);
+      }
+      return text;
     },
     commitmentDirection() {
       return rtlLanguages.includes(this.commitmentLanguage) ? "rtl" : null;
@@ -258,11 +259,14 @@ export default {
   &__confirm {
     .v-label {
       color: #000;
-      display: block !important;
       line-height: 1.7;
 
       @include respond(mobile) {
         font-size: 1.45rem;
+      }
+
+      &--is-disabled {
+        color: rgba(#000, 0.5);
       }
     }
 

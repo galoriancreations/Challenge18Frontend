@@ -24,6 +24,7 @@ import {
   randomEmoji
 } from "~/assets/util/functions";
 import confirmModal from "~/mixins/confirm-modal";
+import moment from "moment";
 
 export default {
   mixins: [confirmModal],
@@ -123,6 +124,16 @@ export default {
         });
       });
       return selections;
+    },
+    challengeData() {
+      return {
+        challengeId: this.editedChallengeId,
+        draftId: this.draftId,
+        templateId: this.templateId,
+        selections: this.selections,
+        date: moment(this.data.date).format("L"),
+        name: this.data.name
+      };
     }
   },
   methods: {
@@ -155,7 +166,7 @@ export default {
       this.draftId = draftId;
     },
     async saveTemplate() {
-      if (!this.isTemplateEditable || this.editedChallengeId) return;
+      if (!this.isTemplateEditable) return;
       const { templateId } = await this.$axios.$post("/xapi", {
         saveTemplate: {
           templateId: this.templateId,
@@ -168,15 +179,7 @@ export default {
       const mode = this.editedChallengeId
         ? "updateChallenge"
         : "createChallenge";
-      const data = {
-        challengeId: this.editedChallengeId,
-        draftId: this.draftId,
-        templateId: this.templateId,
-        selections: this.selections,
-        date: this.data.date,
-        name: this.data.name
-      };
-      await this.$axios.$post("/xapi", { [mode]: data });
+      await this.$axios.$post("/xapi", { [mode]: this.challengeData });
       const successText = this.editedChallengeId
         ? "Successfully updated challenge"
         : "Created new challenge from template";
