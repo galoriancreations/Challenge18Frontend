@@ -9,6 +9,7 @@
       :placeholder="placeholder"
       :rows="1"
       :readonly="!isTemplateEditable"
+      :maxlength="21"
     />
   </EditorTopField>
 </template>
@@ -32,6 +33,9 @@ export default {
           : "Type name here"
         : null;
     }
+  },
+  mounted() {
+    console.log(this.value.length);
   }
 };
 </script>

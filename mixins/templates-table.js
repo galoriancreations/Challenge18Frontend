@@ -91,9 +91,9 @@ export default {
             const { invite } = await this.$axios.$post("/xapi", {
                 simulateChallenge: template.id
             });
-            this.addNotification(`
-                Created simulation WhatsApp group for template: <strong>${template.name}</strong>.
-                Group link: <strong>${invite}.`
+            this.addNotification(
+                `Created simulation WhatsApp group for template: <strong>${template.name}</strong>.
+                Group link: <strong>${invite}</strong>.`
             );
             this.loading = false;
             window.open(invite, "_blank");
