@@ -192,14 +192,17 @@ export const initialsImg = user => {
   return `https://ui-avatars.com/api/?name=${name}&size=512`;
 };
 
-export const numbersArray = n =>
-  Array.from({ length: n }, (_, i) => i + 1);
+export const numbersArray = n => Array.from({ length: n }, (_, i) => i + 1);
 
 export const dataArrayFromObject = data =>
   Object.keys(data).map(id => ({ id, ...data[id] }));
 
-export const currentDay = date =>
-  moment(new Date()).diff(moment(date), "days");;
+export const currentDay = date => {
+  const challengeDate = new Date(date).toISOString();
+  const currDate = new Date(moment().format("L")).toISOString();
+  const diff = moment(currDate).diff(moment(challengeDate), "days");
+  return diff < 0 ? diff : diff + 1;
+};
 
 export const newNotification = payload => {
   let newItem = { id: uniqid() };

@@ -1,7 +1,7 @@
 <template>
   <div class="notification">
     <div class="notification__content">
-      <p v-if="html" v-html="html" />
+      <p v-if="html" v-html="html" v-linkified />
       <slot v-else />
     </div>
     <div v-if="dismissable" class="notification__close">
@@ -90,6 +90,15 @@ export default {
   &:hover &__close {
     visibility: visible;
     opacity: 1;
+  }
+
+  a {
+    color: $color-blue-2;
+    transition: color 0.5s;
+
+    &:hover {
+      color: $color-gold-3;
+    }
   }
 }
 </style>

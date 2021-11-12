@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import { dataArrayFromObject, currentDay } from "../../assets/util/functions";
-import popupModal from "../../mixins/popup-modal";
+import { dataArrayFromObject, currentDay } from "~/assets/util/functions";
+import popupModal from "~/mixins/popup-modal";
 
 export default {
   mixins: [popupModal],

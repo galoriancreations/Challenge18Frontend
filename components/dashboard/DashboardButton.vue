@@ -3,6 +3,7 @@
     <i v-if="type === 'clone'" class="far fa-clone" />
     <i v-else-if="type === 'edit'" class="far fa-edit" />
     <i v-else-if="type === 'delete'" class="far fa-trash-alt" />
+    <i v-else-if="type === 'simulate'" class="fas fa-mobile-alt" />
     <label>{{ label }}</label>
   </BaseButton>
 </template>
@@ -20,6 +21,8 @@ export default {
         ? "darkblue"
         : this.type === "edit"
         ? "blue"
+        : this.type === "simulate"
+        ? "darkblue"
         : this.type === "delete"
         ? "azure"
         : null;

@@ -37,6 +37,9 @@
         <template v-slot:[`item.edit`]="{ item }">
           <DashboardButton type="edit" @click="item.edit" />
         </template>
+        <template v-slot:[`item.simulate`]="{ item }">
+          <DashboardButton type="simulate" @click="item.simulate" />
+        </template>
         <template v-slot:[`item.delete`]="{ item }">
           <DashboardButton type="delete" @click="item.delete" />
         </template>

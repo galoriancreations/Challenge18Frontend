@@ -12,6 +12,7 @@ export default {
             headers.splice(3, 0, { text: "Type", value: "type" });
         } else {
             headers.splice(2, 0, { text: "Clone", value: "clone", sortable: false });
+            headers.splice(4, 0, { text: "Simulate", value: "simulate", sortable: false });
         }
         return {
             headers,
@@ -31,6 +32,7 @@ export default {
                 newChallenge: () => this.createChallenge(template.id),
                 clone: () => this.cloneTemplate(template.id),
                 edit: () => this.editTemplate(template.id),
+                simulate: () => this.simulateTemplate(template),
                 delete: () => this.deleteTemplate(template)
             }));
         },
@@ -83,6 +85,18 @@ export default {
                 redirect.query = { templateOnly: true };
             }
             this.$router.push(redirect);
+        },
+        async simulateTemplate(template) {
+            this.loading = true;
+            const { invite } = await this.$axios.$post("/xapi", {
+                simulateChallenge: template.id
+            });
+            this.addNotification(`
+                Created simulation WhatsApp group for template: <strong>${template.name}</strong>.
+                Group link: <strong>${invite}.`
+            );
+            this.loading = false;
+            window.open(invite, "_blank");
         },
         deleteTemplate(template) {
             this.setConfirmModal(
