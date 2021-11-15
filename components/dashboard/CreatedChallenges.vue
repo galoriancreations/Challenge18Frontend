@@ -35,7 +35,7 @@ export default {
         { text: "Users", value: "numOfUsers" },
         { text: "Active", value: "isActive" },
         { text: "Day", value: "currentDay" },
-        { text: "Actions", value: "actions", sortable: false }
+        { text: "Edit", value: "edit", sortable: false }
       ],
       selected: [],
       loading: false
@@ -57,10 +57,7 @@ export default {
         numOfUsers: Object.keys(challenge.scores).length,
         isActive: challenge.isActive ? "Yes" : "No",
         currentDay: currentDay(challenge.date),
-        actions: {
-          edit: () => this.editChallenge(challenge.id),
-          delete: () => this.deleteChallenge(challenge)
-        }
+        edit: () => this.editChallenge(challenge)
       }));
     }
   },

@@ -198,10 +198,14 @@ export const dataArrayFromObject = data =>
   Object.keys(data).map(id => ({ id, ...data[id] }));
 
 export const currentDay = date => {
-  const challengeDate = new Date(date).toISOString();
-  const currDate = new Date(moment().format("L")).toISOString();
-  const diff = moment(currDate).diff(moment(challengeDate), "days");
-  return diff < 0 ? diff : diff + 1;
+  try {
+    const challengeDate = new Date(date).toISOString();
+    const currDate = new Date(moment().format("L")).toISOString();
+    const diff = moment(currDate).diff(moment(challengeDate), "days");
+    return diff < 0 ? diff : diff + 1;
+  } catch {
+    return 0;
+  }
 };
 
 export const newNotification = payload => {

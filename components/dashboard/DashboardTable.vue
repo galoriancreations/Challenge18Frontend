@@ -40,9 +40,6 @@
         <template v-slot:[`item.simulate`]="{ item }">
           <DashboardButton type="simulate" @click="item.simulate" />
         </template>
-        <template v-slot:[`item.delete`]="{ item }">
-          <DashboardButton type="delete" @click="item.delete" />
-        </template>
       </v-data-table>
     </v-app>
     <DeleteSelectedButton :disabled="!selected.length" />

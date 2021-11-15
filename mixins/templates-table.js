@@ -4,8 +4,7 @@ export default {
         const headers = [
             { text: "Name", value: "name" },
             { text: "Language", value: "language" },
-            { text: "Edit", value: "edit", sortable: false },
-            { text: "Delete", value: "delete", sortable: false }
+            { text: "Edit", value: "edit", sortable: false }
         ];
         if (this.$options.name === "all-templates") {
             headers.splice(2, 0, { text: "Creator", value: "creator" });
@@ -32,8 +31,7 @@ export default {
                 newChallenge: () => this.createChallenge(template.id),
                 clone: () => this.cloneTemplate(template.id),
                 edit: () => this.editTemplate(template.id),
-                simulate: () => this.simulateTemplate(template),
-                delete: () => this.deleteTemplate(template)
+                simulate: () => this.simulateTemplate(template)
             }));
         },
         hasTemplates() {

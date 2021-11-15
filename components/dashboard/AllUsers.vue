@@ -16,8 +16,7 @@ export default {
         { text: "Username", value: "username" },
         { text: "Full Name", value: "name" },
         { text: "Account Type", value: "accountType" },
-        { text: "Admin", value: "isAdmin", filterable: false },
-        { text: "Delete", value: "delete", sortable: false, filterable: false }
+        { text: "Admin", value: "isAdmin", filterable: false }
       ],
       loading: false,
       selected: [],
@@ -33,8 +32,7 @@ export default {
         ...user,
         name: user.fullName || user.organization,
         accountType: _.capitalize(user.accountType),
-        isAdmin: user.isAdmin || user.accountType === "admin" ? "Yes" : "No",
-        delete: () => this.deleteUser(user)
+        isAdmin: user.isAdmin || user.accountType === "admin" ? "Yes" : "No"
       }));
     }
   },

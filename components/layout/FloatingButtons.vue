@@ -19,5 +19,9 @@
     right: 1rem;
     gap: 1rem;
   }
+
+  & > * {
+    box-shadow: $boxshadow2;
+  }
 }
 </style>

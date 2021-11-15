@@ -26,8 +26,7 @@ export default {
         { text: "Draft Type", value: "type" },
         { text: "Name", value: "name" },
         { text: "Language", value: "language" },
-        { text: "Edit", value: "edit", sortable: false },
-        { text: "Delete", value: "delete", sortable: false }
+        { text: "Edit", value: "edit", sortable: false }
       ],
       selected: [],
       loading: false
@@ -52,8 +51,7 @@ export default {
       return this.drafts.map(draft => ({
         ...draft,
         name: draft.name || "(Unnamed)",
-        edit: () => this.editDraft(draft),
-        delete: () => this.deleteDraft(draft)
+        edit: () => this.editDraft(draft)
       }));
     }
   },
