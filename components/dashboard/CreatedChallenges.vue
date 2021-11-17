@@ -57,7 +57,7 @@ export default {
         numOfUsers: Object.keys(challenge.scores).length,
         isActive: challenge.isActive ? "Yes" : "No",
         currentDay: currentDay(challenge.date),
-        edit: () => this.editChallenge(challenge)
+        edit: () => this.editChallenge(challenge.id)
       }));
     }
   },
