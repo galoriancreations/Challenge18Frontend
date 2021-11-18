@@ -1,7 +1,7 @@
 import uniqid from "uniqid";
 import cloneDeep from "clone-deep";
 import moment from "moment";
-import emojis from "emoji.json/emoji-compact.json";
+import { emojisDefault } from "v-emoji-picker"
 
 export const transformData = data => {
   if (!("isTemplatePublic" in data)) {
@@ -161,9 +161,15 @@ export const isSelectionMatching = task => {
   return false;
 };
 
+export const isEmojiValid = (emoji, selections) => {
+  return !!emoji &&
+    !selections.includes(emoji) &&
+    !!emojisDefault.find(item => item.data === emoji);
+};
+
 export const randomEmoji = () => {
-  const index = Math.floor(Math.random() * emojis.length);
-  return emojis[index];
+  const index = Math.floor(Math.random() * emojisDefault.length);
+  return emojisDefault[index];
 };
 
 export const textInputKeys = labels => {

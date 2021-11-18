@@ -21,6 +21,7 @@ import {
   defaultDate,
   clearedDays,
   isSelectionMatching,
+  isEmojiValid,
   randomEmoji
 } from "~/assets/util/functions";
 import confirmModal from "~/mixins/confirm-modal";
@@ -214,7 +215,7 @@ export default {
             if (!this.templateOnlyMode && !isSelectionMatching(task)) {
               throw `${taskLabel} was left with no selection`;
             }
-            while (!task.emoji || selectedEmojis.includes(task.emoji)) {
+            while (!isEmojiValid(task.emoji, selectedEmojis)) {
               task.emoji = randomEmoji();
             }
             selectedEmojis.push(task.emoji);

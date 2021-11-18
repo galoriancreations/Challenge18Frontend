@@ -15,14 +15,15 @@
     </div>
     <div class="form__field">
       <label for="phone" class="form__label">Phone</label>
-      <input
-        v-model.trim="formData.phone"
+      <VuePhoneNumberInput
+        class="phone-number-input"
         id="phone"
-        name="phone"
-        type="tel"
-        required
-        placeholder="Phone number used for registration"
-        class="form__input"
+        v-model="phoneInput"
+        @update="formData.phone = $event.formattedNumber"
+        color="#007bff"
+        :border-radius="8"
+        :show-code-on-list="true"
+        :no-flags="true"
       />
     </div>
     <BaseButton variant="blue">Login</BaseButton>
@@ -32,13 +33,17 @@
 </template>
 
 <script>
+import VuePhoneNumberInput from "vue-phone-number-input";
+
 export default {
+  components: { VuePhoneNumberInput },
   data() {
     return {
       formData: {
         username: "",
         phone: ""
       },
+      phoneInput: "",
       loading: false,
       error: null
     };

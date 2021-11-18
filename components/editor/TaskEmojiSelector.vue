@@ -35,7 +35,6 @@ export default {
   },
   methods: {
     selectEmoji(emoji) {
-      console.log(emoji);
       this.task.emoji = emoji.data;
       this.showPicker = false;
     },

@@ -7,6 +7,7 @@ import linkify from "vue-linkify";
 import VueSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import TextareaAutosize from "vue-textarea-autosize";
+import "vue-phone-number-input/dist/vue-phone-number-input.css";
 
 Vue.use(VueAgile);
 Vue.use(VueYoutube);

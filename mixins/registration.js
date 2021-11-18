@@ -1,5 +1,4 @@
 import VuePhoneNumberInput from "vue-phone-number-input";
-import "vue-phone-number-input/dist/vue-phone-number-input.css";
 import countryOptions from "../assets/data/countries";
 import languageOptions from "../assets/data/languages";
 import _ from "lodash";
