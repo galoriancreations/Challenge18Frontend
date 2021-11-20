@@ -1,17 +1,19 @@
 <template>
   <WhiteSection class="upcoming-challenges">
     <SectionHeading small>Upcoming Games</SectionHeading>
-    <v-app>
-      <v-data-table :headers="headers" :items="items" class="elevation-2">
-        <template v-slot:[`item.link`]="{ item }">
-          <DashboardButton
-            type="join"
-            :showLabel="false"
-            @click="joinChallenge(item.link)"
-          />
-        </template>
-      </v-data-table>
-    </v-app>
+    <client-only>
+      <v-app>
+        <v-data-table :headers="headers" :items="items" class="elevation-2">
+          <template v-slot:[`item.link`]="{ item }">
+            <DashboardButton
+              type="join"
+              :showLabel="false"
+              @click="joinChallenge(item.link)"
+            />
+          </template>
+        </v-data-table>
+      </v-app>
+    </client-only>
   </WhiteSection>
 </template>
 
