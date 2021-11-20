@@ -19,6 +19,7 @@
 
 <script>
 import moment from "moment";
+import WhiteSection from "~/components/layout/WhiteSection";
 
 const endDate = challenge => {
   const date = new Date(challenge.date);
@@ -27,6 +28,7 @@ const endDate = challenge => {
 };
 
 export default {
+  components: { WhiteSection },
   data() {
     return {
       headers: [
