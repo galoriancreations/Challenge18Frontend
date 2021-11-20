@@ -33,6 +33,9 @@
 .custom-shape-divider-top-1613006383 .shape-fill {
   fill: #ffffff;
 }
+section.top-challenges .custom-shape-divider-top-1613006383 .shape-fill {
+  fill: $color-azure-light-2;
+}
 /** For mobile devices **/
 @include respond(mobile) {
   .custom-shape-divider-top-1613006383 svg {

@@ -3,7 +3,8 @@
     <i v-if="type === 'clone'" class="far fa-clone" />
     <i v-else-if="type === 'edit'" class="far fa-edit" />
     <i v-else-if="type === 'simulate'" class="fas fa-mobile-alt" />
-    <label>{{ label }}</label>
+    <i v-else-if="type === 'join'" class="fas fa-sign-in-alt" />
+    <label v-if="showLabel">{{ label }}</label>
   </BaseButton>
 </template>
 
@@ -12,12 +13,18 @@ import _ from "lodash";
 
 export default {
   props: {
-    type: String
+    type: String,
+    showLabel: {
+      type: Boolean,
+      default: true
+    }
   },
   computed: {
     color() {
       return this.type === "clone"
         ? "darkblue"
+        : this.type === "join"
+        ? "blue"
         : this.type === "edit"
         ? "blue"
         : this.type === "simulate"

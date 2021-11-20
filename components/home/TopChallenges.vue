@@ -1,5 +1,5 @@
 <template>
-  <WhiteSection class="top-challenges">
+  <ColoredSection class="top-challenges">
     <SectionHeading small>Top Challenges</SectionHeading>
     <div class="top-challenges__grid">
       <TopChallengesItem
@@ -8,7 +8,7 @@
         :challenge="item"
       />
     </div>
-  </WhiteSection>
+  </ColoredSection>
 </template>
 
 <script>
@@ -62,6 +62,8 @@ export default {
 
 <style lang="scss">
 .top-challenges {
+  padding-top: 10rem !important;
+
   &__grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);

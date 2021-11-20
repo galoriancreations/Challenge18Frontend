@@ -34,6 +34,9 @@
 .custom-shape-divider-bottom-1613003167 .shape-fill {
   fill: #ffffff;
 }
+.intro .custom-shape-divider-bottom-1613003167 .shape-fill {
+  fill: $color-azure-light-2;
+}
 /** For mobile devices **/
 @include respond(mobile) {
   .custom-shape-divider-bottom-1613003167 svg {
