@@ -20,6 +20,7 @@
 <script>
 import moment from "moment";
 import WhiteSection from "~/components/layout/WhiteSection";
+import DashboardButton from "~/components/dashboard/DashboardButton";
 
 const endDate = challenge => {
   const date = new Date(challenge.date);
@@ -28,7 +29,7 @@ const endDate = challenge => {
 };
 
 export default {
-  components: { WhiteSection },
+  components: { WhiteSection, DashboardButton },
   data() {
     return {
       headers: [
