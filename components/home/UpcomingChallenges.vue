@@ -31,7 +31,7 @@ export default {
         { text: "Challenge", value: "name" },
         { text: "Start date", value: "start" },
         { text: "End date", value: "end" },
-        { text: "Join", value: "link" }
+        { text: "Join", value: "link", sortable: false }
       ]
     };
   },
