@@ -64,6 +64,10 @@ export default {
 .top-challenges {
   padding-top: 10rem !important;
 
+  @include respond(mobile) {
+    padding-top: 6.5rem !important;
+  }
+
   &__grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
