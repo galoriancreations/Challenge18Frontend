@@ -62,6 +62,7 @@ export default {
     border-radius: 0.5rem;
     font-size: 1.5rem !important;
     color: $color-blue-2;
+    font-weight: 600;
     text-transform: initial;
     letter-spacing: initial;
     padding: 0.75rem 1.5rem;

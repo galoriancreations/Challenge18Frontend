@@ -64,7 +64,7 @@ export default {
       padding: 3rem 2rem 5rem;
     }
 
-    .button {
+    .button:not(.dashboard-button) {
       margin: 0 auto;
       width: auto;
       font-weight: 600;
