@@ -162,15 +162,16 @@ export const isSelectionMatching = task => {
   return false;
 };
 
+export const randomEmoji = () => {
+  const index = Math.floor(Math.random() * emojisDefault.length);
+  return emojisDefault[index].data;
+};
+
 export const isEmojiValid = (emoji, selections) => (
+  !!emoji &&
   !selections.includes(emoji) &&
   !!emojisDefault.find(item => item.data === emoji)
 );
-
-export const randomEmoji = () => {
-  const index = Math.floor(Math.random() * emojisDefault.length);
-  return emojisDefault[index];
-};
 
 export const textInputKeys = labels => {
   const keys = [];
