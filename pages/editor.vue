@@ -215,9 +215,11 @@ export default {
             if (!this.templateOnlyMode && !isSelectionMatching(task)) {
               throw `${taskLabel} was left with no selection`;
             }
-            while (!isEmojiValid(task.emoji, selectedEmojis)) {
-              task.emoji = randomEmoji();
-            }
+            // let validEmoji = isEmojiValid(task.emoji, selectedEmojis);
+            // while (!validEmoji) {
+            //   task.emoji = randomEmoji();
+            //   validEmoji = isEmojiValid(task.emoji, selectedEmojis);
+            // }
             selectedEmojis.push(task.emoji);
           });
         });

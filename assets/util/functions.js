@@ -1,9 +1,10 @@
 import uniqid from "uniqid";
 import cloneDeep from "clone-deep";
 import moment from "moment";
-import { emojisDefault } from "v-emoji-picker"
+import { emojisDefault } from "v-emoji-picker";
 
 export const transformData = data => {
+  console.log(emojisDefault)
   if (!("isTemplatePublic" in data)) {
     data.isTemplatePublic = data.isPublic;
   }
@@ -161,11 +162,10 @@ export const isSelectionMatching = task => {
   return false;
 };
 
-export const isEmojiValid = (emoji, selections) => {
-  return !!emoji &&
-    !selections.includes(emoji) &&
-    !!emojisDefault.find(item => item.data === emoji);
-};
+export const isEmojiValid = (emoji, selections) => (
+  !selections.includes(emoji) &&
+  !!emojisDefault.find(item => item.data === emoji)
+);
 
 export const randomEmoji = () => {
   const index = Math.floor(Math.random() * emojisDefault.length);
