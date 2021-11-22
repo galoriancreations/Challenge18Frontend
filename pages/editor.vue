@@ -216,7 +216,6 @@ export default {
               throw `${taskLabel} was left with no selection`;
             }
             while (!isEmojiValid(task.emoji, selectedEmojis)) {
-              console.log(`Changing emoji for ${taskLabel}`);
               task.emoji = randomEmoji();
             }
             selectedEmojis.push(task.emoji);

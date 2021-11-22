@@ -1,75 +1,58 @@
 <template>
   <Page title="Players" name="players">
-    <div class="players__grid">
-      <Player v-for="player in players" :key="player.name" :player="player" />
-    </div>
+    <SectionHeading small>Top 18 Players</SectionHeading>
+    <v-app>
+      <v-data-table
+        :headers="headers"
+        :items="items"
+        class="elevation-2"
+        hide-default-footer
+        disable-pagination
+      >
+        <template v-slot:[`item.totalScore`]="{ item }">
+          <strong class="player-score">{{ item.totalScore }}</strong>
+        </template>
+      </v-data-table>
+    </v-app>
   </Page>
 </template>
 
 <script>
 export default {
+  async asyncData({ $axios }) {
+    const players = await $axios.$post("/api", { getTopPlayers: true });
+    players.forEach(player => {
+      for (let key in player) {
+        if (!player[key] && player[key] !== 0) {
+          player[key] = "–";
+        }
+      }
+    });
+    return { players };
+  },
   data() {
     return {
-      players: [
+      headers: [
+        { text: "Rank", value: "rank", align: "center", sortable: false },
         {
-          imgSrc: "https://i.imgur.com/MIwbEJr.jpg",
-          name: "Nadia Hassona",
-          state: "Israel",
-          club: "Eroni Yud-Bet",
-          score: 1239
+          text: "Total Score",
+          value: "totalScore",
+          align: "center",
+          sortable: false
         },
-        {
-          imgSrc: "https://i.imgur.com/y1AcFjw.jpg",
-          name: "Mariam Abu Rhima",
-          state: "Israel",
-          club: "Eroni Yud-Bet",
-          score: 5569
-        },
-        {
-          imgSrc: "https://i.imgur.com/tgGlgsM.jpg",
-          name: "Fernanda Matsuoka",
-          state: "Brazil",
-          club: "Brazil - Young Climate Leaders",
-          score: 4523
-        },
-        {
-          imgSrc: "https://i.imgur.com/l0tyiBX.jpg",
-          name: "Amal Tartir",
-          state: "Israel",
-          club: "Eroni Yud-Bet",
-          score: 3561
-        },
-        {
-          imgSrc:
-            "https://i1.wp.com/ting.global/wp-content/uploads/2021/04/1232.jpg?fit=500%2C585&ssl=1",
-          name: "Ashni Rungta",
-          state: "Nepal",
-          club: "Nepal Premier School",
-          score: 1234
-        },
-        {
-          imgSrc:
-            "https://i2.wp.com/ting.global/wp-content/uploads/2021/04/Inessa-Kraft-fit.jpg?fit=500%2C585&ssl=1",
-          name: "Inessa Kraft",
-          state: "Cyprus",
-          occupation: "Producer & actress",
-          score: 1200
-        }
+        { text: "Name", value: "fullName" },
+        { text: "Phone Number", value: "phone" },
+        { text: "Username", value: "username" }
       ]
     };
+  },
+  computed: {
+    items() {
+      return this.players.map((player, index) => ({
+        ...player,
+        rank: index + 1
+      }));
+    }
   }
 };
 </script>
-
-<style lang="scss">
-.players__grid {
-  margin: auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
-  gap: 5rem;
-
-  @include respond(tablet) {
-    gap: 4rem;
-  }
-}
-</style>
