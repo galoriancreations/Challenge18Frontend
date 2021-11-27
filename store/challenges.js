@@ -11,7 +11,7 @@ export const mutations = {
 export const actions = {
     async loadUpcoming(context) {
         const challenges = await this.$axios.$post("/api", {
-            getUpcomingChallenges: true
+            getLatestChallenges: true
         });
         context.commit("setUpcoming", challenges);
     }

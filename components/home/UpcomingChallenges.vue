@@ -1,15 +1,23 @@
 <template>
   <WhiteSection class="upcoming-challenges">
-    <SectionHeading small>Upcoming Games</SectionHeading>
+    <SectionHeading small>Challenge 18 Board</SectionHeading>
     <client-only>
       <v-app>
-        <v-data-table :headers="headers" :items="items" class="elevation-2">
+        <v-data-table
+          :headers="headers"
+          :items="items"
+          class="elevation-2"
+          hide-default-footer
+          disable-pagination
+        >
           <template v-slot:[`item.link`]="{ item }">
             <DashboardButton
+              v-if="item.dayDiff < 0"
               type="join"
               :showLabel="false"
               @click="joinChallenge(item.link)"
             />
+            <span v-else>{{ item.ended ? "Ended" : "Active" }}</span>
           </template>
         </v-data-table>
       </v-app>
@@ -24,7 +32,7 @@ import DashboardButton from "~/components/dashboard/DashboardButton";
 
 const endDate = challenge => {
   const date = new Date(challenge.date);
-  date.setDate(date.getDate() + challenge.numOfDays);
+  date.setDate(date.getDate() + challenge.numOfDays - 1);
   return moment(date).format("LL");
 };
 
@@ -36,7 +44,7 @@ export default {
         { text: "Challenge", value: "name" },
         { text: "Start date", value: "start" },
         { text: "End date", value: "end" },
-        { text: "Join", value: "link", sortable: false }
+        { text: "Join", value: "link", sortable: false, align: "center" }
       ]
     };
   },
@@ -49,6 +57,7 @@ export default {
         ...challenge,
         start: moment(new Date(challenge.date)).format("LL"),
         end: endDate(challenge),
+        ended: new Date() > new Date(endDate(challenge)),
         link: challenge.platforms.wa.invite
       }));
     }
@@ -60,3 +69,11 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.upcoming-challenges {
+  .dashboard-button {
+    margin: auto !important;
+  }
+}
+</style>

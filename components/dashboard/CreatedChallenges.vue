@@ -33,7 +33,6 @@ export default {
         { text: "Name", value: "name" },
         { text: "Language", value: "language" },
         { text: "Users", value: "numOfUsers" },
-        { text: "Active", value: "isActive" },
         { text: "Day", value: "currentDay" },
         { text: "Edit", value: "edit", sortable: false }
       ],
@@ -55,7 +54,6 @@ export default {
       return this.challenges.map(challenge => ({
         ...challenge,
         numOfUsers: Object.keys(challenge.scores).length,
-        isActive: challenge.isActive ? "Yes" : "No",
         currentDay: currentDay(challenge.date),
         edit: () => this.editChallenge(challenge.id)
       }));
