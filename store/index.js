@@ -11,7 +11,7 @@ export const actions = {
                 await dispatch("admin/loadData");
             }
         } catch (err) {
-            error(err);
+            error({ ...err });
         }
     }
 };
