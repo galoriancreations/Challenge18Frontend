@@ -5,7 +5,7 @@ export const actions = {
             await Promise.all([
                 getters.isAuth && dispatch("updateUser"),
                 dispatch("loadTemplates", getters.isAuth),
-                dispatch("challenges/loadUpcoming")
+                dispatch("challenges/loadLatest")
             ]);
             if (getters.isAdmin) {
                 await dispatch("admin/loadData");

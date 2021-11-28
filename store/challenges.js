@@ -1,24 +1,24 @@
 export const state = () => ({
-    upcoming: []
+    latest: []
 });
 
 export const mutations = {
-    setUpcoming(state, payload) {
-        state.upcoming = payload;
+    setlatest(state, payload) {
+        state.latest = payload;
     }
 };
 
 export const actions = {
-    async loadUpcoming(context) {
+    async loadLatest(context) {
         const challenges = await this.$axios.$post("/api", {
             getLatestChallenges: true
         });
-        context.commit("setUpcoming", challenges);
+        context.commit("setlatest", challenges);
     }
 };
 
 export const getters = {
-    upcoming(state) {
-        return state.upcoming;
+    latest(state) {
+        return state.latest;
     }
 };

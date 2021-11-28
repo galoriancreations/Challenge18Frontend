@@ -30,7 +30,7 @@ import moment from "moment";
 import WhiteSection from "~/components/layout/WhiteSection";
 import DashboardButton from "~/components/dashboard/DashboardButton";
 
-const endDate = challenge => {
+const getEndDate = challenge => {
   const date = new Date(challenge.date);
   date.setDate(date.getDate() + challenge.numOfDays - 1);
   return moment(date).format("LL");
@@ -50,14 +50,14 @@ export default {
   },
   computed: {
     challenges() {
-      return this.$store.getters["challenges/upcoming"];
+      return this.$store.getters["challenges/latest"];
     },
     items() {
       return this.challenges.map(challenge => ({
         ...challenge,
         start: moment(new Date(challenge.date)).format("LL"),
-        end: endDate(challenge),
-        ended: new Date() > new Date(endDate(challenge)),
+        end: getEndDate(challenge),
+        ended: new Date() > new Date(getEndDate(challenge)),
         link: challenge.platforms.wa.invite
       }));
     }
