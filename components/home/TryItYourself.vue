@@ -35,22 +35,6 @@ export default {
 
 <style lang="scss">
 .try-it-yourself {
-  &__title {
-    text-align: center;
-    font-weight: 700;
-    font-size: 3.6rem;
-    color: $color-blue-2;
-    max-width: 55rem;
-    margin: auto;
-    margin-bottom: 6rem;
-    line-height: 1.3;
-
-    @include respond(mobile) {
-      font-size: 2.7rem;
-      margin-bottom: 4rem;
-    }
-  }
-
   &__text {
     text-align: center;
     font-size: 1.8rem;

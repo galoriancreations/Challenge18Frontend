@@ -1,27 +1,25 @@
 <template>
   <WhiteSection class="upcoming-challenges">
     <SectionHeading small>Challenge 18 Board</SectionHeading>
-    <client-only>
-      <v-app>
-        <v-data-table
-          :headers="headers"
-          :items="items"
-          class="elevation-2"
-          hide-default-footer
-          disable-pagination
-        >
-          <template v-slot:[`item.link`]="{ item }">
-            <DashboardButton
-              v-if="item.dayDiff < 0"
-              type="join"
-              :showLabel="false"
-              @click="joinChallenge(item.link)"
-            />
-            <span v-else>{{ item.ended ? "Ended" : "Active" }}</span>
-          </template>
-        </v-data-table>
-      </v-app>
-    </client-only>
+    <v-app>
+      <v-data-table
+        :headers="headers"
+        :items="items"
+        class="elevation-2"
+        hide-default-footer
+        disable-pagination
+      >
+        <template v-slot:[`item.link`]="{ item }">
+          <DashboardButton
+            v-if="item.dayDiff < 0"
+            type="join"
+            :showLabel="false"
+            @click="joinChallenge(item.link)"
+          />
+          <span v-else>{{ item.ended ? "Ended" : "Active" }}</span>
+        </template>
+      </v-data-table>
+    </v-app>
   </WhiteSection>
 </template>
 
@@ -41,6 +39,7 @@ export default {
   data() {
     return {
       headers: [
+        { text: "Organization", value: "creator" },
         { text: "Challenge", value: "name" },
         { text: "Start date", value: "start" },
         { text: "End date", value: "end" },
