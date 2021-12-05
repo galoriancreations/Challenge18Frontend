@@ -17,13 +17,13 @@ export default {
     return {
       challenges: [
         {
-          image: require("~/assets/images/logos/PNGChallenge18LogoSDGs-01.png"),
+          image: require("~/assets/images/logos/sdgs.jpeg"),
           title: "SDG's",
           text:
             "In 2015, world leaders agreed to 17 Global Goals (officially known as the Sustainable Development Goals or SDGs). It's now five years on, and we have more work than ever to do.\nThese goals have the power to create a better world by 2030, by ending poverty, fighting inequality and addressing the urgency of climate change. Guided by the goals, it is now up to all of us, governments, businesses, civil society and the general public to work together to build a better future for everyone.\nJoin us on an amazing process of 18 Days of Sustainability & Leadership Challenge inspired by the Global Goals."
         },
         {
-          image: require("~/assets/images/logos/PNGChallenge18LogoClimateAction-01.png"),
+          image: require("~/assets/images/logos/climate-action.jpeg"),
           title: "Climate Action",
           text:
             "Take urgent action to combat climate change and its impacts. Join us on an on an amazing process of 18 Days of Climate Action Challenge inspired by Global Goals."
@@ -35,7 +35,7 @@ export default {
             "Join us on an amazing process of 18 Days challenge of Songs & Values with each day focusing on a certain value and ending with one big celebration and a playlist of songs we all love."
         },
         {
-          image: require("~/assets/images/logos/PNGChallenge18LogoFriendlyAI-01.png"),
+          image: require("~/assets/images/logos/friendly-ai.jpeg"),
           title: "Friendly AI",
           text:
             "Join us on an amazing process of 18 Days challenge of Friendly AI with each day focusing on a certain value of how to better live and shape our future."
@@ -64,7 +64,7 @@ export default {
           image: require("~/assets/images/logos/bird-of-paradise.jpeg"),
           title: "Bird of Paradise",
           text:
-            "Players will have to research animals native to their country and provide certain facts; behavior, habitat, food, Etc, they will then have to make a presentation of their research to their club (competing club?). They could also focus on endangered animals or any kind of animals in general."
+            "Players will have to study animals native to their country and provide certain facts; behavior, habitat, food, Etc, they will then have to make a presentation of their study to the group."
         },
         {
           image: require("~/assets/images/logos/final-exams.jpeg"),
