@@ -29,7 +29,7 @@ export default {
             "Take urgent action to combat climate change and its impacts. Join us on an on an amazing process of 18 Days of Climate Action Challenge inspired by Global Goals."
         },
         {
-          image: require("~/assets/images/logos/PNGChallenge18LogoSongsAndValues-01.png"),
+          image: require("~/assets/images/logos/songs-values.jpeg"),
           title: "Songs & Values",
           text:
             "Join us on an amazing process of 18 Days challenge of Songs & Values with each day focusing on a certain value and ending with one big celebration and a playlist of songs we all love."
@@ -41,7 +41,7 @@ export default {
             "Join us on an amazing process of 18 Days challenge of Friendly AI with each day focusing on a certain value of how to better live and shape our future."
         },
         {
-          image: require("~/assets/images/logos/hero-journey.jpeg"),
+          image: require("~/assets/images/logos/heros-journey.jpeg"),
           title: "The Hero's Journey",
           text:
             "In literature, the hero’s journey is a common structure of many stories that unfold the story of a hero who embarks on an adventure, wins a victory after a crucial crisis, and then returns home. The structure was presented by Joseph Campbell in his book The Hero with a Thousand Faces, which described the basic plot as it would be described and as we would experience together during the days of the challenge. Thus every day we will advance in a journey of heroes shared by all of us, in which together we will present beloved characters from literature or cinema and share their journey and ours in all its stages. Ready?"
