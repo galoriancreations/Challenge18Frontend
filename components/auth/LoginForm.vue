@@ -5,8 +5,8 @@
       <VuePhoneNumberInput
         class="phone-number-input"
         id="phone"
-        v-model="phoneInput"
-        @update="formData.phone = $event.formattedNumber"
+        v-model="phoneInput.value"
+        @update="updatePhoneNumber"
         color="#007bff"
         :border-radius="8"
         :show-code-on-list="true"
@@ -31,13 +31,24 @@ export default {
         username: "",
         phone: ""
       },
-      phoneInput: "",
+      phoneInput: {
+        value: "",
+        isValid: false
+      },
       loading: false,
       error: null
     };
   },
   methods: {
+    updatePhoneNumber(data) {
+      this.formData.phone = data.formattedNumber;
+      this.phoneInput.isValid = data.isValid;
+    },
     async submitHandler() {
+      if (!this.phoneInput.isValid) {
+        this.error = "Invalid phone number";
+        return;
+      }
       this.loading = true;
       this.error = null;
       try {
