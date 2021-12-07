@@ -27,6 +27,7 @@
         :readonly="loading"
         autofocus
       />
+      <p class="verification__subtext">The code will expire in 10 minutes.</p>
     </div>
     <BaseButton v-if="!verificationMode" variant="blue">Login</BaseButton>
     <BaseSpinner v-if="loading" />
@@ -161,6 +162,15 @@ export default {
 
     @include respond(mobile) {
       font-size: 2.8rem;
+    }
+  }
+
+  &__subtext {
+    font-size: 1.4rem;
+    margin-top: 2rem;
+
+    @include respond(mobile) {
+      font-size: 1.3rem;
     }
   }
 
