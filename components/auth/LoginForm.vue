@@ -1,20 +1,7 @@
 <template>
   <form class="form" @submit.prevent="submitHandler">
     <div class="form__field">
-      <label for="username" class="form__label">
-        Username
-      </label>
-      <input
-        v-model.trim="formData.username"
-        id="username"
-        placeholder="Your username"
-        required
-        class="form__input"
-        ref="username"
-      />
-    </div>
-    <div class="form__field">
-      <label for="phone" class="form__label">Phone</label>
+      <label for="phone" class="form__label">Phone number</label>
       <VuePhoneNumberInput
         class="phone-number-input"
         id="phone"
@@ -24,6 +11,7 @@
         :border-radius="8"
         :show-code-on-list="true"
         :no-flags="true"
+        ref="phone"
       />
     </div>
     <BaseButton variant="blue">Login</BaseButton>
@@ -64,7 +52,7 @@ export default {
     }
   },
   mounted() {
-    this.$refs.username.focus();
+    this.$refs.phone.$el.focus();
     setTimeout(() => {
       const { top } = this.$el.getBoundingClientRect();
       window.scrollTo(0, window.scrollY + top - 150);
