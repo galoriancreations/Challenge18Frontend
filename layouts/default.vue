@@ -48,7 +48,7 @@ export default {
       } else {
         this.restartSocket();
         if (this.$route.meta.requiresAuth) {
-          this.$router.replace("/");
+          this.$router.replace("/login");
         }
         this.$store.dispatch("notifications/clearItems");
       }
