@@ -1,6 +1,6 @@
 <template>
   <form class="form" @submit.prevent="submitHandler">
-    <div class="form__field">
+    <div v-if="!verificationMode" class="form__field">
       <label for="phone" class="form__label">Phone number</label>
       <VuePhoneNumberInput
         class="phone-number-input"
@@ -14,9 +14,30 @@
         ref="phone"
       />
     </div>
-    <BaseButton variant="blue">Login</BaseButton>
+    <div v-else class="verification">
+      <p class="verification__text">
+        Enter the 6-digit code that was sent to phone number
+        {{ formData.phone }}:
+      </p>
+      <input
+        :value="code"
+        @input="codeInputHandler"
+        class="verification__input"
+        :maxlength="6"
+        :readonly="loading"
+        autofocus
+      />
+    </div>
+    <BaseButton v-if="!verificationMode" variant="blue">Login</BaseButton>
     <BaseSpinner v-if="loading" />
     <ErrorMessage v-else-if="error" :error="error" />
+    <BaseButton
+      v-if="verificationMode && error"
+      @click="verificationMode = false"
+      variant="blue"
+    >
+      Retry login
+    </BaseButton>
   </form>
 </template>
 
@@ -35,7 +56,9 @@ export default {
         isValid: false
       },
       loading: false,
-      error: null
+      error: null,
+      verificationMode: false,
+      code: ""
     };
   },
   methods: {
@@ -55,10 +78,46 @@ export default {
           mode: "signIn",
           data: this.formData
         });
+        // this.verificationMode = true;
       } catch (error) {
         this.error = error;
       }
       this.loading = false;
+    },
+    async codeInputHandler(event) {
+      event.target.value = event.target.value.replace(/[^0-9]/g, "");
+      this.code = event.target.value;
+    },
+    async verifyCode() {
+      this.loading = true;
+      this.error = null;
+      try {
+        await this.$axios.$post("/api", {
+          verifySignIn: {
+            userId: this.formData.phone,
+            code: this.code
+          }
+        });
+      } catch (error) {
+        this.error = error;
+      }
+      this.loading = false;
+    }
+  },
+  watch: {
+    verificationMode() {
+      setTimeout(() => {
+        this.error = null;
+      }, 10);
+      this.phoneInput.value = "";
+      this.code = "";
+    },
+    code(value) {
+      if (value.length === 6) {
+        this.verifyCode();
+      } else {
+        this.error = null;
+      }
     }
   },
   mounted() {
@@ -70,3 +129,47 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.verification {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  &__text {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+
+    @include respond(mobile) {
+      font-size: 1.7rem;
+    }
+  }
+
+  &__input {
+    outline: none;
+    border: 2px solid #ccc;
+    border-radius: 0.5rem;
+    width: 22.5rem;
+    padding: 0.75rem 0;
+    font: inherit;
+    font-size: 3rem;
+    letter-spacing: 1rem;
+    text-align: center;
+    display: block;
+
+    @include respond(mobile) {
+      font-size: 2.8rem;
+    }
+  }
+
+  & + .error-message:not(:last-child) {
+    margin-bottom: 3.5rem;
+
+    @include respond(mobile) {
+      margin-bottom: 2.5rem;
+    }
+  }
+}
+</style>
