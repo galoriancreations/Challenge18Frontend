@@ -28,7 +28,6 @@ export default {
   data() {
     return {
       formData: {
-        username: "",
         phone: ""
       },
       phoneInput: {

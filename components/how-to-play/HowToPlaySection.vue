@@ -54,6 +54,7 @@ export default {
   &__section-container {
     display: flex;
     align-items: flex-start;
+    justify-content: space-between;
 
     @include respond(tablet) {
       flex-direction: column;
