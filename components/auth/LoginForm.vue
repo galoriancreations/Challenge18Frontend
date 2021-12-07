@@ -11,7 +11,6 @@
         :border-radius="8"
         :show-code-on-list="true"
         :no-flags="true"
-        ref="phone"
       />
     </div>
     <div v-else class="verification">
@@ -136,7 +135,7 @@ export default {
     }
   },
   mounted() {
-    this.$refs.phone.$el.focus();
+    this.$el.querySelector(".input-tel__input").focus();
     setTimeout(() => {
       const { top } = this.$el.getBoundingClientRect();
       window.scrollTo(0, window.scrollY + top - 150);
