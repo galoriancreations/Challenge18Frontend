@@ -17,15 +17,17 @@
     <div v-else class="verification">
       <p class="verification__text">
         Enter the 6-digit code that was sent to phone number
-        {{ formData.phone }}
+        {{ phoneInput.formatted }}
       </p>
       <input
         :value="code"
         @input="codeInputHandler"
+        @keydown.enter.prevent
         class="verification__input"
         :maxlength="6"
         :readonly="loading"
         autofocus
+        ref="code"
       />
       <p class="verification__subtext">The code will expire in 10 minutes.</p>
     </div>
@@ -54,6 +56,7 @@ export default {
       },
       phoneInput: {
         value: "",
+        formatted: null,
         isValid: false
       },
       loading: false,
@@ -65,6 +68,7 @@ export default {
   methods: {
     updatePhoneNumber(data) {
       this.formData.phone = data.formattedNumber;
+      this.phoneInput.formatted = data.formatInternational;
       this.phoneInput.isValid = data.isValid;
     },
     async submitHandler() {
@@ -113,9 +117,12 @@ export default {
     }
   },
   watch: {
-    verificationMode() {
+    verificationMode(value) {
       setTimeout(() => {
         this.error = null;
+        if (value) {
+          this.$refs.code.focus();
+        }
       }, 10);
       this.phoneInput.value = "";
       this.code = "";
