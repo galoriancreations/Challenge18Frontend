@@ -30,6 +30,11 @@ export default {
     Testimonials,
     LatestNews,
     Partners
+  },
+  async asyncData({ store }) {
+    if (process.client) {
+      await store.dispatch("challenges/loadLatest");
+    }
   }
 };
 </script>
