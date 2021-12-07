@@ -16,16 +16,22 @@ export default {
     ],
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Spartan:wght@500;600;700;800&display=swap" }
+      {
+        rel: "stylesheet",
+        href:
+          "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Spartan:wght@500;600;700;800&display=swap"
+      }
     ],
     script: [
-      { hid: "fontawesome", src: "https://kit.fontawesome.com/5225b7dab1.js", crossorigin: "anonymous" }
+      {
+        hid: "fontawesome",
+        src: "https://kit.fontawesome.com/5225b7dab1.js",
+        crossorigin: "anonymous"
+      }
     ]
   },
 
-  css: [
-    "~/assets/sass/main.scss"
-  ],
+  css: ["~/assets/sass/main.scss"],
 
   styleResources: {
     scss: "~/assets/sass/base.scss"
@@ -34,7 +40,8 @@ export default {
   plugins: [
     "~/plugins/core-components",
     "~/plugins/v-waypoint.client.js",
-    "~/plugins/vue-plyr.client.js"
+    "~/plugins/vue-plyr.client.js",
+    "~/plugins/axios"
   ],
 
   components: {
@@ -54,21 +61,12 @@ export default {
     ]
   },
 
-  buildModules: [
-    "@nuxtjs/style-resources",
-    "@nuxtjs/vuetify"
-  ],
+  buildModules: ["@nuxtjs/style-resources", "@nuxtjs/vuetify"],
 
-  modules: [
-    "@nuxtjs/axios",
-    "cookie-universal-nuxt",
-    "nuxt-route-meta"
-  ],
+  modules: ["@nuxtjs/axios", "cookie-universal-nuxt", "nuxt-route-meta"],
 
   build: {
-    transpile: [
-      "vue-agile"
-    ]
+    transpile: ["vue-agile"]
   },
 
   pageTransition: {
@@ -82,10 +80,7 @@ export default {
   },
 
   router: {
-    middleware: [
-      "check-auth",
-      "check-route"
-    ]
+    middleware: ["check-auth", "check-route"]
   },
 
   axios: {
@@ -102,4 +97,4 @@ export default {
     paypalSandbox: process.env.PAYPAL_SANDBOX,
     paypalLive: process.env.PAYPAL_LIVE
   }
-}
+};

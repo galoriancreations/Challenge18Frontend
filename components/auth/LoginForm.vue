@@ -17,7 +17,7 @@
     <div v-else class="verification">
       <p class="verification__text">
         Enter the 6-digit code that was sent to phone number
-        {{ formData.phone }}:
+        {{ formData.phone }}
       </p>
       <input
         :value="code"
@@ -69,7 +69,9 @@ export default {
     },
     async submitHandler() {
       if (!this.phoneInput.isValid) {
-        this.error = "Invalid phone number";
+        if (this.phoneInput.value) {
+          this.error = "Invalid phone number";
+        }
         return;
       }
       this.loading = true;
@@ -79,13 +81,14 @@ export default {
           mode: "signIn",
           data: this.formData
         });
+        // await this.$axios.$post("/api", { signIn: this.formData });
         // this.verificationMode = true;
       } catch (error) {
         this.error = error;
       }
       this.loading = false;
     },
-    async codeInputHandler(event) {
+    codeInputHandler(event) {
       event.target.value = event.target.value.replace(/[^0-9]/g, "");
       this.code = event.target.value;
     },
@@ -159,9 +162,14 @@ export default {
     letter-spacing: 1rem;
     text-align: center;
     display: block;
+    transition: all 0.5s;
 
     @include respond(mobile) {
       font-size: 2.8rem;
+    }
+
+    &:focus {
+      border-color: $color-azure;
     }
   }
 
