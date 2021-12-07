@@ -102,6 +102,10 @@ export default {
             code: this.code
           }
         });
+        // await this.$store.dispatch("auth", {
+        //   userId: this.formData.phone,
+        //   code: this.code
+        // });
       } catch (error) {
         this.error = error;
       }

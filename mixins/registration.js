@@ -65,9 +65,8 @@ export default {
       try {
         for (let key in this.availability) {
           if (this.availability[key] === "taken") {
-            throw `${_.capitalize(
-              key
-            )} is already taken. Please try a different ${key}.`;
+            throw `${_.capitalize(key)} 
+                is already taken. Please try a different ${key}.`;
           }
         }
         if (!this.phoneInput.isValid) {
