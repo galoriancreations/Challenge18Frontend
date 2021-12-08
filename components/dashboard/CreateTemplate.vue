@@ -96,25 +96,30 @@ export default {
         this.selectedLanguage = this.userLanguage;
       }
     },
-    async cloneTemplate(template) {
+    async cloneTemplate(templateId) {
       this.loading = true;
-      const { templateId } = await this.$axios.$post("/xapi", {
+      const template = await this.$axios.$post("/xapi", {
+        getTemplateData: templateId
+      });
+      const newTemplate = {
+        ...template,
+        name: `${template.name || "Unnamed"} (copy)`,
+        isPublic: template.isPublic && this.user.accountType === "admin"
+      };
+      const { templateId: newId } = await this.$axios.$post("/xapi", {
         saveTemplate: {
           templateId: null,
-          templateData: {
-            ...template,
-            name: `${template.name} (copy)`
-          },
+          templateData: newTemplate,
           draftId: null,
           finishEditing: false
         }
       });
-      return templateId;
+      return newId;
     },
     async selectTemplate(template) {
       if (template) {
-        const templateId = await this.cloneTemplate(template);
-        this.$cookies.set("selectedTemplate", templateId);
+        const newTemplateId = await this.cloneTemplate(template.id);
+        this.$cookies.set("selectedTemplate", newTemplateId);
       } else {
         this.$cookies.remove("selectedTemplate");
       }
