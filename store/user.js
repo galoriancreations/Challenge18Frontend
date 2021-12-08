@@ -75,9 +75,7 @@ export const actions = {
     clearTimeout(logoutTimer);
   },
   async updateUser(context, data = {}) {
-    const { user } = await this.$axios.$post("/xapi", {
-      editProfile: data
-    });
+    const { user } = await this.$axios.$post("/xapi", { editProfile: data });
     context.commit("updateUser", user);
   },
   async loadTemplates(context, isAuth = true) {

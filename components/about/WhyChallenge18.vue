@@ -54,14 +54,16 @@
 
   &__video {
     margin-left: 6rem;
-    width: 42.5%;
-    max-width: 51rem;
+    width: 34.5vw;
+    max-width: 55rem;
+    min-width: 45rem;
 
     @include respond(tablet-land) {
       margin-left: 0;
       margin-bottom: 4.5rem;
       width: 100%;
       max-width: 50rem;
+      min-width: 0;
     }
 
     iframe {

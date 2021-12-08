@@ -64,15 +64,19 @@ export default {
   }
 
   &__img {
-    width: 42vw;
+    width: 34.5vw;
+    max-width: 56rem;
+    min-width: 45rem;
     margin-right: 6rem;
     border-radius: 1rem;
     box-shadow: $boxshadow2;
+    flex-shrink: 0;
 
     @include respond(tablet-land) {
       margin: 0 0 4.5rem;
       width: 100%;
       max-width: 50rem;
+      min-width: 0;
     }
 
     @include respond(mobile) {
