@@ -29,7 +29,7 @@ export default {
             "Take urgent action to combat climate change and its impacts. Join us on an on an amazing process of 18 Days of Climate Action Challenge inspired by Global Goals."
         },
         {
-          image: require("~/assets/images/logos/songs-values.jpeg"),
+          image: require("~/assets/images/logos/songs-values-2.jpeg"),
           title: "Songs & Values",
           text:
             "Join us on an amazing process of 18 Days challenge of Songs & Values with each day focusing on a certain value and ending with one big celebration and a playlist of songs we all love."
