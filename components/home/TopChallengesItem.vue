@@ -53,8 +53,9 @@ export default {
     box-shadow: $boxshadow2;
     height: 100%;
     overflow: hidden;
-    transition: transform 0.4s;
+    transition: all 0.4s;
     position: relative;
+    z-index: 0;
 
     &:hover {
       @media (hover: hover) {
