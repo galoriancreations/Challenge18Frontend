@@ -58,10 +58,8 @@ export default {
     z-index: 0;
 
     &:hover {
-      @media (hover: hover) {
-        transform: scale(1.3);
-        z-index: 1;
-      }
+      transform: scale(1.3);
+      z-index: 1;
     }
 
     img {
