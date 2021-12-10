@@ -109,6 +109,7 @@ export default {
           this.challenges = await this.$axios.$post("/api", {
             getChallengesByName: this.challenge.names || [this.challenge.title]
           });
+          this.error = null;
         } catch (error) {
           this.error = error;
         }
