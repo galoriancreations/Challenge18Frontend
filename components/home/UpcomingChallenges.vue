@@ -11,7 +11,7 @@
       >
         <template v-slot:[`item.link`]="{ item }">
           <DashboardButton
-            v-if="item.dayDiff < 0"
+            v-if="item.dayDiff <= 0"
             type="join"
             :showLabel="false"
             @click="joinChallenge(item.link)"
@@ -27,12 +27,7 @@
 import moment from "moment";
 import WhiteSection from "~/components/layout/WhiteSection";
 import DashboardButton from "~/components/dashboard/DashboardButton";
-
-const getEndDate = challenge => {
-  const date = new Date(challenge.date);
-  date.setDate(date.getDate() + challenge.numOfDays - 1);
-  return moment(date).format("LL");
-};
+import { getEndDate } from "~/assets/util/functions";
 
 export default {
   components: { WhiteSection, DashboardButton },

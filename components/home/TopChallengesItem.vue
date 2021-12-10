@@ -3,7 +3,11 @@
     <button class="top-challenges__img" @click="showModal = true">
       <img :src="challenge.image" :alt="challenge.title" />
     </button>
-    <PopupModal :active="showModal" class="top-challenges__modal">
+    <PopupModal
+      :active="showModal"
+      class="top-challenges__modal"
+      :height="modalHeight"
+    >
       <h2 class="top-challenges__title">
         {{ challenge.title }}
       </h2>
@@ -12,20 +16,62 @@
           {{ paragraph }}
         </p>
       </div>
-      <BaseButton v-if="showButton" variant="blue" :link="link">
-        {{ challenge.linkText || "Join Us" }}
+      <BaseButton
+        v-if="!showChallenges"
+        variant="blue"
+        @click="buttonClickHandler"
+      >
+        <i v-if="loading" class="fas fa-circle-notch fa-spin" />
+        <span v-else>{{ challenge.linkText || "Join a challenge" }}</span>
       </BaseButton>
+      <div v-else class="top-challenges__list-wrapper">
+        <SectionSeperator />
+        <h3 class="top-challenges__list-title">
+          Choose a challenge:
+        </h3>
+        <ErrorMessage v-if="error" :error="error" />
+        <div v-else class="top-challenges__list">
+          <v-app>
+            <v-data-table
+              :headers="tableHeaders"
+              :items="challengeItems"
+              class="elevation-2"
+              hide-default-footer
+              disable-pagination
+            >
+              <template v-slot:[`item.link`]="{ item }">
+                <DashboardButton
+                  v-if="item.dayDiff <= 0"
+                  type="join"
+                  :showLabel="false"
+                  @click="joinChallenge(item.link)"
+                />
+              </template>
+            </v-data-table>
+          </v-app>
+        </div>
+      </div>
     </PopupModal>
   </div>
 </template>
 
 <script>
-import popupModal from "../../mixins/popup-modal";
+import popupModal from "~/mixins/popup-modal";
+import moment from "moment";
 
 export default {
   mixins: [popupModal],
   props: {
     challenge: Object
+  },
+  data() {
+    return {
+      showChallenges: false,
+      challenges: [],
+      loading: false,
+      error: null,
+      modalHeight: null
+    };
   },
   computed: {
     text() {
@@ -35,11 +81,51 @@ export default {
       return this.$store.getters.isAuth;
     },
     link() {
-      return this.challenge.link || "/join";
+      return this.challenge.link;
     },
-    showButton() {
-      return !this.isLoggedIn || !!this.challenge.link;
+    tableHeaders() {
+      return [
+        { text: "Organization", value: "creator" },
+        { text: "Start date", value: "start" },
+        { text: "Join", value: "link", sortable: false, align: "center" }
+      ];
+    },
+    challengeItems() {
+      return this.challenges.map(challenge => ({
+        ...challenge,
+        start: moment(new Date(challenge.date)).format("LL"),
+        link: challenge.platforms.wa.invite
+      }));
     }
+  },
+  methods: {
+    async buttonClickHandler() {
+      if (this.challenge.link) {
+        this.$router.push(this.challenge.link);
+      } else if (!this.loading) {
+        this.loading = true;
+        try {
+          this.challenges = await this.$axios.$post("/api", {
+            getChallengesByName: this.challenge.title
+          });
+        } catch (error) {
+          this.error = error;
+        }
+        this.showChallenges = true;
+      }
+    },
+    joinChallenge(link) {
+      window.open(link, "_blank");
+    }
+  },
+  watch: {
+    showChallenges() {
+      this.modalHeight = "85vh";
+    }
+  },
+  mounted() {
+    const height = this.$el.querySelector(".modal__wrapper").offsetHeight;
+    this.modalHeight = `${height}px`;
   }
 };
 </script>
@@ -88,9 +174,29 @@ export default {
   }
 
   &__modal {
-    .button {
+    .button:not(.dashboard-button) {
       margin-top: 3rem;
     }
+
+    .section-seperator {
+      margin: 5rem 0;
+
+      @include respond(mobile) {
+        margin: 3.5rem 0;
+      }
+    }
+  }
+
+  &__list {
+    text-align: left;
+
+    .dashboard-button {
+      margin: auto;
+    }
+  }
+
+  &__list-title {
+    margin-bottom: 2rem;
   }
 }
 </style>

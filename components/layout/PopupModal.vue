@@ -36,7 +36,8 @@ export default {
     scrollbar: {
       type: Boolean,
       default: true
-    }
+    },
+    height: String
   },
   inject: ["closeModal"],
   data() {
@@ -55,19 +56,23 @@ export default {
   },
   methods: {
     adjustContainerHeight() {
-      this.containerHeight = `${this.$refs.wrapper.offsetHeight}px`;
-      this.contentMinHeight = this.containerHeight;
+      if (this.scrollbar) {
+        this.containerHeight =
+          this.height || `${this.$refs.wrapper.offsetHeight}px`;
+        this.contentMinHeight = this.containerHeight;
+      }
     }
   },
   mounted() {
-    if (this.scrollbar) {
-      this.adjustContainerHeight();
-    }
+    this.adjustContainerHeight();
   },
   watch: {
     active(value) {
       document.querySelector("html").style.overflow =
         value && isTouchDevice() ? "hidden" : null;
+    },
+    height() {
+      this.adjustContainerHeight();
     }
   }
 };
@@ -108,6 +113,7 @@ export default {
     &__content {
       padding: 4rem;
       position: relative;
+      height: 100%;
 
       @include respond(mobile) {
         padding: 3rem 2rem;

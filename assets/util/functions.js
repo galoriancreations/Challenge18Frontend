@@ -4,7 +4,7 @@ import moment from "moment";
 import { emojisDefault } from "v-emoji-picker";
 
 export const transformData = data => {
-  console.log(emojisDefault)
+  console.log(emojisDefault);
   if (!("isTemplatePublic" in data)) {
     data.isTemplatePublic = data.isPublic;
   }
@@ -22,7 +22,7 @@ export const transformData = data => {
         message.type = "text";
       }
     });
-  }
+  };
   data.preDays?.forEach(fillMessageTypes);
   data.days?.forEach(fillMessageTypes);
   return data;
@@ -32,7 +32,7 @@ export const emptyDays = (tasks = true) => {
   const day = { messages: [newMessage()] };
   if (tasks) {
     day.title = "";
-    day.tasks = [newTask()]
+    day.tasks = [newTask()];
   }
   return [day];
 };
@@ -78,7 +78,7 @@ export const initialDays = days => {
       selection: task.selection || task.options[0]?.text,
       points: task.points || taskIndex + 1,
       time: task.time || "18:00:00",
-      extraInput: task.extraInput || "",
+      extraInput: task.extraInput || ""
     })),
     messages: (day.messages || [{}]).map(message => ({
       id: message.id || uniqid(),
@@ -94,10 +94,12 @@ export const initialDays = days => {
   }));
 };
 
-export const stripHTML = text => text.replace(/(<([^>]+)>)/ig, "");
+export const stripHTML = text => text.replace(/(<([^>]+)>)/gi, "");
 
 export const convertTaskText = text => {
-  const chars = stripHTML(text).replace(" - ", " – ").split("");
+  const chars = stripHTML(text)
+    .replace(" - ", " – ")
+    .split("");
   let closingTag = false;
   chars.forEach((char, index) => {
     if (char === "*") {
@@ -167,15 +169,14 @@ export const randomEmoji = () => {
   return emojisDefault[index].data;
 };
 
-export const isEmojiValid = (emoji, selections) => (
+export const isEmojiValid = (emoji, selections) =>
   !!emoji &&
   !selections.includes(emoji) &&
-  !!emojisDefault.find(item => item.data === emoji)
-);
+  !!emojisDefault.find(item => item.data === emoji);
 
 export const textInputKeys = labels => {
   const keys = [];
-  const excluded = ["language", "phone", "image"]
+  const excluded = ["language", "phone", "image"];
   for (let key in labels) {
     if (!excluded.includes(key)) {
       keys.push(key);
@@ -203,6 +204,12 @@ export const numbersArray = n => Array.from({ length: n }, (_, i) => i + 1);
 
 export const dataArrayFromObject = data =>
   Object.keys(data).map(id => ({ id, ...data[id] }));
+
+export const getEndDate = challenge => {
+  const date = new Date(challenge.date);
+  date.setDate(date.getDate() + challenge.numOfDays - 1);
+  return moment(date).format("LL");
+};
 
 export const currentDay = date => {
   try {
