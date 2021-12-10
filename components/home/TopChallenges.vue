@@ -19,6 +19,15 @@ export default {
         {
           image: require("~/assets/images/logos/sdgs.jpeg"),
           title: "SDG's",
+          names: [
+            "SDG's",
+            "International SDG's",
+            "יעדי הקיימות",
+            "SDG's Chinese",
+            "ODS's Internacionais",
+            "ODS internacionales",
+            "Международные ЦУР"
+          ],
           text:
             "In 2015, world leaders agreed to 17 Global Goals (officially known as the Sustainable Development Goals or SDGs). It's now five years on, and we have more work than ever to do.\nThese goals have the power to create a better world by 2030, by ending poverty, fighting inequality and addressing the urgency of climate change. Guided by the goals, it is now up to all of us, governments, businesses, civil society and the general public to work together to build a better future for everyone.\nJoin us on an amazing process of 18 Days of Sustainability & Leadership Challenge inspired by the Global Goals."
         },
@@ -31,6 +40,7 @@ export default {
         {
           image: require("~/assets/images/logos/songs-values-2.jpeg"),
           title: "Songs & Values",
+          names: ["Songs & Values", "שירים וערכים", "NYIMBO NA MAADILI"],
           text:
             "Join us on an amazing process of 18 Days challenge of Songs & Values with each day focusing on a certain value and ending with one big celebration and a playlist of songs we all love."
         },
@@ -43,12 +53,14 @@ export default {
         {
           image: require("~/assets/images/logos/heros-journey.jpeg"),
           title: "The Hero's Journey",
+          names: ["The Hero's Journey", "Hero's Journey", "מסע הגיבור"],
           text:
             "In literature, the hero’s journey is a common structure of many stories that unfold the story of a hero who embarks on an adventure, wins a victory after a crucial crisis, and then returns home. The structure was presented by Joseph Campbell in his book The Hero with a Thousand Faces, which described the basic plot as it would be described and as we would experience together during the days of the challenge. Thus every day we will advance in a journey of heroes shared by all of us, in which together we will present beloved characters from literature or cinema and share their journey and ours in all its stages. Ready?"
         },
         {
           image: require("~/assets/images/logos/18boom-einstein-logo.jpeg"),
           title: "18 Boom Challenge!",
+          names: ["18 Boom", "18 בום"],
           text:
             "Join 18 Boom WhatsApp Group.\nDonate a sum of 18 dollars or more.\nPass the envelope in a message to friends so that the envelope passes until it reaches 18 people who donated in total. Then a lottery takes place when one of the players wins Prof. Einstein Robot for its personal use or to be donated to a school.\nInvite more friends to the challenge together with an image of your tongue out as the famous Prof. Einstein, share on social media and grow the chances to receive your own Prof. Einstein Robot or join us in helping more schools around the world with their Climate education and learning the SDG’s.",
           link: "/challenge18boom",

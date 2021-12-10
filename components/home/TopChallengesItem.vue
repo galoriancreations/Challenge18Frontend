@@ -86,6 +86,7 @@ export default {
     tableHeaders() {
       return [
         { text: "Organization", value: "creator" },
+        { text: "Language", value: "language" },
         { text: "Start date", value: "start" },
         { text: "Join", value: "link", sortable: false, align: "center" }
       ];
@@ -93,7 +94,7 @@ export default {
     challengeItems() {
       return this.challenges.map(challenge => ({
         ...challenge,
-        start: moment(new Date(challenge.date)).format("LL"),
+        start: moment(new Date(challenge.date)).format("ll"),
         link: challenge.platforms.wa.invite
       }));
     }
@@ -106,7 +107,7 @@ export default {
         this.loading = true;
         try {
           this.challenges = await this.$axios.$post("/api", {
-            getChallengesByName: this.challenge.title
+            getChallengesByName: this.challenge.names || [this.challenge.title]
           });
         } catch (error) {
           this.error = error;
