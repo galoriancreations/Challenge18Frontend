@@ -32,7 +32,7 @@ export default {
             "In 2015, world leaders agreed to 17 Global Goals (officially known as the Sustainable Development Goals or SDGs). It's now five years on, and we have more work than ever to do.\nThese goals have the power to create a better world by 2030, by ending poverty, fighting inequality and addressing the urgency of climate change. Guided by the goals, it is now up to all of us, governments, businesses, civil society and the general public to work together to build a better future for everyone.\nJoin us on an amazing process of 18 Days of Sustainability & Leadership Challenge inspired by the Global Goals."
         },
         {
-          image: require("~/assets/images/logos/climate-action.jpeg"),
+          image: require("~/assets/images/logos/climate-action-2.jpeg"),
           title: "Climate Action",
           text:
             "Take urgent action to combat climate change and its impacts. Join us on an on an amazing process of 18 Days of Climate Action Challenge inspired by Global Goals."
