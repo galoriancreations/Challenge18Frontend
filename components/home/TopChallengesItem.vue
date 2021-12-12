@@ -41,7 +41,6 @@
             >
               <template v-slot:[`item.link`]="{ item }">
                 <DashboardButton
-                  v-if="item.dayDiff <= 0"
                   type="join"
                   :showLabel="false"
                   @click="joinChallenge(item.link)"
@@ -118,7 +117,8 @@ export default {
     },
     joinChallenge(link) {
       window.open(link, "_blank");
-    }
+    },
+    async createChallenge() {}
   },
   watch: {
     showChallenges() {
@@ -193,7 +193,7 @@ export default {
     text-align: left;
 
     .dashboard-button {
-      margin: auto;
+      margin: auto !important;
     }
   }
 

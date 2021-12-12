@@ -21,7 +21,7 @@
           </div>
         </div>
       </div>
-      <div class="modal__backdrop" @click="closeModal" />
+      <div class="modal__backdrop" @click="closeOnBackdropClick" />
     </div>
   </div>
 </template>
@@ -34,6 +34,10 @@ export default {
     active: Boolean,
     title: String,
     scrollbar: {
+      type: Boolean,
+      default: true
+    },
+    dismissable: {
       type: Boolean,
       default: true
     },
@@ -61,10 +65,24 @@ export default {
           this.height || `${this.$refs.wrapper.offsetHeight}px`;
         this.contentMinHeight = this.containerHeight;
       }
+    },
+    closeOnBackdropClick() {
+      if (this.dismissable) {
+        this.closeModal();
+      }
+    },
+    closeOnEscPress(event) {
+      if (this.dismissable && event.key === "Escape") {
+        this.closeModal();
+      }
     }
   },
   mounted() {
     this.adjustContainerHeight();
+    document.addEventListener("keydown", this.closeOnEscPress);
+  },
+  beforeDestroy() {
+    document.removeEventListener("keydown", this.closeOnEscPress);
   },
   watch: {
     active(value) {
