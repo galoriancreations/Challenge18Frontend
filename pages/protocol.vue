@@ -1,5 +1,5 @@
 <template>
-  <Page title="Challenge 18 Marketing Protocol" name="protocol">
+  <Page title="Challenge 18 Protocol" name="protocol">
     <section class="protocol__section">
       <div class="protocol__intro-box">
         <p class="protocol__intro-text">
