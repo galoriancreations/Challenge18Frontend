@@ -16,17 +16,23 @@
           {{ paragraph }}
         </p>
       </div>
-      <BaseButton
-        v-if="!showChallenges"
-        variant="blue"
-        @click="buttonClickHandler"
-      >
-        <i v-if="loading" class="fas fa-circle-notch fa-spin" />
-        <span v-else>{{ challenge.linkText || "Join a challenge" }}</span>
-      </BaseButton>
-      <div v-else class="top-challenges__list-wrapper">
+      <div class="top-challenges__buttons">
+        <BaseButton
+          v-if="!exapnd"
+          :variant="link ? 'blue' : 'darkblue'"
+          @click="buttonClickHandler"
+        >
+          <i v-if="loading" class="fas fa-circle-notch fa-spin" />
+          <span v-else>{{ challenge.linkText || "Join a challenge" }}</span>
+        </BaseButton>
+        <BaseButton v-if="!link" variant="blue" @click="createChallenge">
+          <i v-if="creating" class="fas fa-circle-notch fa-spin" />
+          <span v-else>Create a challenge</span>
+        </BaseButton>
+      </div>
+      <div v-if="exapnd" class="top-challenges__list-wrapper">
         <SectionSeperator />
-        <h3 class="top-challenges__list-title">
+        <h3 v-if="!error" class="top-challenges__list-title">
           Choose a challenge:
         </h3>
         <ErrorMessage v-if="error" :error="error" />
@@ -50,6 +56,10 @@
           </v-app>
         </div>
       </div>
+      <!-- <BaseButton v-if="!link" variant="blue" @click="createChallenge">
+        <i v-if="creating" class="fas fa-circle-notch fa-spin" />
+        <span v-else>Create a challenge</span>
+      </BaseButton> -->
     </PopupModal>
   </div>
 </template>
@@ -65,7 +75,7 @@ export default {
   },
   data() {
     return {
-      showChallenges: false,
+      exapnd: false,
       challenges: [],
       loading: false,
       creating: false,
@@ -113,7 +123,7 @@ export default {
         } catch (error) {
           this.error = error;
         }
-        this.showChallenges = true;
+        this.exapnd = true;
       }
     },
     joinChallenge(link) {
@@ -129,15 +139,18 @@ export default {
         this.$cookies.remove("draftId");
         this.$cookies.remove("challengeId");
         this.$router.push("/editor");
-        this.$;
       } catch (error) {
+        this.exapnd = true;
         this.error = error;
       }
+      this.creating = false;
     }
   },
   watch: {
-    showChallenges() {
-      this.modalHeight = "85vh";
+    exapnd(value) {
+      if (value) {
+        this.modalHeight = "85vh";
+      }
     }
   },
   mounted() {
@@ -193,15 +206,40 @@ export default {
   }
 
   &__modal {
-    .button:not(.dashboard-button) {
-      margin-top: 3rem;
-    }
-
     .section-seperator {
       margin: 5rem 0;
 
       @include respond(mobile) {
         margin: 3.5rem 0;
+      }
+    }
+  }
+
+  &__buttons {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+
+    @include respond(mobile-land) {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .button {
+      margin: 0;
+      width: 26.5rem;
+
+      @include respond(mobile) {
+        width: 100%;
+      }
+
+      &:not(:last-child) {
+        margin-right: 1rem;
+
+        @include respond(mobile-land) {
+          margin-right: 0;
+          margin-bottom: 1rem;
+        }
       }
     }
   }
