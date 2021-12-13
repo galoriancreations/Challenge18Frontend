@@ -142,8 +142,8 @@ export default {
       } catch (error) {
         this.exapnd = true;
         this.error = error;
+        this.creating = false;
       }
-      this.creating = false;
     }
   },
   watch: {

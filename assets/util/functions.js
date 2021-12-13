@@ -4,7 +4,6 @@ import moment from "moment";
 import { emojisDefault } from "v-emoji-picker";
 
 export const transformData = data => {
-  console.log(emojisDefault);
   if (!("isTemplatePublic" in data)) {
     data.isTemplatePublic = data.isPublic;
   }
