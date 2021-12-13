@@ -49,7 +49,7 @@ export default {
     items() {
       return this.challenges.map(challenge => ({
         ...challenge,
-        start: moment(new Date(challenge.date)).format("LL"),
+        start: moment(new Date(challenge.date)).format("ll"),
         end: getEndDate(challenge),
         ended: new Date() > new Date(getEndDate(challenge)),
         link: challenge.platforms.wa.invite

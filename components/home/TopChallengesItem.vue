@@ -68,6 +68,7 @@ export default {
       showChallenges: false,
       challenges: [],
       loading: false,
+      creating: false,
       error: null,
       modalHeight: null
     };
@@ -118,7 +119,21 @@ export default {
     joinChallenge(link) {
       window.open(link, "_blank");
     },
-    async createChallenge() {}
+    async createChallenge() {
+      this.creating = true;
+      try {
+        const templateId = await this.$axios.$post("/api", {
+          getPublicTemplateID: this.challenge.names || [this.challenge.title]
+        });
+        this.$cookies.set("selectedTemplate", templateId);
+        this.$cookies.remove("draftId");
+        this.$cookies.remove("challengeId");
+        this.$router.push("/editor");
+        this.$;
+      } catch (error) {
+        this.error = error;
+      }
+    }
   },
   watch: {
     showChallenges() {
@@ -126,8 +141,10 @@ export default {
     }
   },
   mounted() {
-    const height = this.$el.querySelector(".modal__wrapper").offsetHeight;
-    this.modalHeight = `${height}px`;
+    const height = this.$el.querySelector(".modal__wrapper")?.offsetHeight;
+    if (height) {
+      this.modalHeight = `${height}px`;
+    }
   }
 };
 </script>

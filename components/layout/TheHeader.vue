@@ -52,7 +52,8 @@ export default {
           dropdown: [
             { link: "/how-to-play", text: "How to Play" },
             { link: "/clubs", text: "Clubs" },
-            { link: "/players", text: "Players" }
+            { link: "/players", text: "Players" },
+            { link: "/protocol", text: "Protocol" }
           ]
         },
         { link: "/marketplace", text: "Marketplace" },

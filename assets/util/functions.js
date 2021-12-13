@@ -208,7 +208,7 @@ export const dataArrayFromObject = data =>
 export const getEndDate = challenge => {
   const date = new Date(challenge.date);
   date.setDate(date.getDate() + challenge.numOfDays - 1);
-  return moment(date).format("LL");
+  return moment(date).format("ll");
 };
 
 export const currentDay = date => {
