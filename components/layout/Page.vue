@@ -6,26 +6,14 @@
       <slot />
     </WhiteSection>
     <slot v-else />
-    <CreateChallenge v-if="!isEditor" :active="showModal" />
-    <FloatingButtons v-if="!isEditor">
-      <ActionButton type="add" color="blue" @click="showModal = true" />
-      <ActionButton
-        type="whatsapp"
-        color="azure"
-        category="fab"
-        @click="openWhatsapp"
-      />
-    </FloatingButtons>
+    <PageFloatingButtons v-if="!isEditor" />
     <Notifications v-if="!isEditor" :items="notifications" />
     <TheFooter />
   </div>
 </template>
 
 <script>
-import popupModal from "~/mixins/popup-modal";
-
 export default {
-  mixins: [popupModal],
   props: {
     title: String,
     name: String,
@@ -49,11 +37,6 @@ export default {
     },
     isEditor() {
       return this.$route.name === "editor";
-    }
-  },
-  methods: {
-    openWhatsapp() {
-      window.open("https://wa.me/972559721123", "_blank");
     }
   },
   mounted() {
