@@ -56,20 +56,34 @@ export default {
     textarea {
       display: block;
       width: 100%;
-      border: none;
+      max-width: 950px;
+      border: 0.2rem solid #ccc;
+      border-radius: 0.5rem;
+      padding: 1.5rem 1rem;
       outline: none;
       text-align: center;
       font-family: "Spartan", sans-serif;
       font-size: 4.15rem;
       color: $color-blue-2;
       font-weight: 600;
+      transition: border-color 0.5s;
 
       @include respond(mobile) {
         font-size: 2.9rem;
+        padding: 1.25rem 1rem;
       }
 
-      &:read-only::placeholder {
-        color: $color-blue-2;
+      &:focus {
+        border-color: $color-azure;
+      }
+
+      &:read-only {
+        border: none;
+        padding: 0;
+
+        &::placeholder {
+          color: $color-blue-2;
+        }
       }
     }
   }
