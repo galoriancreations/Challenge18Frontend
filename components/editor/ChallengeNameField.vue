@@ -25,13 +25,6 @@ export default {
   computed: {
     direction() {
       return rtlLanguages.includes(this.data.language) ? "rtl" : null;
-    },
-    placeholder() {
-      return process.client
-        ? window.innerWidth > 600
-          ? "Enter challenge name here"
-          : "Type name here"
-        : null;
     }
   }
 };
