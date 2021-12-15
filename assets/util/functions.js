@@ -60,41 +60,38 @@ export const initialDays = days => {
   if (!days) {
     days = emptyDays();
   }
-  return days.map(day => {
-    console.log(day.time);
-    return {
-      ...day,
-      id: day.id || uniqid(),
-      title: day.title.replace(" - ", " – "),
-      image: day.image || null,
-      error: false,
-      introduction: day.introduction || "",
-      time: day.time || "18:00:00",
-      tasks: day.tasks.map((task, taskIndex) => ({
-        ...task,
-        id: task.id || uniqid(),
-        options: task.options.map(option => ({
-          ...option,
-          id: option.id || uniqid()
-        })),
-        selection: task.selection || task.options[0]?.text,
-        points: task.points || taskIndex + 1,
-        time: task.time || "18:00:00",
-        extraInput: task.extraInput || ""
+  return days.map(day => ({
+    ...day,
+    id: day.id || uniqid(),
+    title: day.title.replace(" - ", " – "),
+    image: day.image || null,
+    error: false,
+    introduction: day.introduction || "",
+    time: day.time || "18:00:00",
+    tasks: day.tasks.map((task, taskIndex) => ({
+      ...task,
+      id: task.id || uniqid(),
+      options: task.options.map(option => ({
+        ...option,
+        id: option.id || uniqid()
       })),
-      messages: (day.messages || [{}]).map(message => ({
-        id: message.id || uniqid(),
-        isAudio: message.isAudio,
-        type: message.type || "text",
-        content: message.content || "",
-        file: message.fileUrl || null,
-        hasSelectedFile: false,
-        error: false,
-        fileUrl: message.fileUrl || null,
-        time: message.time || "18:00:00"
-      }))
-    };
-  });
+      selection: task.selection || task.options[0]?.text,
+      points: task.points || taskIndex + 1,
+      time: task.time || "18:00:00",
+      extraInput: task.extraInput || ""
+    })),
+    messages: (day.messages || [{}]).map(message => ({
+      id: message.id || uniqid(),
+      isAudio: message.isAudio,
+      type: message.type || "text",
+      content: message.content || "",
+      file: message.fileUrl || null,
+      hasSelectedFile: false,
+      error: false,
+      fileUrl: message.fileUrl || null,
+      time: message.time || "18:00:00"
+    }))
+  }));
 };
 
 export const stripHTML = text => text.replace(/(<([^>]+)>)/gi, "");

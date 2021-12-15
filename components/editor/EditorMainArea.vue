@@ -171,6 +171,7 @@ export default {
       this.data.days.push({
         id: uniqid(),
         title: "",
+        time: "18:00:00",
         tasks: [newTask(0)],
         messages: [newMessage()]
       });
