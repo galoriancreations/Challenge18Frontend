@@ -11,6 +11,9 @@ export default {
   },
   provide() {
     return {
+      openModal: () => {
+        this.showModal = true;
+      },
       closeModal: this.closeModal
     };
   }

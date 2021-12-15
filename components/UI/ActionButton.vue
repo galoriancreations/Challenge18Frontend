@@ -13,7 +13,11 @@ export default {
       required: true
     },
     size: String,
-    type: String
+    type: String,
+    category: {
+      type: String,
+      default: "fas"
+    }
   },
   computed: {
     buttonClasses() {
@@ -24,11 +28,12 @@ export default {
     },
     iconClasses() {
       return {
-        fas: true,
+        [this.category]: true,
         "fa-edit": this.type === "edit",
         "fa-plus": this.type === "add",
         "fa-info": this.type === "info",
-        "fa-random": this.type === "shuffle"
+        "fa-random": this.type === "shuffle",
+        "fa-whatsapp": this.type === "whatsapp"
       };
     }
   }
@@ -55,6 +60,14 @@ export default {
 
   i {
     transform: translateX(0.1rem);
+
+    &.fa-whatsapp {
+      font-size: 2.6rem;
+
+      @include respond(mobile) {
+        font-size: 2.1rem;
+      }
+    }
   }
 }
 
@@ -66,7 +79,8 @@ export default {
   }
 }
 
-.editor .action-button {
+.editor .action-button,
+.floating-buttons .action-button {
   width: 6.5rem;
   height: 6.5rem;
   font-size: 1.9rem;

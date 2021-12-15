@@ -15,10 +15,9 @@
         <source src="../../assets/videos/challenge-editor.mp4" />
       </video>
     </div>
-    <BaseButton variant="blue" @click="showModal = true">
+    <BaseButton variant="blue" @click="openModal">
       Create your own challenge
     </BaseButton>
-    <CreateChallenge :active="showModal" />
   </ColoredSection>
 </template>
 
@@ -27,6 +26,7 @@ import popupModal from "~/mixins/popup-modal";
 
 export default {
   mixins: [popupModal],
+  inject: ["openModal"],
   mounted() {
     this.$refs.video?.play();
   }
