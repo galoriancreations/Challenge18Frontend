@@ -25,7 +25,17 @@ export default {
       default: true
     }
   },
-  inject: ["isTemplateEditable"]
+  inject: ["isTemplateEditable"],
+  created() {
+    if (typeof this.value === "object") {
+      this.$emit(
+        "input",
+        Object.keys(this.value)
+          .map(key => this.value[key])
+          .join(":")
+      );
+    }
+  }
 };
 </script>
 
