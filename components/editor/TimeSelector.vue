@@ -1,6 +1,7 @@
 <template>
-  <div class="task-form__time-selector">
-    <label class="task-form__selector-label">Time</label>
+  <div class="time-selector">
+    <label v-if="defaultLabel" class="task-form__selector-label">Time</label>
+    <slot name="label" />
     <span v-if="!isTemplateEditable">{{ value }}</span>
     <vue-timepicker
       v-else
@@ -18,14 +19,18 @@ import "vue2-timepicker/dist/VueTimepicker.css";
 export default {
   components: { VueTimepicker },
   props: {
-    value: String
+    value: null,
+    defaultLabel: {
+      type: Boolean,
+      default: true
+    }
   },
   inject: ["isTemplateEditable"]
 };
 </script>
 
 <style lang="scss">
-.task-form__time-selector {
+.time-selector {
   display: flex;
   flex-direction: column;
   align-items: center;

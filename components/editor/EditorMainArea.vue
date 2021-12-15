@@ -34,6 +34,13 @@
               <DayImageField v-model="dayData.image" />
             </div>
             <div
+              v-if="dayData.time || isTemplateEditable"
+              :key="`time-${dayData.id}`"
+              class="editor__subsection"
+            >
+              <StartTimeField v-model="dayData.time" />
+            </div>
+            <div
               v-if="dayData.introduction || isTemplateEditable"
               :key="`introduction-${dayData.id}`"
               class="editor__subsection"
@@ -241,7 +248,6 @@ export default {
   &__subsection {
     position: relative;
     width: 100%;
-    z-index: 5;
 
     &:not(:last-child) {
       margin-bottom: 9rem;

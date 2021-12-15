@@ -1,6 +1,6 @@
 <template>
   <div class="editor__introduction-field">
-    <h3 for="introduction" class="editor__top-label">
+    <h3 class="editor__top-label">
       Introduction message
     </h3>
     <textarea-autosize

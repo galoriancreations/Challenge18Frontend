@@ -67,6 +67,7 @@ export const initialDays = days => {
     image: day.image || null,
     error: false,
     introduction: day.introduction || "",
+    time: day.time || "18:00:00",
     tasks: day.tasks.map((task, taskIndex) => ({
       ...task,
       id: task.id || uniqid(),
