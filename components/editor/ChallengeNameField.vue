@@ -6,7 +6,7 @@
       @keydown.native.enter.prevent
       class="editor__name"
       :style="{ direction }"
-      :placeholder="placeholder"
+      placeholder="Enter challenge name"
       :rows="1"
       :maxlength="21"
       :readonly="!isTemplateEditable"
