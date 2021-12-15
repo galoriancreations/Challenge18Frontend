@@ -217,7 +217,7 @@ export default {
       }
 
       a {
-        color: $color-blue-2;
+        color: $color-blue-3;
         transition: color 0.5s;
 
         &:hover {
