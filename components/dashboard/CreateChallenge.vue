@@ -98,6 +98,9 @@ export default {
       }
       this.$cookies.remove("draftId");
       this.$cookies.remove("challengeId");
+      if (this.$route.meta.forLoggingIn) {
+        return this.closeModal();
+      }
       this.$router.push("/editor");
     }
   },
