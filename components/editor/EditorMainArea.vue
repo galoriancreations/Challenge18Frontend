@@ -27,6 +27,17 @@
             :name="transition"
           >
             <div
+              v-if="!templateOnlyMode"
+              :key="`date-${dayData.id}`"
+              class="editor__subsection"
+            >
+              <div class="editor__date">
+                <div />
+                <span>{{ date }}</span>
+                <div />
+              </div>
+            </div>
+            <div
               v-if="dayData.image || isTemplateEditable"
               :key="`image-${dayData.id}`"
               class="editor__subsection"
@@ -94,6 +105,7 @@
 <script>
 import { newMessage, newTask } from "~/assets/util/functions";
 import { rtlLanguages, dayTranslations } from "~/assets/util/options";
+import moment from "moment";
 import uniqid from "uniqid";
 import popupModal from "~/mixins/popup-modal";
 
@@ -141,6 +153,11 @@ export default {
     },
     dayData() {
       return this.data.days[this.dayIndex];
+    },
+    date() {
+      const date = moment(this.data.date);
+      date.add(this.dayIndex * this.data.dayMargin, "days");
+      return date.format("LL");
     },
     showTasks() {
       return this.isTemplateEditable || this.dayData.tasks.length > 0;
@@ -256,6 +273,38 @@ export default {
       @include respond(mobile) {
         margin-bottom: 7rem;
       }
+    }
+  }
+
+  &__date {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: -1.5rem;
+
+    @include respond(mobile) {
+      font-size: 1.75rem;
+    }
+
+    span {
+      margin: 0 4rem;
+      display: block;
+      width: fit-content;
+      max-width: 100%;
+
+      @include respond(mobile) {
+        margin: 0 2rem;
+      }
+    }
+
+    div {
+      height: 0.15rem;
+      background-color: #ccc;
+      max-width: 15rem;
+      flex: 1;
     }
   }
 
