@@ -206,8 +206,9 @@ export const dataArrayFromObject = data =>
   Object.keys(data).map(id => ({ id, ...data[id] }));
 
 export const getEndDate = challenge => {
+  const margin = challenge.dayMargin || 1;
   const date = new Date(challenge.date);
-  date.setDate(date.getDate() + challenge.numOfDays - 1);
+  date.setDate(date.getDate() + (challenge.numOfDays - 1) * margin);
   return moment(date).format("ll");
 };
 

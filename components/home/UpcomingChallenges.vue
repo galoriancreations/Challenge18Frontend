@@ -8,6 +8,7 @@
         class="elevation-2"
         hide-default-footer
         disable-pagination
+        :mobile-breakpoint="1000"
       >
         <template v-slot:[`item.link`]="{ item }">
           <DashboardButton
