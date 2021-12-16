@@ -6,6 +6,7 @@
         @selected="$emit('input', $event)"
         full-month-name
         format="dd MMMM yyyy"
+        :disabled-dates="disabledDates"
         class="editor__datepicker"
       />
     </client-only>
@@ -20,10 +21,12 @@ export default {
   props: {
     value: Date
   },
-  data() {
-    return {
-      // disabledDates: { to: new Date() }
-    };
+  computed: {
+    disabledDates() {
+      const date = new Date();
+      date.setDate(date.getDate() - 1);
+      return { to: date };
+    }
   }
 };
 </script>

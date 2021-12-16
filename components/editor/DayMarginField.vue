@@ -36,6 +36,10 @@ export default {
     .points-selector .number-input input {
       font-size: 1.9rem !important;
       font-weight: 500;
+
+      @include respond(mobile) {
+        font-size: 1.75rem !important;
+      }
     }
   }
 }
