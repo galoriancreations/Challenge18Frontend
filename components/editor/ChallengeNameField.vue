@@ -6,7 +6,7 @@
       @keydown.native.enter.prevent
       class="editor__name"
       :style="{ direction }"
-      placeholder="Enter challenge name"
+      :placeholder="placeholder"
       :rows="1"
       :maxlength="21"
       :readonly="!isTemplateEditable"
@@ -25,6 +25,13 @@ export default {
   computed: {
     direction() {
       return rtlLanguages.includes(this.data.language) ? "rtl" : null;
+    },
+    placeholder() {
+      return process.client
+        ? window.innerWidth > 600
+          ? "Enter challenge name"
+          : "Type name here"
+        : null;
     }
   }
 };

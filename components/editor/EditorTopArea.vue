@@ -4,6 +4,7 @@
     <ChallengeLanguageField v-model="data.language" />
     <ChallengeImageField v-model="data.image" />
     <LaunchDateField v-if="!templateOnlyMode" v-model="data.date" />
+    <DayMarginField v-if="isTemplateEditable" />
     <TemplateAvailabilityField v-if="isAdmin" v-model="data.isTemplatePublic" />
     <AllowCopiesField
       v-if="isAdmin && data.isTemplatePublic"
@@ -15,7 +16,7 @@
 
 <script>
 export default {
-  inject: ["data", "templateOnlyMode"],
+  inject: ["data", "templateOnlyMode", "isTemplateEditable"],
   computed: {
     isAdmin() {
       return this.$store.getters.isAdmin;

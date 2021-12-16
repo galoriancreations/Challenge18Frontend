@@ -47,12 +47,14 @@ export default {
       const data = key
         ? transformData(await $axios.$post(endpoint, { [key]: value }))
         : {};
+      console.log(data.dayMargin);
       return {
         data: {
           name: data.name || "",
           language: data.language || user?.language,
           image: data.image || null,
           date: new Date(data.date || defaultDate()),
+          dayMargin: data.dayMargin || 1,
           preDays: initialPreDays(data.preDays),
           days: initialDays(data.days),
           isTemplatePublic: key ? data.isTemplatePublic : isAdmin,
@@ -110,6 +112,7 @@ export default {
         name: this.data.name,
         language: this.data.language,
         image: this.data.image,
+        dayMargin: this.data.dayMargin,
         preDays: clearedDays(this.data.preDays),
         days: clearedDays(this.data.days),
         isPublic: this.data.isTemplatePublic,
