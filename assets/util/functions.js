@@ -217,9 +217,10 @@ export const currentDay = challenge => {
     const margin = challenge.dayMargin || 1;
     const challengeDate = new Date(challenge.date).toISOString();
     const currDate = new Date(moment().format("L")).toISOString();
-    const diff = Math.floor(
-      moment(currDate).diff(moment(challengeDate), "days") / margin
-    );
+    let diff = moment(currDate).diff(moment(challengeDate), "days");
+    if (diff > 0) {
+      diff = Math.floor(diff / margin);
+    }
     return diff < 0 ? diff : diff + 1;
   } catch {
     return 0;
