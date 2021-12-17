@@ -58,7 +58,6 @@ export default {
     this.initSocketMethods();
     this.initToken();
     this.io.on("updateCounter", data => console.log(data));
-    console.log(navigator);
   },
   provide() {
     return {
