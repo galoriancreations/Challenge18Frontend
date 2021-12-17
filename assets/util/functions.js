@@ -212,11 +212,14 @@ export const getEndDate = challenge => {
   return moment(date).format("ll");
 };
 
-export const currentDay = date => {
+export const currentDay = challenge => {
   try {
-    const challengeDate = new Date(date).toISOString();
+    const margin = challenge.dayMargin || 1;
+    const challengeDate = new Date(challenge.date).toISOString();
     const currDate = new Date(moment().format("L")).toISOString();
-    const diff = moment(currDate).diff(moment(challengeDate), "days");
+    const diff = Math.floor(
+      moment(currDate).diff(moment(challengeDate), "days") / margin
+    );
     return diff < 0 ? diff : diff + 1;
   } catch {
     return 0;

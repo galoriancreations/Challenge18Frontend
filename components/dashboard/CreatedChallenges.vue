@@ -54,7 +54,7 @@ export default {
       return this.challenges.map(challenge => ({
         ...challenge,
         numOfUsers: Object.keys(challenge.scores).length,
-        currentDay: currentDay(challenge.date),
+        currentDay: currentDay(challenge),
         edit: () => this.editChallenge(challenge.id)
       }));
     }
