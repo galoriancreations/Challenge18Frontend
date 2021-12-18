@@ -258,15 +258,15 @@ export default {
 .form {
   &__confirm {
     .v-label {
-      color: #000;
-      line-height: 1.7;
+      color: #000 !important;
+      line-height: 1.7 !important;
 
       @include respond(mobile) {
         font-size: 1.45rem;
       }
 
       &--is-disabled {
-        color: rgba(#000, 0.5);
+        color: rgba(#000, 0.5) !important;
       }
     }
 
