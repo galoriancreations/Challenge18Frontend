@@ -227,15 +227,10 @@ export const currentDay = challenge => {
   }
 };
 
-export const newNotification = payload => {
-  let newItem = { id: uniqid() };
-  if (typeof payload === "string") {
-    newItem.html = payload;
-  } else {
-    newItem = { ...newItem, ...payload };
-  }
-  return newItem;
-};
+export const newNotification = payload =>
+  typeof payload === "string" ?
+    { id: uniqid(), html: payload } :
+    { id: uniqid(), ...payload };
 
 export const isTouchDevice = () =>
   "ontouchstart" in window ||
