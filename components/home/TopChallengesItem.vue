@@ -1,7 +1,7 @@
 <template>
   <div class="top-challenges__item">
     <button class="top-challenges__img" @click="showModal = true">
-      <img :src="challenge.image" :alt="challenge.title" />
+      <img :src="image" :alt="challenge.title" />
     </button>
     <PopupModal
       :active="showModal"
@@ -84,6 +84,9 @@ export default {
     };
   },
   computed: {
+    image() {
+      return require(`~/assets/images/logos/${this.challenge.image}`);
+    },
     text() {
       return this.challenge.text.split("\n");
     },
