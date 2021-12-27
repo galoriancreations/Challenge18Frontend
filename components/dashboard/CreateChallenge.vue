@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import languageOptions from "../../assets/data/languages";
+import languageOptions from "~/assets/data/languages";
 
 export default {
   props: {
@@ -98,7 +98,7 @@ export default {
       }
       this.$cookies.remove("draftId");
       this.$cookies.remove("challengeId");
-      if (this.$route.meta.forLoggingIn) {
+      if (this.$route.name === "login") {
         return this.closeModal();
       }
       this.$router.push("/editor");

@@ -62,7 +62,7 @@ export default {
     height: 20vw;
     position: relative;
 
-    @media only screen and (max-width: 750px) {
+    @include respond(mobile-land) {
       height: 40vw;
     }
 

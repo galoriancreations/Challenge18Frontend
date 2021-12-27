@@ -67,13 +67,13 @@ export default {
           linkText: "Join 18 Boom"
         },
         {
-          image: require("~/assets/images/logos/philosopher-stone.jpeg"),
+          image: require("~/assets/images/logos/philosopher-stone-2.jpeg"),
           title: "Philosopher Stone",
           text:
             "Players are challenged to share pearls of wisdom about their country based on a daily topic (education, environment, plants, animals)."
         },
         {
-          image: require("~/assets/images/logos/bird-of-paradise.jpeg"),
+          image: require("~/assets/images/logos/bird-of-paradise-2.jpeg"),
           title: "Bird of Paradise",
           text:
             "Players will have to study animals native to their country and provide certain facts; behavior, habitat, food, Etc, they will then have to make a presentation of their study to the group."
@@ -97,10 +97,29 @@ export default {
             "Players explore a park, hiking trail, outdoor area, then take a minimum of 10 pictures to share with the group - Ready?"
         },
         {
-          image: require("~/assets/images/logos/kids-coding.jpeg"),
+          image: require("~/assets/images/logos/kids-coding-2.jpeg"),
           title: "Kids Coding SDG's",
+          names: ["Kids Coding SDG's", "Kids Coding"],
           text:
             "Players learn to code with Alice or Scratch in order to create programs based on a daily Sustainable Development Goal."
+        },
+        {
+          image: require("~/assets/images/logos/just-for-laughs.jpeg"),
+          title: "Just for Laughs",
+          text:
+            "The world is such a serious place these days and sometimes it helps to not take everything so seriously, let's all take a moment and share a laugh. Players are encouraged to find funny videos, memes, jokes or stand up routines from the internet and share them with the group."
+        },
+        {
+          image: require("~/assets/images/logos/space-exploration.jpeg"),
+          title: "Space Exploration",
+          text:
+            "Players explore various scientific and commercial space projects meant to help life on earth and or expand scientific knowledge (asteroid mining, aerogel manufacturing, astronomy satellites)."
+        },
+        {
+          image: require("~/assets/images/logos/back-to-the-future.jpeg"),
+          title: "Back to the Future",
+          text:
+            "Participants will have to find examples of how their country is advancing technology and improving the lives of everyday people. Can include anything from building material advances to water filtration, energy production to space travel or information tech."
         }
       ]
     };
