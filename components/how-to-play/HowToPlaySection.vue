@@ -19,7 +19,7 @@
           <strong>Note:</strong> {{ note }}
         </p>
       </div>
-      <img class="how-to-play__img" :src="image" :alt="title" />
+      <img class="how-to-play__img" :src="imageSrc" :alt="title" />
     </div>
   </section>
 </template>
@@ -31,6 +31,11 @@ export default {
     items: Array,
     note: String,
     image: String
+  },
+  computed: {
+    imageSrc() {
+      return require(`~/assets/images/how-to-play/${this.image}`);
+    }
   }
 };
 </script>
