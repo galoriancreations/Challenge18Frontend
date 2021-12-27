@@ -30,7 +30,7 @@ export default {
   position: fixed;
   bottom: 2rem;
   left: 2rem;
-  z-index: 10;
+  z-index: 16;
 
   @include respond(mobile) {
     bottom: 1rem;
