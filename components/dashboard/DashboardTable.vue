@@ -17,6 +17,7 @@
         :items="items"
         show-select
         class="elevation-2"
+        item-key="_id"
       >
         <template v-slot:[`item.actions`]="{ item }">
           <div class="my-challenges__actions">

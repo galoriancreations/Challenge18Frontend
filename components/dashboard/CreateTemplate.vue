@@ -21,7 +21,7 @@
         <div
           class="template-button"
           v-for="template in filteredTemplateOptions"
-          :key="template.id"
+          :key="template._id"
         >
           <label @click="selectTemplate(template)">
             {{ template.name || "(Unnamed)" }}
@@ -77,7 +77,7 @@ export default {
     },
     templateOptions() {
       const filter = this.isAdmin
-        ? template => template.isPublic || template.creator === this.user?.id
+        ? template => template.isPublic || template.creator === this.user?._id
         : template => template.allowCopies || !template.isPublic;
       return this.$store.getters.templates.filter(filter);
     },
@@ -118,7 +118,7 @@ export default {
     },
     async selectTemplate(template) {
       if (template) {
-        const newTemplateId = await this.cloneTemplate(template.id);
+        const newTemplateId = await this.cloneTemplate(template._id);
         this.$cookies.set("selectedTemplate", newTemplateId);
       } else {
         this.$cookies.remove("selectedTemplate");

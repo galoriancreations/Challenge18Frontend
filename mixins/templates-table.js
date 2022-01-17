@@ -27,14 +27,17 @@ export default {
     user() {
       return this.$store.getters.user;
     },
+    isAdmin() {
+      return this.$store.getters.isAdmin;
+    },
     items() {
       return this.templates.map(template => ({
         ...template,
         name: template.name || "(Unnamed)",
         type: template.isPublic ? "Public" : "Private",
-        newChallenge: () => this.createChallenge(template.id),
-        clone: () => this.cloneTemplate(template.id),
-        edit: () => this.editTemplate(template.id),
+        newChallenge: () => this.createChallenge(template._id),
+        clone: () => this.cloneTemplate(template._id),
+        edit: () => this.editTemplate(template._id),
         simulate: () => this.simulateTemplate(template)
       }));
     },
@@ -48,27 +51,19 @@ export default {
     },
     async cloneTemplate(templateId) {
       this.loading = true;
-      const template = await this.$axios.$post("/xapi", {
-        getTemplateData: templateId
+      const newTemplate = await this.$axios.$post("/xapi", {
+        cloneTemplate: templateId
       });
-      const newTemplate = {
-        ...template,
-        name: `${template.name || "Unnamed"} (copy)`,
-        isPublic: template.isPublic && this.user.accountType === "admin"
-      };
-      const { templateId: newId } = await this.$axios.$post("/xapi", {
-        saveTemplate: {
-          templateId: null,
-          templateData: newTemplate,
-          draftId: null,
-          finishEditing: false
-        }
-      });
-      newTemplate.id = newId;
       this.$store.commit(
         "setTemplates",
         this.$store.getters.templates.concat(newTemplate)
       );
+      if (this.isAdmin) {
+        this.$store.commit("admin/setTemplates", [
+          newTemplate,
+          ...this.$store.getters["admin/templates"]
+        ]);
+      }
       this.addNotification(
         `Created new template: <strong>${newTemplate.name}</strong>.`
       );
@@ -91,7 +86,7 @@ export default {
     async simulateTemplate(template) {
       this.loading = true;
       const { invite } = await this.$axios.$post("/xapi", {
-        simulateChallenge: template.id
+        simulateChallenge: template._id
       });
       this.addNotification(
         `Created simulation WhatsApp group for template: <strong>${template.name}</strong>.
@@ -107,22 +102,19 @@ export default {
           this.loading = true;
           await this.$axios.$post("/xapi", {
             deleteTemplate: {
-              templateId: template.id,
+              templateId: template._id,
               isPublic: template.isPublic
             }
           });
-          // this.$store.commit(
-          //     "setTemplates",
-          //     this.$store.getters.templates.filter(item => item.id !== template.id)
-          // );
-          await this.$store.dispatch("loadTemplates");
+          const filter = item => item._id !== template._id;
+          this.filterTemplates(filter);
           this.addNotification(
             `Successfully deleted template: <strong>${template.name ||
               "(Unnamed)"}</strong>.`
           );
           this.loading = false;
           this.selected = this.selected.filter(
-            selection => selection.id !== template.id
+            selection => selection._id !== template._id
           );
         }
       );
@@ -139,17 +131,15 @@ export default {
           const requests = selections.map(template =>
             this.$axios.$post("/xapi", {
               deleteTemplate: {
-                templateId: template.id,
+                templateId: template._id,
                 isPublic: template.isPublic
               }
             })
           );
           await Promise.all(requests);
-          // const updatedTemplates = this.$store.getters.templates.filter(item =>
-          //     !selections.map(selection => selection.id).includes(item.id)
-          // );
-          // this.$store.commit("setTemplates", updatedTemplates);
-          await this.$store.dispatch("loadTemplates");
+          const filter = item =>
+            !selections.map(selection => selection._id).includes(item._id);
+          this.filterTemplates(filter);
           this.addNotification(
             `Successfully deleted <strong>${selections.length} templates</strong>.`
           );
@@ -157,6 +147,18 @@ export default {
           this.selected = [];
         }
       );
+    },
+    filterTemplates(filter) {
+      this.$store.commit(
+        "setTemplates",
+        this.$store.getters.templates.filter(filter)
+      );
+      if (this.isAdmin) {
+        this.$store.commit(
+          "admin/setTemplates",
+          this.$store.getters["admin/templates"].filter(filter)
+        );
+      }
     }
   },
   provide() {

@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     editDraft(draft) {
-      this.$cookies.set("draftId", draft.id);
+      this.$cookies.set("draftId", draft._id);
       if (draft.challengeId) {
         this.$cookies.set("challengeId", draft.challengeId);
       } else {
@@ -76,11 +76,11 @@ export default {
         async () => {
           this.loading = true;
           await this.$axios.$post("/xapi", {
-            deleteDraft: draft.id
+            deleteDraft: draft._id
           });
           this.$store.commit(
             "setDrafts",
-            this.drafts.filter(item => item.id !== draft.id)
+            this.drafts.filter(item => item._id !== draft._id)
           );
           this.addNotification(
             `Successfully deleted draft: <strong>${draft.name || "(Unnamed)"}
@@ -88,7 +88,7 @@ export default {
           );
           this.loading = false;
           this.selected = this.selected.filter(
-            selection => selection.id !== draft.id
+            selection => selection._id !== draft._id
           );
         }
       );
@@ -103,11 +103,12 @@ export default {
         async () => {
           this.loading = true;
           const requests = selections.map(draft =>
-            this.$axios.$post("/xapi", { deleteDraft: draft.id })
+            this.$axios.$post("/xapi", { deleteDraft: draft._id })
           );
           await Promise.all(requests);
           const updatedDrafts = this.drafts.filter(
-            item => !selections.map(selection => selection.id).includes(item.id)
+            item =>
+              !selections.map(selection => selection._id).includes(item._id)
           );
           this.$store.commit("setDrafts", updatedDrafts);
           this.addNotification(

@@ -8,6 +8,7 @@
         class="elevation-2"
         hide-default-footer
         disable-pagination
+        item-key="_id"
       >
         <template v-slot:[`item.totalScore`]="{ item }">
           <strong>{{ item.totalScore }}</strong>

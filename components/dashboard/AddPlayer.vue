@@ -155,7 +155,7 @@ export default {
         });
         await this.$axios.$post("/xapi", {
           addPlayer: {
-            playerId: user.id,
+            playerId: user._id,
             role: this.playerRole
           }
         });

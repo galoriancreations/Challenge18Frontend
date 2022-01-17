@@ -14,6 +14,7 @@ export default {
     return {
       headers: [
         { text: "Username", value: "username" },
+        { text: "Phone", value: "phone", filterable: false },
         { text: "Full Name", value: "name" },
         { text: "Account Type", value: "accountType" },
         { text: "Admin", value: "isAdmin", filterable: false }
@@ -42,14 +43,14 @@ export default {
         "Are you sure you want to delete this user? This action is irreversible.",
         async () => {
           this.loading = true;
-          await this.$axios.$post("/xapi", { deleteUser: user.id });
-          await this.$store.dispatch("users/loadUsers");
+          await this.$axios.$post("/xapi", { deleteUser: user._id });
+          await this.$store.dispatch("admin/loadUsers");
           this.loading = false;
           this.addNotification(
             `Successfully deleted user: <strong>${user.username}</strong>.`
           );
           this.selected = this.selected.filter(
-            selection => selection.id !== user.id
+            selection => selection._id !== user._id
           );
         }
       );
@@ -64,10 +65,10 @@ export default {
         async () => {
           this.loading = true;
           const requests = selections.map(user =>
-            this.$axios.$post("/xapi", { deleteUser: user.id })
+            this.$axios.$post("/xapi", { deleteUser: user._id })
           );
           await Promise.all(requests);
-          await this.$store.dispatch("users/loadUsers");
+          await this.$store.dispatch("admin/loadUsers");
           this.addNotification(
             `Successfully deleted <strong>${selections.length} users</strong>.`
           );

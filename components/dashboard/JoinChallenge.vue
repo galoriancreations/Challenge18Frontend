@@ -22,15 +22,15 @@
           <div
             class="template-button"
             v-for="template in filteredTemplateOptions"
-            :key="template.id"
+            :key="template._id"
           >
             <input
               type="radio"
               v-model="selectedTemplate"
-              :value="template.id"
-              :id="template.id"
+              :value="template._id"
+              :id="template._id"
             />
-            <label :for="template.id">{{ template.name }}</label>
+            <label :for="template._id">{{ template.name }}</label>
           </div>
         </div>
       </div>
@@ -103,7 +103,7 @@ export default {
       this.submitting = true;
       try {
         const { invite } = await this.$axios.$post("/xapi", {
-          userID: this.user.id,
+          userID: this.user._id,
           userRequestChallenge: this.selectedTemplate
         });
         this.link = invite;

@@ -55,7 +55,7 @@ export default {
         ...challenge,
         numOfUsers: Object.keys(challenge.scores).length,
         currentDay: currentDay(challenge),
-        edit: () => this.editChallenge(challenge.id)
+        edit: () => this.editChallenge(challenge._id)
       }));
     }
   },
@@ -71,14 +71,16 @@ export default {
         "Are you sure you want to delete this challenge? This action is irreversible.",
         async () => {
           this.loading = true;
-          await this.$axios.$post("/xapi", { deleteChallenge: challenge.id });
+          await this.$axios.$post("/xapi", {
+            deleteChallenge: challenge._id
+          });
           await this.$store.dispatch("updateUser");
           this.loading = false;
           this.addNotification(
             `Successfully deleted challenge: <strong>${challenge.name}</strong>.`
           );
           this.selected = this.selected.filter(
-            selection => selection.id !== challenge.id
+            selection => selection._id !== challenge._id
           );
         }
       );
@@ -93,7 +95,7 @@ export default {
         async () => {
           this.loading = true;
           const requests = selections.map(challenge =>
-            this.$axios.$post("/xapi", { deleteChallenge: challenge.id })
+            this.$axios.$post("/xapi", { deleteChallenge: challenge._id })
           );
           await Promise.all(requests);
           await this.$store.dispatch("updateUser");

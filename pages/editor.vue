@@ -253,6 +253,9 @@ export default {
     },
     draftId(value) {
       this.$cookies.set("draftId", value);
+    },
+    templateId(value) {
+      this.$cookies.set("selectedTemplate", value);
     }
   },
   mounted() {

@@ -6,6 +6,7 @@
         v-for="item in challenges"
         :key="item.title"
         :challenge="item"
+        item-key="_id"
       />
     </div>
   </ColoredSection>

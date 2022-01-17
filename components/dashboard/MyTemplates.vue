@@ -30,7 +30,7 @@ export default {
   computed: {
     templates() {
       return this.$store.getters.templates.filter(
-        template => !template.isPublic && template.creator === this.user?.id
+        template => !template.isPublic
       );
     }
   }

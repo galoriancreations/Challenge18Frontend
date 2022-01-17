@@ -21,9 +21,9 @@
         <div
           class="template-button"
           v-for="template in filteredTemplateOptions"
-          :key="template.id"
+          :key="template._id"
         >
-          <label @click="selectTemplate(template.id)">
+          <label @click="selectTemplate(template._id)">
             {{ template.name || "(Unnamed)" }}
           </label>
         </div>
@@ -72,7 +72,7 @@ export default {
     },
     templateOptions() {
       return this.$store.getters.templates.filter(
-        template => template.isPublic || template.creator === this.user?.id
+        template => template.isPublic || template.creator === this.user?._id
       );
     },
     filteredTemplateOptions() {

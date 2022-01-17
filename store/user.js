@@ -44,7 +44,7 @@ export const actions = {
     ]);
     context.commit("setUser", { user, token });
 
-    this.$cookies.set("userId", user.id);
+    this.$cookies.set("userId", user._id);
     this.$cookies.set("token", token);
     this.$cookies.set("expirationDate", new Date(exp));
 
@@ -60,7 +60,7 @@ export const actions = {
     }
 
     if (process.server) {
-      context.commit("setUser", { user: { id: userId }, token });
+      context.commit("setUser", { user: { _id: userId }, token });
       this.$axios.setToken(token, "Bearer");
     } else {
       clearTimeout(logoutTimer);
