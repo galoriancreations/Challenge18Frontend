@@ -22,8 +22,8 @@
 export default {
   inject: ["io"],
   async asyncData({ $axios }) {
-    const players = await $axios.$post("/api", { getTopPlayers: true });
-    return { players };
+    // const players = await $axios.$post("/api", { getTopPlayers: true });
+    return { players: require("~/temp3.json") };
   },
   data() {
     return {
@@ -56,6 +56,7 @@ export default {
     }
   },
   mounted() {
+    console.log(JSON.stringify(this.players));
     this.io.on("updateTopPlayers", data => {
       this.players = data;
     });

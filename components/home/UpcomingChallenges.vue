@@ -61,6 +61,9 @@ export default {
     joinChallenge(link) {
       window.open(link, "_blank");
     }
+  },
+  mounted() {
+    console.log(JSON.stringify(this.challenges));
   }
 };
 </script>

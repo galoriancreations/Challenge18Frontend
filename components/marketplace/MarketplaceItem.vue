@@ -54,7 +54,7 @@ export default {
   }
 
   &:hover {
-    background-color: #eee;
+    background-color: rgba($color-azure-light, 0.6);
   }
 
   &__img {
