@@ -22,8 +22,8 @@
 export default {
   inject: ["io"],
   async asyncData({ $axios }) {
-    // const players = await $axios.$post("/api", { getTopPlayers: true });
-    return { players: require("~/temp3.json") };
+    const players = await $axios.$post("/api", { getTopPlayers: true });
+    return { players };
   },
   data() {
     return {

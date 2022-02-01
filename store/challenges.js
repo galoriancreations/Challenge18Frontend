@@ -1,7 +1,5 @@
-import temp from "~/temp.json";
-
 export const state = () => ({
-  latest: temp
+  latest: []
 });
 
 export const mutations = {
