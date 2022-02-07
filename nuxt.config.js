@@ -96,5 +96,9 @@ export default {
     emailjsService: process.env.EMAILJS_SERVICE,
     paypalSandbox: process.env.PAYPAL_SANDBOX,
     paypalLive: process.env.PAYPAL_LIVE
+  },
+
+  server: {
+    port: 4500
   }
 };

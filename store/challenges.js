@@ -1,5 +1,5 @@
 export const state = () => ({
-  latest: []
+  latest: require("../temp.json")
 });
 
 export const mutations = {

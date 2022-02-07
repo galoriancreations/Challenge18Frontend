@@ -1,0 +1,416 @@
+[
+    {
+        "_id": "c_gJav8wFJqYn5d79YoH694e",
+        "active": false,
+        "createdOn": 1642414752.4057047,
+        "creator": "Sharon Gal Or",
+        "date": "01/24/2022",
+        "dayDiff": -5,
+        "dayMargin": 1,
+        "declined": false,
+        "invite": "https://chat.whatsapp.com/Kjj5GHHgPuM90XsRKl9NSF",
+        "isPublic": true,
+        "name": "SDG's",
+        "numOfDays": 18,
+        "platforms": {
+            "wa": {
+                "groupID": "120363022411948582@g.us",
+                "invite": "https://chat.whatsapp.com/Kjj5GHHgPuM90XsRKl9NSF"
+            }
+        },
+        "template": "t_m9x6PurdEPeCEwgtQViWXz",
+        "verified": true,
+        "version": "A"
+    },
+    {
+        "_id": "c_2w6p5cPdMMrvBwFvyF2EtE",
+        "active": false,
+        "createdOn": 1642086732.533326,
+        "creator": "Innate Flow",
+        "date": "01/20/2022",
+        "dayDiff": -1,
+        "dayMargin": 1,
+        "declined": false,
+        "invite": "https://chat.whatsapp.com/FYQQlWsAjboLGWSxeQOesG",
+        "isPublic": true,
+        "name": "Innate Flow",
+        "numOfDays": 18,
+        "platforms": {
+            "wa": {
+                "groupID": "120363023791055263@g.us",
+                "invite": "https://chat.whatsapp.com/FYQQlWsAjboLGWSxeQOesG"
+            }
+        },
+        "template": "t_BqPgznR9neqoTEcBG4Eiac",
+        "verified": true,
+        "version": "A"
+    },
+    {
+        "_id": "c_GZeRPB8vvV2fS4CzXpVgzp",
+        "active": false,
+        "createdOn": 1642424766.6587338,
+        "creator": "Yinon Hever",
+        "date": "01/17/2022",
+        "dayDiff": 2,
+        "dayMargin": 1,
+        "declined": false,
+        "invite": "https://chat.whatsapp.com/FvMBNBB3bhmJzUbg2Ta19D",
+        "isPublic": true,
+        "name": "SDG's (copy)",
+        "numOfDays": 18,
+        "platforms": {
+            "wa": {
+                "groupID": "120363023759248943@g.us",
+                "invite": "https://chat.whatsapp.com/FvMBNBB3bhmJzUbg2Ta19D"
+            }
+        },
+        "template": "t_YWzMEjxgu2vnCe9GV3gtvA",
+        "verified": true,
+        "version": "A"
+    },
+    {
+        "_id": "c_7JfN8q7uA2xioYtwDJpxVu",
+        "active": false,
+        "createdOn": 1641408345.5084589,
+        "creator": "Sharon Gal Or",
+        "date": "01/12/2022",
+        "dayDiff": 7,
+        "dayMargin": 1,
+        "declined": false,
+        "invite": null,
+        "isPublic": true,
+        "name": "אתגר האקלים",
+        "numOfDays": 18,
+        "platforms": {
+            "wa": {
+                "groupID": "120363020845757566@g.us",
+                "invite": null
+            }
+        },
+        "template": "t_Db6yPAeo7G4MBhkSkrSWPP",
+        "verified": true,
+        "version": "A"
+    },
+    {
+        "_id": "c_BZgrvFsFCyufBkM7tgnxVy",
+        "active": false,
+        "createdOn": 1641408373.5046382,
+        "creator": "Sharon Gal Or",
+        "date": "01/12/2022",
+        "dayDiff": 7,
+        "dayMargin": 1,
+        "declined": false,
+        "invite": null,
+        "isPublic": true,
+        "name": "האתגר המסחרר",
+        "numOfDays": 18,
+        "platforms": {
+            "wa": {
+                "groupID": "120363021277720429@g.us",
+                "invite": null
+            }
+        },
+        "template": "t_hfxzLzvffDuMcrbw3veZPr",
+        "verified": true,
+        "version": "A"
+    },
+    {
+        "_id": "c_Mhr2fKqGVVJzeQRePhihtd",
+        "active": false,
+        "createdOn": 1641408270.3419006,
+        "creator": "Sharon Gal Or",
+        "date": "01/12/2022",
+        "dayDiff": 7,
+        "dayMargin": 1,
+        "declined": false,
+        "invite": null,
+        "isPublic": true,
+        "name": "Dizzy Goals",
+        "numOfDays": 18,
+        "platforms": {
+            "wa": {
+                "groupID": "120363039165935442@g.us",
+                "invite": null
+            }
+        },
+        "template": "t_NZSpDjGDdSLaxKYyRPHa9Z",
+        "verified": true,
+        "version": "A"
+    },
+    {
+        "_id": "c_CSFGLU6eix7VQGoqHuspWq",
+        "active": false,
+        "createdOn": 1641280526.6838682,
+        "creator": "Sharon Gal Or",
+        "date": "01/11/2022",
+        "dayDiff": 8,
+        "dayMargin": 1,
+        "declined": false,
+        "invite": "https://chat.whatsapp.com/JAtmi85fSAOJvryZLBJ3EI",
+        "isPublic": true,
+        "name": "Climate Action",
+        "numOfDays": 18,
+        "platforms": {
+            "wa": {
+                "groupID": "120363020723806820@g.us",
+                "invite": "https://chat.whatsapp.com/JAtmi85fSAOJvryZLBJ3EI"
+            }
+        },
+        "template": "t_2xZwdBb2WvdeAfYSVvFCFq",
+        "verified": true,
+        "version": "A"
+    },
+    {
+        "_id": "c_MhRfSrrBtxk87smTy9LEPP",
+        "active": false,
+        "createdOn": 1640092290.0686414,
+        "creator": "Sharon Gal Or",
+        "date": "01/10/2022",
+        "dayDiff": 9,
+        "dayMargin": 1,
+        "declined": false,
+        "invite": "https://chat.whatsapp.com/KEJgG2QzDVC9ApaS2HC96v",
+        "isPublic": true,
+        "name": "ODS's Internacionais",
+        "numOfDays": 18,
+        "platforms": {
+            "wa": {
+                "groupID": "120363039719124509@g.us",
+                "invite": "https://chat.whatsapp.com/KEJgG2QzDVC9ApaS2HC96v"
+            }
+        },
+        "template": "t_CbaUhfk6DzqiBxcMB8RKkq",
+        "verified": true,
+        "version": "A"
+    },
+    {
+        "_id": "c_Acp8RNeRqD4iTsYv5Rpq6h",
+        "active": false,
+        "createdOn": 1641029154.0928643,
+        "creator": "liraz assor",
+        "date": "01/08/2022",
+        "dayDiff": 11,
+        "dayMargin": 1,
+        "declined": false,
+        "invite": "https://chat.whatsapp.com/LSqsqbhuEoYCDwIMysoI8l",
+        "isPublic": true,
+        "name": "יעדי הקיימות",
+        "numOfDays": 18,
+        "platforms": {
+            "wa": {
+                "groupID": "120363023959485826@g.us",
+                "invite": "https://chat.whatsapp.com/LSqsqbhuEoYCDwIMysoI8l"
+            }
+        },
+        "template": "t_6CtUwNQrCFxSDqyDhg7pPx",
+        "verified": true,
+        "version": "A"
+    },
+    {
+        "_id": "c_5SMvfqW29SjstLA44fWNnf",
+        "active": false,
+        "createdOn": 1640869719.6104107,
+        "creator": "Sharon Gal Or",
+        "date": "01/06/2022",
+        "dayDiff": 13,
+        "dayMargin": 1,
+        "declined": false,
+        "invite": "https://chat.whatsapp.com/Exuwaq8kiT101GwRIkTXn1",
+        "isPublic": true,
+        "name": "Climate Action",
+        "numOfDays": 18,
+        "platforms": {
+            "wa": {
+                "groupID": "120363022390772979@g.us",
+                "invite": "https://chat.whatsapp.com/Exuwaq8kiT101GwRIkTXn1"
+            }
+        },
+        "template": "t_2xZwdBb2WvdeAfYSVvFCFq",
+        "verified": true,
+        "version": "A"
+    },
+    {
+        "_id": "c_UJ5XnMLN8u7AGBmjyFMyR8",
+        "active": false,
+        "createdOn": 1640559760.114773,
+        "creator": "misaa halabi",
+        "date": "01/03/2022",
+        "dayDiff": 16,
+        "dayMargin": 1,
+        "declined": false,
+        "invite": "https://chat.whatsapp.com/FhijYBoQ3CP6M8WWzbBeOn",
+        "isPublic": true,
+        "name": "יעדי הקיימות",
+        "numOfDays": 18,
+        "platforms": {
+            "wa": {
+                "groupID": "120363041662212807@g.us",
+                "invite": "https://chat.whatsapp.com/FhijYBoQ3CP6M8WWzbBeOn"
+            }
+        },
+        "template": "t_6CtUwNQrCFxSDqyDhg7pPx",
+        "verified": true,
+        "version": "A"
+    },
+    {
+        "_id": "c_UwJQ3rSaYspqBCXroGcmNG",
+        "active": false,
+        "createdOn": 1640702326.8233087,
+        "creator": "Sharon Gal Or",
+        "date": "12/30/2021",
+        "dayDiff": 20,
+        "dayMargin": 1,
+        "declined": false,
+        "invite": "https://chat.whatsapp.com/Bcivf5a4AJG6s7NKKV8S18",
+        "isPublic": true,
+        "name": "יעדי הקיימות שחק ירוק",
+        "numOfDays": 18,
+        "platforms": {
+            "wa": {
+                "groupID": "120363021859987027@g.us",
+                "invite": "https://chat.whatsapp.com/Bcivf5a4AJG6s7NKKV8S18"
+            }
+        },
+        "template": "t_JjdCdQcytAmZxg92RuGaEm",
+        "verified": true,
+        "version": "A"
+    },
+    {
+        "_id": "c_9HBiGtzRYjCD4PcCdNqSVq",
+        "active": false,
+        "createdOn": 1640158631.5567925,
+        "creator": "Sharon Gal Or",
+        "date": "12/28/2021",
+        "dayDiff": 22,
+        "dayMargin": 1,
+        "declined": false,
+        "invite": "https://chat.whatsapp.com/HSZn0oSl2hxKlwyr5yy0nb",
+        "isPublic": true,
+        "name": "SDG's",
+        "numOfDays": 18,
+        "platforms": {
+            "wa": {
+                "groupID": "120363021907024578@g.us",
+                "invite": "https://chat.whatsapp.com/HSZn0oSl2hxKlwyr5yy0nb"
+            }
+        },
+        "template": "t_m9x6PurdEPeCEwgtQViWXz",
+        "verified": true,
+        "version": "A"
+    },
+    {
+        "_id": "c_D24pwkyieXcqW3VYsvBXP2",
+        "active": false,
+        "createdOn": 1639992278.832848,
+        "creator": "Sharon Gal Or",
+        "date": "12/27/2021",
+        "dayDiff": 23,
+        "dayMargin": 1,
+        "declined": false,
+        "invite": "https://chat.whatsapp.com/JfRbmFd5Fc2FwL9KGSoDYX",
+        "isPublic": true,
+        "name": "Climate Action",
+        "numOfDays": 18,
+        "platforms": {
+            "wa": {
+                "groupID": "120363041650442388@g.us",
+                "invite": "https://chat.whatsapp.com/JfRbmFd5Fc2FwL9KGSoDYX"
+            }
+        },
+        "template": "t_2xZwdBb2WvdeAfYSVvFCFq",
+        "verified": true,
+        "version": "A"
+    },
+    {
+        "_id": "c_3ZJRYwxQFkGd6YAokfm7Yb",
+        "active": false,
+        "createdOn": 1638087056.619444,
+        "creator": "Sharon Gal Or",
+        "date": "12/27/2021",
+        "dayDiff": 23,
+        "dayMargin": 1,
+        "declined": false,
+        "invite": null,
+        "isPublic": true,
+        "name": "SDG's",
+        "numOfDays": 18,
+        "platforms": {
+            "wa": {
+                "groupID": "120363038077059146@g.us",
+                "invite": null
+            }
+        },
+        "template": "t_m9x6PurdEPeCEwgtQViWXz",
+        "verified": true,
+        "version": "A"
+    },
+    {
+        "_id": "c_fUh9GzapupE7GLJbNQ6XcF",
+        "active": false,
+        "createdOn": 1639741889.2903326,
+        "creator": "oren",
+        "date": "12/24/2021",
+        "dayDiff": 26,
+        "dayMargin": 1,
+        "declined": false,
+        "invite": "https://chat.whatsapp.com/BNzbBMuAso9CUsIbzWsJM2",
+        "isPublic": true,
+        "name": "שירים וערכים",
+        "numOfDays": 18,
+        "platforms": {
+            "wa": {
+                "groupID": "120363038445009633@g.us",
+                "invite": "https://chat.whatsapp.com/BNzbBMuAso9CUsIbzWsJM2"
+            }
+        },
+        "template": "t_TqQRRsMPjG8dr6c29QsJ8B",
+        "verified": true,
+        "version": "A"
+    },
+    {
+        "_id": "c_injpwuDWEW5TRyqFAUcfnN",
+        "active": false,
+        "createdOn": 1639676098.2899554,
+        "creator": "Sharon Gal Or",
+        "date": "12/23/2021",
+        "dayDiff": 27,
+        "dayMargin": 1,
+        "declined": false,
+        "invite": "https://chat.whatsapp.com/HGSxeFbTehz7rL2AQR5z0C",
+        "isPublic": true,
+        "name": "ODS's Internacionais",
+        "numOfDays": 18,
+        "platforms": {
+            "wa": {
+                "groupID": "120363021274763095@g.us",
+                "invite": "https://chat.whatsapp.com/HGSxeFbTehz7rL2AQR5z0C"
+            }
+        },
+        "template": "t_CbaUhfk6DzqiBxcMB8RKkq",
+        "verified": true,
+        "version": "A"
+    },
+    {
+        "_id": "c_K4ZkxpfGeCTPQnTCLNkgWK",
+        "active": false,
+        "createdOn": 1639670470.939193,
+        "creator": "Sharon Gal Or",
+        "date": "12/23/2021",
+        "dayDiff": 27,
+        "dayMargin": 1,
+        "declined": false,
+        "invite": "https://chat.whatsapp.com/C1YaypYWGDgCfo7rYtHvUd",
+        "isPublic": true,
+        "name": "שירים וערכים",
+        "numOfDays": 18,
+        "platforms": {
+            "wa": {
+                "groupID": "120363041164671168@g.us",
+                "invite": "https://chat.whatsapp.com/C1YaypYWGDgCfo7rYtHvUd"
+            }
+        },
+        "template": "t_TqQRRsMPjG8dr6c29QsJ8B",
+        "verified": true,
+        "version": "A"
+    }
+]
