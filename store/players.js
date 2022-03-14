@@ -1,21 +1,19 @@
 export const state = () => ({
-    players: []
+  players: []
 });
 
 export const mutations = {
-    setPlayers(state, payload) {
-        state.players = payload;
-    }
+  setPlayers(state, payload) {
+    state.players = payload;
+  }
 };
 
 export const actions = {
-    async loadPlayers(context) {
-
-    }
+  async loadPlayers(context) {}
 };
 
 export const getters = {
-    players(state) {
-        return state.players;
-    }
+  players(state) {
+    return state.players;
+  }
 };

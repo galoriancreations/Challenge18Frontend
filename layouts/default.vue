@@ -25,13 +25,9 @@ export default {
   methods: {
     initSocketMethods() {
       if (this.isLoggedIn) {
-        this.io.emit("joinRoom", this.user.id);
+        this.io.emit("joinRoom", this.user._id);
       }
-    },
-    restartSocket() {
-      this.io.disconnect();
-      this.io = socket(this.$config.axios.baseURL);
-      this.initSocketMethods();
+      this.io.on("updateCounter", data => console.log(data));
     },
     initToken() {
       if (this.isLoggedIn) {
@@ -42,11 +38,11 @@ export default {
   watch: {
     isLoggedIn(value) {
       if (value) {
-        this.io.emit("joinRoom", this.user.id);
+        this.io.emit("joinRoom", this.user._id);
         const redirect = this.$route.query.redirect || "dashboard";
         this.$router.replace(`/${redirect}`);
       } else {
-        this.restartSocket();
+        this.io.emit("leaveRoom", this.$cookies.get("userId"));
         if (this.$route.meta.requiresAuth) {
           this.$router.replace("/login");
         }
@@ -57,7 +53,6 @@ export default {
   mounted() {
     this.initSocketMethods();
     this.initToken();
-    this.io.on("updateCounter", data => console.log(data));
   },
   provide() {
     return {

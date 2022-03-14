@@ -6,7 +6,7 @@
     </p>
     <p v-else-if="editedChallengeId">
       You're currently editing an
-      <strong>exisitng challenge</strong> (challenge ID:
+      <strong>existing challenge</strong> (challenge ID:
       <strong>{{ editedChallengeId }}</strong
       >).
     </p>

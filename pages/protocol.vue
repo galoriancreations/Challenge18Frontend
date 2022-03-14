@@ -38,7 +38,7 @@
           </li>
           <li>
             <span>
-              Chose a topic of your interest, for example:
+              Choose a topic of your interest, for example:
               <strong>Climate Action</strong>, <strong>Education</strong> or
               <strong>Cultural Exchange</strong>.
             </span>

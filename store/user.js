@@ -5,7 +5,7 @@ export const namespaced = false;
 export const state = () => ({
   user: null,
   token: null,
-  templates: require("~/temp2.json")
+  templates: require("../temp2.json")
 });
 
 export const mutations = {
@@ -70,7 +70,7 @@ export const actions = {
   logout(context) {
     context.commit("removeUser");
     this.$axios.setToken(false);
-    this.$cookies.removeAll();
+    setTimeout(this.$cookies.removeAll, 1000);
     context.dispatch("loadTemplates", false);
     clearTimeout(logoutTimer);
   },
