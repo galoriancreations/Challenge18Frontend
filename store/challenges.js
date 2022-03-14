@@ -24,3 +24,5 @@ export const getters = {
     return state.latest;
   }
 };
+
+// thing
