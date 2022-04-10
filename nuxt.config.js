@@ -102,7 +102,7 @@ export default {
     port: 4500
   },
 
-  serverMiddleware: [
-    { path: "/", handler: "~/middleware/server" }
-  ]
+  // serverMiddleware: [
+  //   { path: "/", handler: "~/middleware/server" }
+  // ]
 };
