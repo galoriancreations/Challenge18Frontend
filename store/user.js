@@ -58,7 +58,6 @@ export const actions = {
     if (timeLeft <= 0) {
       return context.dispatch("logout");
     }
-
     if (process.server) {
       context.commit("setUser", { user: { _id: userId }, token });
       this.$axios.setToken(token, "Bearer");
@@ -70,9 +69,13 @@ export const actions = {
   logout(context) {
     context.commit("removeUser");
     this.$axios.setToken(false);
-    setTimeout(this.$cookies.removeAll, 1000);
-    context.dispatch("loadTemplates", false);
-    clearTimeout(logoutTimer);
+    if (process.client) {
+      setTimeout(this.$cookies.removeAll, 1000);
+      context.dispatch("loadTemplates", false);
+    } else {
+      this.$cookies.removeAll();
+      clearTimeout(logoutTimer);
+    }
   },
   async updateUser(context, data = {}) {
     const { user } = await this.$axios.$post("/xapi", { editProfile: data });

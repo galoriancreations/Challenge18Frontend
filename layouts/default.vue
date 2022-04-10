@@ -11,7 +11,7 @@ import socket from "socket.io-client";
 export default {
   data() {
     return {
-      io: socket(this.$config.axios.baseURL)
+      // io: socket(this.$config.axios.baseURL)
     };
   },
   computed: {
@@ -24,10 +24,10 @@ export default {
   },
   methods: {
     initSocketMethods() {
-      if (this.isLoggedIn) {
-        this.io.emit("joinRoom", this.user._id);
-      }
-      this.io.on("updateCounter", data => console.log(data));
+      // if (this.isLoggedIn) {
+      //   this.io.emit("joinRoom", this.user._id);
+      // }
+      // this.io.on("updateCounter", data => console.log(data));
     },
     initToken() {
       if (this.isLoggedIn) {
@@ -38,11 +38,11 @@ export default {
   watch: {
     isLoggedIn(value) {
       if (value) {
-        this.io.emit("joinRoom", this.user._id);
+        // this.io.emit("joinRoom", this.user._id);
         const redirect = this.$route.query.redirect || "dashboard";
         this.$router.replace(`/${redirect}`);
       } else {
-        this.io.emit("leaveRoom", this.$cookies.get("userId"));
+        // this.io.emit("leaveRoom", this.$cookies.get("userId"));
         if (this.$route.meta.requiresAuth) {
           this.$router.replace("/login");
         }
@@ -51,7 +51,7 @@ export default {
     }
   },
   mounted() {
-    this.initSocketMethods();
+    // this.initSocketMethods();
     this.initToken();
   },
   provide() {
