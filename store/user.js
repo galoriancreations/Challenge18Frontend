@@ -106,3 +106,4 @@ export const getters = {
     return state.templates;
   }
 };
+//console.log("thing")
