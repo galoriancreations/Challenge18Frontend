@@ -11,7 +11,6 @@ import "vue-phone-number-input/dist/vue-phone-number-input.css";
 
 Vue.use(VueAgile);
 Vue.use(VueYoutube);
-Vue.use(Vuescroll);
 Vue.directive("linkified", linkify);
 Vue.component("VueSelect", VueSelect);
 Vue.use(TextareaAutosize);

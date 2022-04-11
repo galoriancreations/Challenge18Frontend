@@ -111,8 +111,7 @@ export default {
   provide() {
     return {
       toggleNav: this.toggleNav,
-      closeNav: this.closeNav,
-      headerMode: this
+      closeNav: this.closeNav
     };
   }
 };

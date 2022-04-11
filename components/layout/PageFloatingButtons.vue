@@ -1,7 +1,12 @@
 <template>
   <div class="floating-buttons-wrapper">
     <FloatingButtons>
-      <ActionButton type="add" color="blue" @click="showModal = true" />
+      <ActionButton
+        v-if="!loadingTemplates"
+        type="add"
+        color="blue"
+        @click="showModal = true"
+      />
       <ActionButton
         type="whatsapp"
         color="azure"
@@ -18,6 +23,12 @@ import popupModal from "~/mixins/popup-modal";
 
 export default {
   mixins: [popupModal],
+  inject: ["isLoadingTemplates"],
+  computed: {
+    loadingTemplates() {
+      return this.isLoadingTemplates();
+    }
+  },
   methods: {
     openWhatsapp() {
       window.open("https://wa.me/972559721123", "_blank");

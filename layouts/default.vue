@@ -11,7 +11,8 @@ import socket from "socket.io-client";
 export default {
   data() {
     return {
-      io: socket(this.$config.axios.baseURL)
+      io: socket(this.$config.axios.baseURL),
+      loadingTemplates: true
     };
   },
   computed: {
@@ -33,6 +34,12 @@ export default {
       if (this.isLoggedIn) {
         this.$axios.setToken(this.$store.getters.token, "Bearer");
       }
+    },
+    loadTemplates() {
+      if(!this.isLoggedIn) {
+        await this.$store.dispatch("loadTemplates", false);
+      }
+      this.loadingTemplates = false;
     }
   },
   watch: {
@@ -53,10 +60,12 @@ export default {
   mounted() {
     this.initSocketMethods();
     this.initToken();
+    this.loadTemplates();
   },
   provide() {
     return {
       io: this.io,
+      isLoadingTemplates: () => this.loadingTemplates,
       addNotification: item =>
         this.$store.dispatch("notifications/addItem", item),
       removeNotification: itemId =>
