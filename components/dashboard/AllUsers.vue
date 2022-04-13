@@ -1,5 +1,7 @@
 <template>
   <DashboardSection title="All Users" class="all-users">
+    <BaseSpinner v-if="fetching" :style="{ position: 'relative' }" />
+    <ErrorMessage v-else-if="error" :error="error" />
     <DashboardTable v-model="selected" :headers="headers" :items="items" />
     <BaseSpinner v-if="loading" />
   </DashboardSection>
@@ -21,7 +23,9 @@ export default {
       ],
       loading: false,
       selected: [],
-      search: ""
+      search: "",
+      fetching: true,
+      error: null
     };
   },
   computed: {
@@ -76,6 +80,14 @@ export default {
           this.selected = [];
         }
       );
+    }
+  },
+  async mounted() {
+    try {
+      await this.$store.dispatch("admin/loadUsers");
+      this.fetching = false;
+    } catch (error) {
+      this.error = error;
     }
   },
   provide() {

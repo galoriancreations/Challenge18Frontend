@@ -29,9 +29,9 @@ export default {
     if (process.client && !from.meta[0]?.forLoggingIn) {
       try {
         await Promise.all([
-          dispatch("updateUser"),
-          dispatch("loadTemplates"),
-          getters.isAdmin && dispatch("admin/loadData")
+          dispatch("updateUser")
+          // dispatch("loadTemplates"),
+          // getters.isAdmin && dispatch("admin/loadData")
         ]);
       } catch (err) {
         error(err);

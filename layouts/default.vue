@@ -34,8 +34,8 @@ export default {
         this.$axios.setToken(this.$store.getters.token, "Bearer");
       }
     },
-    loadTemplates() {
-      if(!this.isLoggedIn) {
+    async loadTemplates() {
+      if (!this.isLoggedIn) {
         await this.$store.dispatch("loadTemplates", false);
       }
       this.loadingTemplates = false;

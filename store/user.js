@@ -34,14 +34,15 @@ export const mutations = {
 export const actions = {
   async auth(context, { mode, data }) {
     const authData = await this.$axios.$post("/api", { [mode]: data });
+    console.log(authData);
     const { access_token: token, user, exp } = authData;
     this.$axios.setToken(token, "Bearer");
 
-    const isAdmin = user.isAdmin || user.accountType === "admin";
-    await Promise.all([
-      context.dispatch("loadTemplates"),
-      isAdmin && context.dispatch("admin/loadData")
-    ]);
+    // const isAdmin = user.isAdmin || user.accountType === "admin";
+    // await Promise.all([
+    //   context.dispatch("loadTemplates"),
+    //   isAdmin && context.dispatch("admin/loadData")
+    // ]);
     context.commit("setUser", { user, token });
 
     this.$cookies.set("userId", user._id);
