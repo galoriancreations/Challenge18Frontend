@@ -4,7 +4,7 @@
     class="all-templates"
     id="all-templates"
   >
-    <BaseSpinner v-if="fetching" :style="{ position: 'relative' }" />
+    <BaseSpinner v-if="fetching" class="initial-spinner" />
     <ErrorMessage v-else-if="error" :error="error" />
     <DashboardTable
       v-else

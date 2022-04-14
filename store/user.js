@@ -5,7 +5,7 @@ export const namespaced = false;
 export const state = () => ({
   user: null,
   token: null,
-  templates: require("../temp2.json")
+  templates: []
 });
 
 export const mutations = {

@@ -64,6 +64,11 @@ export default {
       padding: 3rem 2rem 5rem;
     }
 
+    .initial-spinner {
+      position: static !important;
+      transform: none !important;
+    }
+
     .button:not(.dashboard-button) {
       margin: 0 auto;
       width: auto;

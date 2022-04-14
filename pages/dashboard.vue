@@ -26,13 +26,9 @@ export default {
     requiresAuth: true
   },
   async asyncData({ store: { getters, dispatch }, from, error }) {
-    if (process.client && !from.meta[0]?.forLoggingIn) {
+    if (process.client && !from?.meta[0]?.forLoggingIn) {
       try {
-        await Promise.all([
-          dispatch("updateUser")
-          // dispatch("loadTemplates"),
-          // getters.isAdmin && dispatch("admin/loadData")
-        ]);
+        await Promise.all([dispatch("updateUser"), dispatch("loadTemplates")]);
       } catch (err) {
         error(err);
       }

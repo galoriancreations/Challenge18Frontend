@@ -1,7 +1,9 @@
 <template>
-  <WhiteSection class="upcoming-challenges">
+  <WhiteSection class="latest-challenges">
     <SectionHeading small>Challenge 18 Board</SectionHeading>
-    <v-app>
+    <BaseSpinner v-if="loading" />
+    <ErrorMessage v-else-if="error" :error="error" />
+    <v-app v-else>
       <v-data-table
         :headers="headers"
         :items="items"
@@ -34,6 +36,8 @@ export default {
   components: { WhiteSection, DashboardButton },
   data() {
     return {
+      loading: true,
+      error: null,
       headers: [
         { text: "Organization", value: "creator" },
         { text: "Challenge", value: "name" },
@@ -58,18 +62,26 @@ export default {
     }
   },
   methods: {
+    async loadChallenges() {
+      try {
+        await this.$store.dispatch("challenges/loadLatest");
+      } catch (error) {
+        this.error = error;
+      }
+      this.loading = false;
+    },
     joinChallenge(link) {
       window.open(link, "_blank");
     }
   },
   mounted() {
-    console.log(JSON.stringify(this.challenges));
+    this.loadChallenges();
   }
 };
 </script>
 
 <style lang="scss">
-.upcoming-challenges {
+.latest-challenges {
   .dashboard-button {
     margin: auto !important;
   }

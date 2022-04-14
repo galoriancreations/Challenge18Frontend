@@ -1,8 +1,13 @@
 <template>
   <DashboardSection title="All Users" class="all-users">
-    <BaseSpinner v-if="fetching" :style="{ position: 'relative' }" />
+    <BaseSpinner v-if="fetching" class="initial-spinner" />
     <ErrorMessage v-else-if="error" :error="error" />
-    <DashboardTable v-model="selected" :headers="headers" :items="items" />
+    <DashboardTable
+      v-else
+      v-model="selected"
+      :headers="headers"
+      :items="items"
+    />
     <BaseSpinner v-if="loading" />
   </DashboardSection>
 </template>

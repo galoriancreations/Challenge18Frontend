@@ -11,10 +11,11 @@ import "vue-phone-number-input/dist/vue-phone-number-input.css";
 
 Vue.use(VueAgile);
 Vue.use(VueYoutube);
+Vue.use(Vuescroll);
 Vue.directive("linkified", linkify);
 Vue.component("VueSelect", VueSelect);
 Vue.use(TextareaAutosize);
 
 Vue.prototype.$vuescrollConfig = {
-    bar: { background: "#000c66" }
+  bar: { background: "#000c66" }
 };

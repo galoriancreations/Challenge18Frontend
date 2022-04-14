@@ -11,9 +11,9 @@
 html {
   font-size: 10px !important;
 
-  @include respond(desktop-lg) {
-    font-size: 11px !important;
-  }
+  // @include respond(desktop-lg) {
+  //   font-size: 11px !important;
+  // }
 }
 
 #__nuxt {
