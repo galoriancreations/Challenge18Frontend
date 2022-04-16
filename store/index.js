@@ -3,8 +3,8 @@ export const actions = {
     dispatch("checkAuth");
     try {
       await Promise.all([
-        getters.isAuth && dispatch("updateUser"),
-        dispatch("loadTemplates", getters.isAuth)
+        dispatch("loadTemplates", getters.isAuth),
+        (route.name === "dashboard" && getters.isAuth) && dispatch("updateUser")
       ]);
     } catch (err) {
       error(err);
