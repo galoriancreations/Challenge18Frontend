@@ -25,8 +25,8 @@ export default {
   meta: {
     requiresAuth: true
   },
-  async asyncData({ store: { dispatch }, from, error }) {
-    if (!from?.meta[0]?.forLoggingIn) {
+  async asyncData({ store: { getters, dispatch }, from, error }) {
+    if (process.client && !from?.meta[0]?.forLoggingIn) {
       try {
         await Promise.all([dispatch("updateUser"), dispatch("loadTemplates")]);
       } catch (err) {
