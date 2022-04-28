@@ -34,11 +34,8 @@ export default {
         this.$axios.setToken(this.$store.getters.token, "Bearer");
       }
     },
-    async loadTemplates() {
-      if (!this.isLoggedIn) {
-        await this.$store.dispatch("loadTemplates", false);
-      }
-      this.loadingTemplates = false;
+    loadTemplates() {
+      this.$store.dispatch("loadTemplates", this.isLoggedIn);
     }
   },
   watch: {
@@ -64,7 +61,6 @@ export default {
   provide() {
     return {
       io: this.io,
-      isLoadingTemplates: () => this.loadingTemplates,
       addNotification: item =>
         this.$store.dispatch("notifications/addItem", item),
       removeNotification: itemId =>
