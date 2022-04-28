@@ -45,6 +45,16 @@
                 "image": "denis.jpeg",
                 "role": "Program Operations Lead - Africa",
                 "description": "Social Entrepreneur and Development Economist with specific focus on developing countries."
+            },
+            {
+                "name": "Sadia Kuku Idris",
+                "image": "sadia.jpeg",
+                "role": "Administrator and social worker, anti SGBV advocator"
+            },
+            {
+                "name": "Santos Chris",
+                "image": "santos.jpeg",
+                "role": "Kakuma Refugee Camp Leader"
             }
         ]
     },
@@ -85,16 +95,6 @@
                 "name": "Avi Z Liran",
                 "image": "avi.jpeg",
                 "description": "Global Delightful Experience and Organizational Culture Consultant, TEDx & CSP Keynote Speaker, Author, Trainer, Coach, and Mentor. Developing Delightful Leaders, Organizations, and Communities."
-            },
-            {
-                "name": "Sadia Kuku Idris",
-                "image": "sadia.jpeg",
-                "role": "Administrator and social worker, anti SGBV advocator"
-            },
-            {
-                "name": "Santos Chris",
-                "image": "santos.jpeg",
-                "role": "Kakuma Refugee Camp Leader"
             }
         ]
     },
