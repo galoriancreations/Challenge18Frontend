@@ -12,6 +12,7 @@ export default {
   data() {
     return {
       // io: socket(this.$config.axios.baseURL)
+      loadingTemplates: true
     };
   },
   computed: {
@@ -34,8 +35,13 @@ export default {
         this.$axios.setToken(this.$store.getters.token, "Bearer");
       }
     },
-    loadTemplates() {
-      this.$store.dispatch("loadTemplates", this.isLoggedIn);
+    async loadTemplates() {
+      try {
+        await this.$store.dispatch("loadTemplates", false);
+        this.loadingTemplates = false;
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
   watch: {
@@ -61,6 +67,7 @@ export default {
   provide() {
     return {
       io: this.io,
+      isLoadingTemplates: () => this.loadingTemplates,
       addNotification: item =>
         this.$store.dispatch("notifications/addItem", item),
       removeNotification: itemId =>
