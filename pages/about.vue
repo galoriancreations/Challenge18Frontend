@@ -1,9 +1,9 @@
 <template>
   <Page title="About Us" name="about">
+    <TeamSection v-for="team in teams" :key="team.title" v-bind="team" />
     <OurCompany />
     <WhyChallenge18 />
     <Partners />
-    <TeamSection v-for="team in teams" :key="team.title" v-bind="team" />
   </Page>
 </template>
 
