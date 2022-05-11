@@ -100,12 +100,6 @@
                 "name": "Avi Z Liran",
                 "image": "avi.jpeg",
                 "description": "Global Delightful Experience and Organizational Culture Consultant, TEDx & CSP Keynote Speaker, Author, Trainer, Coach, and Mentor. Developing Delightful Leaders, Organizations, and Communities."
-            },
-            {
-                "name": "Sharif Uddin",
-                "image": "sharif.jpeg",
-                "role": "Malaysia",
-                "description": "Assistant Professor at Paris Graduate School."
             }
         ]
     },
@@ -165,6 +159,12 @@
                 "image": "inessa.jpeg",
                 "role": "Cyprus",
                 "description": "Actress and awarded filmmaker - who believes that humanity, nature, and progress can exist together in harmony. Suitability is one of the main topics of her work and life."
+            },
+            {
+                "name": "Sharif Uddin",
+                "image": "sharif.jpeg",
+                "role": "Malaysia",
+                "description": "Assistant Professor at Paris Graduate School."
             }
         ]
     }
