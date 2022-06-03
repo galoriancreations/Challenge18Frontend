@@ -8,8 +8,6 @@
 </template>
 
 <script>
-import teams from "~/assets/data/teams";
-
 export default {
   head: {
     meta: [
@@ -22,7 +20,9 @@ export default {
     ]
   },
   data() {
-    return { teams };
+    return {
+      teams: require("~/assets/data/teams")
+    };
   }
 };
 </script>

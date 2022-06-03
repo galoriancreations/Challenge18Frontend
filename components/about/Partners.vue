@@ -35,10 +35,6 @@ export default {
         {
           src: require("../../assets/images/partners/tlvseed-big.jpg"),
           alt: "TLVSeed"
-        },
-        {
-          src: require("../../assets/images/partners/eretzir.jpg"),
-          alt: "Eretz Ir - ארץ עיר"
         }
       ],
       sliderOptions: {
