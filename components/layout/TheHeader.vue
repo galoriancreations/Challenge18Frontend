@@ -42,15 +42,16 @@ export default {
           text: "About",
           dropdown: [
             { link: "/about", text: "About Us" },
-            { link: "/what-we-do", text: "What We Do" },
+            { link: "/our-goals", text: "Our Goals" },
             { link: "/articles", text: "Articles" },
             { link: "/videos", text: "Videos" }
           ]
         },
         {
-          text: "Game",
+          text: "Play",
           dropdown: [
             { link: "/how-to-play", text: "How to Play" },
+            { link: "/challenges", text: "Challenges" },
             { link: "/clubs", text: "Clubs" },
             { link: "/players", text: "Players" },
             { link: "/protocol", text: "Protocol" }

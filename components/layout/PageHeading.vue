@@ -172,6 +172,15 @@ export default {
       url(../../assets/images/backgrounds/18boom-bg.jpeg);
   }
 
+  &#challenges {
+    background-image: linear-gradient(
+        to right,
+        rgba(#4189bd, 0.8),
+        rgba(#4189bd, 0.8)
+      ),
+      url(../../assets/images/backgrounds/what-we-do-bg.jpg);
+  }
+
   &#error-page {
     background-image: linear-gradient(
         to right,

@@ -36,6 +36,7 @@ export const actions = {
     const authData = await this.$axios.$post("/api", { [mode]: data });
     console.log(authData);
     const { access_token: token, user, exp } = authData;
+    console.log(JSON.stringify(user));
     this.$axios.setToken(token, "Bearer");
 
     // const isAdmin = user.isAdmin || user.accountType === "admin";

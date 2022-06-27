@@ -13,91 +13,14 @@
     </div>
     <form class="form" @submit.prevent="submitHandler">
       <div class="form__field">
-        <div class="form__field">
-          <label for="fullName" class="form__label">
-            Full name (required)
-          </label>
-          <input
-            v-model="formData.fullName"
-            id="fullName"
-            class="form__input"
-            placeholder="Player's full name"
-            required
-          />
-        </div>
-        <div class="form__field">
-          <label for="language" class="form__label">
-            Role/specialty
-          </label>
-          <VueSelect
-            v-model="playerRole"
-            :options="roleOptions"
-            :reduce="option => option.value"
-            :searchable="false"
-            class="language-selector"
-          />
-        </div>
-        <label for="username" class="form__label">
-          Username (used for login)
-          <CheckIcon :status="availability.username" />
-        </label>
-        <input
-          v-model="formData.username"
-          id="username"
-          required
-          class="form__input"
-          placeholder="Username"
-        />
-      </div>
-      <div class="form__field">
-        <label for="phone" class="form__label">
-          Phone number (used for login)
-          <CheckIcon :status="availability.phone" />
-        </label>
-        <VuePhoneNumberInput
-          class="phone-number-input"
-          id="phone"
-          v-model="phoneInput.value"
-          @update="updatePhoneNumber"
-          color="#007bff"
-          :border-radius="8"
-          :show-code-on-list="true"
-          :no-flags="true"
-        />
-      </div>
-      <div class="form__field">
-        <label for="country" class="form__label">
-          Country
+        <label class="form__label">
+          Role/specialty
         </label>
         <VueSelect
-          v-model="formData.country"
-          :options="countryOptions"
-          :reduce="option => option.code"
-          label="name"
-          placeholder="Country"
-          class="language-selector"
-        />
-      </div>
-      <div class="form__field">
-        <label for="email" class="form__label">
-          Email address
-        </label>
-        <input
-          v-model="formData.email"
-          id="email"
-          type="email"
-          class="form__input"
-          placeholder="Player's email address"
-        />
-      </div>
-      <div class="form__field">
-        <label for="language" class="form__label">
-          Challenge language
-        </label>
-        <VueSelect
-          v-model="formData.language"
-          :options="languageOptions"
-          :reduce="option => option.name"
+          v-model="formData.role"
+          :options="roleOptions"
+          :reduce="option => option.value"
+          :searchable="false"
           class="language-selector"
         />
       </div>
@@ -109,19 +32,22 @@
 </template>
 
 <script>
-import registration from "~/mixins/registration";
 import { roleOptions } from "~/assets/util/options";
 
 export default {
-  mixins: [registration],
   props: {
     active: Boolean
   },
   inject: ["addNotification", "closeModal"],
   data() {
     return {
-      playerRole: "player",
-      roleOptions
+      roleOptions,
+      formData: {
+        playerId: null,
+        role: "player"
+      },
+      loading: false,
+      error: null
     };
   },
   computed: {
@@ -137,28 +63,15 @@ export default {
   },
   methods: {
     resetForm() {
-      this.formData.accountType = "individual";
-      for (let key in this.formData) {
-        this.formData[key] = "";
-      }
-      this.phoneInput.value = "";
-      this.formData.country = this.userCountry;
-      this.formData.language = this.userLanguage;
-      this.playerRole = "player";
+      this.formData = { playerId: null, role: "player" };
     },
     async submitHandler() {
-      if (!this.validateData()) return;
       this.loading = true;
       try {
-        const { user } = await this.$axios.$post("/api", {
-          register: { ...this.formData, plan: this.user.plan }
-        });
-        await this.$axios.$post("/xapi", {
-          addPlayer: {
-            playerId: user._id,
-            role: this.playerRole
-          }
-        });
+        // const { user } = await this.$axios.$post("/api", {
+        //   register: { ...this.formData, plan: this.user.plan }
+        // });
+        await this.$axios.$post("/xapi", this.formData);
         await this.$store.dispatch("updateUser");
         this.closeModal();
         this.addNotification(

@@ -1,10 +1,10 @@
 <template>
   <section class="intro">
     <div class="intro__top">
-      <h1 class="intro__heading">Challenge Yourself to the Top</h1>
+      <h1 class="intro__heading">Challenge Yourself to Change</h1>
       <p class="intro__subheading">
-        Easily build, run, and change the world with any challenge on one
-        platform.
+        Connect and inspire the world through play – Challenge 18: a WhatsApp
+        based social platform.
       </p>
     </div>
     <div class="intro__content">
@@ -14,10 +14,8 @@
         alt="Challenge 18"
       />
       <p class="intro__text">
-        <strong>Challenge 18</strong> is the most important sustainability and
-        leadership games tournament in the world, in which clubs from all over
-        the world collaborate in achieving the SDG’s. At the end of the
-        tournament a trophy is awarded to the winning clubs.
+        TING.global provides unique and engaging daily tasks to develop global
+        awareness through collaboration and friendly competition.
       </p>
     </div>
     <div class="intro__links">
@@ -100,7 +98,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 95rem;
+    max-width: 90rem;
     margin: 0 auto 6rem;
 
     @include respond(tablet) {
@@ -115,10 +113,11 @@ export default {
 
   &__img {
     width: 100%;
-    max-width: 35rem;
+    max-width: 32rem;
 
     @include respond(tablet) {
       margin-bottom: 5rem;
+      max-width: 35rem;
     }
   }
 

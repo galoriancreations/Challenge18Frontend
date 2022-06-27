@@ -6,8 +6,12 @@
         v-for="item in challenges"
         :key="item.title"
         :challenge="item"
-        item-key="_id"
       />
+    </div>
+    <div class="top-challenges__button">
+      <BaseButton variant="blue" link="/challenges">
+        Explore more challenges
+      </BaseButton>
     </div>
   </ColoredSection>
 </template>
@@ -16,8 +20,10 @@
 import challenges from "~/assets/data/top-challenges";
 
 export default {
-  data() {
-    return { challenges };
+  computed: {
+    challenges() {
+      return challenges.slice(0, 3);
+    }
   }
 };
 </script>
@@ -32,13 +38,11 @@ export default {
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 3rem;
-
-    @include respond(tablet) {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 5rem;
-    }
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+    max-width: 80rem;
+    margin: auto;
+    padding: 0;
 
     @include respond(tablet-sm) {
       gap: 3rem;
@@ -49,8 +53,30 @@ export default {
     }
 
     @include respond(mobile) {
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: initial;
+      margin: -1rem;
+
+      & > * {
+        width: calc((100% - 2rem * 2) / 2);
+        margin: 1rem;
+      }
+    }
+  }
+
+  &__button {
+    margin-top: 8rem;
+
+    @include respond(mobile) {
+      margin-top: 6rem;
+    }
+
+    .button {
+      width: 100%;
+      max-width: 35rem;
     }
   }
 }

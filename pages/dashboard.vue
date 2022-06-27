@@ -7,7 +7,7 @@
       @confirm="confirmAction"
     />
     <AccountDetails />
-    <!-- <ClubPlayers v-if="isOrganization" /> -->
+    <ClubPlayers v-if="isOrganization" />
     <CreatedChallenges />
     <PublicTemplates v-if="isAdmin" />
     <MyTemplates />
@@ -44,6 +44,7 @@ export default {
       return this.$store.getters.user;
     },
     isOrganization() {
+      return true;
       return this.user?.accountType === "organization";
     },
     isAdmin() {
