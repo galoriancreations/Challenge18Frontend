@@ -1,5 +1,11 @@
 <template>
   <Page title="Challenges" name="challenges">
+    <section class="challenges-intro">
+      <p>
+        Join or create any community below to receive daily tasks that will lead
+        you on your journey to change!
+      </p>
+    </section>
     <div class="challenges-grid">
       <TopChallengesItem
         v-for="item in challenges"
@@ -21,6 +27,25 @@ export default {
 </script>
 
 <style lang="scss">
+.challenges-intro {
+  max-width: 80rem;
+  margin: auto;
+  font-size: 2rem;
+  text-align: center;
+  line-height: 1.7;
+  margin-bottom: 8rem;
+
+  @include respond(mobile) {
+    font-size: 1.6rem;
+    margin-bottom: 6rem;
+  }
+
+  p {
+    font-size: inherit;
+    line-height: inherit;
+  }
+}
+
 .challenges-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
