@@ -26,16 +26,12 @@
     {
         "title": "How to Play",
         "items": [
-            {
-                "text": "Receive challenges from the group host at the same time every day.",
-                "subitems": [
-                    "Complete any number of daily tasks within 24 hours.",
-                    "Complete any number of recurring tasks once per day each."
-                ]
-            },
-            "Mark each completed task with the respective emojis to earn points.",
-            "Bonus tasks may be awarded for reaching participation milestones.",
-            "Collaborative task completions between separate individuals or teams earn extra points."
+            "Once you join a team, you will receive tasks from the group host at the same time every day. Tasks involve learning about the Global Goals, reflecting on those topics, and acting toward a positive change in the world. Some tasks may require a diary.",
+            "Complete any number of the daily tasks. You will have 24 hours to complete these challenges.",
+            "Earn points by marking each completed task with their respective emojis.",
+            "Bonus tasks and points may be awarded for reaching participation milestones or for collaborative work to complete tasks.",
+            "The winners of Challenge 18 are the groups with the highest cumulative points.",
+            "Commit to changing your habits, not only for these 18 days but also as a lifestyle!"
         ],
         "image": "how-to-play.png"
     },
