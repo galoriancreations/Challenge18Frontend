@@ -2,31 +2,16 @@
   <Page title="Our Goals" name="what-we-do">
     <section class="our-goals">
       <SectionHeading small>Our Goals</SectionHeading>
-      <p class="our-goals__text">
-        On August 2, 2015, the UN created <strong>17 GOALS</strong> for the
+      <p>
+On August 2, 2015, the UN created <strong>17 GOALS</strong> for the
         sustainable development of humanity, achieved by 2030. Goals that we, as
         human beings, must achieve together, if we want to improve the condition
-        of the planet and of all life on it. We have about a decade, until 2030,
+        of         the planet and of all life on it. We have about a decade, until 2030,
         to completely change the way we consume energy, maintain agriculture,
         manage water, talk to our neighbors, and more. This is not a passing
         trend, but a global change in our habits, eating habits, consumption
         habits, the way we do business, social responsibility, and long-term
         thinking.
-      </p>
-      <p>
-        <strong>Problem</strong> – Humanity is experiencing a global crisis and
-        most people are unaware of the conditions of our world.
-      </p>
-      <p>
-        <strong>Need</strong> – A program to aid individuals’ interests,
-        understanding, and involvement in relation to the Sustainable
-        Development Goals (SDGs) encouraging a sense of global citizenship.
-      </p>
-      <p>
-        <strong>Solution</strong> – Meet Challenge 18! An informal education and
-        social platform, inspired by the UN’s SDGs, that was designed to create
-        a positive social change by nurturing a sense of global citizenship and
-        fostering connections between international communities.
       </p>
     </section>
     <section class="days-18">

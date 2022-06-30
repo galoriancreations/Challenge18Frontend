@@ -5,9 +5,12 @@
       <h3 v-if="title" class="image-with-text__title">
         {{ title }}
       </h3>
-      <p v-for="paragraph in paragraphs" :key="paragraph">
-        {{ paragraph }}
-      </p>
+      <div v-if="text">
+        <p v-for="paragraph in paragraphs" :key="paragraph">
+          {{ paragraph }}
+        </p>
+      </div>
+      <slot v-else />
       <BaseButton v-if="button" :link="button.link" :variant="button.variant">
         {{ button.text }}
       </BaseButton>

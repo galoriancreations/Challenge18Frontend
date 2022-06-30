@@ -3,9 +3,24 @@
     <SectionHeading small>Our Organization</SectionHeading>
     <ImageWithText
       :image="{ src: mainImg, alt: 'Challenge 18 players' }"
-      :text="aboutText"
       :button="{ link: '/join', variant: 'gold', text: 'Join Us' }"
-    />
+    >
+      <p>
+        <strong>Problem</strong> – Humanity is experiencing a global crisis and
+        most people are unaware of the conditions of our world.
+      </p>
+      <p>
+        <strong>Need</strong> – A program to aid individuals’ interests,
+        understanding, and involvement in relation to the Sustainable
+        Development Goals (SDGs) encouraging a sense of global citizenship.
+      </p>
+      <p>
+        <strong>Solution</strong> – Meet Challenge 18! An informal education and
+        social platform, inspired by the UN’s SDGs, that was designed to create
+        a positive social change by nurturing a sense of global citizenship and
+        fostering connections between international communities.
+      </p>
+    </ImageWithText>
   </section>
 </template>
 

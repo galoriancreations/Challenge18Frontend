@@ -1,6 +1,6 @@
 <template>
   <Page title="Players" name="players">
-    <SectionHeading small>Top 18 Players</SectionHeading>
+    <SectionHeading small>{{ title }}</SectionHeading>
     <v-app>
       <v-data-table
         :headers="headers"
@@ -36,23 +36,27 @@ export default {
           sortable: false
         },
         { text: "Name", value: "fullName" },
-        { text: "Phone Number", value: "phone" },
         { text: "Username", value: "username" }
       ]
     };
   },
   computed: {
+    title() {
+      return this.items.length >= 18 ? "Top 18 Players" : "Top Players";
+    },
     items() {
-      return this.players.map((player, index) => {
-        const item = { ...player };
-        for (let key in item) {
-          if (!item[key] && item[key] !== 0) {
-            item[key] = "–";
+      return this.players
+        .filter(player => !!player.username)
+        .map((player, index) => {
+          const item = { ...player };
+          for (let key in item) {
+            if (!item[key] && item[key] !== 0) {
+              item[key] = "–";
+            }
           }
-        }
-        item.rank = index + 1;
-        return item;
-      });
+          item.rank = index + 1;
+          return item;
+        });
     }
   },
   mounted() {
