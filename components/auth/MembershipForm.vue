@@ -1,13 +1,5 @@
 <template>
   <form class="form" @submit.prevent="submitHandler">
-    <div class="selected-plan">
-      <p v-if="plan" class="selected-plan__plan">
-        {{ plan.label }}
-      </p>
-      <p v-else class="selected-plan__text">
-        Please pick one of the plans above
-      </p>
-    </div>
     <AccountTypeSelector v-model="formData.accountType" />
     <div class="form__field">
       <label for="username" class="form__label">
@@ -183,11 +175,6 @@ export default {
   },
   methods: {
     async submitHandler() {
-      if (!this.plan) {
-        this.error =
-          "No plan has been selected. Please select on of the plans above.";
-        return;
-      }
       if (!this.validateData()) return;
       this.loading = true;
       try {
