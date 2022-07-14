@@ -17,9 +17,6 @@
           <span>{{ feature }}</span>
         </li>
       </ul>
-      <BaseButton variant="blue" @click="setSelectedPlan(plan)">
-        Pick plan
-      </BaseButton>
     </div>
   </article>
 </template>
