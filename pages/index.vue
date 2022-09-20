@@ -3,7 +3,7 @@
     <Intro />
     <main class="home">
       <TopChallenges />
-      <LatestChallenges />
+      <!-- <LatestChallenges /> -->
       <TryItYourself />
       <Testimonials />
       <LatestNews />

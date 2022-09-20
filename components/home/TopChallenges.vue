@@ -1,5 +1,5 @@
 <template>
-  <ColoredSection class="top-challenges">
+  <WhiteSection class="top-challenges">
     <SectionHeading small>Top Challenges</SectionHeading>
     <div class="top-challenges__grid">
       <TopChallengesItem
@@ -13,7 +13,7 @@
         Explore more challenges
       </BaseButton>
     </div>
-  </ColoredSection>
+  </WhiteSection>
 </template>
 
 <script>
