@@ -180,7 +180,7 @@ export default {
       try {
         await this.$store.dispatch("auth", {
           mode: "register",
-          data: { ...this.formData, plan: this.plan.type }
+          data: { ...this.formData, plan: "18-days" }
         });
         this.$cookies.set("newRegistration", true);
       } catch (error) {
