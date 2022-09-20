@@ -35,7 +35,6 @@ export default {
           align: "center",
           sortable: false
         },
-        { text: "Country", value: "country" },
         { text: "Name", value: "fullName" },
         { text: "Username", value: "username" }
       ]
