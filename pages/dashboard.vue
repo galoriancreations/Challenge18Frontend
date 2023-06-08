@@ -28,7 +28,9 @@ export default {
   async asyncData({ store: { dispatch }, from, error }) {
     if (!from?.meta[0]?.forLoggingIn) {
       try {
-        await Promise.all([dispatch("updateUser"), dispatch("loadTemplates")]);
+        // await Promise.all([dispatch("updateUser"), dispatch("loadTemplates")]);
+      await dispatch('updateUser')
+      await dispatch('loadTemplates')
       } catch (err) {
         error(err);
       }

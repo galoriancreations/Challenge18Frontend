@@ -89,7 +89,7 @@ export default {
 
   publicRuntimeConfig: {
     axios: {
-      baseURL: process.env.API_URL
+      baseURL: "http://localhost:3000"
     },
     emailjsKey: process.env.EMAILJS_KEY,
     emailjsTemplate: process.env.EMAILJS_TEMPLATE,

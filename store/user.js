@@ -51,6 +51,7 @@ export const actions = {
     this.$cookies.set("expirationDate", new Date(exp));
 
     const timeLeft = new Date(exp).getTime() - Date.now();
+    debugger
     logoutTimer = setTimeout(() => context.dispatch("logout"), timeLeft);
   },
   checkAuth(context) {
@@ -80,6 +81,7 @@ export const actions = {
     }
   },
   async updateUser(context, data = {}) {
+    debugger
     const { user } = await this.$axios.$post("/xapi", { editProfile: data });
     context.commit("updateUser", user);
   },
