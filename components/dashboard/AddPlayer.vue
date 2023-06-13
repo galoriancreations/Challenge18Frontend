@@ -23,6 +23,19 @@
           :searchable="false"
           class="language-selector"
         />
+        <label class="form_label">
+          Phone number
+        </label>
+        <VuePhoneNumberInput
+        class="phone-number-input"
+        id="phone"
+        v-model="phoneInput.value"
+        @update="updatePhoneNumber"
+        color="#007bff"
+        :border-radius="8"
+        :show-code-on-list="true"
+        :no-flags="true"
+      />
       </div>
       <BaseButton variant="blue">Add player</BaseButton>
       <BaseSpinner v-if="loading" />
@@ -33,8 +46,10 @@
 
 <script>
 import { roleOptions } from "~/assets/util/options";
+import VuePhoneNumberInput from "vue-phone-number-input";
 
 export default {
+  components: { VuePhoneNumberInput },
   props: {
     active: Boolean
   },
@@ -44,7 +59,13 @@ export default {
       roleOptions,
       formData: {
         playerId: null,
-        role: "player"
+        role: "player",
+        phone:""
+      },
+      phoneInput: {
+        value: "",
+        formatted: null,
+        isValid: false
       },
       loading: false,
       error: null
@@ -63,15 +84,29 @@ export default {
   },
   methods: {
     resetForm() {
-      this.formData = { playerId: null, role: "player" };
+      ///
+      this.formData = { playerId: null, role: "player",phone:''};
+    },
+    updatePhoneNumber(data) {
+      this.formData.phone = data.formattedNumber;
+      this.phoneInput.formatted = data.formatInternational;
+      this.phoneInput.isValid = data.isValid;
     },
     async submitHandler() {
       this.loading = true;
+      if (!this.phoneInput.isValid) {
+        if (this.phoneInput.value) {
+          this.error = "Invalid phone number";
+        }
+        return;
+      }
+      console.log(this.formData)
+      debugger
       try {
         // const { user } = await this.$axios.$post("/api", {
         //   register: { ...this.formData, plan: this.user.plan }
         // });
-        await this.$axios.$post("/xapi", this.formData);
+        await this.$axios.$post("/xapi", {"addPlayer":this.formData});
         await this.$store.dispatch("updateUser");
         this.closeModal();
         this.addNotification(
