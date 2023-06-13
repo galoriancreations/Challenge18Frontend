@@ -84,6 +84,7 @@ export default {
   },
   methods: {
     resetForm() {
+      ///
       this.formData = { playerId: null, role: "player",phone:''};
     },
     updatePhoneNumber(data) {
