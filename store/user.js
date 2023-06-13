@@ -81,7 +81,6 @@ export const actions = {
     }
   },
   async updateUser(context, data = {}) {
-    debugger
     const { user } = await this.$axios.$post("/xapi", { editProfile: data });
     context.commit("updateUser", user);
   },

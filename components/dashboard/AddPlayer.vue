@@ -106,11 +106,11 @@ export default {
         // const { user } = await this.$axios.$post("/api", {
         //   register: { ...this.formData, plan: this.user.plan }
         // });
-        await this.$axios.$post("/xapi", {"addPlayer":this.formData});
-        await this.$store.dispatch("updateUser");
+        let result = await this.$axios.$post("/xapi", {"addPlayer":this.formData});
+        // await this.$store.dispatch("updateUser");
         this.closeModal();
         this.addNotification(
-          `Successfully added player: <strong>${this.formData.fullName}</strong>.`
+          `Successfully added player: <strong>${result.msg}</strong>.`
         );
         this.resetForm();
       } catch (error) {
