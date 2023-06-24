@@ -20,7 +20,13 @@ import templatesTable from "~/mixins/templates-table";
 import popupModal from "~/mixins/popup-modal";
 
 export default {
+  name: "public-templates",
   mixins: [templatesTable, popupModal],
+  data() {
+    return {
+      name:"public-templates"
+    };
+  },
   computed: {
     templates() {
       return this.$store.getters.templates.filter(

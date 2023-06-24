@@ -68,11 +68,11 @@ export default {
         async () => {
           this.loading = true;
           await this.$axios.$post("/xapi", {
-            deletePlayer: player.id
+            deletePlayer: player.playerId
           });
           await this.$store.dispatch("updateUser");
           this.addNotification(
-            `Successfully deleted player: <strong>${player.fullName}</strong>.`
+            `Successfully deleted player: <strong>${player.username}</strong>.`
           );
           this.loading = false;
         }

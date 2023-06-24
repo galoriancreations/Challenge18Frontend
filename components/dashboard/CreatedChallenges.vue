@@ -51,7 +51,7 @@ export default {
       return dataArrayFromObject(this.user.createdChallenges);
     },
     items() {
-      return this.challenges.map(challenge => ({
+      return this.user.challenges.map(challenge => ({
         ...challenge,
         numOfUsers: Object.keys(challenge.scores).length,
         currentDay: currentDay(challenge),

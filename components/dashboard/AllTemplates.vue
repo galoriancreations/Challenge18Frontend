@@ -25,7 +25,8 @@ export default {
   data() {
     return {
       fetching: true,
-      error: null
+      error: null,
+      name:"all-templates"
     };
   },
   computed: {

@@ -84,7 +84,6 @@ export default {
   },
   methods: {
     resetForm() {
-      ///
       this.formData = { playerId: null, role: "player",phone:''};
     },
     updatePhoneNumber(data) {
@@ -101,13 +100,12 @@ export default {
         return;
       }
       console.log(this.formData)
-      debugger
       try {
         // const { user } = await this.$axios.$post("/api", {
         //   register: { ...this.formData, plan: this.user.plan }
         // });
         let result = await this.$axios.$post("/xapi", {"addPlayer":this.formData});
-        // await this.$store.dispatch("updateUser");
+        await this.$store.dispatch("updateUser");
         this.closeModal();
         this.addNotification(
           `Successfully added player: <strong>${result.msg}</strong>.`

@@ -31,6 +31,7 @@ export default {
       return this.$store.getters.isAdmin;
     },
     items() {
+      console.log(`templates for ${this.name} are:`, this.templates)
       return this.templates.map(template => ({
         ...template,
         name: template.name || "(Unnamed)",
@@ -64,6 +65,7 @@ export default {
           ...this.$store.getters["admin/templates"]
         ]);
       }
+      await this.$store.dispatch("updateUser");
       this.addNotification(
         `Created new template: <strong>${newTemplate.name}</strong>.`
       );
@@ -108,6 +110,7 @@ export default {
           });
           const filter = item => item._id !== template._id;
           this.filterTemplates(filter);
+          await this.$store.dispatch("updateUser");
           this.addNotification(
             `Successfully deleted template: <strong>${template.name ||
               "(Unnamed)"}</strong>.`

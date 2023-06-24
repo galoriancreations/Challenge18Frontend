@@ -104,7 +104,7 @@ export default {
       const newTemplate = {
         ...template,
         name: `${template.name || "Unnamed"} (copy)`,
-        isPublic: template.isPublic && this.user.accountType === "admin"
+        isPublic: template.isPublic && this.user.isAdmin === true
       };
       const { templateId: newId } = await this.$axios.$post("/xapi", {
         saveTemplate: {

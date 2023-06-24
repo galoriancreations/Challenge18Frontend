@@ -27,10 +27,15 @@ import popupModal from "../../mixins/popup-modal";
 export default {
   name: "my-templates",
   mixins: [templatesTable, popupModal],
+  data() {
+    return {
+      name:"my-templates"
+    };
+  },
   computed: {
     templates() {
       return this.$store.getters.templates.filter(
-        template => !template.isPublic
+        template => template.creator === this.$store.getters.user._id
       );
     }
   }
