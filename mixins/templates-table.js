@@ -31,7 +31,6 @@ export default {
       return this.$store.getters.isAdmin;
     },
     items() {
-      console.log(`templates for ${this.name} are:`, this.templates)
       return this.templates.map(template => ({
         ...template,
         name: template.name || "(Unnamed)",
