@@ -40,6 +40,9 @@
   </Page>
 </template>
 
+
+
+
 <style lang="scss">
 .player {
   display: flex;

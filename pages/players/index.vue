@@ -2,19 +2,15 @@
   <Page title="Players" name="players">
     <SectionHeading small>{{ title }}</SectionHeading>
     <v-app>
-      <v-data-table
-        :headers="headers"
-        :items="items"
-        class="elevation-2"
-        hide-default-footer
-        disable-pagination
-        item-key="_id"
-      >
+      <v-data-table :headers="headers" :items="items" class="elevation-2" hide-default-footer disable-pagination
+        item-key="_id">
         <template v-slot:[`item.totalScore`]="{ item }">
           <strong>{{ item.totalScore }}</strong>
         </template>
         <template v-slot:[`item.username`]="{ item }">
-          <strong>{{ item.userName }}</strong>
+          <BaseButton link="players/player">
+            <strong>{{ item.userName }}</strong>
+          </BaseButton>
         </template>
         <template v-slot:[`item.fullName`]="{ item }">
           <strong>{{ item.fullName }}</strong>
@@ -51,7 +47,6 @@ export default {
       return this.items.length >= 18 ? "Top 18 Players" : "Top Players";
     },
     items() {
-      console.log(this.players);
       return this.players
         .filter((player) => !!player.userName)
         .map((player, index) => {
