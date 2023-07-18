@@ -8,7 +8,7 @@
           <strong>{{ item.totalScore }}</strong>
         </template>
         <template v-slot:[`item.username`]="{ item }">
-          <BaseButton link="players/player">
+          <BaseButton @click="p(item)"  variant="blue">
             <strong>{{ item.userName }}</strong>
           </BaseButton>
         </template>
@@ -42,6 +42,14 @@ export default {
       ],
     };
   },
+  methods: {
+    p(item) {
+      this.$router.push({
+        path: "/players/player",
+        query: { item }
+      });
+    }
+  },
   computed: {
     title() {
       return this.items.length >= 18 ? "Top 18 Players" : "Top Players";
@@ -60,6 +68,8 @@ export default {
           return item;
         });
     },
+
+
   },
   mounted() {
     // this.io.on("updateTopPlayers", data => {
