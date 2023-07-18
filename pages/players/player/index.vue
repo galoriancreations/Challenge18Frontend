@@ -1,7 +1,8 @@
 <template>
   <Page title="Player" name="players">
-    <SectionHeading small>{{ title.userName }}</SectionHeading>
-    <!-- <h1>{{ title.players[0] }}</h1> -->
+    <SectionHeading small>{{ `${item.userName}` }}</SectionHeading>
+    <h1>{{ `rank ${item.rank}` }}</h1>
+    <h1>{{ `score ${item.rank}` }}</h1>
   </Page>
 </template>
 <script>
@@ -9,9 +10,12 @@
 export default {
 
   computed: {
-    title() {
+    item() {
       const { item } = this.$route.query;
-      return item
+      if (item) {
+        return item
+      }
+      return null
     },
   },
 
