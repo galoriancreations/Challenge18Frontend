@@ -54,7 +54,7 @@ export default {
     },
     items() {
       console.log("user is :" + this.$store.getters.user);
-      return this.challenges.map(challenge => ({
+      return this.user.createdChallenges.map(challenge => ({
         ...challenge,
         numOfUsers: Object.keys(challenge.scores).length,
         currentDay: currentDay(challenge),
