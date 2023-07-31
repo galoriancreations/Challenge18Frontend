@@ -45,7 +45,7 @@ export default {
   methods: {
     p(item) {
       this.$router.push({
-        path: "/players/player",
+        path: `/players/player`,
         query: { item }
       });
     }

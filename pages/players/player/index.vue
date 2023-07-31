@@ -13,9 +13,12 @@ components:{
 radarChart
 },
   computed: {
-    title() {
+    item() {
       const { item } = this.$route.query;
-      return item
+      if (item) {
+        return item
+      }
+      return null
     },
   },
 
