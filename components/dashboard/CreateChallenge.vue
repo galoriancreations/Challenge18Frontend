@@ -113,7 +113,7 @@ export default {
     this.autoSetLanguage();
   },
   mounted() {
-    console.log(JSON.stringify(this.$store.getters.templates));
+    // console.log(JSON.stringify(this.$store.getters.templates));
   }
 };
 </script>

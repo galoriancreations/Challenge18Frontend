@@ -6,5 +6,6 @@ export default ({ store, route, redirect }) => {
         redirect({ path: "/login", query: { redirect: route.name } });
     } else if (forLoggingIn && isAuth) {
         redirect("/dashboard");
+
     }
 };

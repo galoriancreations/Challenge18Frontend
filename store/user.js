@@ -34,9 +34,9 @@ export const mutations = {
 export const actions = {
   async auth(context, { mode, data }) {
     const authData = await this.$axios.$post("/api", { [mode]: data });
-    console.log(authData);
+    // console.log(authData);
     const { access_token: token, user, exp } = authData;
-    console.log(JSON.stringify(user));
+    // console.log(JSON.stringify(user));
     this.$axios.setToken(token, "Bearer");
 
     // const isAdmin = user.isAdmin || user.accountType === "admin";

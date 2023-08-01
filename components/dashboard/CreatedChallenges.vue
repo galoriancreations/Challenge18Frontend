@@ -52,11 +52,10 @@ export default {
       console.log("userChallenges are : " + userChallenges);
       return userChallenges;
     },
-    items() {
+    items() { 
       console.log("user is :" + this.$store.getters.user);
       return this.user.createdChallenges.map(challenge => ({
-        ...challenge,
-        numOfUsers: Object.keys(challenge.scores).length,
+        ...challenge, numOfUsers: Object.keys(challenge.scores).length,
         currentDay: currentDay(challenge),
         edit: () => this.editChallenge(challenge._id)
       }));
