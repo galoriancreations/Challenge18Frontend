@@ -1,6 +1,6 @@
 <template>
   <Page title="Player" name="players">
-    <SectionHeading small>{{ title.userName }}</SectionHeading>
+    <SectionHeading small>{{ item.userName }}</SectionHeading>
     <!-- <h1>{{ title.players[0] }}</h1> -->
     <radarChart/>
   </Page>
@@ -16,7 +16,7 @@ radarChart
     item() {
       const { item } = this.$route.query;
       if (item) {
-        return item
+      return item
       }
       return null
     },
