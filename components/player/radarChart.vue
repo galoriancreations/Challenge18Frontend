@@ -40,29 +40,12 @@ export default {
                 understanding: 200,
                 dilegence: 200
             },
-            stats: [
-                {
-                    name: this.item['item'].stats[0].type,
-                    value: this.item['item'].stats[0].score,
-                    level: this.item['item'].stats[0].level,
-                },
-                {
-                    name: this.item['item'].stats[1].type,
-                    value: this.item['item'].stats[1].score,
-                },
-                {
-                    name: this.item['item'].stats[2].type,
-                    value: this.item['item'].stats[2].score,
-                },
-                {
-                    name: this.item['item'].stats[3].type,
-                    value: this.item['item'].stats[3].score,
-                },
-                {
-                    name: this.item['item'].stats[4].type,
-                    value: this.item['item'].stats[4].score,
-                }
-            ],
+            stats: this.item.item.stats.map(stat => ({
+                name: stat.type,
+                value: stat.score,
+                level: stat.level,
+            })),
+
             polycolor: '#7307D3' // color (any css format is usable (hexa, rgb, rgba...))
         }
     },
