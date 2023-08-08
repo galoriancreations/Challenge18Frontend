@@ -1,5 +1,5 @@
 <template>
-
+<!-- test -->
   <v-radar
 :stats="stats"
 :polycolor="polycolor"
