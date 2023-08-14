@@ -40,12 +40,14 @@ export default {
       return this.user?.drafts && this.drafts.length > 0;
     },
     drafts() {
-      return dataArrayFromObject(this.user.drafts)
+      debugger
+      let test = dataArrayFromObject(this.user.drafts)
         .filter(draft => !draft.templateOnly)
         .map(draft => ({
           ...draft,
           type: draft.challengeId ? "Update challenge" : "New challenge"
         }));
+      return test;
     },
     items() {
       return this.drafts.map(draft => ({
