@@ -110,10 +110,12 @@ export default {
         const data = new FormData();
         data.append("file", file);
         const imageUrl = await this.$axios.$post("/upload", data);
+        this.$emit("end-upload");
         this.$emit("input", imageUrl);
       } catch {
         this.$emit("update:error", true);
       }
+      await this.$axios.$post("/xapi", {"updateProfileImage":imageUrl});
       this.$emit("end-upload");
     }
   }
