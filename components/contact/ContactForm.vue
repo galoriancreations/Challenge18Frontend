@@ -12,9 +12,7 @@
       />
     </div>
     <div class="form__field">
-      <label for="email" class="form__label">
-        Email
-      </label>
+      <label for="email" class="form__label"> Email </label>
       <input
         v-model="formData.email"
         id="email"
@@ -81,13 +79,14 @@
         class="form__input form__textarea"
       />
     </div>
-    <BaseButton variant="blue">Submit</BaseButton>
+    <button type="submit" class="form__button">Submit</button>
   </form>
 </template>
 
 <script>
+import emailjs from "emailjs-com";
+
 export default {
-  inject: ["sendMessage"],
   data() {
     return {
       formData: {
@@ -97,22 +96,33 @@ export default {
         organization: "",
         role: "",
         subject: "",
-        message: ""
-      }
+        message: "",
+      },
     };
   },
+  created() {
+    emailjs.init("IP2VTv8ojoeBA3j7L");
+  },
   methods: {
-    async submitHandler() {
-      const success = await this.sendMessage(this.$el);
-      if (success) {
-        this.resetForm();
-      }
+    submitHandler() {
+      emailjs
+        .send("service_4p0ftr3", "template_k2smt37", {
+          name: this.formData.name,
+          email: this.formData.email,
+          phone: this.formData.phone,
+          organization: this.formData.organization,
+          role: this.formData.role,
+          subject: this.formData.subject,
+          message: this.formData.message,
+        })
+        .then((response) => {
+          alert("Email sent successfully!", response);
+          this.formData = { ...this.initialFormData };
+        })
+        .catch((error) => {
+          console.error("Error sending email:", error);
+        });
     },
-    resetForm() {
-      for (let key in this.formData) {
-        this.formData[key] = "";
-      }
-    }
-  }
+  },
 };
 </script>
