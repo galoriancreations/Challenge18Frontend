@@ -2,16 +2,18 @@
   <Page title="Players" name="players">
     <SectionHeading small>{{ title }}</SectionHeading>
     <v-app>
-      <v-data-table
-        :headers="headers"
-        :items="items"
-        class="elevation-2"
-        hide-default-footer
-        disable-pagination
-        item-key="_id"
-      >
+      <v-data-table :headers="headers" :items="items" class="elevation-2" hide-default-footer disable-pagination
+        item-key="_id">
         <template v-slot:[`item.totalScore`]="{ item }">
           <strong>{{ item.totalScore }}</strong>
+        </template>
+        <template v-slot:[`item.username`]="{ item }">
+          <BaseButton @click="p(item)"  variant="blue">
+            <strong>{{ item.userName }}</strong>
+          </BaseButton>
+        </template>
+        <template v-slot:[`item.fullName`]="{ item }">
+          <strong>{{ item.fullName }}</strong>
         </template>
       </v-data-table>
     </v-app>
@@ -33,12 +35,20 @@ export default {
           text: "Total Score",
           value: "totalScore",
           align: "center",
-          sortable: false
+          sortable: false,
         },
         { text: "Name", value: "fullName" },
-        { text: "Username", value: "username" }
-      ]
+        { text: "Username", value: "username" },
+      ],
     };
+  },
+  methods: {
+    p(item) {
+      this.$router.push({
+        path: `/players/player`,
+        query: { item }
+      });
+    }
   },
   computed: {
     title() {
@@ -46,7 +56,7 @@ export default {
     },
     items() {
       return this.players
-        .filter(player => !!player.username)
+        .filter((player) => !!player.userName)
         .map((player, index) => {
           const item = { ...player };
           for (let key in item) {
@@ -57,12 +67,14 @@ export default {
           item.rank = index + 1;
           return item;
         });
-    }
+    },
+
+
   },
   mounted() {
     // this.io.on("updateTopPlayers", data => {
     //   this.players = data;
     // });
-  }
+  },
 };
 </script>
