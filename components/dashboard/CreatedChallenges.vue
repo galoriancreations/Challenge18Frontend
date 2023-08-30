@@ -48,12 +48,14 @@ export default {
       return this.user?.createdChallenges && this.challenges.length > 0;
     },
     challenges() {
-      return dataArrayFromObject(this.user.createdChallenges);
+      const userChallenges = dataArrayFromObject(this.user.createdChallenges);
+      console.log("userChallenges are : " + userChallenges);
+      return userChallenges;
     },
-    items() {
-      return this.user.challenges.map(challenge => ({
-        ...challenge,
-        numOfUsers: Object.keys(challenge.scores).length,
+    items() { 
+      console.log("user is :" + this.$store.getters.user);
+      return this.user.createdChallenges.map(challenge => ({
+        ...challenge, numOfUsers: Object.keys(challenge.scores).length,
         currentDay: currentDay(challenge),
         edit: () => this.editChallenge(challenge._id)
       }));

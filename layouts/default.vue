@@ -48,7 +48,7 @@ export default {
     isLoggedIn(value) {
       if (value) {
         // this.io.emit("joinRoom", this.user._id);
-        const redirect = this.$route.query.redirect || "dashboard";
+        const redirect = this.$route.query.redirect || "";
         this.$router.replace(`/${redirect}`);
       } else {
         // this.io.emit("leaveRoom", this.$cookies.get("userId"));
