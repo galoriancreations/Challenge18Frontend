@@ -111,6 +111,24 @@
         class="language-selector"
       />
     </div>
+
+    <!-------------- Test for Photo -------------------->
+
+    <!-- what is accept? i changed path to assets folder -->
+
+    <div class="form__field">
+      <input
+        type="file"
+        accept="~/assets/images/*"
+        @change="updatePhotoTest"
+        id="photoTest"
+        class="form__input"
+        placeholder="photoTest"
+      />
+      <img :src="prewiewFilePath" />
+    </div>
+    <!------------------ end test ---------------------->
+
     <div
       class="form__field form__confirm"
       :style="{ direction: commitmentDirection }"
@@ -142,7 +160,9 @@ export default {
   inject: ["getSelectedPlan"],
   data() {
     return {
-      confirmed: false
+      confirmed: false,
+      //---Test for Photo
+      selectedPhoto: null
     };
   },
   computed: {
@@ -171,6 +191,14 @@ export default {
     },
     commitmentDirection() {
       return rtlLanguages.includes(this.commitmentLanguage) ? "rtl" : null;
+    },
+    //---Test for Photo
+    prewiewFilePath() {
+      if (this.selectedPhoto) {
+        return URL.createObjectURL(this.selectedPhoto);
+      } else {
+        return "user photo";
+      }
     }
   },
   methods: {
@@ -187,6 +215,18 @@ export default {
         this.error = error;
         this.loading = false;
       }
+    },
+    //---Test for Photo
+    updatePhotoTest(event) {
+      const [file] = event.target.files;
+      this.selectedPhoto = file;
+      //copy photo to formData object that created in registration mixin
+      this.formData.photoTest = file;
+      console.log(this.formData.photoTest);
+      console.log(typeof this.formData.photoTest);
+      // for (const keyTest in this.formData.photoTest) {
+      //   console.log(`${keyTest}: ${this.formData.photoTest[keyTest]}`);
+      // }
     }
   }
 };

@@ -78,7 +78,7 @@ export default {
       // return image ? this.$config.axios.baseURL + image : this.placeholderImg;
       image ? this.$config.axios.baseURL + image : this.placeholderImg;
       const img = `http://localhost:3000/` + image;
-      return img
+      return img;
     },
     languageText() {
       const matchingLanguage = languageOptions.find(
