@@ -4,7 +4,7 @@
                :placeholder="`Search ${filterType} ...`">
           <select v-model="filterType">
                <option value="courses">Courses</option>
-               <option value="players">Players</option>
+               <option value="players" v-if="user">Players</option>
           </select>
 
           <v-app>
@@ -45,7 +45,7 @@
 export default {
      data() {
           return {
-               user: this.$store.getters,
+               user: this.$store.getters.isAuth,
                userInput: '',
                items: [],
                filterType: 'courses',
@@ -88,15 +88,14 @@ export default {
           },
           async sendRequest() {
                try {
-                    console.log(this.filterType);
+                    console.log(this.$store._vm.user);
                     const response = await this.$axios.$post("/api", {
                          permissions: this.filterType,
                          search: true,
                          input: this.userInput,
                     });
                     if (Array.isArray(response)) {
-                         this.items = response
-                         console.log(this.items);
+                         this.items = response.slice(0, 15)
                     } else {
                          console.error('Response is not an array:', response);
                     }
