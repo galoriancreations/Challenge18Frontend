@@ -5,12 +5,7 @@
     <NavToggle />
     <nav class="header__navigation">
       <ul class="header__nav-list">
-        <NavItem
-          v-for="(item, index) in navigationItems"
-          :key="item.text"
-          v-bind="item"
-          :reverse="index % 2 !== 0"
-        />
+        <NavItem v-for="(item, index) in navigationItems" :key="item.text" v-bind="item" :reverse="index % 2 !== 0" />
       </ul>
     </nav>
   </header>
@@ -38,6 +33,9 @@ export default {
     navigationItems() {
       const items = [
         { link: "/", text: "Home" },
+        {
+          text: "Search", link: '/search'
+        },
         {
           text: "About",
           dropdown: [
