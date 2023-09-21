@@ -17,9 +17,7 @@ export default {
         memberRole: "",
         email: "",
         language: "English",
-        accountType: "organization",
-        //---Test for Photo
-        photoTest: ""
+        accountType: "organization"
       },
       phoneInput: {
         value: null,

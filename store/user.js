@@ -32,8 +32,12 @@ export const mutations = {
 };
 
 export const actions = {
-  async auth(context, { mode, data }) {
-    const authData = await this.$axios.$post("/api", { [mode]: data });
+  //---Test for Photo
+
+  async auth(context, data) {
+    console.log(`this is data test: ${data}`);
+
+    const authData = await this.$axios.$post("/api", data);
     // console.log(authData);
     const { access_token: token, user, exp } = authData;
     // console.log(JSON.stringify(user));

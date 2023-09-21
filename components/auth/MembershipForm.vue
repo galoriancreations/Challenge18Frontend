@@ -1,5 +1,10 @@
+<!-- do ni need enctype? or formData creats it automaticly? -->
 <template>
-  <form class="form" @submit.prevent="submitHandler">
+  <form
+    class="form"
+    @submit.prevent="submitHandler"
+    enctype="multipart/form-data"
+  >
     <AccountTypeSelector v-model="formData.accountType" />
     <div class="form__field">
       <label for="username" class="form__label">
@@ -113,17 +118,15 @@
     </div>
 
     <!-------------- Test for Photo -------------------->
-
-    <!-- what is accept? i changed path to assets folder -->
-
+    <!-- The accept attribute specifies a filter for what file types the user can
+    pick from the file input dialog box. -->
     <div class="form__field">
       <input
         type="file"
-        accept="~/assets/images/*"
-        @change="updatePhotoTest"
-        id="photoTest"
+        accept="image/*"
+        @change="handlePhotoUpload"
+        id="photo"
         class="form__input"
-        placeholder="photoTest"
       />
       <img :src="prewiewFilePath" />
     </div>
@@ -205,11 +208,17 @@ export default {
     async submitHandler() {
       if (!this.validateData()) return;
       this.loading = true;
+
+      //---Test for Photo
+
+      //parse a formData to a json
+      let jsonFormData = JSON.stringify(this.formData);
+      //create special FormData object to send complex data(text + picture) to server
+      const formDataToSend = new FormData();
+      formDataToSend.append("register", jsonFormData);
+      formDataToSend.append("photo", this.selectedPhoto);
       try {
-        await this.$store.dispatch("auth", {
-          mode: "register",
-          data: { ...this.formData, plan: "18-days" }
-        });
+        await this.$store.dispatch("auth", formDataToSend);
         this.$cookies.set("newRegistration", true);
       } catch (error) {
         this.error = error;
@@ -217,16 +226,10 @@ export default {
       }
     },
     //---Test for Photo
-    updatePhotoTest(event) {
-      const [file] = event.target.files;
+    handlePhotoUpload(event) {
+      const file = event.target.files[0];
+      // copy a photo to selectedPhoto variable for preview photo:
       this.selectedPhoto = file;
-      //copy photo to formData object that created in registration mixin
-      this.formData.photoTest = file;
-      console.log(this.formData.photoTest);
-      console.log(typeof this.formData.photoTest);
-      // for (const keyTest in this.formData.photoTest) {
-      //   console.log(`${keyTest}: ${this.formData.photoTest[keyTest]}`);
-      // }
     }
   }
 };
