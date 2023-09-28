@@ -73,12 +73,14 @@ export default {
       return initialsImg(this.user);
     },
     imageSrc() {
-      // return this.$config.axios.baseURL + this.user.image
+      //take an image from user
       const { image } = this.user || {};
-      // return image ? this.$config.axios.baseURL + image : this.placeholderImg;
-      image ? this.$config.axios.baseURL + image : this.placeholderImg;
-      const img = `http://localhost:3000/` + image;
-      return img;
+      //if its exists and there are actualy image inside
+      if (image && image.data) {
+        return `data:${this.user.image.contentType};base64,${this.user.image.data}`;
+      } else {
+        return this.placeholderImg;
+      }
     },
     languageText() {
       const matchingLanguage = languageOptions.find(

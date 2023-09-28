@@ -1,10 +1,5 @@
-<!-- do ni need enctype? or formData creats it automaticly? -->
 <template>
-  <form
-    class="form"
-    @submit.prevent="submitHandler"
-    enctype="multipart/form-data"
-  >
+  <form class="form" @submit.prevent="submitHandler">
     <AccountTypeSelector v-model="formData.accountType" />
     <div class="form__field">
       <label for="username" class="form__label">
@@ -117,15 +112,15 @@
       />
     </div>
 
-    <!-------------- Test for Photo -------------------->
+    <!-------------- Test for Image -------------------->
     <!-- The accept attribute specifies a filter for what file types the user can
     pick from the file input dialog box. -->
     <div class="form__field">
       <input
         type="file"
         accept="image/*"
-        @change="handlePhotoUpload"
-        id="photo"
+        @change="handleImageUpload"
+        id="image"
         class="form__input"
       />
       <img :src="prewiewFilePath" />
@@ -164,8 +159,7 @@ export default {
   data() {
     return {
       confirmed: false,
-      //---Test for Photo
-      selectedPhoto: null
+      selectedImage: null
     };
   },
   computed: {
@@ -197,10 +191,10 @@ export default {
     },
     //---Test for Photo
     prewiewFilePath() {
-      if (this.selectedPhoto) {
-        return URL.createObjectURL(this.selectedPhoto);
+      if (this.selectedImage) {
+        return URL.createObjectURL(this.selectedImage);
       } else {
-        return "user photo";
+        return "user image";
       }
     }
   },
@@ -209,14 +203,12 @@ export default {
       if (!this.validateData()) return;
       this.loading = true;
 
-      //---Test for Photo
-
       //parse a formData to a json
       let jsonFormData = JSON.stringify(this.formData);
       //create special FormData object to send complex data(text + picture) to server
       const formDataToSend = new FormData();
       formDataToSend.append("register", jsonFormData);
-      formDataToSend.append("photo", this.selectedPhoto);
+      formDataToSend.append("image", this.selectedImage);
       try {
         await this.$store.dispatch("auth", formDataToSend);
         this.$cookies.set("newRegistration", true);
@@ -225,11 +217,9 @@ export default {
         this.loading = false;
       }
     },
-    //---Test for Photo
-    handlePhotoUpload(event) {
-      const file = event.target.files[0];
-      // copy a photo to selectedPhoto variable for preview photo:
-      this.selectedPhoto = file;
+    //---Upload user image
+    handleImageUpload(event) {
+      this.selectedImage = event.target.files[0];
     }
   }
 };
