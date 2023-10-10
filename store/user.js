@@ -85,6 +85,9 @@ export const actions = {
   },
   async updateUser(context, data = {}) {
     const { user } = await this.$axios.$post("/xapi", { editProfile: data });
+    // test:
+    // console.log(`this is data test for update: ${data}`);
+    // const { user } = await this.$axios.$post("/xapi", data);
     context.commit("updateUser", user);
   },
   async loadTemplates(context, isAuth = true) {
@@ -110,5 +113,17 @@ export const getters = {
   },
   templates(state) {
     return state.templates;
+  },
+  // convert image Base64 encoding to binary data
+  userImage({ user }) {
+    if (user.image && user.image.data != "") {
+      const decodedIamgeBuffer = Buffer.from(user.image.data, "base64");
+      const blob = new Blob([decodedIamgeBuffer], {
+        type: user.image.contentType
+      });
+      return blob;
+    } else {
+      return null;
+    }
   }
 };

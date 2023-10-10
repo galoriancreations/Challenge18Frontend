@@ -40,7 +40,7 @@ export default {
       return this.user?.drafts && this.drafts.length > 0;
     },
     drafts() {
-      debugger
+      // debugger
       let test = dataArrayFromObject(this.user.drafts)
         .filter(draft => !draft.templateOnly)
         .map(draft => ({

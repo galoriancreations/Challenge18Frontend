@@ -73,11 +73,11 @@ export default {
       return initialsImg(this.user);
     },
     imageSrc() {
-      //take an image from user
-      const { image } = this.user || {};
-      //if its exists and there are actualy image inside
-      if (image && image.data) {
-        return `data:${this.user.image.contentType};base64,${this.user.image.data}`;
+      //take an image from store
+      const image = this.$store.getters.userImage;
+      //if its not empty
+      if (image) {
+        return URL.createObjectURL(image);
       } else {
         return this.placeholderImg;
       }
