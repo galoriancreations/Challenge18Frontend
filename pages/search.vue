@@ -4,10 +4,10 @@
                :placeholder="`Search ${filterType} ...`">
           <select v-model="filterType">
                <option value="courses">Courses</option>
-               <option value="players" v-if="user">Players</option>
+               <option value="players" v-if="user">Players</option    >
           </select>
 
-          <v-app>
+          <!-- <v-app>
                <v-data-table v-if="userInput !== '' && filterType === 'players'" :headers="filteredHeaders" :items="items"
                     hide-default-footer disable-pagination item-key="_id">
                     <template v-slot:[`item.totalScore`]="{ item }">
@@ -20,7 +20,7 @@
                     </template>
                </v-data-table>
 
-          </v-app>
+          </v-app> -->
           <v-app>
                <div v-if="userInput !== '' && filterType === 'courses'">
                     <ul>
@@ -29,13 +29,13 @@
                          </li>
                     </ul>
                </div>
-               <!-- <div v-if="userInput !== '' && filterType === 'players'">
+               <div v-if="userInput !== '' && filterType === 'players'">
                     <ul>
                          <li v-for="(item, index) in items" :key="index">
                               <strong>{{ item.userName }}</strong>
                          </li>
                     </ul>
-               </div> -->
+               </div>
           </v-app>
 
      </Page>
@@ -88,11 +88,11 @@ export default {
           },
           async sendRequest() {
                try {
-                    console.log(this.$store._vm.user);
                     const response = await this.$axios.$post("/api", {
                          permissions: this.filterType,
                          search: true,
                          input: this.userInput,
+                         organization: this.$store._vm.user.organization
                     });
                     if (Array.isArray(response)) {
                          this.items = response.slice(0, 15)
@@ -108,7 +108,7 @@ export default {
      },
 };
 </script>
-   
+<!-- this.$store.getters.isAuth -->
 <style>
 .input {
      background: lightblue;
