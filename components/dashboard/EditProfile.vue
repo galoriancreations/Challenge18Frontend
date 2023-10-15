@@ -132,16 +132,18 @@ export default {
       this.loading = true;
       this.error = null;
       // test:
-      // console.log("i am here");
-      // console.log(`this is test for v-model:${this.formData.image}`);
-      // console.log(`formData:${this.formData}`);
+      console.log("i am here");
+      console.log(`edit component gets userImage:`);
+      console.log(this.userImage);
 
-      // let jsonFormData = JSON.stringify(this.formData);
-      // const formDataToSend = new FormData();
-      // formDataToSend.append("editProfile", jsonFormData);
-      // formDataToSend.append("image", this.formData.image);
-      // console.log(`FormData Object:${formDataToSend}`);
-
+      let jsonFormData = JSON.stringify(this.formData);
+      const formDataToSend = new FormData();
+      formDataToSend.append("editProfile", jsonFormData);
+      formDataToSend.append("image", this.userImage);
+      console.log(`FormData Object:${formDataToSend}`);
+      for (const value of formDataToSend.values()) {
+        console.log(value);
+      }
       // try {
       //   // test:
       //   // await this.$store.dispatch("updateUser", formDataToSend);
@@ -154,8 +156,6 @@ export default {
       //   this.error = error;
       // }
 
-      console.log(`edit component gets userImage:`);
-      console.log(this.userImage);
       this.loading = false;
     }
   },
