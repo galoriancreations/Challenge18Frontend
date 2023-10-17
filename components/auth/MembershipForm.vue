@@ -1,5 +1,38 @@
+
 <template>
   <form class="form" @submit.prevent="submitHandler">
+
+
+    <!-------------- Test for Image -------------------->
+    <!-- The accept attribute specifies a filter for what file types the user can
+    pick from the file input dialog box. -->
+
+
+    <div class="form__field">
+      <div class="form__field__avatar">
+      <label for="image" id="file-style-label"  >
+      <img :src="prewiewFilePath" 
+      id="selectedImg" alt="Your avatar">
+      <p id="preview-photo-text" >Nice To See Your Avatar</p>
+      <input
+        type="file"
+        accept="image/*"
+        @change="handleImageUpload"
+        id="image"
+        class=" file-style"
+      />
+    </label>
+    
+    <!------------------ icon delete ---------------------->
+    <svg @click="deletePhoto" class="icons"
+    xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" 
+    d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
+
+    </div>
+    </div>
+    <!------------------ end test ---------------------->
+
+
     <AccountTypeSelector v-model="formData.accountType" />
     <div class="form__field">
       <label for="username" class="form__label">
@@ -112,21 +145,6 @@
       />
     </div>
 
-    <!-------------- Test for Image -------------------->
-    <!-- The accept attribute specifies a filter for what file types the user can
-    pick from the file input dialog box. -->
-    <div class="form__field">
-      <input
-        type="file"
-        accept="image/*"
-        @change="handleImageUpload"
-        id="image"
-        class="form__input"
-      />
-      <img :src="prewiewFilePath" />
-    </div>
-    <!------------------ end test ---------------------->
-
     <div
       class="form__field form__confirm"
       :style="{ direction: commitmentDirection }"
@@ -191,11 +209,15 @@ export default {
     },
     //---Test for Photo
     prewiewFilePath() {
+      
       if (this.selectedImage) {
         return URL.createObjectURL(this.selectedImage);
-      } else {
-        return "user image";
+      } 
+      
+      else{
+        return null
       }
+
     }
   },
   methods: {
@@ -219,8 +241,32 @@ export default {
     },
     //---Upload user image
     handleImageUpload(event) {
+      const previewPhoto = document.getElementById('selectedImg')
+      const previewPhotoText = document.getElementById('preview-photo-text')
       this.selectedImage = event.target.files[0];
+      
+      if (this.selectedImage) {
+        previewPhoto.style.display = 'block'
+        previewPhotoText.style.display = 'none'
+      } else {
+        previewPhoto.style.display = 'none'
+        previewPhotoText.style.display = 'block'
+        this.selectedImage = null
+        
+      }
+    },
+    
+    //---delete user image selected
+    deletePhoto(){
+
+      const previewPhoto = document.getElementById('selectedImg')
+      const previewPhotoText = document.getElementById('preview-photo-text')
+
+        previewPhoto.style.display = 'none'
+        previewPhotoText.style.display = 'block'
+        this.selectedImage = null
     }
+
   }
 };
 </script>
@@ -305,5 +351,65 @@ export default {
       }
     }
   }
+  // input type 'file'
+  #image{
+    display: none;
+  }
+
+  .form__field__avatar{
+    width: auto;
+    height: auto;
+    display: flex;
+    position: relative;
+    margin-bottom: 30px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: 0 ;
+
+  }
+
+
+  #file-style-label {
+  font-family: 'Trebuchet MS';
+  width: 400px;
+  height: auto;
+  display: flex;
+  margin: 0 ;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  color: #545454cb;
+  
+
+
+  background-color: #f5f4f4;
+  cursor: pointer;
+  text-align: center;
+  padding: 15px 10px;
+  border-radius: 15px;
+  border: 2px dashed #cdc8c8;
+}
+
+#file-style-label:hover {
+  background-color: rgb(228, 213, 213);
+  border-color: #ada9a9;
+}
+
+#selectedImg{
+  display: none;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 15px;
+  // flex-shrink: 0;
+}
+
+.icons{
+  cursor: pointer;
+  color: #8f96a3;
+}
+
+  
 }
 </style>
