@@ -185,11 +185,13 @@ export const textInputKeys = labels => {
   }
   return keys;
 };
-
+// create formData without image field 
 export const initialData = labels => {
   const formData = {};
   for (let key in labels) {
-    formData[key] = "";
+    if (key != "image") {
+      formData[key] = "";
+    }
   }
   return formData;
 };

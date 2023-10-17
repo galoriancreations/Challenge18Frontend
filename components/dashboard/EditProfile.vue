@@ -144,17 +144,18 @@ export default {
       for (const value of formDataToSend.values()) {
         console.log(value);
       }
-      // try {
-      //   // test:
-      //   // await this.$store.dispatch("updateUser", formDataToSend);
-      //   await this.$store.dispatch("updateUser", this.formData);
-      //   this.closeModal();
-      //   this.addNotification(
-      //     "<strong>Your profile details</strong> were successfully updated."
-      //   );
-      // } catch (error) {
-      //   this.error = error;
-      // }
+      try {
+        // test:
+        await this.$store.dispatch("updateUser", formDataToSend);
+        // old version erase if i succed
+        // await this.$store.dispatch("updateUser", this.formData);
+        this.closeModal();
+        this.addNotification(
+          "<strong>Your profile details</strong> were successfully updated."
+        );
+      } catch (error) {
+        this.error = error;
+      }
 
       this.loading = false;
     }
