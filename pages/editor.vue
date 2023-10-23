@@ -183,7 +183,7 @@ export default {
       const mode = this.editedChallengeId
         ? "updateChallenge"
         : "createChallenge";
-      await this.$axios.$post("/xapi", { [mode]: this.challengeData });
+      const groupId = await this.$axios.$post("/xapi", { [mode]: this.challengeData });
       const successText = this.editedChallengeId
         ? "Successfully updated challenge"
         : "Created new challenge from template";
@@ -191,7 +191,8 @@ export default {
         `${successText}: <strong>${this.data.name}</strong>.`
       );
       this.$cookies.remove("draftId");
-      this.$router.replace("/dashboard");
+      this.$cookies.set("groupId", groupId);
+      this.$router.replace("/group-page");
     },
     validateData() {
       try {
