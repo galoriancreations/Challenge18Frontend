@@ -92,6 +92,17 @@
         >
           {{ submitButtonText }}
         </BaseButton>
+
+        <!-- button save into drafts -->
+        <BaseButton
+        variant="blue"
+        @click="saveToDraf"
+          :disabled="submit.loading || uploading.length > 0"
+        >
+        {{ saveToDraftsText }}
+        <!-- button save into drafts // end -->
+        
+        </BaseButton>
         <BaseSpinner v-if="submit.loading" />
         <ErrorMessage v-else-if="submit.error" :error="submit.error" />
       </div>
@@ -181,7 +192,18 @@ export default {
         : this.editedChallengeId
         ? "Update challenge"
         : "Publish challenge";
+    },
+    // <!-- button save to drafts -->
+    saveToDraftsText(){
+      return this.uploading.length
+        ? "Uploading files"
+        : this.templateOnlyMode
+        ? "save to drafts"
+        : this.editedChallengeId
+        
     }
+
+
   },
   methods: {
     addDay() {
@@ -211,7 +233,13 @@ export default {
       this.closeModal();
       this.setTransition("task");
       this.dayData.messages.push(newMessage(isAudio));
-    }
+    },
+    // <!-- button save to drafts // function -->
+    saveToDraf(){
+    console.log('save to drafts');
+  }
+  // ===================================================
+
   },
   watch: {
     selectedDay() {
@@ -226,7 +254,8 @@ export default {
       deleteDay: this.deleteDay,
       addMessage: this.addMessage
     };
-  }
+  },
+    
 };
 </script>
 
