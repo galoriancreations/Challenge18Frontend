@@ -93,7 +93,10 @@ export default {
         //     this.$config.axios.baseURL + this.value
         //   : // this is working
         //     process.client && URL.createObjectURL(this.value);
-        return process.client && URL.createObjectURL(this.value);
+        else{
+          return process.client && URL.createObjectURL(this.value);
+        }
+
       } catch {
         return null;
       }
@@ -107,7 +110,8 @@ export default {
       console.log(
         `initial image value in imageSelector component: ${this.value}`
       );
-      this.value = file;
+      // this.value = file // its leads to re-render error 
+
       // send selected image back to parent component (v-model gets it)
       this.$emit("input", file);
       // two rows below i previosly comented
