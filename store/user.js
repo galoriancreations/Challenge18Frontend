@@ -32,8 +32,6 @@ export const mutations = {
 };
 
 export const actions = {
-  //---Test for Photo
-
   async auth(context, data) {
     console.log(`this is data test: ${data}`);
 
@@ -83,10 +81,12 @@ export const actions = {
       clearTimeout(logoutTimer);
     }
   },
-  // updateUser and loadTemplates runs when i enter dashboard
+
+  // updateUser and loadTemplates runs together when i enter dashboard
   async updateUser(context, data) {
+    // this is old version:
     // const { user } = await this.$axios.$post("/xapi", { editProfile: data });
-    // test:
+    // this is new:
     // when entering dashboard data must held a editProfile key
     if (data == null) {
       console.log("data is {}");
