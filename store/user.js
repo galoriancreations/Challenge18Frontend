@@ -32,10 +32,8 @@ export const mutations = {
 };
 
 export const actions = {
-  async auth(context, data) {
-    console.log(`this is data test: ${data}`);
-
-    const authData = await this.$axios.$post("/api", data);
+  async auth(context, { mode, data }) {
+    const authData = await this.$axios.$post("/api", { [mode]: data });
     // console.log(authData);
     const { access_token: token, user, exp } = authData;
     // console.log(JSON.stringify(user));
@@ -81,19 +79,8 @@ export const actions = {
       clearTimeout(logoutTimer);
     }
   },
-
-  // updateUser and loadTemplates runs together when i enter dashboard
-  async updateUser(context, data) {
-    // this is old version:
-    // const { user } = await this.$axios.$post("/xapi", { editProfile: data });
-    // this is new:
-    // when entering dashboard data must held a editProfile key
-    if (data == null) {
-      console.log("data is {}");
-      data = { editProfile: {} };
-    }
-    console.log(`this is data test for update: ${data}`);
-    const { user } = await this.$axios.$post("/xapi", data);
+  async updateUser(context, data = {}) {
+    const { user } = await this.$axios.$post("/xapi", { editProfile: data });
     context.commit("updateUser", user);
   },
   async loadTemplates(context, isAuth = true) {
@@ -119,17 +106,5 @@ export const getters = {
   },
   templates(state) {
     return state.templates;
-  },
-  // convert image Base64 encoding to binary data
-  userImage({ user }) {
-    if (user.image && user.image.data != "") {
-      const decodedIamgeBuffer = Buffer.from(user.image.data, "base64");
-      const blob = new Blob([decodedIamgeBuffer], {
-        type: user.image.contentType
-      });
-      return blob;
-    } else {
-      return null;
-    }
   }
 };

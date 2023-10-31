@@ -174,7 +174,6 @@ export const isEmojiValid = (emoji, selections) =>
   !selections.includes(emoji) &&
   !!emojisDefault.find(item => item.data === emoji);
 
-// type of fields/labels to exclude for specific section when updating user data
 export const textInputKeys = labels => {
   const keys = [];
   const excluded = ["language", "phone", "image"];
@@ -185,17 +184,15 @@ export const textInputKeys = labels => {
   }
   return keys;
 };
-// create formData without image field 
+
 export const initialData = labels => {
   const formData = {};
   for (let key in labels) {
-    if (key != "image") {
-      formData[key] = "";
-    }
+    formData[key] = "";
   }
   return formData;
 };
-// create a simple image with users initials
+
 export const initialsImg = user => {
   const { organization, fullName, username } = user || {};
   let name = organization || fullName || username || "";
@@ -231,9 +228,9 @@ export const currentDay = challenge => {
 };
 
 export const newNotification = payload =>
-  typeof payload === "string"
-    ? { id: uniqid(), html: payload }
-    : { id: uniqid(), ...payload };
+  typeof payload === "string" ?
+    { id: uniqid(), html: payload } :
+    { id: uniqid(), ...payload };
 
 export const isTouchDevice = () =>
   "ontouchstart" in window ||

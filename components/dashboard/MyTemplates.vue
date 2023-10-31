@@ -4,7 +4,6 @@
       <p>Private templates you created will appear here.</p>
       <p>Click the button below to create a new template.</p>
     </div>
-    <!-- selected, headers, items calculated in "templatesTable" mixin-->
     <DashboardTable
       v-else
       v-model="selected"
@@ -30,7 +29,7 @@ export default {
   mixins: [templatesTable, popupModal],
   data() {
     return {
-      name: "my-templates"
+      name:"my-templates"
     };
   },
   computed: {

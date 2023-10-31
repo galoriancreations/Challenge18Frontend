@@ -26,7 +26,6 @@
         @input="updateImage"
       >
         <label :for="id" slot="upload-label" class="image-selector__button">
-          <!-- little camera icon -->
           <figure>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +44,6 @@
         </label>
       </ImageUploader>
     </client-only>
-    <!-- why do we need uploadImage error? -->
     <ErrorMessage v-if="error" @click="uploadImage">
       Failed to upload file. Click here to retry
     </ErrorMessage>
@@ -87,16 +85,9 @@ export default {
         if (!this.value) {
           return this.placeholderImg || null;
         }
-        // //old version; why we need this checkup?:
-        // return typeof this.value === "string"
-        //   ? // this is not working
-        //     this.$config.axios.baseURL + this.value
-        //   : // this is working
-        //     process.client && URL.createObjectURL(this.value);
-        else{
-          return process.client && URL.createObjectURL(this.value);
-        }
-
+        return typeof this.value === "string"
+          ? this.$config.axios.baseURL + this.value
+          : process.client && URL.createObjectURL(this.value);
       } catch {
         return null;
       }
@@ -107,38 +98,26 @@ export default {
   },
   methods: {
     updateImage(file) {
-      console.log(
-        `initial image value in imageSelector component: ${this.value}`
-      );
-      // this.value = file // its leads to re-render error 
-
-      // send selected image back to parent component (v-model gets it)
       this.$emit("input", file);
-      // two rows below i previosly comented
-      // this.$emit("input", file);
-      // this.$emit("update:hasSelectedImage", true);
-      // this.uploadImage(file);
-      console.log(`image replased in imageSelector component: ${this.value}`);
+      this.$emit("update:hasSelectedImage", true);
+      this.uploadImage(file);
+    },
+    async uploadImage(file) {
+      this.$emit("end-upload");
+      this.$emit("start-upload");
+      this.$emit("update:error", false);
+      try {
+        const data = new FormData();
+        data.append("file", file);
+        const imageUrl = await this.$axios.$post("/upload", data);
+        this.$emit("end-upload");
+        this.$emit("input", imageUrl);
+      } catch {
+        this.$emit("update:error", true);
+      }
+      await this.$axios.$post("/xapi", {"updateProfileImage":imageUrl});
       this.$emit("end-upload");
     }
-    // why do we need uploadImage?
-    // async uploadImage(file) {
-    //   this.$emit("end-upload");
-    //   this.$emit("start-upload");
-    //   this.$emit("update:error", false);
-    //   // this try below i previosly comented
-    //   // try {
-    //   //   const data = new FormData();
-    //   //   data.append("file", file);
-    //   //   const imageUrl = await this.$axios.$post("/upload", data);
-    //   //   this.$emit("end-upload");
-    //   //   this.$emit("input", imageUrl);
-    //   // } catch {
-    //   //   this.$emit("update:error", true);
-    //   // }
-    //   // await this.$axios.$post("/xapi", { updateProfileImage: this.imageUrl });
-    //   this.$emit("end-upload");
-    // }
   }
 };
 </script>
