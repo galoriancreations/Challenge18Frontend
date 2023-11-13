@@ -4,7 +4,8 @@
         <PopupModal :active="showModal">
             {{ questions[i].text }}
             <div> // לענות תשובה
-                <label for="answer">your answer
+                <label for="answer">
+                    your answer
                     <input type="text" placeholder="enter your answer" v-model="answer">
                 </label>
                 <button @click="addAnswer" >share your answer</button>
