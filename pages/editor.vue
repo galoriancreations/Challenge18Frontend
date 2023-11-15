@@ -120,14 +120,17 @@ export default {
       };
     },
     selections() {
+      // const selections = {};
+      // this.data.days.forEach(day => {
+      //   selections[day.id] = {};
+      //   day.tasks.forEach(task => {
+      //     selections[day.id][task.id] = task.selection;
+      //   });
+      // });
+      // return selections;
       const selections = {};
-      this.data.days.forEach(day => {
-        selections[day.id] = {};
-        day.tasks.forEach(task => {
-          selections[day.id][task.id] = task.selection;
-        });
-      });
-      return selections;
+
+      
     },
     challengeData() {
       return {
@@ -183,7 +186,7 @@ export default {
       const mode = this.editedChallengeId
         ? "updateChallenge"
         : "createChallenge";
-      const groupId = await this.$axios.$post("/xapi", { [mode]: this.challengeData });
+        const groupId = await this.$axios.$post("/xapi", { [mode]: this.challengeData });
       const successText = this.editedChallengeId
         ? "Successfully updated challenge"
         : "Created new challenge from template";
