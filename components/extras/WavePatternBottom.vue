@@ -19,6 +19,7 @@
   position: absolute;
   bottom: 0;
   left: 0;
+  top: -10px;
   width: 100%;
   overflow: hidden;
   line-height: 0;
