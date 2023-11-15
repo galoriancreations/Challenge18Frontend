@@ -14,6 +14,7 @@
     <MyDrafts />
     <AllUsers v-if="isAdmin" />
     <AllTemplates v-if="isAdmin" />
+    <myGroups />
   </Page>
 </template>
 
