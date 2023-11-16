@@ -1,11 +1,19 @@
 <template>
      <Page title="Search" name="players">
-          <input type="text" class="input" v-model="userInput" @input="sendRequest"
+     <div class="searchSelect">
+          <div  >
+               <input class="input" type="text" v-model="userInput" @input="sendRequest"
                :placeholder="`Search ${filterType} ...`">
-          <select v-model="filterType">
+          </div>
+          
+          <div>
+               <select v-model="filterType">
                <option value="courses">Courses</option>
                <option value="players" v-if="user">Players</option    >
           </select>
+          </div>
+         
+     </div>
 
           <!-- <v-app>
                <v-data-table v-if="userInput !== '' && filterType === 'players'" :headers="filteredHeaders" :items="items"
@@ -21,7 +29,7 @@
                </v-data-table>
 
           </v-app> -->
-          <v-app>
+          <v-app class="list">
                <div v-if="userInput !== '' && filterType === 'courses'">
                     <ul>
                          <li v-for="(item, index) in items" :key="index">
@@ -92,7 +100,7 @@ export default {
                          permissions: this.filterType,
                          search: true,
                          input: this.userInput,
-                         organization: this.$store._vm.user.organization
+                         
                     });
                     if (Array.isArray(response)) {
                          this.items = response.slice(0, 15)
@@ -113,8 +121,27 @@ export default {
 .input {
      background: lightblue;
      padding: 20px;
-     color: white;
-     display: flex;
-     margin: auto;
+     color: white;  
+     
+}
+select{
+     margin-left: 10px;
+     width: 100px;
+     height: 50px;
+     text-align: center;
+     font-weight: bold;
+     border: 3px solid lightblue;
+     
+}
+
+.searchSelect{
+    display: flex; 
+    align-items: center;
+    margin-left: 35%;
+    
+}
+.list{
+  margin-left: 40% ;   
+  margin-top: 5%;
 }
 </style>
