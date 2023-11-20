@@ -23,7 +23,8 @@ import {
   isSelectionMatching,
   isEmojiValid,
   randomEmoji
-} from "~/assets/util/functions";
+} 
+from "~/assets/util/functions";
 import confirmModal from "~/mixins/confirm-modal";
 import moment from "moment";
 
@@ -83,7 +84,8 @@ export default {
       submit: {
         loading: false,
         error: null
-      }
+      },
+      base64: ''
     };
   },
   computed: {
@@ -112,11 +114,21 @@ export default {
       };
     },
     templateData() {
+
+      
+      const reader = new FileReader();
+      reader.onload = event => (this.base64 = event.target.result);
+      reader.readAsDataURL(this.data.image)
+      console.log(reader);
+      console.log(this.base64);
+    
+
+
       return {
         id: this.templateId,
         name: this.data.name,
         language: this.data.language,
-        image: this.data.image,
+        image: this.base64,
         dayMargin: this.data.dayMargin,
         preDays: clearedDays(this.data.preDays),
         days: clearedDays(this.data.days),

@@ -108,7 +108,7 @@ export default {
   methods: {
     updateImage(file) {
       console.log(
-        `initial image value in imageSelector component: ${this.value}`
+        `initial image value in imageSelector component: ${file}`
       );
       // this.value = file // its leads to re-render error 
 
@@ -118,7 +118,7 @@ export default {
       // this.$emit("input", file);
       // this.$emit("update:hasSelectedImage", true);
       // this.uploadImage(file);
-      console.log(`image replased in imageSelector component: ${this.value}`);
+      console.log(`image replased in imageSelector component: ${file}`);
       this.$emit("end-upload");
     }
     // why do we need uploadImage?
