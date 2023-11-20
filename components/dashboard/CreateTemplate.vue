@@ -98,6 +98,9 @@ export default {
     },
     async cloneTemplate(templateId) {
       this.loading = true;
+      // clone  template, but not like in "templates-table" component:
+      // it gets all data of the template, clones it here, in client
+      // and saves cloned templte in DB
       const template = await this.$axios.$post("/xapi", {
         getTemplateData: templateId
       });
@@ -116,15 +119,19 @@ export default {
       });
       return newId;
     },
+    // create new or open selected:
     async selectTemplate(template) {
+      // if templated id selected clone with cloneTemplate method
       if (template) {
         const newTemplateId = await this.cloneTemplate(template._id);
         this.$cookies.set("selectedTemplate", newTemplateId);
       } else {
+        // if the template is new- no cookies
         this.$cookies.remove("selectedTemplate");
       }
       this.$cookies.remove("draftId");
       this.$cookies.remove("challengeId");
+      // redirects user to another page:
       this.$router.push({
         path: "/editor",
         query: { templateOnly: true }

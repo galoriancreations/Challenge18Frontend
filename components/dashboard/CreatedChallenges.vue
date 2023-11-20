@@ -49,13 +49,14 @@ export default {
     },
     challenges() {
       const userChallenges = dataArrayFromObject(this.user.createdChallenges);
-      console.log("userChallenges are : " + userChallenges);
+      // console.log("userChallenges are : " + userChallenges);
       return userChallenges;
     },
-    items() { 
+    items() {
       console.log("user is :" + this.$store.getters.user);
       return this.user.createdChallenges.map(challenge => ({
-        ...challenge, numOfUsers: Object.keys(challenge.scores).length,
+        ...challenge,
+        numOfUsers: Object.keys(challenge.scores).length,
         currentDay: currentDay(challenge),
         edit: () => this.editChallenge(challenge._id)
       }));
@@ -97,9 +98,11 @@ export default {
         async () => {
           this.loading = true;
           const requests = selections.map(challenge =>
+            // --to check Promise.all work? or change to what i did in templates and drafts?
             this.$axios.$post("/xapi", { deleteChallenge: challenge._id })
           );
           await Promise.all(requests);
+          // --
           await this.$store.dispatch("updateUser");
           this.addNotification(
             `Successfully deleted <strong>${selections.length} challenges</strong>.`
