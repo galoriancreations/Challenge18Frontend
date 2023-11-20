@@ -87,12 +87,12 @@ export const actions = {
     // this is old version:
     // const { user } = await this.$axios.$post("/xapi", { editProfile: data });
     // this is new:
-    // when entering dashboard data must held a editProfile key
+    // when entering dashboard data object must hold a editProfile key
     if (data == null) {
-      console.log("data is {}");
+      console.log("updateUser request: data is {}");
       data = { editProfile: {} };
     }
-    console.log(`this is data test for update: ${data}`);
+    console.log(`updateUser request: data now is: `, data);
     const { user } = await this.$axios.$post("/xapi", data);
     context.commit("updateUser", user);
   },

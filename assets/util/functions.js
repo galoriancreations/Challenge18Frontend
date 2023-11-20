@@ -185,7 +185,7 @@ export const textInputKeys = labels => {
   }
   return keys;
 };
-// create formData without image field 
+// create formData without image field
 export const initialData = labels => {
   const formData = {};
   for (let key in labels) {
@@ -205,8 +205,10 @@ export const initialsImg = user => {
 
 export const numbersArray = n => Array.from({ length: n }, (_, i) => i + 1);
 
-export const dataArrayFromObject = data =>
-  Object.keys(data).map(id => ({ id, ...data[id] }));
+export const dataArrayFromObject = data => {
+  // why do i need to add "id" in each draft?
+  return Object.keys(data).map(id => ({ id, ...data[id] }));
+};
 
 export const getEndDate = challenge => {
   const margin = challenge.dayMargin || 1;
