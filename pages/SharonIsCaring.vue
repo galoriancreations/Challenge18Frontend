@@ -1,15 +1,13 @@
 <template>
     <Page title="Sharon is Caring" name="sharon-is-caring">
        
-        <button @click="randomQuestion">Question</button>
+        <button class="btn" @click="randomQuestion">Question</button>
         <p>{{ }}</p>
         <button>share your question</button> <br>
         <label>your answer:</label> <br>
         <input type="text" placeholder="enter your answer" v-model="answer">
         <br>
         <button>click to show more answers</button>
-        
-       
     </Page>
     <!-- <Page title="Sharon is Caring" name="sharon-is-caring"> -->
         <!-- <BaseButton @click="randomQuestion">Pop a random question</BaseButton>
@@ -74,5 +72,6 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
+
 </style>
