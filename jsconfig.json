@@ -1,8 +1,3 @@
-// explanation for the file:
-// https://code.visualstudio.com/docs/languages/jsconfig
-// in the article above there are mention of "IntelliSense". explanation for the term:
-// https://code.visualstudio.com/docs/editor/intellisense
-
 {
   "compilerOptions": {
     "baseUrl": ".",

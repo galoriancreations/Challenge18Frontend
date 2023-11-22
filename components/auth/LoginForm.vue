@@ -81,8 +81,10 @@ export default {
       this.error = null;
       try {
         await this.$store.dispatch("auth", {
-          signIn: this.formData
+          mode: "signIn",
+          data: this.formData
         });
+        // await this.$axios.$post("/api", { signIn: this.formData });
         // this.verificationMode = true;
       } catch (error) {
         this.error = error;

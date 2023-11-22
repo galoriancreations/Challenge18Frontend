@@ -23,8 +23,7 @@ import {
   isSelectionMatching,
   isEmojiValid,
   randomEmoji
-} 
-from "~/assets/util/functions";
+} from "~/assets/util/functions";
 import confirmModal from "~/mixins/confirm-modal";
 import moment from "moment";
 
@@ -37,7 +36,6 @@ export default {
   async asyncData({ app, store, $axios, error }) {
     try {
       const { draftId, challengeId, selectedTemplate } = app.$cookies.getAll();
-
       const { user, isAdmin } = store.getters;
       const endpoint = !draftId && challengeId ? "/api" : "/xapi";
       const key = draftId
@@ -45,13 +43,11 @@ export default {
         : challengeId
         ? "getChallengeData"
         : selectedTemplate && "getTemplateData";
-
       const value = draftId || challengeId || selectedTemplate;
-      console.log(`edit test, draftId xapi key: ${key} : ${draftId}`);
       const data = key
         ? transformData(await $axios.$post(endpoint, { [key]: value }))
         : {};
-
+        
       return {
         data: {
           name: data.name || "",
@@ -84,18 +80,15 @@ export default {
       submit: {
         loading: false,
         error: null
-      },
-      base64: ''
+      }
     };
   },
   computed: {
     editedChallengeId() {
       return this.$cookies.get("challengeId");
     },
-
     templateOnlyMode() {
       const { templateOnly } = this.$route.query;
-
       return templateOnly === "true" && !this.editedChallengeId;
     },
     title() {
@@ -114,21 +107,11 @@ export default {
       };
     },
     templateData() {
-
-      
-      const reader = new FileReader();
-      reader.onload = event => (this.base64 = event.target.result);
-      reader.readAsDataURL(this.data.image)
-      console.log(reader);
-      console.log(this.base64);
-    
-
-
       return {
         id: this.templateId,
         name: this.data.name,
         language: this.data.language,
-        image: this.base64,
+        image: this.data.image,
         dayMargin: this.data.dayMargin,
         preDays: clearedDays(this.data.preDays),
         days: clearedDays(this.data.days),
@@ -166,8 +149,7 @@ export default {
       this.autoSave.timeout = setTimeout(async () => {
         this.autoSave.loading = true;
         try {
-          //if drafts are working do we need it here?:
-          // await this.saveTemplate();
+          await this.saveTemplate();
           await this.saveDraft();
           this.autoSave.date = new Date();
           this.autoSave.error = false;
@@ -177,13 +159,8 @@ export default {
         this.autoSave.loading = false;
       }, 5000);
     },
-
     async saveDraft() {
-      console.log();
-      // i changed it to false:
-      if (!this.templateOnlyMode) return;
-
-      console.log(`picture: ${this.data.image}`);
+      if (this.templateOnlyMode) return;
       const { draftId } = await this.$axios.$post("/xapi", {
         saveDraft: {
           draftId: this.draftId,
@@ -193,9 +170,6 @@ export default {
       this.draftId = draftId;
     },
     async saveTemplate() {
-      console.log(`saveTemplate start`);
-      console.log(`templateId: ${this.templateId}`);
-      console.log(`templateData:`, this.templateData);
       if (!this.isTemplateEditable) return;
       const { templateId } = await this.$axios.$post("/xapi", {
         saveTemplate: {
@@ -258,26 +232,12 @@ export default {
       }
     },
     async submitHandler() {
-      // temporarily commented:
+      if (this.templateOnlyMode) {
+        return this.$router.replace("/dashboard");
+      }
       if (!this.validateData()) return;
       this.submit.loading = true;
       try {
-        if (this.templateOnlyMode) {
-          // -- my coding: erase draft, save template
-          // find what draft it is and delete
-          // delete draft (delets in server and updates DB):
-          console.log(`this is draftId i deleting: ${this.draftId}`);
-
-          await this.$axios.$post("/xapi", {
-            deleteDraft: this.draftId
-          });
-
-          await this.saveTemplate();
-          // --
-          console.log(`i am going to dashboard`);
-          return this.$router.replace("/dashboard");
-        }
-
         await this.saveChallenge();
       } catch (error) {
         this.submit.error = error;

@@ -29,8 +29,8 @@ export default {
     if (!from?.meta[0]?.forLoggingIn) {
       try {
         // await Promise.all([dispatch("updateUser"), dispatch("loadTemplates")]);
-        await dispatch("updateUser");
-        await dispatch("loadTemplates");
+      await dispatch('updateUser')
+      await dispatch('loadTemplates')
       } catch (err) {
         error(err);
       }
@@ -60,7 +60,6 @@ export default {
         this.$cookies.remove("newRegistration");
       }
     }, 500);
-    // console.log(`dashboard template: all cookies: ${this.$cookies.getAll()}`);
   }
 };
 </script>
