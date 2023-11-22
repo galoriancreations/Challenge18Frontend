@@ -1,6 +1,18 @@
 <template>
     <Page title="Sharon is Caring" name="sharon-is-caring">
-        <BaseButton @click="randomQuestion">Pop a random question</BaseButton>
+       
+        <button @click="randomQuestion">Question</button>
+        <p>{{ }}</p>
+        <button>share your question</button> <br>
+        <label>your answer:</label> <br>
+        <input type="text" placeholder="enter your answer" v-model="answer">
+        <br>
+        <button>click to show more answers</button>
+        
+       
+    </Page>
+    <!-- <Page title="Sharon is Caring" name="sharon-is-caring"> -->
+        <!-- <BaseButton @click="randomQuestion">Pop a random question</BaseButton>
         <PopupModal :active="showModal">
             {{ questions[i].text }}
             <div> // לענות תשובה
@@ -22,12 +34,15 @@
                     Link:
                 </p>
             </div>
-        </PopupModal>
-    </Page>
+        </PopupModal> -->
+    <!-- </Page> -->
 </template>
 
 <script>
 import questions from "~/assets/data/100questions";
+import BaseButton from "~/components/UI/BaseButton.vue";
+import Page from "~/components/layout/Page.vue";
+import PopupModal from "~/components/layout/PopupModal.vue";
 import popupModal from "~/mixins/popup-modal";
 
 export default {
@@ -35,9 +50,9 @@ export default {
     data() {
         return {
             questions,
-            answer:'',
-            answers:[],
-            showAnswer:false
+            answer: "",
+            answers: [],
+            showAnswer: false
         };
     },
     methods: {
@@ -46,14 +61,17 @@ export default {
             let i = Math.floor(Math.random() * 95);
             return i;
         },
-        addAnswer(){
+        addAnswer() {
             this.answers.push(this.answer),
-            this.answer='';
+                this.answer = "";
         },
-        getAnswers(){
-            this.showAnswer = !this.showAnswer
+        getAnswers() {
+            this.showAnswer = !this.showAnswer;
         }
     },
-    components: { BaseButton, Page }
+    components: { Page, BaseButton, PopupModal }
 }
 </script>
+
+<style>
+</style>

@@ -57,7 +57,9 @@ export default {
       "~/components/home",
       "~/components/clubs",
       "~/components/how-to-play",
-      "~/components/marketplace"
+      "~/components/marketplace",
+      "~/components/sharoniscaring",
+
     ]
   },
 
