@@ -35,9 +35,14 @@
       >
         OR
       </h3>
-      <BaseButton variant="blue" @click="selectTemplate(null)">
-        Create empty template
-      </BaseButton>
+      <div class="buttons">
+        <BaseButton variant="blue" @click="selectTemplate(null)">
+          Create empty template
+        </BaseButton>
+        <BaseButton variant="blue" @click="createTemplateWithAi">
+          Create template with AI
+        </BaseButton>
+      </div>
     </div>
     <BaseSpinner v-if="loading" />
   </PopupModal>
@@ -129,6 +134,30 @@ export default {
         path: "/editor",
         query: { templateOnly: true }
       });
+    },
+    async createTemplateWithAi() {
+      this.loading = true;
+
+      // implement popup modal to open for topic input and language selection
+
+      const topic = prompt("Enter a topic for your template");
+      if (!topic) {
+        this.loading = false;
+        return;
+      }
+      const { template } = await this.$axios.$post("/xapi", {
+        createTemplateWithAi: {
+          topic,
+          language: this.selectedLanguage
+        }
+      });
+      this.$cookies.set("selectedTemplate", template._id);
+      this.$cookies.remove("draftId");
+      this.$cookies.remove("challengeId");
+      this.$router.push({
+        path: "/editor",
+        query: { templateOnly: true }
+      });
     }
   },
   watch: {
@@ -141,3 +170,11 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+</style>
