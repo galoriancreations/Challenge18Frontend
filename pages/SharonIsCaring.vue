@@ -71,6 +71,7 @@ export default {
     },
     components: { Page, BaseButton, PopupModal }
 }
+
 </script>
 
 <style>
