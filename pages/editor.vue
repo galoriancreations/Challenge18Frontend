@@ -23,8 +23,7 @@ import {
   isSelectionMatching,
   isEmojiValid,
   randomEmoji
-} 
-from "~/assets/util/functions";
+} from "~/assets/util/functions";
 import confirmModal from "~/mixins/confirm-modal";
 import moment from "moment";
 
@@ -85,7 +84,7 @@ export default {
         loading: false,
         error: null
       },
-      base64: ''
+      base64: ""
     };
   },
   computed: {
@@ -114,15 +113,13 @@ export default {
       };
     },
     templateData() {
+      // temparaly commented. its conflicts with save a template:
 
-      
-      const reader = new FileReader();
-      reader.onload = event => (this.base64 = event.target.result);
-      reader.readAsDataURL(this.data.image)
-      console.log(reader);
-      console.log(this.base64);
-    
-
+      // const reader = new FileReader();
+      // reader.onload = event => (this.base64 = event.target.result);
+      // reader.readAsDataURL(this.data.image);
+      // console.log(reader);
+      // console.log(this.base64);
 
       return {
         id: this.templateId,
@@ -199,9 +196,13 @@ export default {
       if (!this.isTemplateEditable) return;
       const { templateId } = await this.$axios.$post("/xapi", {
         saveTemplate: {
-          templateId: this.templateId,
+          templateId: null,
           templateData: this.templateData
         }
+        // saveTemplate: {
+        //   templateId: this.templateId,
+        //   templateData: this.templateData
+        // }
       });
       this.templateId = templateId;
     },
@@ -306,6 +307,19 @@ export default {
         this.showIntroModal = true;
       }, 1500);
     }
+    // when opening page create draft and erase template:
+    const eraseTemplate = async () => {
+      // immediatly create draft when opening
+      await this.saveDraft();
+      // if i editing template- erase it from data-base
+      await this.$axios.$post("/xapi", {
+        deleteTemplate: {
+          templateId: this.templateId,
+          isPublic: this.isPublic
+        }
+      });
+    };
+    eraseTemplate();
   },
   provide() {
     return {
