@@ -1,19 +1,19 @@
 <template>
   <PopupModal
-    title="Create New Template"
+    :title="`Create New Template${templateWithAi ? ' With AI' : ''}`"
     :active="active"
     class="new-challenge-modal create-challenge"
   >
-    <div class="new-challenge-modal__section">
+    <div class="new-challenge-modal__section" v-if="!templateWithAi">
       <h3 class="new-challenge-modal__subheading">Choose a language</h3>
       <VueSelect
         v-model="selectedLanguage"
-        :options="languageOptions"
+        :options="templateWithAi ? languageOptions.filter(language => language.name === 'English') : languageOptions"
         :reduce="option => option.name"
         class="language-selector"
       />
     </div>
-    <div class="new-challenge-modal__section">
+    <div class="new-challenge-modal__section" v-if="!templateWithAi">
       <h3 class="new-challenge-modal__subheading">
         Clone existing template
       </h3>
@@ -29,6 +29,69 @@
         </div>
       </div>
     </div>
+  <form class="form new-challenge-modal__section" @submit.prevent v-else>
+    <div class="form__field">
+      <label for="language" class="form__label">Choose a language</label>
+      <VueSelect
+        v-model="selectedLanguage"
+        :options="templateWithAi ? languageOptions.filter(language => language.name === 'English') : languageOptions"
+        :reduce="option => option.name"
+        class="language-selector"
+      />
+    </div>
+      <div class="form__field">
+        <label for="topic" class="form__label">
+          What is the topic of the challenge?
+        </label>
+        <input
+          v-model="template.topic"
+          id="topic"
+          required
+          class="form__input"
+          placeholder="Topic"
+        />
+      </div>
+      <div class="form__field">
+        <label for="days" class="form__label">
+          How much days should be in the challenge?
+        </label>
+        <client-only>
+          <NumberInput
+          v-model="template.days"
+          id="days"
+          :min="1"
+          :max="5"
+          :center="true"
+          size="large"
+          controls
+          />
+        </client-only>
+      </div>
+      <div class="form__field">
+        <label for="tasks" class="form__label">
+          How much tasks should be in the challenge?
+        </label>
+        <client-only>
+          <NumberInput
+          v-model="template.tasks"
+          id="tasks"
+          :min="1"
+          :max="10"
+          :center="true"
+          size="large"
+          controls
+          />
+        </client-only>
+      </div>
+      <div class="buttons">
+        <BaseButton variant="blue" @click="createTemplateWithAi">
+          Create With AI
+        </BaseButton>
+        <BaseButton variant="white" @click="templateWithAi = false">
+          Clone existing template
+        </BaseButton>
+      </div>
+    </form>
     <div class="new-challenge-modal__section">
       <h3
         class="new-challenge-modal__subheading new-challenge-modal__subheading--big"
@@ -39,7 +102,11 @@
         <BaseButton variant="blue" @click="selectTemplate(null)">
           Create empty template
         </BaseButton>
-        <BaseButton variant="blue" @click="createTemplateWithAi">
+        <BaseButton
+          variant="blue"
+          @click="templateWithAi = true"
+          v-if="!templateWithAi"
+        >
           Create template with AI
         </BaseButton>
       </div>
@@ -53,14 +120,24 @@ import languageOptions from "../../assets/data/languages";
 
 export default {
   props: {
-    active: Boolean
+    active: Boolean,
   },
   inject: ["closeModal"],
   data() {
     return {
       selectedLanguage: "English",
-      loading: false
+      loading: false,
+      templateWithAi: false,
+      template: {
+        topic: "",
+        days: 2,
+        tasks: 5,
+      }
     };
+  },
+  components: {
+    NumberInput: () =>
+      process.client ? import("@chenfengyuan/vue-number-input") : null
   },
   computed: {
     languageOptions() {
@@ -136,19 +213,16 @@ export default {
       });
     },
     async createTemplateWithAi() {
-      this.loading = true;
-
-      // implement popup modal to open for topic input and language selection
-
-      const topic = prompt("Enter a topic for your template");
-      if (!topic) {
-        this.loading = false;
+      if (!this.template.topic) {
         return;
       }
+      this.loading = true;
       const { template } = await this.$axios.$post("/xapi", {
         createTemplateWithAi: {
-          topic,
-          language: this.selectedLanguage
+          topic: this.template.topic,
+          language: this.selectedLanguage,
+          days: this.template.days,
+          tasks: this.template.tasks
         }
       });
       this.$cookies.set("selectedTemplate", template._id);
@@ -163,7 +237,12 @@ export default {
   watch: {
     userLanguage() {
       this.autoSetLanguage();
-    }
+    },
+    templateWithAi() {
+      if (this.templateWithAi) {
+        this.selectedLanguage = "English";
+      }
+    },
   },
   created() {
     this.autoSetLanguage();
