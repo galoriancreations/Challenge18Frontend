@@ -1,6 +1,6 @@
 <template>
   <PopupModal
-    :title="`Create New Template${templateWithAi ? ' With AI' : ''}`"
+    title="Create New Template"
     :active="active"
     class="new-challenge-modal create-challenge"
   >
@@ -8,8 +8,12 @@
       <h3 class="new-challenge-modal__subheading">Choose a language</h3>
       <VueSelect
         v-model="selectedLanguage"
-        :options="templateWithAi ? languageOptions.filter(language => language.name === 'English') : languageOptions"
-        :reduce="option => option.name"
+        :options="
+          templateWithAi
+            ? languageOptions.filter((language) => language.name === 'English')
+            : languageOptions
+        "
+        :reduce="(option) => option.name"
         class="language-selector"
       />
     </div>
@@ -24,74 +28,85 @@
           :key="template._id"
         >
           <label @click="selectTemplate(template)">
-            {{ template.name || "(Unnamed)" }}
+            {{ template.name || '(Unnamed)' }}
           </label>
         </div>
       </div>
     </div>
-  <form class="form new-challenge-modal__section" @submit.prevent v-else>
-    <div class="form__field">
-      <label for="language" class="form__label">Choose a language</label>
-      <VueSelect
-        v-model="selectedLanguage"
-        :options="templateWithAi ? languageOptions.filter(language => language.name === 'English') : languageOptions"
-        :reduce="option => option.name"
-        class="language-selector"
-      />
+    <div class="new-challenge-modal__section" v-else>
+      <h3 class="new-challenge-modal__subheading">
+        Create template with AI
+      </h3>
+      <form class="form" @submit.prevent>
+        <div class="form__field">
+          <label for="language" class="form__label">Choose a language</label>
+          <VueSelect
+            v-model="selectedLanguage"
+            :options="
+              templateWithAi
+                ? languageOptions.filter(
+                    (language) => language.name === 'English'
+                  )
+                : languageOptions
+            "
+            :reduce="(option) => option.name"
+            class="language-selector"
+          />
+        </div>
+        <div class="form__field">
+          <label for="topic" class="form__label">
+            What is the topic of the challenge?
+          </label>
+          <input
+            v-model="template.topic"
+            id="topic"
+            required
+            class="form__input"
+            placeholder="Topic"
+          />
+        </div>
+        <div class="form__field">
+          <label for="days" class="form__label">
+            How much days should be in the challenge?
+          </label>
+          <client-only>
+            <NumberInput
+              v-model="template.days"
+              id="days"
+              :min="1"
+              :max="5"
+              :center="true"
+              size="large"
+              controls
+            />
+          </client-only>
+        </div>
+        <div class="form__field">
+          <label for="tasks" class="form__label">
+            How much tasks should be in the challenge?
+          </label>
+          <client-only>
+            <NumberInput
+              v-model="template.tasks"
+              id="tasks"
+              :min="1"
+              :max="10"
+              :center="true"
+              size="large"
+              controls
+            />
+          </client-only>
+        </div>
+        <div class="buttons">
+          <BaseButton variant="blue" @click="createTemplateWithAi">
+            Create With AI
+          </BaseButton>
+          <BaseButton variant="white" @click="templateWithAi = false">
+            Clone existing template
+          </BaseButton>
+        </div>
+      </form>
     </div>
-      <div class="form__field">
-        <label for="topic" class="form__label">
-          What is the topic of the challenge?
-        </label>
-        <input
-          v-model="template.topic"
-          id="topic"
-          required
-          class="form__input"
-          placeholder="Topic"
-        />
-      </div>
-      <div class="form__field">
-        <label for="days" class="form__label">
-          How much days should be in the challenge?
-        </label>
-        <client-only>
-          <NumberInput
-          v-model="template.days"
-          id="days"
-          :min="1"
-          :max="5"
-          :center="true"
-          size="large"
-          controls
-          />
-        </client-only>
-      </div>
-      <div class="form__field">
-        <label for="tasks" class="form__label">
-          How much tasks should be in the challenge?
-        </label>
-        <client-only>
-          <NumberInput
-          v-model="template.tasks"
-          id="tasks"
-          :min="1"
-          :max="10"
-          :center="true"
-          size="large"
-          controls
-          />
-        </client-only>
-      </div>
-      <div class="buttons">
-        <BaseButton variant="blue" @click="createTemplateWithAi">
-          Create With AI
-        </BaseButton>
-        <BaseButton variant="white" @click="templateWithAi = false">
-          Clone existing template
-        </BaseButton>
-      </div>
-    </form>
     <div class="new-challenge-modal__section">
       <h3
         class="new-challenge-modal__subheading new-challenge-modal__subheading--big"
@@ -122,7 +137,7 @@ export default {
   props: {
     active: Boolean,
   },
-  inject: ["closeModal"],
+  inject: ["closeModal", "addNotification"],
   data() {
     return {
       selectedLanguage: "English",
@@ -217,6 +232,11 @@ export default {
         return;
       }
       this.loading = true;
+      this.addNotification(
+        `Creating template with AI. This may <strong>take a few minutes</strong>.
+          You will be <strong>redirected</strong> to the editor when it's <strong>done</strong>.`,
+      );
+      this.closeModal();
       const { template } = await this.$axios.$post("/xapi", {
         createTemplateWithAi: {
           topic: this.template.topic,
