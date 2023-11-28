@@ -59,6 +59,7 @@ export default {
       "~/components/how-to-play",
       "~/components/marketplace",
       "~/components/sharoniscaring",
+
     ]
   },
 
