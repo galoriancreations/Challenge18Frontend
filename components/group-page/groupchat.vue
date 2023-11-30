@@ -1,6 +1,6 @@
 <template>
   <messegesSection :title="groupId.name" class="my-messeges">
-    <BotMessage :msginfo="botMessage"/>
+    <BotMessage :key="mission.ind" v-for="mission in botMessage" :msginfo="mission.text" :emojiInfo="mission.emoji"/>
     <br>
     <div v-if="hasMessages" class="my-messeges__empty">
       <p>Messages will appear here.</p>
@@ -34,7 +34,8 @@ export default {
         return {
             title: 'Group Chat',
             Messeges: [],
-            botMessage: 'bot message',
+            botMessage: [{text:'bot message',ind:0}],
+            emoji: ['hhhg','gogogo'],
             input: '',
             loadNewMessage: {timeout: null},
         };
@@ -52,9 +53,8 @@ export default {
     },
     methods: {
         autoLoadData() {
-            
-            clearTimeout(this.loadNewMessage.timeout);
-            this.loadNewMessage.timeout = setTimeout(async () => {
+            clearInterval(this.loadNewMessage.timeout);
+            this.loadNewMessage.timeout = setInterval(async () => {
                 try {
                     await this.groupMessages();
                 } catch (err) {
@@ -67,7 +67,12 @@ export default {
             const res = await this.$axios.$post("/xapi", {
                 loadGroup: groupId
             });
+            // debugger
             this.botMessage = res.botMessage;
+            let emojis = res.emoji
+            emojis.forEach((val,ind)=>{
+                this.botMessage[ind]['emoji'] = Object.keys(val)[0]
+            })
             let myMessages = res.messages;
             myMessages.forEach((val, ind) => {
                 if (!val.nickname) {
@@ -108,7 +113,7 @@ export default {
                         if (message[i] == ' ') {
                             num = 1;
                         }
-                        else if (num == 27) {
+                        else if (num == 40) {
                             const part1 = message.slice(0, i);
                             const part2 = message.slice(i, message.length + 1);
                             message = part1 + '\n' + part2;
@@ -154,7 +159,7 @@ export default {
     created() {
         this.groupMessages();
         // this.autoLoadData()
-                        //turn on before push!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+
     },
     provide() {
         return {

@@ -121,10 +121,23 @@ export default {
     },
     selections() {
       const selections = {};
-      this.data.days.forEach(day => {
-        selections[day.id] = {};
+      let selectedDay = 1;
+      let dayIndex = selectedDay - 1;
+      let dateid;
+      const date = ()=>{
+        const date = moment(this.data.date);
+        date.add(dayIndex * this.data.dayMargin, "days");
+        dateid = date.format("L");
+      }
+      this.data.days.forEach((day,ind) => {
+        selectedDay = ind
+        dayIndex = selectedDay;
+        
+        date()
+        selections[dateid] = {};
         day.tasks.forEach(task => {
-          selections[day.id][task.id] = task.selection;
+          const time = task.time.slice(0,5)
+          selections[dateid][task.id] = {message:task.selection,points:task.points,emoji:task.emoji,time:time};
         });
       });
       return selections;
