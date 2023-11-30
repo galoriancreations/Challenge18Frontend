@@ -1,21 +1,17 @@
 <template>
   <section class="intro">
     <div class="intro__top">
-      <h1 class="intro__heading">Challenge Yourself to Change</h1>
+      <h1 class="intro__heading">Ting Global: AI-Powered Education </h1>
       <p class="intro__subheading">
-        Connect and inspire the world through play – Challenge 18: a WhatsApp
-        based social platform.
+        Transforming Education Through AI and DAO Collaboration
       </p>
     </div>
     <div class="intro__content">
-      <img
-        class="intro__img"
-        src="../../assets/images/challenge-intro.gif"
-        alt="Challenge 18"
-      />
+      <img class="intro__img" src="../../assets/images/challenge-intro.gif" alt="Challenge 18" />
       <p class="intro__text">
-        TING.global provides unique and engaging daily tasks to develop global
-        awareness through collaboration and friendly competition.
+        Discover the future of education at Ting Global, where we blend cutting-edge AI technology with the power of
+        decentralized autonomous organization (DAO) principles. Join us in revolutionizing the way you learn, collaborate,
+        and grow.
       </p>
     </div>
     <div class="intro__links">
@@ -43,11 +39,9 @@ export default {
 <style lang="scss">
 .intro {
   padding: 18rem $padding-sides-desktop;
-  background-image: linear-gradient(
-      to right,
+  background-image: linear-gradient(to right,
       rgba(#4189bd, 0.75),
-      rgba(#4189bd, 0.75)
-    ),
+      rgba(#4189bd, 0.75)),
     url(../../assets/images/backgrounds/join-bg.jpg);
   background-position: center;
   background-size: cover;
@@ -179,6 +173,7 @@ export default {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
