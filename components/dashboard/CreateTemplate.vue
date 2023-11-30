@@ -41,6 +41,7 @@
         <div class="form__field">
           <label for="language" class="form__label">Choose a language</label>
           <VueSelect
+            :disabled="loading"
             v-model="selectedLanguage"
             :options="
               templateWithAi
@@ -58,6 +59,7 @@
             What is the topic of the challenge?
           </label>
           <input
+            :disabled="loading"
             v-model="template.topic"
             id="topic"
             required
@@ -66,15 +68,29 @@
           />
         </div>
         <div class="form__field">
+          <label for="targetAudience" class="form__label">
+            What is the target audience of the challenge?
+          </label>
+          <input
+            :disabled="loading"
+            v-model="template.targetAudience"
+            id="targetAudience"
+            required
+            class="form__input"
+            placeholder="For example: elementary school, high school, university, ..."
+          />
+        </div>
+        <div class="form__field">
           <label for="days" class="form__label">
-            How much days should be in the challenge?
+            How many days?
           </label>
           <client-only>
             <NumberInput
+              :disabled="loading"
               v-model="template.days"
               id="days"
               :min="1"
-              :max="5"
+              :max="30"
               :center="true"
               size="large"
               controls
@@ -83,10 +99,11 @@
         </div>
         <div class="form__field">
           <label for="tasks" class="form__label">
-            How much tasks should be in the challenge?
+            How much tasks per day?
           </label>
           <client-only>
             <NumberInput
+              :disabled="loading"
               v-model="template.tasks"
               id="tasks"
               :min="1"
@@ -98,7 +115,11 @@
           </client-only>
         </div>
         <div class="buttons">
-          <BaseButton variant="blue" @click="createTemplateWithAi">
+          <BaseButton
+            variant="blue"
+            @click="createTemplateWithAi"
+            :disabled="loading"
+          >
             Create With AI
           </BaseButton>
           <BaseButton variant="white" @click="templateWithAi = false">
@@ -147,6 +168,7 @@ export default {
         topic: "",
         days: 2,
         tasks: 5,
+        targetAudience: "",
       }
     };
   },
@@ -242,7 +264,8 @@ export default {
           topic: this.template.topic,
           language: this.selectedLanguage,
           days: this.template.days,
-          tasks: this.template.tasks
+          tasks: this.template.tasks,
+          targetAudience: this.template.targetAudience,
         }
       });
       this.$cookies.set("selectedTemplate", template._id);
