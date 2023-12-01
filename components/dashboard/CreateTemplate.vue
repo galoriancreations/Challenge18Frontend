@@ -10,7 +10,7 @@
         v-model="selectedLanguage"
         :options="
           templateWithAi
-            ? languageOptions.filter((language) => language.name === 'English')
+            ? filteredAiLanguageOptions
             : languageOptions
         "
         :reduce="(option) => option.name"
@@ -99,7 +99,7 @@
         </div>
         <div class="form__field">
           <label for="tasks" class="form__label">
-            How much tasks per day?
+            How many tasks per day?
           </label>
           <client-only>
             <NumberInput
@@ -114,18 +114,66 @@
             />
           </client-only>
         </div>
-        <div class="buttons">
-          <BaseButton
-            variant="blue"
-            @click="createTemplateWithAi"
-            :disabled="loading"
-          >
-            Create With AI
-          </BaseButton>
-          <BaseButton variant="white" @click="templateWithAi = false">
-            Clone existing template
-          </BaseButton>
+        <div class="form__field">
+          <label for="messages" class="form__label">
+            How many messages per day?
+          </label>
+          <client-only>
+            <NumberInput
+              :disabled="loading"
+              v-model="template.messages"
+              id="messages"
+              :min="0"
+              :max="10"
+              :center="true"
+              size="large"
+              controls
+            />
+          </client-only>
         </div>
+        <div class="aiFormInline">
+          <div class="form__field">
+            <label for="preDays" class="form__label">
+              How many days for pre messages?
+            </label>
+            <client-only>
+              <NumberInput
+                :disabled="loading"
+                v-model="template.preDays"
+                id="preDays"
+                :min="0"
+                :max="10"
+                :center="true"
+                size="large"
+                controls
+              />
+            </client-only>
+          </div>
+          <div class="form__field">
+            <label for="preMessagesPerDay" class="form__label">
+              How many pre messages per day?
+            </label>
+            <client-only>
+              <NumberInput
+                :disabled="loading || template.preDays === 0"
+                v-model="template.preMessagesPerDay"
+                id="preMessagesPerDay"
+                :min="0"
+                :max="10"
+                :center="true"
+                size="large"
+                controls
+              />
+            </client-only>
+          </div>
+        </div>
+        <BaseButton
+          variant="blue"
+          @click="createTemplateWithAi"
+          :disabled="loading"
+        >
+          Create With AI
+        </BaseButton>
       </form>
     </div>
     <div class="new-challenge-modal__section">
@@ -144,6 +192,9 @@
           v-if="!templateWithAi"
         >
           Create template with AI
+        </BaseButton>
+        <BaseButton variant="blue" @click="templateWithAi = false" v-else>
+          Clone existing template
         </BaseButton>
       </div>
     </div>
@@ -168,6 +219,9 @@ export default {
         topic: "",
         days: 2,
         tasks: 5,
+        messages: 0,
+        preDays: 0,
+        preMessagesPerDay: 0,
         targetAudience: "",
       }
     };
@@ -203,6 +257,11 @@ export default {
     filteredTemplateOptions() {
       return this.templateOptions.filter(
         template => template.language === this.selectedLanguage
+      );
+    },
+    filteredAiLanguageOptions() {
+      return this.languageOptions.filter(
+        language => language.name === "English"
       );
     }
   },
@@ -258,13 +317,16 @@ export default {
         `Creating template with AI. This may <strong>take a few minutes</strong>.
           You will be <strong>redirected</strong> to the editor when it's <strong>done</strong>.`,
       );
-      this.closeModal();
+      // this.closeModal();
       const { template } = await this.$axios.$post("/xapi", {
         createTemplateWithAi: {
           topic: this.template.topic,
           language: this.selectedLanguage,
           days: this.template.days,
           tasks: this.template.tasks,
+          messages: this.template.messages,
+          preDays: this.template.preDays,
+          preMessagesPerDay: this.template.preMessagesPerDay,
           targetAudience: this.template.targetAudience,
         }
       });
@@ -286,6 +348,11 @@ export default {
         this.selectedLanguage = "English";
       }
     },
+    "template.preDays"(newValue) {
+      if (newValue === 0) {
+        this.template.preMessagesPerDay = 0;
+      }
+    }
   },
   created() {
     this.autoSetLanguage();
@@ -298,5 +365,9 @@ export default {
   display: flex;
   justify-content: space-between;
   margin-top: 1rem;
+}
+.aiFormInline {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
