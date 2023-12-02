@@ -130,18 +130,18 @@ export default {
         `Are you sure you want to delete these ${selections.length} templates? This action is irreversible.`,
         async () => {
           this.loading = true;
-          const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-          for (const template of selections) {
-            await this.$axios.$post('/xapi', {
-              deleteTemplate: {
-                templateId: template._id,
-                isPublic: template.isPublic
-              },
-            });
-            await delay(1);
-          }
-          const filter = item =>
-            !selections.map(selection => selection._id).includes(item._id);
+          // delete all template at once
+          console.log("deleting all templates at once");
+          console.log(selections.map((selection) => selection._id));
+          await this.$axios.$post('/xapi', {
+            deleteTemplate: {
+              templateIds: selections.map((selection) => selection._id),
+              isPublic: selections.map((selection) => selection.isPublic),
+            },
+          });
+
+          const filter = (item) =>
+            !selections.map((selection) => selection._id).includes(item._id);
           this.filterTemplates(filter);
           this.addNotification(
             `Successfully deleted <strong>${selections.length} templates</strong>.`
