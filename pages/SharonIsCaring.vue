@@ -3,8 +3,14 @@
         <BaseButton variant="blue" @click="getQuestion">Pop a random question</BaseButton>
         <PopupModal :active="active" height="350px" class="popupQuestion">
             <h1 class="popupQuestion__title">{{this.text}}</h1>
-            <h3 class="popupQuestion__text" >send the link and share thw question:</h3>
-            <NuxtLink to='/questionpage' class="popupQuestion__text">question{{this.id}}</NuxtLink>
+            <h3 class="popupQuestion__text" >send the link and share the question:</h3>
+            <NuxtLink :to="{
+              name:'QuestionPage',
+              params: {ques:text}
+            }" 
+            class="popupQuestion__text">
+              question{{this.id}}
+            </NuxtLink>
             <BaseButton variant="blue" @click="getQuestion">change question</BaseButton>
         </PopupModal>
     </Page>
@@ -21,7 +27,7 @@ export default {
         return {
             questions,
             text: '',
-            id: ''
+            id: '',
         }
     },
     props: {
