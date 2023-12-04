@@ -1,15 +1,5 @@
 <template>
     <Page title="Sharon is Caring" name="sharon-is-caring">
-<<<<<<< HEAD
-       
-        <button class="btn" @click="randomQuestion">Question</button>
-        <p>{{ }}</p>
-        <button>share your question</button> <br>
-        <label>your answer:</label> <br>
-        <input type="text" placeholder="enter your answer" v-model="answer">
-        <br>
-        <button>click to show more answers</button>
-=======
         <BaseButton variant="blue" @click="getQuestion">Pop a random question</BaseButton>
         <PopupModal :active="active" height="350px" class="popupQuestion">
             <h1 class="popupQuestion__title">{{this.text}}</h1>
@@ -17,7 +7,6 @@
             <NuxtLink to='/questionpage' class="popupQuestion__text">question{{this.id}}</NuxtLink>
             <BaseButton variant="blue" @click="getQuestion">change question</BaseButton>
         </PopupModal>
->>>>>>> 8c0b05903812175f18cc06165e7bc56890d445f0
     </Page>
 </template>
 
@@ -49,13 +38,8 @@ export default {
     },
     components: { Page }
 }
-
 </script>
 
-<<<<<<< HEAD
-<style scoped>
-
-=======
 <style lang="scss">
 .popupQuestion{
 
@@ -85,5 +69,4 @@ export default {
     margin-top: 3rem;
   }
 }
->>>>>>> 8c0b05903812175f18cc06165e7bc56890d445f0
 </style>
