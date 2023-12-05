@@ -131,8 +131,6 @@ export default {
         async () => {
           this.loading = true;
           // delete all template at once
-          console.log("deleting all templates at once");
-          console.log(selections.map((selection) => selection._id));
           await this.$axios.$post('/xapi', {
             deleteTemplate: {
               templateIds: selections.map((selection) => selection._id),

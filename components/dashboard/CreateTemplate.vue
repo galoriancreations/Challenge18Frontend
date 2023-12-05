@@ -4,6 +4,7 @@
     :active="active"
     class="new-challenge-modal create-challenge"
   >
+  <div ref="topDiv" class="topDiv"/>
     <div class="new-challenge-modal__section" v-if="!templateWithAi">
       <h3 class="new-challenge-modal__subheading">Choose a language</h3>
       <VueSelect
@@ -37,6 +38,10 @@
       <h3 class="new-challenge-modal__subheading">
         Create template with AI
       </h3>
+      <Progress
+        message="Creating template with AI. This may <strong>take a few minutes</strong>.<br/>You will be <strong>redirected</strong> to the editor when it's <strong>done</strong>."
+        v-if="loading"
+      />
       <form class="form" @submit.prevent>
         <div class="form__field">
           <label for="language" class="form__label">Choose a language</label>
@@ -158,7 +163,7 @@
                 :disabled="loading || template.preDays === 0"
                 v-model="template.preMessagesPerDay"
                 id="preMessagesPerDay"
-                :min="0"
+                :min="template.preDays === 0 ? 0 : 1"
                 :max="10"
                 :center="true"
                 size="large"
@@ -198,7 +203,7 @@
         </BaseButton>
       </div>
     </div>
-    <BaseSpinner v-if="loading" />
+    <BaseSpinner v-if="loading && !templateWithAi" />
   </PopupModal>
 </template>
 
@@ -217,11 +222,11 @@ export default {
       templateWithAi: false,
       template: {
         topic: "",
-        days: 2,
-        tasks: 5,
-        messages: 0,
-        preDays: 0,
-        preMessagesPerDay: 0,
+        days: 18,
+        tasks: 1,
+        messages: 1,
+        preDays: 3,
+        preMessagesPerDay: 1,
         targetAudience: "",
       }
     };
@@ -317,7 +322,10 @@ export default {
         `Creating template with AI. This may <strong>take a few minutes</strong>.
           You will be <strong>redirected</strong> to the editor when it's <strong>done</strong>.`,
       );
-      // this.closeModal();
+
+      // go to top of modal by going to topDiv
+      this.$refs.topDiv.scrollIntoView();
+            
       const { template } = await this.$axios.$post("/xapi", {
         createTemplateWithAi: {
           topic: this.template.topic,
@@ -328,6 +336,7 @@ export default {
           preDays: this.template.preDays,
           preMessagesPerDay: this.template.preMessagesPerDay,
           targetAudience: this.template.targetAudience,
+          creator: this.user._id,
         }
       });
       this.$cookies.set("selectedTemplate", template._id);
@@ -369,5 +378,9 @@ export default {
 .aiFormInline {
   display: flex;
   justify-content: space-between;
+}
+.topDiv {
+  position: absolute;
+  top: 0;
 }
 </style>
