@@ -4,7 +4,11 @@
         <PopupModal :active="active" height="350px" class="popupQuestion">
             <h1 class="popupQuestion__title">{{this.text}}</h1>
             <h3 class="popupQuestion__text" >send the link and share thw question:</h3>
-            <NuxtLink to='/questionpage' class="popupQuestion__text">question{{this.id}}</NuxtLink>
+            <NuxtLink :to="{
+              name: 'QuestionPage',
+              params: {ques: id }
+              }" 
+              class="popupQuestion__text">question{{this.id}}</NuxtLink>
             <BaseButton variant="blue" @click="getQuestion">change question</BaseButton>
         </PopupModal>
     </Page>

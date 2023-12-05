@@ -1,6 +1,6 @@
 <template>
     <PopupModal :active="active" height="400px" class="popupAnswer">
-        <h1 class="popupAnswer__title">*the chosen question*</h1>
+        <h1 class="popupAnswer__title">{{text}}</h1>
       <textarea
         class="popupAnswer__input"
         v-model="answer"
@@ -24,7 +24,8 @@ export default {
     props: {
         active: Boolean,
         id: String,
-        newAnswer: String
+        newAnswer: String,
+        text: String
     },
     methods: {
         onPublish(e){

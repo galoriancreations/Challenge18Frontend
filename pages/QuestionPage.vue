@@ -1,6 +1,6 @@
 <template>
-    <Page title="*the chosen question*" name="question-page">
-        <AddAnswer :active="showModal" @publish-answer="publishAnswer" />
+    <Page v-bind:title="item.text" name="question-page">
+        <AddAnswer :text="quesid" :active="showModal" @publish-answer="publishAnswer" />
         <div v-if="!showModal" >
             <AllAnswers :answers="answers" />
             <NuxtLink to='/sharoniscaring' class="btn">share another question</NuxtLink>
@@ -24,11 +24,17 @@ export default {
             answers: [
                 {userName: "amit", text: "abc"},
                 {userName: "may", text: "aaaa"},
-            ]
+            ],
+            quesid: this.$route.params.ques,
         }
     },
-    props: {
-        id: String
+    computed: {
+    questions() {
+      return this.$store.getters["admin/questions"];
+    },
+    item() {
+      return this.questions[parseInt(this.quesid)-1];
+    },
     },
     methods:{
         publishAnswer(answer){
