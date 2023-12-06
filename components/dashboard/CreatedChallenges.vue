@@ -53,12 +53,15 @@ export default {
       return userChallenges;
     },
     items() { 
-      console.log("user is :" + this.$store.getters.user);
-      return this.user.createdChallenges.map(challenge => ({
-        ...challenge, numOfUsers: Object.keys(challenge.scores).length,
-        currentDay: currentDay(challenge),
-        edit: () => this.editChallenge(challenge._id)
-      }));
+      return Object.keys(this.user.createdChallenges).map(challengeKey => {
+        const challenge = this.user.createdChallenges[challengeKey];
+        return ({
+          ...challenge,
+          numOfUsers: Object.keys(challenge.scores).length,
+          currentDay: currentDay(challenge),
+          edit: () => this.editChallenge(challenge._id)
+        });
+      });
     }
   },
   methods: {
