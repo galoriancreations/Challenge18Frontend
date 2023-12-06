@@ -41,7 +41,8 @@
 <script>
 export default {
   props: {
-    message: String,
+    preMessage: String,
+    postMessage: String,
   },
   data() {
     return {
@@ -80,7 +81,7 @@ export default {
       if (this.done) {
         return 'Done!';
       } else {
-        return `Attempt ${this.attempts} / ${this.maxAttempts} to get data from server<br /> ${this.message}`;
+        return `${this.preMessage} ${this.attempts} / ${this.maxAttempts} ${this.postMessage}`;
       }
     },
   },
@@ -139,13 +140,6 @@ export default {
         font-size: 1.5rem;
       }
     }
-  }
-
-  .percentage {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
   }
 }
 </style>
