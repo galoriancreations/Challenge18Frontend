@@ -62,13 +62,14 @@ export default {
       this.attempts = data.attempts;
       this.maxAttempts = data.maxAttempts;
 
-      console.log('data:', event.data);
+      if (data.done) {
+        this.done = true;
+        source.close();
+      }
     };
 
     source.addEventListener('end', () => {
-      this.done = true;
       source.close();
-      console.log('done');
     });
   },
   unmounted() {
@@ -100,7 +101,7 @@ export default {
           clearInterval(interval);
         }
         // calculate interval time based on how much progress is left
-      }, 5000 / (this.progress - this.percentage));
+      }, 10000 / (this.progress - this.percentage));
     },
   },
 };
@@ -116,7 +117,7 @@ export default {
       transform-origin: 50% 50%;
       stroke-dasharray: 100;
       stroke-dashoffset: 100;
-      transition: stroke-dashoffset 5s ease-out;
+      transition: stroke-dashoffset 10s ease-out;
       stroke: $color-gold-3;
     }
 
