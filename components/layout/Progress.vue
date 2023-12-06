@@ -11,6 +11,17 @@
           stroke-width="12"
         />
         <circle
+          ref="bufferCircle"
+          class="buffer"
+          cx="60"
+          cy="60"
+          r="54"
+          fill="none"
+          stroke="#808080"
+          stroke-width="12"
+          pathLength="100"
+        />
+        <circle
           ref="circle"
           class="percent"
           cx="60"
@@ -21,6 +32,7 @@
           stroke-width="12"
           pathLength="100"
         />
+
         <text
           x="50%"
           y="50%"
@@ -93,6 +105,11 @@ export default {
         this.$refs.circle.style.strokeDashoffset = 100 - this.progress;
       }
 
+      // animate buffer circle faster than percent circle
+      if (this.$refs.bufferCircle) {
+        this.$refs.bufferCircle.style.strokeDashoffset = 100 - this.progress;
+      }
+
       // animate percentage following progress with interval
       const interval = setInterval(() => {
         if (this.percentage < this.progress) {
@@ -112,13 +129,23 @@ export default {
   position: relative;
 
   .progress {
-    svg > .percent {
-      transform: rotate(-90deg);
-      transform-origin: 50% 50%;
-      stroke-dasharray: 100;
-      stroke-dashoffset: 100;
-      transition: stroke-dashoffset 10s ease-out;
-      stroke: $color-gold-3;
+    svg {
+      .percent,
+      .buffer {
+        transform: rotate(-90deg);
+        transform-origin: 50% 50%;
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+      }
+      .percent {
+        transition: stroke-dashoffset 10s ease-out;
+        stroke: $color-gold-3;
+        z-index: 1;
+      }
+      .buffer {
+        transition: stroke-dashoffset 1s ease-out;
+        z-index: -1;
+      }
     }
 
     &__percentage {
