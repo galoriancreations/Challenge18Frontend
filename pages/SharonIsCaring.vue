@@ -9,7 +9,7 @@
               params: {ques:text}
             }" 
             class="popupQuestion__text">
-              question{{this.id}}
+              Qlick to answer
             </NuxtLink>
             <BaseButton variant="blue" @click="getQuestion">change question</BaseButton>
         </PopupModal>
@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import questions from "~/assets/data/100questions";
 import Page from "~/components/layout/Page.vue";
 import popupModal from "~/mixins/popup-modal";
 
@@ -25,21 +24,20 @@ export default {
     mixins: [popupModal],
     data() {
         return {
-            questions,
             text: '',
-            id: '',
         }
     },
     props: {
         active: Boolean
     },
     methods: {
-        getQuestion(){
-            this.active = true;
-            let i = Math.floor(Math.random() * 94);
-
-            this.text = this.questions[i].text,
-            this.id = this.questions[i].id
+      async getQuestion(){
+        const res= await this.$axios.$post("/xapi",{
+          getQuestion:true
+        })
+        this.text=res
+        // console.log(res);
+        this.active = true;
         }
     },
     components: { Page }

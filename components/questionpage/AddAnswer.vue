@@ -28,13 +28,19 @@ export default {
         quesname:String
     },
     methods: {
-        onPublish(e){
-            e.preventDefault()
-
-            if(!this.answer){
-                alert('Please add a answer')
-                return;
-            }
+      async onPublish(e){
+        e.preventDefault()
+        const res= await this.$axios.$post("/xapi",{
+          getAnswer:{
+            question: this.quesname,
+            answer: this.answer
+          }
+        })
+        console.log(res.msg);
+          if(!this.answer){
+            alert('Please add a answer')
+            return;
+          }
 
             let newAnswer = this.answer;
             this.$emit('publish-answer', newAnswer);
