@@ -6,7 +6,7 @@
             <h3 class="popupQuestion__text" >send the link and share thw question:</h3>
             <NuxtLink :to="{
               name: 'QuestionPage',
-              params: {ques: id }
+              params: {ques: text }
               }" 
               class="popupQuestion__text">question{{this.id}}</NuxtLink>
             <BaseButton variant="blue" @click="getQuestion">change question</BaseButton>
@@ -25,7 +25,7 @@ export default {
         return {
             questions,
             text: '',
-            id: ''
+            id: '',
         }
     },
     props: {

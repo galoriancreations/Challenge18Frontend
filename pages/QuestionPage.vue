@@ -1,12 +1,11 @@
 <template>
-    <Page v-bind:title="item.text" name="question-page">
+    <Page v-bind:title="quesid" name="question-page">
         <AddAnswer :text="quesid" :active="showModal" @publish-answer="publishAnswer" />
         <div v-if="!showModal" >
             <AllAnswers :answers="answers" />
             <NuxtLink to='/sharoniscaring' class="btn">share another question</NuxtLink>
         </div>
     </Page>
-
 </template>
 
 <script>
@@ -17,7 +16,6 @@ export default {
     meta: {
         requiresAuth: true
     },
-    
     data() {
         return {
             showModal: true,
@@ -40,85 +38,85 @@ export default {
         publishAnswer(answer){
             this.showModal = false;
 
-            const newAnswer = {
-                // userName: לפי המשתמש המחובר
-                text: answer
-            }
-            this.answers = [...this.answers, newAnswer] //צריך לחבר את זה לדטא בייס
-        }
-    },
-    components: { Page }
+          const newAnswer = {
+              // userName: לפי המשתמש המחובר
+              text: answer
+          }
+          this.answers = [...this.answers, newAnswer] //צריך לחבר את זה לדטא בייס
+      }
+  },
+  components: { Page }
 
 }
 </script>
 
 <style lang="scss">
 .btn {
-  display: block;
-  width: 25rem;
-  text-transform: uppercase;
-  font: inherit;
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: #fff;
-  letter-spacing: 1.3px;
-  border-radius: 100px;
-  border: 1.5px solid transparent;
-  transition: all 0.5s;
-  text-align: center;
-  cursor: pointer;
-  padding: 0.85rem 3rem;
-  margin: auto;
-  background-color: $color-blue-3;
-  color: #fff;
+display: block;
+width: 25rem;
+text-transform: uppercase;
+font: inherit;
+font-size: 1.5rem;
+font-weight: 500;
+color: #fff;
+letter-spacing: 1.3px;
+border-radius: 100px;
+border: 1.5px solid transparent;
+transition: all 0.5s;
+text-align: center;
+cursor: pointer;
+padding: 0.85rem 3rem;
+margin: auto;
+background-color: $color-blue-3;
+color: #fff;
 
-  @include respond(mobile) {
-    font-size: 1.4rem;
-  }
+@include respond(mobile) {
+  font-size: 1.4rem;
+}
 
+
+&:hover {
+  background-color: #fff;
+  color: $color-azure;
+  box-shadow: rgba(62, 57, 107, 0.3) 0px 6px 16px 0px;
+}
+
+&--white:hover {
+  background-color: #cce4fc;
+  color: $color-blue-2;
+}
+
+&--outline {
+  background-color: #fff;
+  color: $color-blue-3;
+  border: 1.5px solid $color-blue-3;
 
   &:hover {
-    background-color: #fff;
-    color: $color-azure;
-    box-shadow: rgba(62, 57, 107, 0.3) 0px 6px 16px 0px;
-  }
-
-  &--white:hover {
     background-color: #cce4fc;
     color: $color-blue-2;
+    border-color: #cce4fc;
   }
+}
 
-  &--outline {
-    background-color: #fff;
-    color: $color-blue-3;
-    border: 1.5px solid $color-blue-3;
+&:disabled,
+&:disabled:hover {
+  background-color: #fff;
+  border: 1.5px solid #ccc;
+  color: #ccc;
+  box-shadow: none;
+  cursor: initial;
+}
 
-    &:hover {
-      background-color: #cce4fc;
-      color: $color-blue-2;
-      border-color: #cce4fc;
-    }
+&.view-all-button {
+  margin-top: 5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  width: 22rem;
+
+  @include respond(mobile) {
+    margin-top: 4rem;
+    font-size: 1.3rem;
   }
-
-  &:disabled,
-  &:disabled:hover {
-    background-color: #fff;
-    border: 1.5px solid #ccc;
-    color: #ccc;
-    box-shadow: none;
-    cursor: initial;
-  }
-
-  &.view-all-button {
-    margin-top: 5rem;
-    font-size: 1.5rem;
-    font-weight: 600;
-    width: 22rem;
-
-    @include respond(mobile) {
-      margin-top: 4rem;
-      font-size: 1.3rem;
-    }
-  }
+}
 }
 </style>

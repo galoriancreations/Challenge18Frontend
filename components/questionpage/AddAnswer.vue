@@ -1,6 +1,6 @@
 <template>
     <PopupModal :active="active" height="400px" class="popupAnswer">
-        <h1 class="popupAnswer__title">{{text}}</h1>
+      <h1 class="popupAnswer__title">{{text}}</h1>
       <textarea
         class="popupAnswer__input"
         v-model="answer"
