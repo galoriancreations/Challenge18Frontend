@@ -3,11 +3,11 @@
     <div class="progress">
       <svg width="120" height="120" viewBox="0 0 120 120">
         <circle
+          class="bg"
           cx="60"
           cy="60"
           r="54"
           fill="none"
-          stroke="#e6e6e6"
           stroke-width="12"
         />
         <circle
@@ -17,9 +17,9 @@
           cy="60"
           r="54"
           fill="none"
-          stroke="#808080"
           stroke-width="12"
           pathLength="100"
+          :style="{ 'transition-duration': `${bufferDuration}ms` }"
         />
         <circle
           ref="circle"
@@ -28,9 +28,9 @@
           cy="60"
           r="54"
           fill="none"
-          stroke="#f77a52"
           stroke-width="12"
           pathLength="100"
+          :style="{ 'transition-duration': `${percentDuration}ms` }"
         />
 
         <text
@@ -55,6 +55,8 @@ export default {
   props: {
     preMessage: String,
     postMessage: String,
+    percentDuration: Number,
+    bufferDuration: Number,
   },
   data() {
     return {
@@ -75,7 +77,7 @@ export default {
       this.maxAttempts = data.maxAttempts;
 
       if (data.done) {
-        this.done = true;
+        // this.done = true;
         source.close();
       }
     };
@@ -101,14 +103,9 @@ export default {
   watch: {
     progress() {
       // animate circle following progress with transition
-      if (this.$refs.circle) {
-        this.$refs.circle.style.strokeDashoffset = 100 - this.progress;
-      }
-
+      this.$refs.circle.style.strokeDashoffset = 100 - this.progress;
       // animate buffer circle faster than percent circle
-      if (this.$refs.bufferCircle) {
-        this.$refs.bufferCircle.style.strokeDashoffset = 100 - this.progress;
-      }
+      this.$refs.bufferCircle.style.strokeDashoffset = 100 - this.progress;
 
       // animate percentage following progress with interval
       const interval = setInterval(() => {
@@ -118,7 +115,7 @@ export default {
           clearInterval(interval);
         }
         // calculate interval time based on how much progress is left
-      }, 10000 / (this.progress - this.percentage));
+      }, this.percentDuration / (this.progress - this.percentage));
     },
   },
 };
@@ -138,13 +135,13 @@ export default {
         stroke-dashoffset: 100;
       }
       .percent {
-        transition: stroke-dashoffset 10s ease-out;
         stroke: $color-gold-3;
-        z-index: 1;
       }
       .buffer {
-        transition: stroke-dashoffset 1s ease-out;
-        z-index: -1;
+        stroke: $color-gray-2;
+      }
+      .bg {
+        stroke: $color-gray-1;
       }
     }
 

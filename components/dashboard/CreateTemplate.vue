@@ -39,9 +39,11 @@
         Create template with AI
       </h3>
       <Progress
+        v-if="loading"
         preMessage="Attempt<strong>"
         postMessage="</strong>to create template with AI.<br/>This may <strong>take a few minutes</strong>.<br/>You will be <strong>redirected</strong> to the editor when it's <strong>done</strong>."
-        v-if="loading"
+        :percentDuration="50000"
+        :bufferDuration="20000"
       />
       <form class="form" @submit.prevent>
         <div class="form__field">

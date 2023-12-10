@@ -4,12 +4,21 @@
       <div key="content" class="editor__content" :style="{ direction }">
         <section class="editor__tabs">
           <SideTabs v-model="selectedDay" :tabs="days" />
-          <ActionButton
-            v-if="isTemplateEditable"
-            type="add"
-            color="white"
-            @click="addDay"
-          />
+          <div class="editor__flex-row">
+            <ActionButton
+              v-if="isTemplateEditable"
+              type="add"
+              color="white"
+              @click="addDay"
+            />
+            <ActionButton
+              v-if="isTemplateEditable"
+              color="white"
+              @click="addDayWithAi"
+            >
+            <img src="@/assets/images/microchip-ai.svg" alt="generate day with ai">
+          </ActionButton>
+          </div>
         </section>
         <section class="editor__day" ref="container">
           <DayTitleField
@@ -195,6 +204,40 @@ export default {
       this.selectedDay = this.data.days.length;
       this.setTransition("task");
     },
+    async addDayWithAi() {
+      this.submit.loading = true;
+      // get selected template by selectedTemplate cookie
+      const selectedTemplate = this.$cookies.get('selectedTemplate');
+      // create axios request to backend to generate day with ai
+      const { day } = await this.$axios.$post("/xapi", {
+        generateDayWithAi: {
+          templateId: selectedTemplate,
+        }
+      });
+      // get the day data from the response
+      const { title, time, tasks, messages, introduction } = day;
+      // map tasks to new tasks with new ids
+      const newTasks = tasks.map(task => {
+        return {
+          ...task,
+          id: uniqid(),
+        };
+      });
+      // map messages to new messages with new ids
+      const newMessages = messages.map(message => {
+        return {
+          ...message,
+          id: uniqid(),
+        };
+      });
+      // add the day to the challenge
+      this.data.days.push({ id: uniqid(), title, time, tasks: newTasks, messages: newMessages, introduction });
+      this.selectedDay = this.data.days.length;
+      // send transition to task
+      this.setTransition("task");
+
+      this.submit.loading = false;
+    },
     deleteDay() {
       this.setConfirmModal(
         "Are you sure you want to delete this day and all its tasks? This action is irreversible.",
@@ -255,6 +298,16 @@ export default {
     }
   }
 
+  &__flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    
+    @include respond(mobile) {
+      margin-bottom: 2rem;
+    }
+  }
+  
   &__day {
     position: relative;
   }
