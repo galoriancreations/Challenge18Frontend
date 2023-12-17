@@ -21,7 +21,6 @@ export default {
   computed: {
     item() {
       const item = this.$route.query;
-      console.log(this.$route)
       if (item) {
         return item
       }

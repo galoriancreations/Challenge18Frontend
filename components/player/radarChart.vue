@@ -60,11 +60,6 @@ export default {
         radarInstruction
     },
     props: ['item'],
-    created() {
-        console.log(
-         this.item
-        );
-    }
 }
 
 </script>

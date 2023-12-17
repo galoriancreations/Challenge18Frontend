@@ -41,6 +41,7 @@ export default {
     },
     drafts() {
       // it converts object to array and adds type key to each draft
+
       let test = dataArrayFromObject(this.user.drafts)
         .filter(draft => !draft.templateOnly) // oposite of undefined is TRUE
         .map(draft => ({

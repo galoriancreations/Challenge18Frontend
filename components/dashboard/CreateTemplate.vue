@@ -4,16 +4,21 @@
     :active="active"
     class="new-challenge-modal create-challenge"
   >
-    <div class="new-challenge-modal__section">
+  <div ref="topDiv" class="topDiv"/>
+    <div class="new-challenge-modal__section" v-if="!templateWithAi">
       <h3 class="new-challenge-modal__subheading">Choose a language</h3>
       <VueSelect
         v-model="selectedLanguage"
-        :options="languageOptions"
-        :reduce="option => option.name"
+        :options="
+          templateWithAi
+            ? filteredAiLanguageOptions
+            : languageOptions
+        "
+        :reduce="(option) => option.name"
         class="language-selector"
       />
     </div>
-    <div class="new-challenge-modal__section">
+    <div class="new-challenge-modal__section" v-if="!templateWithAi">
       <h3 class="new-challenge-modal__subheading">
         Clone existing template
       </h3>
@@ -24,10 +29,160 @@
           :key="template._id"
         >
           <label @click="selectTemplate(template)">
-            {{ template.name || "(Unnamed)" }}
+            {{ template.name || '(Unnamed)' }}
           </label>
         </div>
       </div>
+    </div>
+    <div class="new-challenge-modal__section" v-else>
+      <h3 class="new-challenge-modal__subheading">
+        Create template with AI
+      </h3>
+      <Progress
+        v-if="loading"
+        preMessage="Attempt<strong>"
+        postMessage="</strong>to create template with AI.<br/>This may <strong>take a few minutes</strong>.<br/>You will be <strong>redirected</strong> to the editor when it's <strong>done</strong>."
+        :percentDuration="50000"
+        :bufferDuration="20000"
+      />
+      <form class="form" @submit.prevent>
+        <div class="form__field">
+          <label for="language" class="form__label">Choose a language</label>
+          <VueSelect
+            :disabled="loading"
+            v-model="selectedLanguage"
+            :options="
+              templateWithAi
+                ? languageOptions.filter(
+                    (language) => language.name === 'English'
+                  )
+                : languageOptions
+            "
+            :reduce="(option) => option.name"
+            class="language-selector"
+          />
+        </div>
+        <div class="form__field">
+          <label for="topic" class="form__label">
+            What is the topic of the challenge?
+          </label>
+          <input
+            :disabled="loading"
+            v-model="template.topic"
+            id="topic"
+            required
+            class="form__input"
+            placeholder="Topic"
+          />
+        </div>
+        <div class="form__field">
+          <label for="targetAudience" class="form__label">
+            What is the target audience of the challenge?
+          </label>
+          <input
+            :disabled="loading"
+            v-model="template.targetAudience"
+            id="targetAudience"
+            required
+            class="form__input"
+            placeholder="For example: elementary school, high school, university, ..."
+          />
+        </div>
+        <div class="form__field">
+          <label for="days" class="form__label">
+            How many days?
+          </label>
+          <client-only>
+            <NumberInput
+              :disabled="loading"
+              v-model="template.days"
+              id="days"
+              :min="1"
+              :max="30"
+              :center="true"
+              size="large"
+              controls
+            />
+          </client-only>
+        </div>
+        <div class="form__field">
+          <label for="tasks" class="form__label">
+            How many tasks per day?
+          </label>
+          <client-only>
+            <NumberInput
+              :disabled="loading"
+              v-model="template.tasks"
+              id="tasks"
+              :min="1"
+              :max="10"
+              :center="true"
+              size="large"
+              controls
+            />
+          </client-only>
+        </div>
+        <div class="form__field">
+          <label for="messages" class="form__label">
+            How many messages per day?
+          </label>
+          <client-only>
+            <NumberInput
+              :disabled="loading"
+              v-model="template.messages"
+              id="messages"
+              :min="0"
+              :max="10"
+              :center="true"
+              size="large"
+              controls
+            />
+          </client-only>
+        </div>
+        <div class="aiFormInline">
+          <div class="form__field">
+            <label for="preDays" class="form__label">
+              How many days for pre messages?
+            </label>
+            <client-only>
+              <NumberInput
+                :disabled="loading"
+                v-model="template.preDays"
+                id="preDays"
+                :min="0"
+                :max="10"
+                :center="true"
+                size="large"
+                controls
+              />
+            </client-only>
+          </div>
+          <div class="form__field">
+            <label for="preMessagesPerDay" class="form__label">
+              How many pre messages per day?
+            </label>
+            <client-only>
+              <NumberInput
+                :disabled="loading || template.preDays === 0"
+                v-model="template.preMessagesPerDay"
+                id="preMessagesPerDay"
+                :min="template.preDays === 0 ? 0 : 1"
+                :max="10"
+                :center="true"
+                size="large"
+                controls
+              />
+            </client-only>
+          </div>
+        </div>
+        <BaseButton
+          variant="blue"
+          @click="createTemplateWithAi"
+          :disabled="loading"
+        >
+          Create With AI
+        </BaseButton>
+      </form>
     </div>
     <div class="new-challenge-modal__section">
       <h3
@@ -35,11 +190,23 @@
       >
         OR
       </h3>
-      <BaseButton variant="blue" @click="selectTemplate(null)">
-        Create empty template
-      </BaseButton>
+      <div class="buttons">
+        <BaseButton variant="blue" @click="selectTemplate(null)">
+          Create empty template
+        </BaseButton>
+        <BaseButton
+          variant="blue"
+          @click="templateWithAi = true"
+          v-if="!templateWithAi"
+        >
+          Create template with AI
+        </BaseButton>
+        <BaseButton variant="blue" @click="templateWithAi = false" v-else>
+          Clone existing template
+        </BaseButton>
+      </div>
     </div>
-    <BaseSpinner v-if="loading" />
+    <BaseSpinner v-if="loading && !templateWithAi" />
   </PopupModal>
 </template>
 
@@ -48,14 +215,28 @@ import languageOptions from "../../assets/data/languages";
 
 export default {
   props: {
-    active: Boolean
+    active: Boolean,
   },
-  inject: ["closeModal"],
+  inject: ["closeModal", "addNotification"],
   data() {
     return {
       selectedLanguage: "English",
-      loading: false
+      loading: false,
+      templateWithAi: false,
+      template: {
+        topic: "",
+        days: 18,
+        tasks: 1,
+        messages: 1,
+        preDays: 3,
+        preMessagesPerDay: 1,
+        targetAudience: "",
+      }
     };
+  },
+  components: {
+    NumberInput: () =>
+      process.client ? import("@chenfengyuan/vue-number-input") : null
   },
   computed: {
     languageOptions() {
@@ -84,6 +265,11 @@ export default {
     filteredTemplateOptions() {
       return this.templateOptions.filter(
         template => template.language === this.selectedLanguage
+      );
+    },
+    filteredAiLanguageOptions() {
+      return this.languageOptions.filter(
+        language => language.name === "English"
       );
     }
   },
@@ -136,11 +322,55 @@ export default {
         path: "/editor",
         query: { templateOnly: true }
       });
+    },
+    async createTemplateWithAi() {
+      if (!this.template.topic) {
+        return;
+      }
+      this.loading = true;
+      this.addNotification(
+        `Creating template with AI. This may <strong>take a few minutes</strong>.
+          You will be <strong>redirected</strong> to the editor when it's <strong>done</strong>.`,
+      );
+
+      // go to top of modal by going to topDiv
+      this.$refs.topDiv.scrollIntoView();
+            
+      const { template } = await this.$axios.$post("/xapi", {
+        createTemplateWithAi: {
+          topic: this.template.topic,
+          language: this.selectedLanguage,
+          days: this.template.days,
+          tasks: this.template.tasks,
+          messages: this.template.messages,
+          preDays: this.template.preDays,
+          preMessagesPerDay: this.template.preMessagesPerDay,
+          targetAudience: this.template.targetAudience,
+          creator: this.user._id,
+        }
+      });
+      this.$cookies.set("selectedTemplate", template._id);
+      this.$cookies.remove("draftId");
+      this.$cookies.remove("challengeId");
+      this.$router.push({
+        path: "/editor",
+        query: { templateOnly: true }
+      });
     }
   },
   watch: {
     userLanguage() {
       this.autoSetLanguage();
+    },
+    templateWithAi() {
+      if (this.templateWithAi) {
+        this.selectedLanguage = "English";
+      }
+    },
+    "template.preDays"(newValue) {
+      if (newValue === 0) {
+        this.template.preMessagesPerDay = 0;
+      }
     }
   },
   created() {
@@ -148,3 +378,19 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+.aiFormInline {
+  display: flex;
+  justify-content: space-between;
+}
+.topDiv {
+  position: absolute;
+  top: 0;
+}
+</style>

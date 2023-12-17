@@ -131,6 +131,7 @@ export default {
         `Are you sure you want to delete these ${selections.length} templates? This action is irreversible.`,
         async () => {
           this.loading = true;
+
           // like in deleteTemplate method: delete template (delets in server and updates DB):
 
           // new version:

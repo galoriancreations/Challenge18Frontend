@@ -110,6 +110,7 @@ export default {
     display: flex;
     justify-content: center;
     gap: 10px;
+    margin-left: 15%;
 }
 
 .item1 {
