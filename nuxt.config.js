@@ -58,7 +58,9 @@ export default {
       "~/components/clubs",
       "~/components/how-to-play",
       "~/components/marketplace",
-      "~/components/group-page"
+      "~/components/group-page",
+      "~/components/legal_AI_Ethics",
+      "~/components/singularityNet"
     ]
   },
 

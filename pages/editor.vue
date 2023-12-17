@@ -135,6 +135,7 @@ export default {
     },
     selections() {
       const selections = {};
+      
       let selectedDay = 1;
       let dayIndex = selectedDay - 1;
       let dateid;
