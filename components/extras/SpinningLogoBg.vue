@@ -1,6 +1,6 @@
 <template>
   <div class="logo-bg">
-    <img src="../../assets/images/logo18-1.png" alt="Challenge 18" />
+    <img src="../../assets/images/new-logo.png" alt="Challenge 18" />
   </div>
 </template>
 

@@ -79,6 +79,7 @@ export default {
       this.$cookies.remove("challengeId");
       this.$cookies.remove("draftId");
       const redirect = { path: "/editor" };
+      // if its a template only:
       if (!newChallenge) {
         redirect.query = { templateOnly: true };
       }
@@ -130,16 +131,32 @@ export default {
         `Are you sure you want to delete these ${selections.length} templates? This action is irreversible.`,
         async () => {
           this.loading = true;
-          // delete all template at once
-          await this.$axios.$post('/xapi', {
-            deleteTemplate: {
-              templateIds: selections.map((selection) => selection._id),
-              isPublic: selections.map((selection) => selection.isPublic),
-            },
-          });
 
-          const filter = (item) =>
-            !selections.map((selection) => selection._id).includes(item._id);
+          // like in deleteTemplate method: delete template (delets in server and updates DB):
+
+          // new version:
+          for (let template of selections) {
+            await this.$axios.$post("/xapi", {
+              deleteTemplate: {
+                templateId: template._id,
+                isPublic: template.isPublic
+              }
+            });
+          }
+          // old version (server didnt handle the reqests good):
+          // const requests = selections.map(template =>
+          //   this.$axios.$post("/xapi", {
+          //     deleteTemplate: {
+          //       templateId: template._id,
+          //       isPublic: template.isPublic
+          //     }
+          //   })
+          // );
+          // await Promise.all(requests);
+
+          // delete from store using filterTemplates method:
+          const filter = item =>
+            !selections.map(selection => selection._id).includes(item._id);
           this.filterTemplates(filter);
           this.addNotification(
             `Successfully deleted <strong>${selections.length} templates</strong>.`

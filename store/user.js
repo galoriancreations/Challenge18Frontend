@@ -79,8 +79,19 @@ export const actions = {
       clearTimeout(logoutTimer);
     }
   },
-  async updateUser(context, data = {}) {
-    const { user } = await this.$axios.$post("/xapi", { editProfile: data });
+
+  // updateUser and loadTemplates runs together when i enter dashboard
+  async updateUser(context, data) {
+    // this is old version:
+    // const { user } = await this.$axios.$post("/xapi", { editProfile: data });
+    // this is new:
+    // when entering dashboard data object must hold a editProfile key
+    if (data == null) {
+      console.log("updateUser request: data is {}");
+      data = { editProfile: {} };
+    }
+    console.log(`updateUser request: data now is: `, data);
+    const { user } = await this.$axios.$post("/xapi", data);
     context.commit("updateUser", user);
   },
   async loadTemplates(context, isAuth = true) {
