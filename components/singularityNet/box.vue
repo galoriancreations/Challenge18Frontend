@@ -5,7 +5,6 @@
         <div class="images" :id="titleAndText.id">
             <!-- <img src="../../assets/images/mail.jpg" alt=""> -->
         </div>
-        
         <h3>{{ titleAndText.text }}</h3>
         <!-- <BaseButton variant="blue">Action {{ titleAndText.id[2] }}</BaseButton> -->
         <BaseButton variant="blue">{{ titleAndText.buttontext }}</BaseButton>
@@ -15,18 +14,27 @@
 
 
 <script>
+import popupModal from '~/mixins/popup-modal';
 import BaseButton from '../UI/BaseButton.vue';
 
 export default {
+    inject:['popup'],
+    mixins:[popupModal],
     methods: {
         goToLink() {
-            window.location.href = this.titleAndText.link;
+            if (this.titleAndText.link === 'popup') {
+                this.popup()
+                
+            }else{
+                window.location.href = this.titleAndText.link;
+            }
+            
         }
     },
     props: {
         titleAndText: Object,
     },
-    components: { BaseButton }
+    components: { BaseButton}
 };
 
 </script>
@@ -37,8 +45,6 @@ export default {
     justify-content: center;
     background-color: #cdf0f2;
     padding-top: 30px;
-    /* #2e83bf */
-    /* 35aeb5 */
 }
 .images{
     padding-top: 168px;

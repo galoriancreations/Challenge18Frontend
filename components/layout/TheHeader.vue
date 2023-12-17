@@ -48,34 +48,38 @@ export default {
       const items = [
 
         { link: "/", text: "Home" },
-        {
-          text: "About",
-          dropdown: [
-            { link: "/about", text: "About Us" },
-            { link: "/our-goals", text: "Our Goals" },
-            { link: "/articles", text: "Articles" },
-            { link: "/videos", text: "Videos" }
-          ]
-        },
-        {
-          link: '/search', text: 'Search'
-        },
+        { link: "/legal_AI_Ethics", text: "Terms & Conditions"},
+        // {
+        //   text: "About",
+        //   dropdown: [
+        //     // { link: "/about", text: "About Us" },
+        //     // { link: "/our-goals", text: "Our Goals" },
+        //     // { link: "/articles", text: "Articles" },
+        //     // { link: "/videos", text: "Videos" }
+        //   ]
+        // },
+        // {
+        //   link: '/search', text: 'Search'
+        // },
         {
           text: "Play",
           dropdown: [
             { link: "/how-to-play", text: "How to Play" },
             { link: "/challenges", text: "Challenges" },
-            { link: "/clubs", text: "Clubs" },
-            { link: "/players", text: "Players" },
-            { link: "/protocol", text: "Protocol" }
+            
+            // { link: "/clubs", text: "Clubs" },
+            // { link: "/players", text: "Players" },
+            { link: "/protocol", text: "Protocol" },
+            { link: "/articles", text: "Articles" }//belongs in about
           ]
         },
-        { link: "/marketplace", text: "Marketplace" },
+        // { link: "/marketplace", text: "Marketplace" },
         { link: "/join", text: "Join", hide: this.isLoggedIn },
         {
           external:
-            "https://www.jgive.com/new/en/ils/charity-organizations/1285",
-          text: "Donate"
+            'https://bgi24.ai/#sponsor',
+            // "https://www.jgive.com/new/en/ils/charity-organizations/1285",
+          text: "Sponser"
         },
         { link: "/login", text: "Login", button: true, hide: this.isLoggedIn },
         { action: this.logout, text: "Logout", hide: !this.isLoggedIn },
