@@ -26,16 +26,19 @@ export default {
           {title:'Action 1.\n Subscribe to our Newsletter',
           text:'Join the SingularityNET to Explore the Next Generation of Decentralized AI!',
           id:'id1',
+          buttontext:'subscribe',
           link:'https://singularitynet.us16.list-manage.com/subscribe?u=d74195510c25bf501caf3011d&id=4cf1391864'
           },
           {title:'Action 2.\n  Join the Beneficial AGI Challenge to see some mAGIc',
           text:'See Some mAGIc? Join the BGI Challenge Groups!',
           id:'id2',
+          buttontext:'join',
           link:'https://bgi24.ai/'
           },
           {title:'Action 3.\n  Attend the Beneficial AGI Summit & Unconference',
           text:'Envision a Radically Better Future at a Critical Moment!',
           id:'id3',
+          buttontext:'attend',
           link:'https://singularitynet.us16.list-manage.com/subscribe?u=d74195510c25bf501caf3011d&id=4cf1391864'
           }
         ],
@@ -106,7 +109,7 @@ export default {
     &__container{
       display: flex;
       justify-content: space-between;
-      margin-top: 350px;
+      margin-top: 300px;
       position: relative;
       z-index: 20;
 

@@ -8,7 +8,7 @@
         
         <h3>{{ titleAndText.text }}</h3>
         <!-- <BaseButton variant="blue">Action {{ titleAndText.id[2] }}</BaseButton> -->
-        <BaseButton variant="blue">step {{ titleAndText.id[2] }}</BaseButton>
+        <BaseButton variant="blue">{{ titleAndText.buttontext }}</BaseButton>
     </div>
 </template>
 
@@ -36,6 +36,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     background-color: #cdf0f2;
+    padding-top: 30px;
     /* #2e83bf */
     /* 35aeb5 */
 }
