@@ -36,6 +36,8 @@ export default {
 <style lang="scss">
 .try-it-yourself {
   &__text {
+    z-index: 2;
+    position: relative;
     text-align: center;
     font-size: 1.8rem;
     line-height: 1.7;
@@ -70,6 +72,8 @@ export default {
   }
 
   .button {
+    z-index: 2;
+    position: relative;
     width: 100%;
     max-width: 37.5rem;
   }
