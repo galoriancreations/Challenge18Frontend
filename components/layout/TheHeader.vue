@@ -3,16 +3,20 @@
     <LoginIcon />
     <Logo />
     <NavToggle />
+
+    <!-- <input type="text" class="input" v-model="userInput" @input="sendRequest" :placeholder="`Search ${filterType} ...`" /> -->
     <nav class="header__navigation">
       <ul class="header__nav-list">
-        <NavItem
-          v-for="(item, index) in navigationItems"
-          :key="item.text"
-          v-bind="item"
-          :reverse="index % 2 !== 0"
-        />
+        <NavItem v-for="(item, index) in navigationItems" :key="item.text" v-bind="item" :reverse="index % 2 !== 0" />
       </ul>
     </nav>
+    <!-- <div v-if="userInput !== ''" class="search-results">
+      <ul>
+        <li v-for="(item, index) in items" :key="index">
+          <strong>{{ filterType === 'courses' ? item.name : item.userName }}</strong>
+        </li>
+      </ul>
+    </div> -->
   </header>
 </template>
 
@@ -21,9 +25,14 @@ export default {
   data() {
     return {
       navOpen: false,
-      sticky: false
+      sticky: false,
+      user: this.$store.getters.isAuth,
+      userInput: '',
+      items: [],
+      filterType: 'players',
     };
   },
+
   computed: {
     classes() {
       return {
@@ -37,32 +46,41 @@ export default {
     },
     navigationItems() {
       const items = [
+
         { link: "/", text: "Home" },
-        {
-          text: "About",
-          dropdown: [
-            { link: "/about", text: "About Us" },
-            { link: "/our-goals", text: "Our Goals" },
-            { link: "/articles", text: "Articles" },
-            { link: "/videos", text: "Videos" }
-          ]
-        },
+
+        // {
+        //   text: "About",
+        //   dropdown: [
+        //     // { link: "/about", text: "About Us" },
+        //     // { link: "/our-goals", text: "Our Goals" },
+        //     // { link: "/articles", text: "Articles" },
+        //     // { link: "/videos", text: "Videos" }
+        //   ]
+        // },
+        // {
+        //   link: '/search', text: 'Search'
+        // },
         {
           text: "Play",
           dropdown: [
             { link: "/how-to-play", text: "How to Play" },
             { link: "/challenges", text: "Challenges" },
-            { link: "/clubs", text: "Clubs" },
-            { link: "/players", text: "Players" },
-            { link: "/protocol", text: "Protocol" }
+            
+            // { link: "/clubs", text: "Clubs" },
+            // { link: "/players", text: "Players" },
+            { link: "/protocol", text: "Protocol" },
+            { link: "/articles", text: "Articles" },//belongs in about
+            { link: "/legal_AI_Ethics", text: "Terms & Conditions"}
           ]
         },
-        { link: "/marketplace", text: "Marketplace" },
+        // { link: "/marketplace", text: "Marketplace" },
         { link: "/join", text: "Join", hide: this.isLoggedIn },
         {
           external:
-            "https://www.jgive.com/new/en/ils/charity-organizations/1285",
-          text: "Donate"
+            'https://bgi24.ai/#sponsor',
+            // "https://www.jgive.com/new/en/ils/charity-organizations/1285",
+          text: "Sponser"
         },
         { link: "/login", text: "Login", button: true, hide: this.isLoggedIn },
         { action: this.logout, text: "Logout", hide: !this.isLoggedIn },
@@ -93,12 +111,33 @@ export default {
     },
     adjustStickyHeader() {
       this.sticky = window.scrollY > 0 && !this.active;
-    }
+    },
+    async sendRequest() {
+      try {
+        console.log('q')
+        const response = await this.$axios.$post("/api", {
+          permissions: this.filterType,
+          search: true,
+          input: this.userInput,
+        });
+        if (Array.isArray(response)) {
+          this.items = response.slice(0, 15)
+          console.log(response)
+        } else {
+          console.error('Response is not an array:', response);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    },
   },
   watch: {
     navOpen(value) {
       document.querySelector("html").style.overflow = value ? "hidden" : null;
-    }
+    },
+    filterType() {
+      this.userInput = '';
+    },
   },
   mounted() {
     window.addEventListener("resize", this.adjustNavOpen);
@@ -120,8 +159,9 @@ export default {
 
 <style lang="scss">
 .header {
-  position: absolute;
+  position: fixed;
   top: 0;
+  right: 0;
   left: 0;
   width: 100%;
   padding: 2rem $padding-sides-desktop;

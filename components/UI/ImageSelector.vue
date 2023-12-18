@@ -98,24 +98,18 @@ export default {
   },
   methods: {
     updateImage(file) {
+      console.log(
+        `initial image value in imageSelector component: ${file}`
+      );
+      // this.value = file // its leads to re-render error 
+
+      // send selected image back to parent component (v-model gets it)
       this.$emit("input", file);
-      this.$emit("update:hasSelectedImage", true);
-      this.uploadImage(file);
-    },
-    async uploadImage(file) {
-      this.$emit("end-upload");
-      this.$emit("start-upload");
-      this.$emit("update:error", false);
-      try {
-        const data = new FormData();
-        data.append("file", file);
-        const imageUrl = await this.$axios.$post("/upload", data);
-        this.$emit("end-upload");
-        this.$emit("input", imageUrl);
-      } catch {
-        this.$emit("update:error", true);
-      }
-      await this.$axios.$post("/xapi", {"updateProfileImage":imageUrl});
+      // two rows below i previosly comented
+      // this.$emit("input", file);
+      // this.$emit("update:hasSelectedImage", true);
+      // this.uploadImage(file);
+      console.log(`image replased in imageSelector component: ${file}`);
       this.$emit("end-upload");
     }
   }

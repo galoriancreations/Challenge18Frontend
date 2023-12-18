@@ -8,7 +8,7 @@
           <strong>{{ item.totalScore }}</strong>
         </template>
         <template v-slot:[`item.username`]="{ item }">
-          <BaseButton @click="p(item)"  variant="blue">
+          <BaseButton @click="passData(item)" variant="white">
             <strong>{{ item.userName }}</strong>
           </BaseButton>
         </template>
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+
 export default {
   // inject: ["io"],
   async asyncData({ $axios }) {
@@ -43,10 +44,14 @@ export default {
     };
   },
   methods: {
-    p(item) {
+    passData(item) {
       this.$router.push({
-        path: `/players/player`,
-        query: { item }
+        path: `/players/player/${item.rank}`,
+        query: item,
+        params: {
+          item
+        }
+
       });
     }
   },

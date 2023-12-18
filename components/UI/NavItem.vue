@@ -1,21 +1,8 @@
 <template>
-  <li
-    :class="classes"
-    @click="clickHandler"
-    @mouseenter="openDropdownOnDesktop"
-    @mouseleave="closeDropdownOnDesktop"
-    @keydown.enter="enterKeyHandler"
-    @keydown.esc="closeDropdownOnDesktop"
-  >
-    <component
-      v-if="link"
-      :is="button ? 'BaseButton' : 'NuxtLink'"
-      :to="link"
-      :link="button ? link : null"
-      :variant="button ? 'gold' : null"
-      :activeClass="!button ? 'active' : null"
-      exact
-    >
+  <li :class="classes" @click="clickHandler" @mouseenter="openDropdownOnDesktop" @mouseleave="closeDropdownOnDesktop"
+    @keydown.enter="enterKeyHandler" @keydown.esc="closeDropdownOnDesktop">
+    <component v-if="link" :is="button ? 'BaseButton' : 'NuxtLink'" :to="link" :link="button ? link : null"
+      :variant="button ? 'gold' : null" :activeClass="!button ? 'active' : null" exact>
       {{ text }}
       <i v-if="dropdown" class="fas fa-chevron-down" />
     </component>
@@ -26,12 +13,7 @@
       {{ text }}
       <i v-if="dropdown" class="fas fa-chevron-down" />
     </button>
-    <nav
-      v-if="dropdown"
-      class="header__nav-dropdown"
-      :style="{ maxHeight: dropdownMaxHeight }"
-      ref="dropdown"
-    >
+    <nav v-if="dropdown" class="header__nav-dropdown" :style="{ maxHeight: dropdownMaxHeight }" ref="dropdown">
       <ul class="header__nav-dropdown-list">
         <NavSubitem v-for="item in dropdown" :key="item.text" v-bind="item" />
       </ul>
@@ -197,8 +179,9 @@ export default {
 
     &:hover,
     &.open-desktop {
-      & > a,
-      & > button {
+
+      &>a,
+      &>button {
         @include respond(desktop) {
           color: $color-gold-3;
         }

@@ -1,11 +1,11 @@
 <template>
   <Page title="Join Us" name="membership">
     <section class="inner-section">
-      <SectionHeading small>Join</SectionHeading>
-      <MembershipPlans />
+      <!-- <SectionHeading small>Join</SectionHeading> -->
+      <!-- <MembershipPlans /> -->
     </section>
     <section class="inner-section" ref="formSection">
-      <SectionHeading small>Register Now</SectionHeading>
+      <!-- <SectionHeading small>Register Now</SectionHeading> -->
       <MembershipForm />
     </section>
   </Page>

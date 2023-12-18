@@ -36,6 +36,7 @@ export default {
   async asyncData({ app, store, $axios, error }) {
     try {
       const { draftId, challengeId, selectedTemplate } = app.$cookies.getAll();
+
       const { user, isAdmin } = store.getters;
       const endpoint = !draftId && challengeId ? "/api" : "/xapi";
       const key = draftId
@@ -43,11 +44,13 @@ export default {
         : challengeId
         ? "getChallengeData"
         : selectedTemplate && "getTemplateData";
+
       const value = draftId || challengeId || selectedTemplate;
+      console.log(`edit test, draftId xapi key: ${key} : ${draftId}`);
       const data = key
         ? transformData(await $axios.$post(endpoint, { [key]: value }))
         : {};
-        
+
       return {
         data: {
           name: data.name || "",
@@ -80,15 +83,18 @@ export default {
       submit: {
         loading: false,
         error: null
-      }
+      },
+      base64: ""
     };
   },
   computed: {
     editedChallengeId() {
       return this.$cookies.get("challengeId");
     },
+
     templateOnlyMode() {
       const { templateOnly } = this.$route.query;
+
       return templateOnly === "true" && !this.editedChallengeId;
     },
     title() {
@@ -107,11 +113,19 @@ export default {
       };
     },
     templateData() {
+      // temparaly commented. its conflicts with save a template:
+
+      // const reader = new FileReader();
+      // reader.onload = event => (this.base64 = event.target.result);
+      // reader.readAsDataURL(this.data.image);
+      // console.log(reader);
+      // console.log(this.base64);
+
       return {
         id: this.templateId,
         name: this.data.name,
         language: this.data.language,
-        image: this.data.image,
+        image: this.base64,
         dayMargin: this.data.dayMargin,
         preDays: clearedDays(this.data.preDays),
         days: clearedDays(this.data.days),
@@ -121,10 +135,24 @@ export default {
     },
     selections() {
       const selections = {};
-      this.data.days.forEach(day => {
-        selections[day.id] = {};
+      
+      let selectedDay = 1;
+      let dayIndex = selectedDay - 1;
+      let dateid;
+      const date = ()=>{
+        const date = moment(this.data.date);
+        date.add(dayIndex * this.data.dayMargin, "days");
+        dateid = date.format("L");
+      }
+      this.data.days.forEach((day,ind) => {
+        selectedDay = ind
+        dayIndex = selectedDay;
+        
+        date()
+        selections[dateid] = {};
         day.tasks.forEach(task => {
-          selections[day.id][task.id] = task.selection;
+          const time = task.time.slice(0,5)
+          selections[dateid][task.id] = {message:task.selection,points:task.points,emoji:task.emoji,time:time};
         });
       });
       return selections;
@@ -149,7 +177,8 @@ export default {
       this.autoSave.timeout = setTimeout(async () => {
         this.autoSave.loading = true;
         try {
-          await this.saveTemplate();
+          //if drafts are working do we need it here?:
+          // await this.saveTemplate();
           await this.saveDraft();
           this.autoSave.date = new Date();
           this.autoSave.error = false;
@@ -157,10 +186,15 @@ export default {
           this.autoSave.error = true;
         }
         this.autoSave.loading = false;
-      }, 5000);
+      }, 5000); 
     },
+
     async saveDraft() {
-      if (this.templateOnlyMode) return;
+      console.log();
+      // i changed it to false:
+      if (!this.templateOnlyMode) return;
+
+      console.log(`picture: ${this.data.image}`);
       const { draftId } = await this.$axios.$post("/xapi", {
         saveDraft: {
           draftId: this.draftId,
@@ -170,12 +204,19 @@ export default {
       this.draftId = draftId;
     },
     async saveTemplate() {
+      console.log(`saveTemplate start`);
+      console.log(`templateId: ${this.templateId}`);
+      console.log(`templateData:`, this.templateData);
       if (!this.isTemplateEditable) return;
       const { templateId } = await this.$axios.$post("/xapi", {
         saveTemplate: {
-          templateId: this.templateId,
+          templateId: null,
           templateData: this.templateData
         }
+        // saveTemplate: {
+        //   templateId: this.templateId,
+        //   templateData: this.templateData
+        // }
       });
       this.templateId = templateId;
     },
@@ -183,7 +224,8 @@ export default {
       const mode = this.editedChallengeId
         ? "updateChallenge"
         : "createChallenge";
-      await this.$axios.$post("/xapi", { [mode]: this.challengeData });
+      const groupId = await this.$axios.$post("/xapi", { [mode]: this.challengeData });
+
       const successText = this.editedChallengeId
         ? "Successfully updated challenge"
         : "Created new challenge from template";
@@ -191,7 +233,8 @@ export default {
         `${successText}: <strong>${this.data.name}</strong>.`
       );
       this.$cookies.remove("draftId");
-      this.$router.replace("/dashboard");
+      this.$cookies.set("groupId", groupId);
+      this.$router.replace("/group-page");
     },
     validateData() {
       try {
@@ -232,12 +275,26 @@ export default {
       }
     },
     async submitHandler() {
-      if (this.templateOnlyMode) {
-        return this.$router.replace("/dashboard");
-      }
+      // temporarily commented:
       if (!this.validateData()) return;
       this.submit.loading = true;
       try {
+        if (this.templateOnlyMode) {
+          // -- my coding: erase draft, save template
+          // find what draft it is and delete
+          // delete draft (delets in server and updates DB):
+          console.log(`this is draftId i deleting: ${this.draftId}`);
+
+          await this.$axios.$post("/xapi", {
+            deleteDraft: this.draftId
+          });
+
+          await this.saveTemplate();
+          // --
+          console.log(`i am going to dashboard`);
+          return this.$router.replace("/dashboard");
+        }
+
         await this.saveChallenge();
       } catch (error) {
         this.submit.error = error;
@@ -266,6 +323,19 @@ export default {
         this.showIntroModal = true;
       }, 1500);
     }
+    // when opening page create draft and erase template:
+    const eraseTemplate = async () => {
+      // immediatly create draft when opening
+      await this.saveDraft();
+      // if i editing template- erase it from data-base
+      await this.$axios.$post("/xapi", {
+        deleteTemplate: {
+          templateId: this.templateId,
+          isPublic: this.isPublic
+        }
+      });
+    };
+    eraseTemplate();
   },
   provide() {
     return {
