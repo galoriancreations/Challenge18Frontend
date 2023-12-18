@@ -58,14 +58,14 @@ export default {
       "~/components/clubs",
       "~/components/how-to-play",
       "~/components/marketplace",
-      "~/components/sharoniscaring",
+      "~/components/shareonmagic",
       "~/components/questionpage",
     ]
   },
 
   buildModules: ["@nuxtjs/style-resources", "@nuxtjs/vuetify"],
 
-  modules: ["@nuxtjs/axios", "cookie-universal-nuxt", "nuxt-route-meta"],
+  modules: ["@nuxtjs/axios", "cookie-universal-nuxt", "nuxt-route-meta", 'vue-social-sharing/nuxt'],
 
   build: {
     transpile: ["vue-agile"]
@@ -101,6 +101,7 @@ export default {
   },
 
   server: {
+    host: '0.0.0.0',
     port: 4500
   }
 };

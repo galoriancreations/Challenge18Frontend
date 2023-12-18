@@ -1,9 +1,9 @@
 <template>
-    <Page v-bind:title="quesid" name="question-page">
-        <AddAnswer :text="quesid" :active="showModal" @publish-answer="publishAnswer" />
+    <Page v-bind:title="this.question.text" name="question-page">
+        <AddAnswer :question="this.question" :active="showModal" @publish-answer="publishAnswer" />
         <div v-if="!showModal" >
-            <AllAnswers :answers="answers" />
-            <NuxtLink to='/sharoniscaring' class="btn">share another question</NuxtLink>
+            <AllAnswers :id="this.question.id" :answers="this.question.answers" />
+            <NuxtLink to='/shareonmagic' class="btn">share another question</NuxtLink>
         </div>
     </Page>
 </template>
@@ -19,35 +19,18 @@ export default {
     data() {
         return {
             showModal: true,
-            answers: [
-                {userName: "amit", text: "abc"},
-                {userName: "may", text: "aaaa"},
-            ],
-            quesid: this.$route.params.ques,
+            question: this.$route.params.question,
         }
     },
-    computed: {
-    questions() {
-      return this.$store.getters["admin/questions"];
-    },
-    item() {
-      return this.questions[parseInt(this.quesid)-1];
-    },
-    },
     methods:{
-        publishAnswer(answer){
-            this.showModal = false;
-
-          const newAnswer = {
-              // userName: לפי המשתמש המחובר
-              text: answer
-          }
-          this.answers = [...this.answers, newAnswer] //צריך לחבר את זה לדטא בייס
+      publishAnswer(answers){
+        this.question.answers = answers
+        this.showModal = false;
       }
   },
   components: { Page }
-
 }
+
 </script>
 
 <style lang="scss">

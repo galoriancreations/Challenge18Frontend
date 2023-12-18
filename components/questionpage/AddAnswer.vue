@@ -1,6 +1,6 @@
 <template>
     <PopupModal :active="active" height="400px" class="popupAnswer">
-      <h1 class="popupAnswer__title">{{text}}</h1>
+      <h1 class="popupAnswer__title">{{question.text}}</h1>
       <textarea
         class="popupAnswer__input"
         v-model="answer"
@@ -19,31 +19,28 @@ export default {
     data(){
         return{
             answer: '',
+            id: this.question.id
         }
     },
     props: {
         active: Boolean,
-        id: String,
-        newAnswer: String,
-        text: String
+        question: Object
     },
     methods: {
       async onPublish(e){
         e.preventDefault()
         const res= await this.$axios.$post("/xapi",{
           getAnswer:{
-            question: this.quesname,
+            question: this.id,
             answer: this.answer
           }
         })
-        console.log(res.msg);
-          if(!this.answer){
-            alert('Please add a answer')
-            return;
-          }
-
-            let newAnswer = this.answer;
-            this.$emit('publish-answer', newAnswer);
+        
+        if(!this.answer){
+          alert('Please add a answer')
+          return;
+        }
+        this.$emit('publish-answer' , res.answers);
         }
     },
 
