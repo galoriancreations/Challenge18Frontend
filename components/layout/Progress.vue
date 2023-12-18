@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :class="{ 'animate-container': animateContainer }">
     <div class="progress">
       <svg width="120" height="120" viewBox="0 0 120 120">
         <circle
@@ -19,7 +19,7 @@
           fill="none"
           stroke-width="12"
           pathLength="100"
-          :style="{ 'transition-duration': `${bufferDuration}ms` }"
+          :style="{ transitionDuration: `${bufferDuration}ms` }"
         />
         <circle
           ref="circle"
@@ -30,19 +30,20 @@
           fill="none"
           stroke-width="12"
           pathLength="100"
-          :style="{ 'transition-duration': `${percentDuration}ms` }"
+          :style="{ transitionDuration: `${percentDuration}ms` }"
         />
-
-        <text
-          x="50%"
-          y="50%"
-          alignment-baseline="middle"
-          text-anchor="middle"
-          class="progress__percentage"
-        >
-          {{ percentage }}%
-        </text>
       </svg>
+      <div class="progress__percentage">
+        <vue-tween-number
+          :value="percentage"
+          :duration="tweenEnabled ? percentDuration : 1"
+        >
+          <template v-slot:default="{ value }">
+            {{ Math.round(value) }}
+          </template>
+        </vue-tween-number>
+        <span :style="{ marginLeft: '-6px' }">%</span>
+      </div>
       <p class="progress__message">
         <span v-html="messageHandler" />
       </p>
@@ -51,7 +52,12 @@
 </template>
 
 <script>
+import VueTweenNumber from 'vue-tween-number';
+
 export default {
+  components: {
+    VueTweenNumber,
+  },
   props: {
     preMessage: String,
     postMessage: String,
@@ -65,21 +71,36 @@ export default {
       maxAttempts: 0,
       done: false,
       percentage: 0,
+      type: '',
+      tweenEnabled: true,
+      animateContainer: false,
+      isFirstMount: true,
     };
   },
   mounted() {
     const source = new EventSource('http://localhost:3000/progress');
 
-    source.onmessage = (event) => {
+    source.onmessage = async (event) => {
       const data = JSON.parse(event.data);
-      this.progress = data.progress;
-      this.attempts = data.attempts;
-      this.maxAttempts = data.maxAttempts;
 
-      if (data.done) {
-        // this.done = true;
-        source.close();
+      if (this.type !== data.type && !this.isFirstMount) {
+        await this.resetProgress();
+        this.$emit('type-changed', data.type);
+      } else if (this.isFirstMount) {
+        this.isFirstMount = false;
       }
+
+      const keys = ['type', 'attempts', 'maxAttempts', 'progress'];
+      keys.forEach((key) => {
+        if (data[key]) {
+          this[key] = data[key];
+        }
+      });
+
+      // if (data.done) {
+      // this.done = true;
+      // source.close();
+      // }
     };
 
     source.addEventListener('end', () => {
@@ -107,15 +128,37 @@ export default {
       // animate buffer circle faster than percent circle
       this.$refs.bufferCircle.style.strokeDashoffset = 100 - this.progress;
 
-      // animate percentage following progress with interval
-      const interval = setInterval(() => {
-        if (this.percentage < this.progress) {
-          this.percentage++;
-        } else {
-          clearInterval(interval);
-        }
-        // calculate interval time based on how much progress is left
-      }, this.percentDuration / (this.progress - this.percentage));
+      this.percentage = this.progress;
+    },
+  },
+  methods: {
+    async resetProgress() {
+      // animate container
+      this.animateContainer = true;
+      // no transition on reset
+
+      // wait 1 second for animation
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // disable animation
+      this.$refs.circle.style.transitionDuration = '0ms';
+      this.$refs.bufferCircle.style.transitionDuration = '0ms';
+      this.tweenEnabled = false;
+
+      // reset percent and buffer circle
+      this.progress = 0;
+      this.$refs.circle.style.strokeDashoffset = 100;
+      this.$refs.bufferCircle.style.strokeDashoffset = 100;
+
+      // delay the reset of the transition duration
+      await new Promise((resolve) => setTimeout(resolve, 10));
+      this.$refs.circle.style.transitionDuration = `${this.percentDuration}ms`;
+      this.$refs.bufferCircle.style.transitionDuration = `${this.bufferDuration}ms`;
+      this.tweenEnabled = true;
+
+      setTimeout(() => {
+        this.animateContainer = false;
+      }, 1000);
     },
   },
 };
@@ -124,7 +167,9 @@ export default {
 <style lang="scss" scoped>
 .container {
   position: relative;
-
+  &.animate-container {
+    animation: slideOutSlideIn 2s ease-in-out;
+  }
   .progress {
     svg {
       .percent,
@@ -146,6 +191,11 @@ export default {
     }
 
     &__percentage {
+      position: absolute;
+      top: 34%;
+      left: 50%;
+      transform: translate(-50%, -100%);
+
       color: $color-blue-1;
       font-weight: 500;
       font-size: 2.5rem;
@@ -164,6 +214,18 @@ export default {
       @include respond(mobile) {
         font-size: 1.5rem;
       }
+    }
+  }
+
+  @keyframes slideOutSlideIn {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
     }
   }
 }

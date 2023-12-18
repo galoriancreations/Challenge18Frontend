@@ -178,7 +178,7 @@ export default {
         this.autoSave.loading = true;
         try {
           //if drafts are working do we need it here?:
-          // await this.saveTemplate();
+          await this.saveTemplate();
           await this.saveDraft();
           this.autoSave.date = new Date();
           this.autoSave.error = false;
@@ -210,14 +210,11 @@ export default {
       if (!this.isTemplateEditable) return;
       const { templateId } = await this.$axios.$post("/xapi", {
         saveTemplate: {
-          templateId: null,
+          templateId: this.templateId,
           templateData: this.templateData
         }
-        // saveTemplate: {
-        //   templateId: this.templateId,
-        //   templateData: this.templateData
-        // }
       });
+      console.log();
       this.templateId = templateId;
     },
     async saveChallenge() {
@@ -335,7 +332,7 @@ export default {
         }
       });
     };
-    eraseTemplate();
+    // eraseTemplate();
   },
   provide() {
     return {

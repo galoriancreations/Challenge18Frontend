@@ -40,10 +40,11 @@
       </h3>
       <Progress
         v-if="loading"
-        preMessage="Attempt<strong>"
-        postMessage="</strong>to create template with AI.<br/>This may <strong>take a few minutes</strong>.<br/>You will be <strong>redirected</strong> to the editor when it's <strong>done</strong>."
-        :percentDuration="50000"
-        :bufferDuration="20000"
+        :preMessage="progress.preMessage"
+        :postMessage="progress.postMessage"
+        :percentDuration="progress.type === 'images' ? 10000 : 50000"
+        :bufferDuration="progress.type === 'images' ? 5000 : 20000"
+        @type-changed="handleProgressTypeChanged"
       />
       <form class="form" @submit.prevent>
         <div class="form__field">
@@ -225,12 +226,17 @@ export default {
       templateWithAi: false,
       template: {
         topic: "",
-        days: 18,
+        days: 3,
         tasks: 1,
         messages: 1,
-        preDays: 3,
+        preDays: 1,
         preMessagesPerDay: 1,
         targetAudience: "",
+      },
+      progress: {
+        preMessage: `AI is working on your template.<br/>Attempt <strong>`,
+        postMessage: `</strong>to create template.<br/>This may <strong>take a few minutes</strong>.<br/>You will be <strong>redirected</strong> to the editor when we <strong>done</strong>.`,
+        type: 'template',
       }
     };
   },
@@ -356,6 +362,12 @@ export default {
         path: "/editor",
         query: { templateOnly: true }
       });
+    },
+    handleProgressTypeChanged(type) {
+      if (type === "images") {
+        this.progress.preMessage = `Preparing your template...<br/>Generating image<strong>`;
+        this.progress.postMessage = `</strong><br/>This may <strong>take a few minutes</strong>.<br/>You will be <strong>redirected</strong> to the editor when we <strong>done</strong>.`;
+      }
     }
   },
   watch: {

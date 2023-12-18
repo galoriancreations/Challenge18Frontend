@@ -230,32 +230,40 @@ export default {
       // get selected template by selectedTemplate cookie
       const selectedTemplate = this.$cookies.get('selectedTemplate');
       // create axios request to backend to generate day with ai
-      const { day } = await this.$axios.$post("/xapi", {
+      const { day } = await this.$axios.$post('/xapi', {
         generateDayWithAi: {
           templateId: selectedTemplate,
-        }
+        },
       });
       // get the day data from the response
-      const { title, time, tasks, messages, introduction } = day;
+      const { title, time, tasks, messages, introduction, image } = day;
       // map tasks to new tasks with new ids
-      const newTasks = tasks.map(task => {
+      const newTasks = tasks.map((task) => {
         return {
           ...task,
           id: uniqid(),
         };
       });
       // map messages to new messages with new ids
-      const newMessages = messages.map(message => {
+      const newMessages = messages.map((message) => {
         return {
           ...message,
           id: uniqid(),
         };
       });
       // add the day to the challenge
-      this.data.days.push({ id: uniqid(), title, time, tasks: newTasks, messages: newMessages, introduction });
+      this.data.days.push({
+        id: uniqid(),
+        title,
+        time,
+        tasks: newTasks,
+        messages: newMessages,
+        introduction,
+        image,
+      });
       this.selectedDay = this.data.days.length;
       // send transition to task
-      this.setTransition("task");
+      this.setTransition('task');
 
       this.submit.loading = false;
     },
