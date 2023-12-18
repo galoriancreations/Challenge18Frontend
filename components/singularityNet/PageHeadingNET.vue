@@ -158,8 +158,9 @@ export default {
       padding: 0px 2%;
       gap: 20px;
       @include respond(mobile) {
-        scale: 60%;
+        scale: 50%;
       margin-top: 200px;
+      width: 30%;
 
 
     }
