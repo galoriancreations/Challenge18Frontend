@@ -1,10 +1,10 @@
 <template>
   <section class="page-headingNET" :id="name" :title="title">
     <popup :active="active"> 
-      <h4><a href="https://t.me/+5oYug7mEHxhjMGFk ">BGI Challenge on Telegram for AI Developers</a></h4> 
-      <h4><a href="https://t.me/+3wl_XlXXIl4zMmQ0 ">BGI Academy a Telegram Silent Group </a></h4> 
-      <h4>      <a href="https://chat.whatsapp.com/HQIxHIv8n1NJ1IEhIRtWry ">BGI Challenge on Whatsapp for AI Developers </a> </h4>
-      <h4>      <a href="https://chat.whatsapp.com/INWXWVZhZrPCfENR6sAYiu">BGI Challenge on Whatsapp for AI General Public</a> </h4>
+      <h4><a href="https://t.me/+5oYug7mEHxhjMGFk ">BGI Challenge on Telegram for AI Developers CLICK HERE</a></h4> 
+      <h4><a href="https://t.me/+3wl_XlXXIl4zMmQ0 ">BGI Academy a Telegram Silent Group CLICK HERE</a></h4> 
+      <h4>      <a href="https://chat.whatsapp.com/HQIxHIv8n1NJ1IEhIRtWry ">BGI Challenge on Whatsapp for AI Developers CLICK HERE</a> </h4>
+      <h4>      <a href="https://chat.whatsapp.com/INWXWVZhZrPCfENR6sAYiu">BGI Challenge on Whatsapp for AI General Public CLICK HERE</a> </h4>
       <BaseButton variant="blue" @click="popup" >confirm</BaseButton>
   </popup>
     <!-- <h1 > -->
@@ -33,8 +33,8 @@ export default {
             active: false,
             name: 'singularityNet',
             titleAndTexts: [
-                { title: 'Action 1.\n Subscribe to our Newsletter',
-                    text: 'Join the SingularityNET to Explore the Next Generation of Decentralized AI!',
+                { title: 'Action 1.\n SUBSCRIBE to our Newsletter',
+                    text: 'Join the SingularityNET to Explore the Next Generation of Decentralized AGI!',
                     id: 'id1',
                     buttontext: 'subscribe',
                     link: 'https://singularitynet.us16.list-manage.com/subscribe?u=d74195510c25bf501caf3011d&id=4cf1391864'
@@ -45,7 +45,7 @@ export default {
                     buttontext: 'join',
                     link: 'popup'
                 },
-                { title: 'Action 3.\n  Attend the Beneficial AGI Summit & Unconference',
+                { title: 'Action 3.\n  Attend the Beneficial AGI Summit & Online Unconference',
                     text: 'Envision a Radically Better Future at a Critical Moment!',
                     id: 'id3',
                     buttontext: 'attend',
