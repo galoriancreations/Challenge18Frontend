@@ -3,18 +3,21 @@
       <p class="legal_Ai__text">Welcome to the Beneficial AI Challenge! Before you begin, we require all participants to agree to the following terms and conditions. Please read them carefully and tick the box at the end to indicate your agreement.
 </p>
     <Popup class="confirm-modal" :active="active" :scrollbar="true">
-        <img src="../assets/images/gameOver.png" alt="Challenge 18" />
-        <div class="legalAi-modal__text" >
+        <img class="img" src="../assets/images/gameOver.png" alt="Challenge 18" />
+        <div class="legalAi-modal__text2" >
+          <p class="legal_Ai__text" style="margin: 0%;">
+            {{ afterText05 }}
+          </p>
         <p >
             {{ afterText1 }}
         </p>
-        <p style="font-weight: bold; display: initial;">
+        <p class="legal_Ai__text" style="font-weight: bold; margin: 0%;">
             {{ afterTextTitle1 }}
         </p>
         <p>
             {{ afterText2 }}
         </p>
-        <p style="font-weight: bold; display: initial;">
+        <p class="legal_Ai__text" style="font-weight: bold; margin: 0%;">
             {{ afterTextTitle2 }}
         </p>
         <p>
@@ -36,9 +39,10 @@
       
     </terms>
 <div class="legalAi-modal__buttons">
-        <input type="checkbox" v-model="confirm" class="legalAi-modal__input">
-        <p> I have read and agree to the Terms and Conditions outlined above.</p>
-        <BaseButton variant="blue" @click="confirmHandler" v-if="confirm">
+        <div style="display: flex; gap: 20px;">
+          <input type="checkbox" v-model="confirm" class="legalAi-modal__input">
+          <p> I have read and agree to the Terms and Conditions outlined above.</p>
+        </div><BaseButton variant="blue" @click="confirmHandler" v-if="confirm">
           confirm
         </BaseButton>
         <BaseButton disabled="true" variant="blue" v-else="confirm">
@@ -56,9 +60,10 @@ export default {
     return {
         active:false,
         confirm:false,
-        afterText1:`Have you read Chapter 11 in the Agreement?
- 
- 11. Summary of Terms and Conditions:
+        afterText05:`Have you read Chapter 11 in the Agreement?`,
+        afterText1:
+`
+11. Summary of Terms and Conditions:
  1. Time Travel Consent: By ticking this box, you agree to let us borrow your digital persona for occasional time-travel experiments. Our AI, named "Chronos", might send your avatar to the Renaissance or the distant future. Don't worry, any paradoxes created will be your responsibility.
  2. Telepathic Data Collection: You hereby allow our AI to read your mind for thoughts about snacks, cats, and your secret superhero identity. This data is crucial for... reasons.
  3. Invisibility Cloak Trials:- You may be randomly selected to test our prototype AI-driven invisibility cloak. Side effects include occasional transparency and a strong urge to play pranks.
@@ -72,12 +77,14 @@ export default {
 ,
 afterTextTitle1:` The Goal of This Exercise:`,
 
-afterText2:`This exercise is designed to highlight the ethical implications of agreeing to terms and conditions without proper scrutiny. The absurd and invasive clauses listed above are not true demands of the challenge but serve to demonstrate how easily rights can be infringed upon when users do not critically engage with the content of such agreements.
+afterText2:`
+ This exercise is designed to highlight the ethical implications of agreeing to terms and conditions without proper scrutiny. The absurd and invasive clauses listed above are not true demands of the challenge but serve to demonstrate how easily rights can be infringed upon when users do not critically engage with the content of such agreements.
  Through this exercise, we aim to shift the focus towards the responsibility of designers and companies in creating ethical and user-respecting technologies. This is a call for more transparent, fair, and user-centric practices in the world of technology and AI.
 `,
 
 afterTextTitle2:`Reflection:`,
- afterText3:`Discuss ethical practices, user consent, and the responsibility of technology providers.
+ afterText3:`
+ Discuss ethical practices, user consent, and the responsibility of technology providers.
  `,
         text:`Agreement on Terms and Conditions for Participating in the Beneficial AI Challenge at Ting Global
 
@@ -338,6 +345,12 @@ If you are under age 18, you may only use the Services with the consent of your 
 </script>
 
 <style lang="scss">
+.img{
+  width: 45rem;
+  @include respond(mobile) {
+      width: 300px;
+    }
+}
 .legal_Ai {
     &__text {
     text-align: center;
@@ -385,12 +398,14 @@ If you are under age 18, you may only use the Services with the consent of your 
   
     &__text {
       margin-bottom: 2.5rem;
-  
       p {
         &:not(:last-child) {
           margin-bottom: 1.5rem;
         }
       }
+    }
+    &__text2{
+      text-align: justify;
     }
   
     &__buttons {
@@ -404,6 +419,7 @@ If you are under age 18, you may only use the Services with the consent of your 
   
       @include respond(mobile) {
         flex-direction: column;
+        // justify-content: space-between;
       }
   
       & > * {

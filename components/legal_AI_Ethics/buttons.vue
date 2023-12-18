@@ -5,12 +5,13 @@
           {{ text }}
         </p>
       </div>
-      <br>
-      <br>
-      <br>
       <div class="confirm-modal__buttons">
-        <input type="checkbox" v-model="confirm" class="confirm-modal__input">
-        <p> I have read and agree to the Terms and Conditions outlined above.</p>
+        <div style="display: flex; flex-direction: row;">
+
+        
+          <input type="checkbox" v-model="confirm" class="confirm-modal__input">
+          <p> I have read and agree to the Terms and Conditions outlined above.</p>
+        </div>
         <BaseButton variant="blue" @click="confirmHandler" v-if="confirm">
           confirm
         </BaseButton>

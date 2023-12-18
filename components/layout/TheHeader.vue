@@ -48,7 +48,7 @@ export default {
       const items = [
 
         { link: "/", text: "Home" },
-        { link: "/legal_AI_Ethics", text: "Terms & Conditions"},
+
         // {
         //   text: "About",
         //   dropdown: [
@@ -70,7 +70,8 @@ export default {
             // { link: "/clubs", text: "Clubs" },
             // { link: "/players", text: "Players" },
             { link: "/protocol", text: "Protocol" },
-            { link: "/articles", text: "Articles" }//belongs in about
+            { link: "/articles", text: "Articles" },//belongs in about
+            { link: "/legal_AI_Ethics", text: "Terms & Conditions"}
           ]
         },
         // { link: "/marketplace", text: "Marketplace" },

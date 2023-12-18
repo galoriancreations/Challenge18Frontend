@@ -75,7 +75,7 @@ export default {
   background-color: #4c9cd4;
   background-position: center;
   background-size: cover;
-  padding: 0 $padding-sides-desktop;
+  // padding: 0 2vw;
 
   @media (hover: hover) {
     background-attachment: fixed;
@@ -83,6 +83,7 @@ export default {
 
   @include respond(mobile) {
     height: 35rem;
+    padding: 0 ;
   }
 
   &#singularityNet {
@@ -111,19 +112,40 @@ export default {
     transform: translate(-50%, -50%);
     text-align: center;
     z-index: 5;
+    justify-content: space-between;
 
     @include respond(mobile) {
+      flex-direction: column;
       font-size: 4rem;
-      top: 50%;
+      top: 20%;
       max-width: 40rem;
+      align-items: center;
+      // left: 0px;
     }
   }
   &__Logo1{
-        scale: 150%;
+        // scale: 150%;
+        width: 300px;
+        @include respond(mobile) {
+
+        // scale: 100%;
+
+    }
   }
   &__Logo2{
-    margin-left:20%;
-        scale: 20%;
+    // margin-left:20%;
+        // scale: 20%;
+        // resize: 10%;
+        width: 100px;
+        @include respond(mobile) {
+
+
+
+
+        // margin-left: 0%;
+        // scale: 15%;
+
+    }
   }
 }
 .steps{
@@ -133,22 +155,63 @@ export default {
       margin-top: 300px;
       position: relative;
       z-index: 20;
+      padding: 0px 2%;
       gap: 20px;
+      @include respond(mobile) {
+        scale: 60%;
+      margin-top: 200px;
+
+
+    }
 
     }
     &__box{
       border-radius: 20px;
       width: 300px;
-      height: 444px;
+      height: 488px;
       border: #93e7ff solid 2px;
       transition: 300ms;
       box-shadow: 5px 6px 5px 2px #656565;
       text-align: center;
       white-space: break-spaces;
+      @include respond(mobile) {
+        // scale: 60%;
+      // top: 20%;
+      height: 550px;
+            min-width: 16rem;
+      max-width: 20rem;
+
+    }
     }
     &__box:hover{
       scale: 105%;
       box-shadow: 8px 20px 17px 5px #656565;
+    }
+    &__bbutton{
+      display: block;
+    // width: 25rem;
+    text-transform: uppercase;
+    font: inherit;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: 1.3px;
+    border-radius: 100px;
+    border: 1.5px solid transparent;
+    transition: all 0.5s;
+    text-align: center;
+    cursor: pointer;
+    padding: 0.85rem 3rem;
+    margin: auto;
+    background-color: #0000ff;
+    color: #fff;
+    }
+    &__bbutton:hover{
+      background-color: #fff;
+
+    color: #007bff;
+    box-shadow: rgba(62, 57, 107, 0.3) 0px 6px 16px 0px;
+
     }
   }
 </style>

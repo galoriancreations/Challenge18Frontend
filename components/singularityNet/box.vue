@@ -6,8 +6,7 @@
             <!-- <img src="../../assets/images/mail.jpg" alt=""> -->
         </div>
         <h3>{{ titleAndText.text }}</h3>
-        <!-- <BaseButton variant="blue">Action {{ titleAndText.id[2] }}</BaseButton> -->
-        <BaseButton variant="blue">{{ titleAndText.buttontext }}</BaseButton>
+        <button class="steps__bbutton">{{ titleAndText.buttontext }}</button>
     </div>
 </template>
 
@@ -15,7 +14,7 @@
 
 <script>
 import popupModal from '~/mixins/popup-modal';
-import BaseButton from '../UI/BaseButton.vue';
+
 
 export default {
     inject:['popup'],
@@ -34,7 +33,7 @@ export default {
     props: {
         titleAndText: Object,
     },
-    components: { BaseButton}
+
 };
 
 </script>
