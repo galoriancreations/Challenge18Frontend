@@ -1,12 +1,21 @@
 <template>
   <section class="page-headingNET" :id="name" :title="title">
-    <popup :active="active"> 
-      <h4><a href="https://t.me/+5oYug7mEHxhjMGFk ">BGI Challenge on Telegram for AI Developers</a></h4> 
-      <h4><a href="https://t.me/+3wl_XlXXIl4zMmQ0 ">BGI Academy a Telegram Silent Group </a></h4> 
-      <h4>      <a href="https://chat.whatsapp.com/HQIxHIv8n1NJ1IEhIRtWry ">BGI Challenge on Whatsapp for AI Developers </a> </h4>
-      <h4>      <a href="https://chat.whatsapp.com/INWXWVZhZrPCfENR6sAYiu">BGI Challenge on Whatsapp for AI General Public</a> </h4>
-      <BaseButton variant="blue" @click="popup" >confirm</BaseButton>
-  </popup>
+    <popupNET :active="active">
+      <button @click="popup" class="exitButton">X</button>
+
+      <h4><a class="links" href="https://t.me/+5oYug7mEHxhjMGFk ">BGI Challenge on Telegram for AI Developers</a></h4>
+      <div @click="sendtolink('https://t.me/+5oYug7mEHxhjMGFk')" class="CLICKHERE">CLICK HERE</div>
+      <br>
+      <h4><a class="links" href="https://t.me/+3wl_XlXXIl4zMmQ0 ">BGI Academy a Telegram Silent Group</a></h4> 
+      <div @click="sendtolink('https://t.me/+3wl_XlXXIl4zMmQ0 ')" class="CLICKHERE">CLICK HERE</div>
+      <br>
+      <h4>      <a class="links" href="https://chat.whatsapp.com/HQIxHIv8n1NJ1IEhIRtWry ">BGI Challenge on Whatsapp for AI Developers</a> </h4>
+      <div @click="sendtolink('https://chat.whatsapp.com/HQIxHIv8n1NJ1IEhIRtWry')"  class="CLICKHERE">CLICK HERE</div>
+      <br>
+      <h4>      <a class="links" href="https://chat.whatsapp.com/INWXWVZhZrPCfENR6sAYiu">BGI Challenge on Whatsapp for AI General Public</a> </h4>
+      <div @click="sendtolink('https://chat.whatsapp.com/INWXWVZhZrPCfENR6sAYiu')" class="CLICKHERE">CLICK HERE</div>
+      <!-- <BaseButton variant="blue" @click="popup" >close</BaseButton> -->
+  </popupNET>
     <!-- <h1 > -->
       <div class="page-headingNET__headingNET">
       <img src="../../assets/images/backgrounds/Logo.svg" alt="" class="page-headingNET__Logo1">
@@ -33,8 +42,8 @@ export default {
             active: false,
             name: 'singularityNet',
             titleAndTexts: [
-                { title: 'Action 1.\n Subscribe to our Newsletter',
-                    text: 'Join the SingularityNET to Explore the Next Generation of Decentralized AI!',
+                { title: 'Action 1.\n SUBSCRIBE to our Newsletter',
+                    text: 'Join the SingularityNET to Explore the Next Generation of Decentralized AGI!',
                     id: 'id1',
                     buttontext: 'subscribe',
                     link: 'https://singularitynet.us16.list-manage.com/subscribe?u=d74195510c25bf501caf3011d&id=4cf1391864'
@@ -45,7 +54,7 @@ export default {
                     buttontext: 'join',
                     link: 'popup'
                 },
-                { title: 'Action 3.\n  Attend the Beneficial AGI Summit & Unconference',
+                { title: 'Action 3.\n  Attend the Beneficial AGI Summit & Online Unconference',
                     text: 'Envision a Radically Better Future at a Critical Moment!',
                     id: 'id3',
                     buttontext: 'attend',
@@ -57,6 +66,9 @@ export default {
     methods: {
         popup() {
             this.active = !this.active;
+        },
+        sendtolink(link){
+          window.location.href = link
         }
     },
     provide() {
@@ -69,6 +81,14 @@ export default {
 </script>
 
 <style lang="scss">
+.links{
+  color: #263cff;
+  // text-decoration: underline;
+}
+.links:visited{
+  color: #d042ff;
+  // text-decoration: underline;
+}
 .page-headingNET {
   height: 45rem;
   position: relative;
@@ -214,5 +234,45 @@ export default {
     box-shadow: rgba(62, 57, 107, 0.3) 0px 6px 16px 0px;
 
     }
+  }
+  .exitButton{
+    right: 50%;
+    position: relative;
+    background-color: blue;
+    border-radius: 100px;
+    border: 1.5px solid transparent;
+    transition: all 0.5s;
+    text-align: center;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+  .exitButton:hover{
+    background-color: #fff;
+
+    color: #007bff;
+    box-shadow: rgba(62, 57, 107, 0.3) 0px 6px 16px 0px;
+
+  }
+  .CLICKHERE{
+    left: 40%;
+    position: relative;
+    background-color: blue;
+    border-radius: 100px;
+    width: fit-content;
+    border: 1.5px solid transparent;
+    transition: all 0.5s;
+    text-align: center;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    color: #fff;
+  }
+  .CLICKHERE:hover{
+    background-color: #fff;
+
+    color: #007bff;
+    box-shadow: rgba(62, 57, 107, 0.3) 0px 6px 16px 0px;
+
   }
 </style>

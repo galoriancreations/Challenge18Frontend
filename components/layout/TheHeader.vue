@@ -52,7 +52,7 @@ export default {
         // {
         //   text: "About",
         //   dropdown: [
-        //     // { link: "/about", text: "About Us" },
+            { link: "/about", text: "About Us" },
         //     // { link: "/our-goals", text: "Our Goals" },
         //     // { link: "/articles", text: "Articles" },
         //     // { link: "/videos", text: "Videos" }
