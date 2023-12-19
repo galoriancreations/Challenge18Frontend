@@ -3,9 +3,9 @@
     <popupNET :active="active">
       <button @click="popup" class="exitButton">X</button>
 
-      <!-- <h4><a class="links" href="https://t.me/+5oYug7mEHxhjMGFk ">BGI Challenge on Telegram for AI Developers</a></h4>
+      <h4><a class="links" href="https://t.me/+5oYug7mEHxhjMGFk ">BGI Challenge on Telegram</a></h4>
       <div @click="sendtolink('https://t.me/+5oYug7mEHxhjMGFk')" class="CLICKHERE">CLICK HERE</div>
-      <br> -->
+      <br>
       <h4><a class="links" href="https://t.me/+3wl_XlXXIl4zMmQ0 ">BGI Academy a Telegram Silent Group</a></h4> 
       <div @click="sendtolink('https://t.me/+3wl_XlXXIl4zMmQ0 ')" class="CLICKHERE">CLICK HERE</div>
       <br>
