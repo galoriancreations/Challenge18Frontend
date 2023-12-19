@@ -1,5 +1,10 @@
 <template>
   <Page name="home" :showHeading="false" :mainSection="false">
+    <PageHeadingNET></PageHeadingNET>
+    <br>
+    <!-- <br> -->
+    <!-- <br> -->
+    <!-- <br><br><br><br><br><br><br><br> -->
     <Intro />
     <main class="home">
       <TopChallenges />

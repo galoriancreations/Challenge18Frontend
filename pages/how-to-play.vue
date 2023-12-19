@@ -1,6 +1,6 @@
 <template>
   <Page title="How to Play" name="how-to-play">
-    <HowToPlayVideo />
+    <!-- <HowToPlayVideo /> -->
     <div class="how-to-play__content">
       <HowToPlaySection
         v-for="section in sections"
