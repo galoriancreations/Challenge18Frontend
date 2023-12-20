@@ -42,8 +42,10 @@
         v-if="loading"
         :preMessage="progress.preMessage"
         :postMessage="progress.postMessage"
-        :percentDuration="progress.type === 'images' ? 10000 : 50000"
-        :bufferDuration="progress.type === 'images' ? 5000 : 20000"
+        :percentDuration="progress.percentDuration"
+        :bufferDuration="progress.bufferDuration"
+        :percentColor="progress.percentColor"
+        :bufferColor="progress.bufferColor"
         @type-changed="handleProgressTypeChanged"
       />
       <form class="form" @submit.prevent>
@@ -237,6 +239,10 @@ export default {
         preMessage: `AI is working on your template.<br/>Attempt <strong>`,
         postMessage: `</strong>to create template.<br/>This may <strong>take a few minutes</strong>.<br/>You will be <strong>redirected</strong> to the editor when we <strong>done</strong>.`,
         type: 'template',
+        percentDuration: 50000,
+        bufferDuration: 20000,
+        percentColor: '#00b4ff',
+        bufferColor: '#e6e6e6',
       }
     };
   },
@@ -367,6 +373,15 @@ export default {
       if (type === "images") {
         this.progress.preMessage = `Preparing your template...<br/>Generating image<strong>`;
         this.progress.postMessage = `</strong><br/>This may <strong>take a few minutes</strong>.<br/>You will be <strong>redirected</strong> to the editor when we <strong>done</strong>.`;
+        this.progress.percentDuration = 20000;
+        this.progress.bufferDuration = 10000;
+        this.progress.percentColor = '#1c2c54';
+      } else if (type === 'audios') {
+        this.progress.preMessage = `Preparing your template...<br/>Generating audio<strong>`;
+        this.progress.postMessage = `</strong><br/>This may <strong>take a few minutes</strong>.<br/>You will be <strong>redirected</strong> to the editor when we <strong>done</strong>.`;
+        this.progress.percentDuration = 5000;
+        this.progress.bufferDuration = 2000;
+        this.progress.percentColor = '#228b22';
       }
     }
   },

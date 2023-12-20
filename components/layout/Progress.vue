@@ -19,6 +19,7 @@
           fill="none"
           stroke-width="12"
           pathLength="100"
+          :stroke="bufferColor"
           :style="{ transitionDuration: `${bufferDuration}ms` }"
         />
         <circle
@@ -30,6 +31,7 @@
           fill="none"
           stroke-width="12"
           pathLength="100"
+          :stroke="percentColor"
           :style="{ transitionDuration: `${percentDuration}ms` }"
         />
       </svg>
@@ -63,6 +65,8 @@ export default {
     postMessage: String,
     percentDuration: Number,
     bufferDuration: Number,
+    percentColor: String,
+    bufferColor: String,
   },
   data() {
     return {
@@ -130,6 +134,12 @@ export default {
 
       this.percentage = this.progress;
     },
+    percentColor() {
+      this.$refs.circle.style.stroke = this.percentColor;
+    },
+    bufferColor() {
+      this.$refs.bufferCircle.style.stroke = this.bufferColor;
+    },
   },
   methods: {
     async resetProgress() {
@@ -141,8 +151,12 @@ export default {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // disable animation
-      this.$refs.circle.style.transitionDuration = '0ms';
-      this.$refs.bufferCircle.style.transitionDuration = '0ms';
+      if (this.$refs.circle) {
+        this.$refs.circle.style.transitionDuration = '0ms';
+      }
+      if (this.$refs.bufferCircle) {
+        this.$refs.bufferCircle.style.transitionDuration = '0ms';
+      }
       this.tweenEnabled = false;
 
       // reset percent and buffer circle
@@ -180,7 +194,7 @@ export default {
         stroke-dashoffset: 100;
       }
       .percent {
-        stroke: $color-gold-3;
+        stroke: $color-gold-1;
       }
       .buffer {
         stroke: $color-gray-2;
