@@ -46,11 +46,10 @@ export default {
         : selectedTemplate && "getTemplateData";
 
       const value = draftId || challengeId || selectedTemplate;
-      console.log(`edit test, draftId xapi key: ${key} : ${draftId}`);
+      console.log(`edit test, draftId xapi key: ${key} : ${value}`);
       const data = key
         ? transformData(await $axios.$post(endpoint, { [key]: value }))
         : {};
-
       return {
         data: {
           name: data.name || "",
@@ -113,19 +112,11 @@ export default {
       };
     },
     templateData() {
-      // temparaly commented. its conflicts with save a template:
-
-      // const reader = new FileReader();
-      // reader.onload = event => (this.base64 = event.target.result);
-      // reader.readAsDataURL(this.data.image);
-      // console.log(reader);
-      // console.log(this.base64);
-
       return {
         id: this.templateId,
         name: this.data.name,
         language: this.data.language,
-        image: this.base64,
+        image: this.data.image,
         dayMargin: this.data.dayMargin,
         preDays: clearedDays(this.data.preDays),
         days: clearedDays(this.data.days),
@@ -164,7 +155,8 @@ export default {
         templateId: this.templateId,
         selections: this.selections,
         date: moment(this.data.date).format("L"),
-        name: this.data.name
+        name: this.data.name,
+        image: this.data.image,
       };
     }
   },
@@ -214,7 +206,6 @@ export default {
           templateData: this.templateData
         }
       });
-      console.log();
       this.templateId = templateId;
     },
     async saveChallenge() {

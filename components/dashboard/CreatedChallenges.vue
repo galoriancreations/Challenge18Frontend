@@ -99,12 +99,11 @@ export default {
         `Are you sure you want to delete these ${selections.length} challenges? This action is irreversible.`,
         async () => {
           this.loading = true;
-          const requests = selections.map(challenge =>
-            // --to check Promise.all work? or change to what i did in templates and drafts?
-            this.$axios.$post("/xapi", { deleteChallenge: challenge._id })
-          );
-          await Promise.all(requests);
-          // --
+          for (let challenge of selections) {
+            await this.$axios.$post("/xapi", {
+              deleteChallenge: challenge._id,
+            });
+          }
           await this.$store.dispatch("updateUser");
           this.addNotification(
             `Successfully deleted <strong>${selections.length} challenges</strong>.`
