@@ -107,7 +107,7 @@ export default {
       this.loading = true;
       this.error = null;
       try {
-        await this.$store.dispatch("updateUser", this.formData);
+        await this.$store.dispatch("updateUser", { editProfile: this.formData });
         this.closeModal();
         this.addNotification(
           "<strong>Your profile details</strong> were successfully updated."
