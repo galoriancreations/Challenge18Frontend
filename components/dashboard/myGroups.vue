@@ -30,6 +30,8 @@
         return this.$store.getters.user;
       },
       items() {
+        if(!this.user.groups) return;
+
         return this.user.groups.map(group => ({
           ...group,
           name: group.name || "(Unnamed)",
