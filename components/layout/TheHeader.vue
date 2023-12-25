@@ -71,7 +71,8 @@ export default {
             // { link: "/players", text: "Players" },
             { link: "/protocol", text: "Protocol" },
             { link: "/articles", text: "Articles" },//belongs in about
-            { link: "/legal_AI_Ethics", text: "Terms & Conditions"}
+            { link: "/legal_AI_Ethics", text: "Terms & Conditions"},
+            { link: "/beneficialAgiAction", text: "BGI Action"}
           ]
         },
         // { link: "/marketplace", text: "Marketplace" },

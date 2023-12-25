@@ -30,6 +30,18 @@
         <p>
           the groups you join will appear here.
         </p>
+        <div>
+              <action-button
+              @click="toggleInfoModel" 
+              type="info"
+              color="white"
+              class="action-button-info"
+            />
+              <editor-telegram-info-modal  
+              :active="showInfoModal" 
+              @toggleInfoModel="toggleInfoModel" 
+            />
+        </div>
       </div>
       <v-data-table v-else
         :value="selected"
@@ -50,7 +62,12 @@
 </template>
 
 <script>
+import EditorIntroModal from '../editor/EditorIntroModal.vue';
+import EditorTelegramInfoModel from '../editor/EditorTelegramInfoModal.vue';
+import PopupModal from '../layout/PopupModal.vue';
+import ActionButton from '../UI/ActionButton.vue';
 export default {
+  components: { ActionButton, PopupModal, EditorIntroModal, EditorTelegramInfoModel },
   model: {
     prop: "selected",
     event: "input"
@@ -63,7 +80,8 @@ export default {
   data() {
     return {
       search: "",
-      id: ''
+      id: '',
+      showInfoModal: false,
     };
   },
   computed:{
@@ -73,7 +91,7 @@ export default {
     hasGroups() {
       return this.user?.groups && this.user.groups.length > 0
     },
-  },
+},
   methods: { 
     async joinGroup() {
       const inviteId = this.id
@@ -84,6 +102,9 @@ export default {
           console.log(res);
 
       },
+      toggleInfoModel() {
+        this.showInfoModal = !this.showInfoModal
+    },
   }
 };
 </script>
@@ -103,6 +124,13 @@ export default {
       }
     }
 
+    .action-button-info {
+            min-width: 60px;
+            max-height: 60px;
+            position: absolute;
+            right: 0px;
+    }
+
     .search-field {
       padding: 0;
       margin: 0 auto 5rem;
@@ -114,6 +142,8 @@ export default {
       }
     }
   }
+
+  
 
   &__actions {
     display: flex;
