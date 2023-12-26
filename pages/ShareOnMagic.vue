@@ -1,7 +1,7 @@
 <template>
     <Page title="Share On Magic" name="share-on-magic">
         <BaseButton variant="blue" @click="getQuestion">Pop a random question</BaseButton>
-        <PopupModal :active="active" height="350px" class="popupQuestion">
+        <PopupModal :active="active" height="400px" class="popupQuestion">
           <h1 class="popupQuestion__title">{{this.question.text}}</h1>
           <h3 class="popupQuestion__text" >send the link and share the question:</h3>
           <NuxtLink :to="{
@@ -10,16 +10,16 @@
           }" 
           >
           <!-- הקישור שנשלח לוואצאפ לא עובד -->
-            <ShareNetwork 
+            <!-- <ShareNetwork 
             @open="open"
             network="whatsapp" 
             url="https://ting.global.com/QuestionPage?question=question" 
             title="I would like to invite you to play with me in Share On Magic challenge"
             description="Answer the pop-up question and rate your friends` answers."
             >
-            <i :class="'fab fah fa-lg fa-whatsapp'"></i>
+            <i :class="'fab fah fa-lg fa-whatsapp'"></i> -->
             <span>whatsapp {{this.question.id}}</span>
-            </ShareNetwork>
+            <!-- </ShareNetwork> -->
           </NuxtLink>
           <BaseButton variant="blue" @click="getQuestion">change question</BaseButton>
         </PopupModal>

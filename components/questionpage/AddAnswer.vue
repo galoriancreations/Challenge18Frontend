@@ -35,7 +35,6 @@ export default {
             answer: this.answer
           }
         })
-        
         if(!this.answer){
           alert('Please add a answer')
           return;
