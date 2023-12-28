@@ -235,33 +235,15 @@ export default {
           templateId: selectedTemplate,
         },
       });
-      // get the day data from the response
-      const { title, time, tasks, messages, introduction, image } = day;
-      // map tasks to new tasks with new ids
-      const newTasks = tasks.map((task) => {
-        return {
-          ...task,
-          id: uniqid(),
-        };
-      });
-      // map messages to new messages with new ids
-      const newMessages = messages.map((message) => {
-        return {
-          ...message,
-          id: uniqid(),
-        };
-      });
+      
+      // add to tasks and messages ids
+      day.tasks.forEach((task) => (task.id = uniqid()));
+      day.messages.forEach((message) => (message.id = uniqid()));
+
       // add the day to the challenge
-      this.data.days.push({
-        id: uniqid(),
-        title,
-        time,
-        tasks: newTasks,
-        messages: newMessages,
-        introduction,
-        image,
-      });
+      this.data.days.push(day);
       this.selectedDay = this.data.days.length;
+      
       // send transition to task
       this.setTransition('task');
 

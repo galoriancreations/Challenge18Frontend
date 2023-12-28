@@ -158,16 +158,25 @@ export default {
         this.$refs.bufferCircle.style.transitionDuration = '0ms';
       }
       this.tweenEnabled = false;
+      await new Promise((resolve) => setTimeout(resolve, 10));
 
       // reset percent and buffer circle
       this.progress = 0;
-      this.$refs.circle.style.strokeDashoffset = 100;
-      this.$refs.bufferCircle.style.strokeDashoffset = 100;
+      if (this.$refs.circle) {
+        this.$refs.circle.style.strokeDashoffset = 100;
+      }
+      if (this.$refs.bufferCircle) {
+        this.$refs.bufferCircle.style.strokeDashoffset = 100;
+      }
 
       // delay the reset of the transition duration
       await new Promise((resolve) => setTimeout(resolve, 10));
-      this.$refs.circle.style.transitionDuration = `${this.percentDuration}ms`;
-      this.$refs.bufferCircle.style.transitionDuration = `${this.bufferDuration}ms`;
+      if (this.$refs.circle) {
+        this.$refs.circle.style.transitionDuration = `${this.percentDuration}ms`;
+      }
+      if (this.$refs.bufferCircle) {
+        this.$refs.bufferCircle.style.transitionDuration = `${this.bufferDuration}ms`;
+      }
       this.tweenEnabled = true;
 
       setTimeout(() => {
