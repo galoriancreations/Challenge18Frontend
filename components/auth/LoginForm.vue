@@ -33,9 +33,9 @@
     <div>
       <label for="password" class="form__label">Password</label>
       <input
+        v-model="formData.password"
         placeholder="Password"
         class="password"
-        @update="updatePassword"
         color="#007bff"
         required=true
         
@@ -82,10 +82,6 @@ export default {
       this.phoneInput.formatted = data.formatInternational;
       this.phoneInput.isValid = data.isValid;
     },
-    updatePassword(data) {
-      this.formData.password = data;
-      console.log(this.formData.password);
-    },
     async submitHandler() {
       if (!this.phoneInput.isValid) {
         if (this.phoneInput.value) {
@@ -103,6 +99,7 @@ export default {
         // await this.$axios.$post("/api", { signIn: this.formData });
         // this.verificationMode = true;
       } catch (error) {
+        console.log(error.response.data);
         this.error = error;
       }
       this.loading = false;
