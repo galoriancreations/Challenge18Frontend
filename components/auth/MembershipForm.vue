@@ -30,6 +30,26 @@
         :no-flags="true"
       />
     </div>
+    <div class="form__field">
+      <label for="password" class="form__label">Password</label>
+      <input
+        v-model="formData.password"
+        id="Password"
+        required
+        class="form__input"
+        placeholder="Password"
+      />
+    </div>
+    <div class="form__field">
+      <label for="confirmPassword" class="form__label">Confirm password</label>
+      <input
+        v-model="formData.confirmPassword"
+        id="confirmPassword"
+        required
+        class="form__input"
+        placeholder="Confirm password"
+      />
+    </div>
     <div class="form__field" v-if="isOrganization">
       <label for="organization" class="form__label">
         Organization/school name
@@ -176,6 +196,10 @@ export default {
   methods: {
     async submitHandler() {
       if (!this.validateData()) return;
+      if (this.formData.confirmPassword != this.formData.password){
+        this.error = "Passwords don't match"
+        return;
+      } 
       this.loading = true;
       try {
         await this.$store.dispatch("auth", {

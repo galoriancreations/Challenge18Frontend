@@ -30,6 +30,17 @@
       />
       <p class="verification__subtext">The code will expire in 10 minutes.</p>
     </div>
+    <div>
+      <label for="password" class="form__label">Password</label>
+      <input
+        placeholder="Password"
+        class="password"
+        @update="updatePassword"
+        color="#007bff"
+        required=true
+        
+      />
+    </div>
     <BaseButton v-if="!verificationMode" variant="blue">Login</BaseButton>
     <BaseSpinner v-if="loading" />
     <ErrorMessage v-else-if="error" :error="error" />
@@ -51,7 +62,8 @@ export default {
   data() {
     return {
       formData: {
-        phone: ""
+        phone: "",
+        password:""
       },
       phoneInput: {
         value: "",
@@ -69,6 +81,10 @@ export default {
       this.formData.phone = data.formattedNumber;
       this.phoneInput.formatted = data.formatInternational;
       this.phoneInput.isValid = data.isValid;
+    },
+    updatePassword(data) {
+      this.formData.password = data;
+      console.log(this.formData.password);
     },
     async submitHandler() {
       if (!this.phoneInput.isValid) {
@@ -102,6 +118,7 @@ export default {
         await this.$axios.$post("/api", {
           verifySignIn: {
             userId: this.formData.phone,
+            password: this.formData.password,
             code: this.code
           }
         });
@@ -199,5 +216,27 @@ export default {
       margin-bottom: 2.5rem;
     }
   }
+}
+.password{
+    border-radius: 8px;
+    caret-color: rgb(0, 123, 255);
+    cursor: pointer;
+    background-color: #fff;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    position: relative;
+    width: 100%;
+    padding: 0 12px;
+    font-weight: 400;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    z-index: 0;
+    margin-left: -1px;
+    height: 50px;
+    min-height: 50px;
 }
 </style>

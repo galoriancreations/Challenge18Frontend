@@ -107,8 +107,8 @@ export default {
       this.$emit("input", file);
       // two rows below i previosly comented
       // this.$emit("input", file);
-      // this.$emit("update:hasSelectedImage", true);
-      // this.uploadImage(file);
+      this.$emit("update:hasSelectedImage", true);
+      this.uploadImage(file);
       console.log(`image replased in imageSelector component: ${file}`);
       this.$emit("end-upload");
     }

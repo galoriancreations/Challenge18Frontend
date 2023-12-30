@@ -16,8 +16,10 @@ export default {
         memberName: "",
         memberRole: "",
         email: "",
+        password:"",
+        confirmPassword:"",
         language: "English",
-        accountType: "organization"
+        accountType: "player"
       },
       phoneInput: {
         value: null,
