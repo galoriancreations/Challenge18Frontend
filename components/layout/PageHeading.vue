@@ -198,7 +198,7 @@ export default {
     top: 46%;
     left: 50%;
     width: calc(100% - 2 * #{$padding-sides-mobile});
-    max-width: 70rem;
+    // max-width: 70rem;
     transform: translate(-50%, -50%);
     text-align: center;
     z-index: 5;
