@@ -72,7 +72,7 @@
         <h1>SingularityNET team</h1>
         <br>
         <br>
-        <div style="width: 1000px;min-height:300px ; border: black 2px solid; border-radius: 30px; margin: auto;">
+        <div style="min-height:300px ; border: black 2px solid; border-radius: 30px; margin: auto;">
             <br>
             <h1 style="margin-left: 50px;">🎁 Reward System in the Beneficial AGI Challenge 🎁</h1>
             <br>
