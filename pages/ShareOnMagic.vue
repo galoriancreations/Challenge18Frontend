@@ -72,15 +72,16 @@ export default {
       const shareUrl = window.location.href +`?qId=${this.question.id}`
       // Create the WhatsApp share URL
       const whatsappUrl = `whatsapp://send?text=${encodeURIComponent(shareText)}%20${encodeURIComponent(shareUrl)};`
-      const webWhatsappUrl = `https://web.whatsapp.com://send?text=${shareUrl}`
-      console.log(webWhatsappUrl);
+      const share_url = `https://wa.me?text=${encodeURIComponent(shareUrl)}`;
+      // const webWhatsappUrl = `https://web.whatsapp.com://send?text=${shareUrl}`
+      // console.log(webWhatsappUrl);
       // const whatsappUrl = `intent://scan/#Intent;scheme=whatsapp://send?text=${encodeURIComponent(shareText)}%20${encodeURIComponent(shareUrl)};S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.whatsapp;end`
       // Open WhatsApp with the share URL
       // "intent://scan/#Intent;scheme=whatsapp://send?#text=text=some%20text;S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.whatsapp;end"
       // <button onclick="window.open('https://web.whatsapp.com://send?text=This is whatsapp sharing example using button')"> Open WhatsApp </button>    
       window.location.href = whatsappUrl
       setTimeout(() => {
-        window.open(webWhatsappUrl)
+        window.open(share_url)
       }, 3000);
       
     }
