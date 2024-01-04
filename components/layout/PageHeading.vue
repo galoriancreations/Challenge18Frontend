@@ -181,6 +181,15 @@ export default {
       url(../../assets/images/backgrounds/what-we-do-bg.jpg);
   }
 
+  &#chatbot {
+    background-image: linear-gradient(
+        to right,
+        rgba(#4189bd, 0.8),
+        rgba(#4189bd, 0.8)
+      ),
+      url(../../assets/images/backgrounds/chatbot-bg.jpg);
+  }
+
   &#error-page {
     background-image: linear-gradient(
         to right,
