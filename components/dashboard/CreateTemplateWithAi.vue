@@ -170,7 +170,10 @@ import voiceOptions from '../../assets/data/voices';
 
 export default {
   props: {
-    active: Boolean,
+    active: {
+      type: Boolean,
+      required: true,
+    },
   },
   inject: ['closeModal', 'addNotification'],
   components: {

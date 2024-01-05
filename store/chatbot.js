@@ -3,21 +3,25 @@ export const state = () => ({
 });
 
 export const mutations = {
-  addMessage(state, payload) {
-    state.messages.push(payload);
+  addMessage(state, message) {
+    state.messages.push(message);
+  },
+  loadMessages(state, messages) {
+    state.messages = messages.reverse();
   },
 };
 
 export const actions = {
   async loadMessages(context) {
-    const messages = await this.$axios.$get('/chatbot/messages');
-    messages.forEach((message) => {
-      context.commit('addMessage', message);
-    });
+    const { messages } = await this.$axios.$get('/chatbot/messages');
+    context.commit('loadMessages', messages);
   },
-  async sendMessage(context, payload) {
-    const message = await this.$axios.$post('/chatbot/message', {
-      message: payload,
+  async addMessage(context, message) {
+    context.commit('addMessage', message);
+  },
+  async sendMessage(context, text) {
+    const { message } = await this.$axios.$post('/chatbot/message', {
+      message: text,
     });
     context.commit('addMessage', message);
   },

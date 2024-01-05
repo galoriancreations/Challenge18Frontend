@@ -1,8 +1,8 @@
 <template>
-  <div class="message" :class="`message__${message.sender}`">
+  <div class="message" :class="`message__${message.role}`">
     <div class="message__icon">
       <i
-        v-if="message.sender === 'assistant'"
+        v-if="message.role === 'assistant'"
         class="fas fa-robot message__icon__assistant"
       />
       <i v-else class="fas fa-user message__icon__user" />
@@ -16,7 +16,10 @@
 <script>
 export default {
   props: {
-    message: Object,
+    message: {
+      type: Object,
+      required: true,
+    },
   },
 };
 </script>
@@ -25,7 +28,7 @@ export default {
 .message {
   display: flex;
   flex-direction: row;
-  margin-block: 1.25rem;
+  margin-block: 1rem;
   width: 100%;
 
   &__text {
@@ -38,23 +41,27 @@ export default {
 
   &__icon {
     align-self: flex-start;
-    width: 4rem;
+    width: 3rem;
+    height: 3rem;
+    background-color: #e8ecef;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1rem;
+
 
     i {
       font-size: 2rem;
       padding: 0.5rem;
       border-radius: 50%;
-      margin-right: 1rem;
     }
 
     &__assistant {
-      background-color: #e8ecef;
       position: relative;
-      right: 1px;
     }
 
     &__user {
-      background-color: #f5f5f5;
       color: #4c9cd4;
     }
   }
