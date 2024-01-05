@@ -107,6 +107,15 @@
         </ul>
         <br>
         <br>
+        <h2 style="margin-left: 50px;">Disclaimer:</h2>
+        <br>
+        <p style="margin-left: 68px;">
+Selection Process: The selection of winners is subjective and based on the quality of participation, creativity, and adherence to guidelines.
+Right to Choose: We reserve the right to choose the winners. This decision is not solely based on quantitative measures but on a holistic evaluation of each participant's contribution to the challenge.
+Fair Evaluation: While we aim for fairness and transparency, participants should understand that the selection process involves a degree of subjectivity.
+By participating, you acknowledge and accept these terms. We look forward to seeing your innovative contributions and enthusiasm in the challenge!</p>
+        <br>
+        <br>
         <h2 style="margin-left: 50px;">By participating actively and leading with innovation, you not only contribute to the growth of our community but also stand a chance to be rewarded for your efforts. Let’s dive in and make the most of this opportunity!</h2>
         <br>
         <br>
