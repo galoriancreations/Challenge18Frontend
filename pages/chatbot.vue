@@ -8,20 +8,16 @@
     </h2>
     <SectionSeperator />
     <div class="chatbot__container">
-      <div class="chatbot__messages" ref="messages" @scroll="handleScroll">
+      <div class="chatbot__messages" ref="messages" @scroll="handleScrollDown">
         <ChatBotMessage
           :message="message"
           v-for="(message, id) in messages"
           :key="id"
         />
-        <div
-          class="chatbot__scrolldown"
-          :style="{ visibility: showScrollDown ? 'visible' : 'hidden' }"
-          @click="scrollToLastMessage()"
-        >
-          <i class="fas fa-arrow-down" />
+        <div v-if="showScrollDown" @click="scrollToLastMessage()">
+          <ScrollDownButton />
         </div>
-        <LoadingDots :loading="loading" />
+        <LoadingDots v-if="loading" />
       </div>
       <ChatBotInput @sendMessage="sendMessage" :loading="loading" />
     </div>
@@ -46,8 +42,8 @@ export default {
         });
         this.scrollToLastMessage();
         await this.$store.dispatch('chatbot/sendMessage', message);
-        this.scrollToLastMessage();
         this.loading = false;
+        this.scrollToLastMessage();
       }
     },
     scrollToLastMessage() {
@@ -62,12 +58,11 @@ export default {
         this.scrollToLastMessage();
       }, 100);
     },
-    handleScroll() {
+    handleScrollDown() {
       const messagesContainer = this.$refs.messages;
       const isAtBottom =
         messagesContainer.scrollTop + messagesContainer.clientHeight >=
         messagesContainer.scrollHeight - 60;
-
       this.showScrollDown = !isAtBottom;
     },
   },
@@ -128,32 +123,6 @@ export default {
 
     @include respond(mobile) {
       padding: 1rem;
-    }
-  }
-
-  &__scrolldown {
-    position: absolute;
-    display: inline;
-    font-size: 2rem;
-    color: #4c9cd4;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin: 0 auto;
-
-    bottom: 22rem;
-    left: 50%;
-    transform: translateX(-50%);
-
-    border-radius: 100%;
-    padding: 1.5rem 2rem;
-    background-color: #fff;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &:hover {
-      transform: translateX(-50%) scale(1.1);
     }
   }
 }

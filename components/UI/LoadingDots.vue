@@ -1,24 +1,10 @@
 <template>
-  <div
-    class="loading-dots"
-    :style="{ visibility: loading ? 'visible' : 'hidden' }"
-  >
+  <div class="loading-dots">
     <div class="loading-dots__dot" />
     <div class="loading-dots__dot" />
     <div class="loading-dots__dot" />
   </div>
 </template>
-
-<script>
-export default {
-  props: {
-    loading: {
-      type: Boolean,
-      required: true,
-    },
-  },
-};
-</script>
 
 <style lang="scss">
 .loading-dots {
@@ -26,11 +12,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 40rem;
+  bottom: 22rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
-  height: 100%;
 
   &__dot {
     width: 1rem;
