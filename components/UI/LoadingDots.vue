@@ -12,7 +12,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  bottom: 22rem;
+  bottom: 16rem;
   left: 50%;
   transform: translateX(-50%);
 
