@@ -48,7 +48,7 @@ export default {
       const items = [
 
         { link: "/", text: "Home" },
-
+        ,
         // {
         //   text: "About",
         //   dropdown: [
@@ -66,7 +66,7 @@ export default {
           dropdown: [
             { link: "/how-to-play", text: "How to Play" },
             { link: "/challenges", text: "Challenges" },
-            
+            { link: "/Guidelines", text: "Guidelines" },
             // { link: "/clubs", text: "Clubs" },
             // { link: "/players", text: "Players" },
             { link: "/protocol", text: "Protocol" },

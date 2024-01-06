@@ -1,10 +1,6 @@
 <template>
   <Page name="home" :showHeading="false" :mainSection="false">
-    <PageHeadingNET></PageHeadingNET>
-    <br>
-    <!-- <br> -->
-    <!-- <br> -->
-    <!-- <br><br><br><br><br><br><br><br> -->
+    <PageHeadingNET />
     <Intro />
     <main class="home">
       <TopChallenges />
@@ -12,7 +8,7 @@
       <TryItYourself />
       <Testimonials />
       <LatestNews />
-      <Partners class="section-white" />
+    <Partners class="section-white" />
     </main>
   </Page>
 </template>

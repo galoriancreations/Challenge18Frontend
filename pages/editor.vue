@@ -316,6 +316,10 @@ export default {
       // immediatly create draft when opening
       await this.saveDraft();
       // if i editing template- erase it from data-base
+      /////////////////////////////////////////////////////////////////
+      // why delete template you cant create
+      // also you cant create a challnge without having the template
+      /////////////////////////////////////////////////////////////////
       await this.$axios.$post("/xapi", {
         deleteTemplate: {
           templateId: this.templateId,

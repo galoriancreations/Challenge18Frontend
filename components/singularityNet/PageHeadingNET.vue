@@ -12,7 +12,7 @@
       <!-- <h4>      <a class="links" href="https://chat.whatsapp.com/HQIxHIv8n1NJ1IEhIRtWry ">BGI Challenge on Whatsapp for AI Developers</a> </h4>
       <div @click="sendtolink('https://chat.whatsapp.com/HQIxHIv8n1NJ1IEhIRtWry')"  class="CLICKHERE">CLICK HERE</div>
       <br> -->
-      <h4>      <a class="links" href="https://chat.whatsapp.com/INWXWVZhZrPCfENR6sAYiu">BGI Challenge on Whatsapp for AI General Public</a> </h4>
+      <h4>      <a class="links" href="https://chat.whatsapp.com/INWXWVZhZrPCfENR6sAYiu">BGI Challenge on Whatsapp for AI</a> </h4>
       <div @click="sendtolink('https://chat.whatsapp.com/INWXWVZhZrPCfENR6sAYiu')" class="CLICKHERE">CLICK HERE</div>
       <!-- <BaseButton variant="blue" @click="popup" >close</BaseButton> -->
   </popupNET>
