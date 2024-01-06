@@ -19,7 +19,7 @@ export default {
         password:"",
         confirmPassword:"",
         language: "English",
-        accountType: "player"
+        accountType: "individual"
       },
       phoneInput: {
         value: null,
