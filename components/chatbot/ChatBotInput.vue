@@ -9,7 +9,7 @@
     <button
       class="chatbot-input__button"
       @click="sendMessage"
-      :disabled="loading"
+      :disabled="loading || message.trim().length < 1"
     >
       Send
     </button>

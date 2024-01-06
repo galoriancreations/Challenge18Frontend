@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     async sendMessage(message) {
-      if (message.length > 1) {
+      if (message.trim().length > 1 && !this.loading) {
         this.loading = true;
         await this.$store.dispatch('chatbot/addMessage', {
           role: 'user',
