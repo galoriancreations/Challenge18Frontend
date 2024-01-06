@@ -2,15 +2,14 @@
     <Page title="Singularity Magic" name="singularity-magic">
         <BaseButton variant="blue" @click="getQuestion">Pop a random question</BaseButton>
         <PopupModal :active="active" height="400px" class="popupQuestion">
-            <h1 class="popupQuestion__title">question {{ this.question.id }}</h1>
             <h1 class="popupQuestion__title">{{ this.question.text }}</h1>
-            <h3 class="popupQuestion__text">send the link and share the question:</h3>
             <NuxtLink :to="{
                 name: 'QuestionPage',
                 params: { question: question }
             }" class="popupQuestion__text">
-                <BaseButton variant="blue">Qlick to answer</BaseButton>
+                q-{{ this.question.id }} TO answer
             </NuxtLink>
+            <BaseButton variant="blue" @click="shareQuestion">share WhatsApp</BaseButton>
             <BaseButton variant="blue" @click="getQuestion">change question</BaseButton>
         </PopupModal>
     </Page>
@@ -26,6 +25,7 @@ export default {
     data() {
         return {
             question: {},
+            qId: false
         }
     },
     props: {
@@ -33,8 +33,17 @@ export default {
     },
     methods: {
         async getQuestion() {
+            const queryString = window.location.search;
+            console.log(queryString);
+            const urlParams = new URLSearchParams(queryString);
+            this.qId = urlParams.get('qId')
+            console.log(this.qId);
+            if (!this.qId) {
+                this.qId = false
+            }
             this.active = true;
             const res = await this.$axios.$post("/xapi", {
+                qId: this.qId,
                 getSingularity: true
             })
             this.question = {
@@ -42,7 +51,14 @@ export default {
                 id: res.qnum,
                 answers: res.answers
             }
+        },
+        shareQuestion() {
+            const shareUrl = window.location.href + `?qId=${this.question.id}`
+            // Create the WhatsApp share URL
+            const whatsappUrl = `https://wa.me?text=${encodeURIComponent(shareUrl)}`;
+            window.open(whatsappUrl)
         }
+
     },
     components: { Page, BaseButton }
 }
