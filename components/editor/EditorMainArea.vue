@@ -40,10 +40,13 @@
               :key="`date-${dayData.id}`"
               class="editor__subsection"
             >
-              <div class="editor__date">
+              <!-- <div class="editor__date">
                 <div />
                 <span>{{ date }}</span>
                 <div />
+              </div> -->
+              <div>
+                <EachDayDate v-model="data.dayDate" />
               </div>
             </div>
             <div
@@ -125,6 +128,7 @@
 <script>
 import { newMessage, newTask } from "~/assets/util/functions";
 import { rtlLanguages, dayTranslations } from "~/assets/util/options";
+
 import moment from "moment";
 import uniqid from "uniqid";
 import popupModal from "~/mixins/popup-modal";
@@ -174,11 +178,11 @@ export default {
     dayData() {
       return this.data.days[this.dayIndex];
     },
-    date() {
-      const date = moment(this.data.date);
-      date.add(this.dayIndex * this.data.dayMargin, "days");
-      return date.format("LL");
-    },
+    // date() {
+    //   const date = moment(this.data.date);
+    //   date.add(this.dayIndex * this.data.dayMargin, "days");
+    //   return date.format("LL");
+    // },
     showTasks() {
       return this.isTemplateEditable || this.dayData.tasks.length > 0;
     },
