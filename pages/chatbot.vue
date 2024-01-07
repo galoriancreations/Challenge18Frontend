@@ -12,8 +12,8 @@
         <div v-if="messages.length">
           <ChatBotMessage
             :message="message"
-            v-for="(message, id) in messages"
-            :key="id"
+            v-for="message in messages"
+            :key="message.id"
           />
         </div>
         <div v-else>
@@ -47,6 +47,7 @@ export default {
         await this.$store.dispatch('chatbot/addMessage', {
           role: 'user',
           text: message,
+          createdAt: Math.floor(Date.now() / 1000),
         });
         this.scrollToLastMessage();
         await this.$store.dispatch('chatbot/sendMessage', message);

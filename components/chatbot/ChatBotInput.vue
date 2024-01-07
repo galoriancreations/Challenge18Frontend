@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     sendMessage() {
-      if (this.message.length > 1) {
+      if (this.message.trim().length > 1) {
         this.$emit('sendMessage', this.message);
         this.message = '';
       }
