@@ -2,7 +2,7 @@
     {
         "title": "Object of the Challenge",
         "items": [
-            "Win the most AGIX tokens by completing social impact tasks. Tasks involve learning about Beneficial AGI, Regenerative Economy, Global Goals, reflecting about those topics, and acting towards a positive change in the world.",
+            "Get the most AGIX tokens by completing social impact tasks. Tasks involve learning about Beneficial AGI, Regenerative Economy, Global Goals, reflecting about those topics, and acting towards a positive change in the world.",
             "Winners are the challenge groups with the highest cumulative points, and more points can be attained when groups collaborate on tasks.",
             "Participants learn to commit to changing habits as a life-long learning."
         ],
@@ -12,7 +12,8 @@
         "title": "Preparation",
         "items": [
             "Get a diary to complete challenges, (any physical/digital notebook will do).",
-            "Join a challenge group from Ting website, or an online invite."        ],
+            "Join a challenge group from Ting website, or an online invite."
+        ],
         "image": "preparation.png"
     },
     {
@@ -20,7 +21,7 @@
         "items": [
             "Once you join a team, you will receive tasks from the group admin.",
             " Complete any number of the daily tasks. Some tasks may require a diary.",
-            "Earn points & AGIX tokens by marking each completed task with their respective emojis."
+            "Get points & AGIX tokens by marking each completed task with their respective emojis."
         ],
         "image": "how-to-play.png"
     },
@@ -38,9 +39,9 @@
     {
         "title": "Bonus Features",
         "items": [
-            "Earn AGIX token rewards!.",
+            "Get AGIX token rewards!.",
             "Unlock group bonuses as more members participate.",
-            "Lead your own Beneficial AGI group for exclusive rewards.",
+            "Lead your own Beneficial AGI group for exclusive rewards.",
             "Group weekly webinars & panel discussion."
         ],
         "image": "bonus-features.png"
@@ -49,7 +50,7 @@
         "title": "Winning the Game",
         "items": [
             "The top-scoring players in a challenge group win within their group.",
-            "The top-scoring club/Ting Tank within a calendar year win globally for that season."
+            "The top-scoring club/Ting Tank within a calendar year win globally for that season."
         ],
         "image": "how-to-win.png"
     }
