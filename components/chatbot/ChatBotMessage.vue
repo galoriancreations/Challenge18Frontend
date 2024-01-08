@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import { formatTime } from '~/assets/util/functions';
+
 export default {
   props: {
     message: {
@@ -23,16 +25,8 @@ export default {
     },
   },
   computed: {
-    formatedDate() {
-      const date = new Date(this.message.createdAt * 1000);
-      const isDifferentDate = date.toDateString() !== new Date().toDateString();
-      const formatDate = `${date.getDate()}/${date.getMonth() +
-        1}/${date.getFullYear()}`;
-
-      return `${date.getHours()}:${date.getMinutes()}${
-        date.getMinutes() < 10 ? '0' : ''
-      }
-      ${isDifferentDate ? ` - ${formatDate}` : ''}`;
+    formattedDate() {
+      return formatTime(this.message.created_at);
     },
   },
 };

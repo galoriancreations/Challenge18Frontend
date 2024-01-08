@@ -1,26 +1,25 @@
 <template>
-  <div class="chatbot-placeholder">
-    <div class="chatbot-placeholder__icon">
+  <div class="chatbot-no-messages">
+    <div class="chatbot-no-messages__icon">
       <img
-        src="../../assets/images/logos/chatbot-placeholder.png"
+        src="../../assets/images/logos/chatbot-icon.png"
         alt="Chatbot icon"
       />
     </div>
-    <div class="chatbot-placeholder__text">
-      <p>Hi, I'm your personal assistant. How can I help you?</p>
+    <div class="chatbot-no-messages__text">
+      <p>Hi, I'm your personal assistant.<br />How can I help you?</p>
     </div>
   </div>
 </template>
 
 <style lang="scss">
-.chatbot-placeholder {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.chatbot-no-messages {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  text-align: center;
+  margin-bottom: 30rem;
 
   &__icon {
     width: 10rem;
@@ -36,7 +35,7 @@
       width: 7rem;
       height: 7rem;
     }
-    
+
     img {
       width: 15rem;
       height: 15rem;
@@ -57,14 +56,11 @@
       @include respond(mobile) {
         font-size: 1.5rem;
       }
-    }
-  }
 
-  @include respond(mobile) {
-    flex-direction: column;
-    width: 80%;
-    padding: 2rem;
-    text-align: center;
+      @include respond(tablet) {
+        font-size: 1.5rem;
+      }
+    }
   }
 }
 </style>
