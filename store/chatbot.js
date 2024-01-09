@@ -17,6 +17,10 @@ export const mutations = {
   setThread(state, thread) {
     state.thread = thread;
   },
+  changeThreadTitle(state, payload) {
+    const thread = state.threads.find((v) => v.id === payload.thread.id);
+    thread.title = payload.title;
+  },
 };
 
 export const actions = {
@@ -30,7 +34,6 @@ export const actions = {
     context.commit('addMessage', message);
   },
   async sendMessage(context, payload) {
-    console.log('dispatching message sendMessage', payload);
     const { message } = await this.$axios.$post(
       `/chatbot/message/${payload.thread.id}`,
       {
@@ -45,7 +48,9 @@ export const actions = {
   },
   async selectThread(context, thread) {
     context.commit('setThread', thread);
-    const { messages } = await this.$axios.$get(`/chatbot/messages/${thread.id}`);
+    const { messages } = await this.$axios.$get(
+      `/chatbot/messages/${thread.id}`
+    );
     context.commit('setMessages', messages);
   },
   async createThread(context) {
@@ -58,6 +63,12 @@ export const actions = {
       'setThreads',
       context.state.threads.filter((v) => v.id !== thread.id)
     );
+  },
+  async changeThreadTitle(context, payload) {
+    await this.$axios.$put(`/chatbot/thread/${payload.thread.id}`, {
+      title: payload.title,
+    });
+    context.commit('changeThreadTitle', payload);
   },
 };
 

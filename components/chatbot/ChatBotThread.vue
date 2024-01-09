@@ -1,16 +1,28 @@
 <template>
-  <div class="chatbot-thread" @click="selectThread">
-    <div class="chatbot-thread__title" @click.stop="changeTitle">
-      {{ thread.title || 'Untitled' }}
+  <div
+    class="chatbot-thread"
+    @click="selectThread"
+    :class="active ? 'chatbot-thread__active' : ''"
+  >
+    <div class="chatbot-thread__title">
+      <div ref="threadTitle">
+        <textarea-autosize
+          :value.prevent="thread.title || 'Untitled'"
+          @input="changeTitle($event)"
+          @keydown.native.enter.prevent
+          :rows="1"
+        />
+      </div>
+
+      <div class="chatbot-thread__delete" @click.stop="deleteThread">
+        <i class="fas fa-trash-alt" />
+      </div>
     </div>
     <div class="chatbot-thread__description">
       {{ thread.id }}
     </div>
     <div class="chatbot-thread__time">
-      {{ formattedTime(thread.updated_at) }}
-    </div>
-    <div class="chatbot-thread__delete" @click="deleteThread(thread.id)">
-      <i class="fas fa-trash-alt" />
+      {{ formattedTime() }}
     </div>
   </div>
 </template>
@@ -19,31 +31,63 @@
 import { formatTime } from '~/assets/util/functions';
 
 export default {
-  emits: ['selectThread'],
+  inject: ['addNotification'],
+  emits: ['selectThread', 'selectFirstThread', 'loading'],
+  data() {
+    return {
+      saveTimeout: null,
+    };
+  },
   props: {
     thread: {
       type: Object,
       required: true,
     },
+    active: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
-    deleteThread(threadId) {
-      this.$emit('deleteThread', threadId);
+    formattedTime() {
+      return formatTime(this.thread.created_at);
     },
-    formattedTime(time) {
-      return formatTime(time);
+    async changeTitle(value) {
+      if (value === 'Untitled') {
+        return;
+      }
+      const title = value.trim();
+      if (title.length < 1 || this.thread?.title === title) {
+        return;
+      }
+
+      clearTimeout(this.saveTimeout);
+      this.saveTimeout = setTimeout(async () => {
+        this.$emit('loading', true);
+        await this.$store.dispatch('chatbot/changeThreadTitle', {
+          thread: this.thread,
+          title,
+        });
+        this.$emit('loading', false);
+        this.addNotification(
+          `Thread title changed to <strong>${title}</strong>`
+        );
+      }, 3000);
     },
     selectThread() {
-      this.$emit('selectThread', this.thread);
-    },
-    changeTitle() {
-      const newTitle = prompt('Enter new title');
-      if (newTitle) {
-        this.$store.dispatch('chatbot/changeThreadTitle', {
-          threadId: this.thread.id,
-          title: newTitle,
-        });
+      // check if thread title is selected, if so, do not select thread
+      const selection = window.getSelection();
+      if (selection.anchorNode !== this.$refs.threadTitle) {
+        this.$emit('selectThread', this.thread);
       }
+    },
+    async deleteThread() {
+      this.$emit('loading', true);
+      await this.$store.dispatch('chatbot/deleteThread', this.thread);
+      if (this.active) {
+        this.$emit('selectFirstThread');
+      }
+      this.$emit('loading', false);
     },
   },
 };
@@ -66,6 +110,8 @@ export default {
   &__title {
     font-size: 16px;
     font-weight: bold;
+    display: flex;
+    justify-content: space-between;
   }
 
   &__description {
@@ -75,7 +121,6 @@ export default {
 
   &__delete {
     visibility: hidden;
-    float: right;
     font-size: 14px;
     color: #999;
 
@@ -87,13 +132,16 @@ export default {
     &:hover {
       color: red;
     }
-    
   }
 
   &__time {
-    font-size: 12px;
+    font-size: 14px;
     color: #999;
-    float: left;
+    float: right;
+  }
+
+  &__active {
+    background-color: #eee;
   }
 }
 </style>

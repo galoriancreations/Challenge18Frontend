@@ -9,7 +9,7 @@
     </div>
     <div class="message__text" v-text="message.text" />
     <div class="message__timestamp">
-      {{ formatedDate }}
+      {{ formattedDate }}
     </div>
   </div>
 </template>
@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     formattedDate() {
-      return formatTime(this.message.created_at);
+      return formatTime(this.message.createdAt);
     },
   },
 };

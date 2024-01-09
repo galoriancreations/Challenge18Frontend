@@ -9,7 +9,12 @@
     <SectionSeperator />
     <div class="chatbot__container">
       <div class="chatbot__container-threads-messages">
-        <ChatBotThreads :threads="threads" @loading="setLoading" />
+        <ChatBotThreads
+          :threads="threads"
+          :activeThread="thread"
+          @loading="setLoadingThread"
+          @selectFirstThread="selectFirstThread"
+        />
         <div
           class="chatbot__messages"
           ref="messages"
@@ -22,18 +27,19 @@
               :key="message.id"
             />
           </div>
-          <div v-else-if="thread">
-            <ChatBotNoMessages />
-          </div>
+          <ChatBotNoMessages />
         </div>
       </div>
       <div v-if="showScrollDown" @click="scrollToLastMessage()">
         <ScrollDownButton />
       </div>
-      <LoadingDots v-if="loading" />
-      <ChatBotInput @sendMessage="sendMessage" :loading="loading || !!thread" />
+      <LoadingDots v-if="loading.messages" />
+      <ChatBotInput
+        @sendMessage="sendMessage"
+        :loading="loading.messages || !thread"
+      />
     </div>
-    <BaseSpinner v-if="loading" />
+    <BaseSpinner v-if="loading.thread" />
   </Page>
 </template>
 
@@ -44,14 +50,17 @@ export default {
   },
   data() {
     return {
-      loading: false,
+      loading: {
+        thread: false,
+        messages: false,
+      },
       showScrollDown: false,
     };
   },
   methods: {
     async sendMessage(message) {
-      if (message.trim().length > 1 && !this.loading) {
-        this.loading = true;
+      if (message.trim().length > 1 && !this.loading.messages) {
+        this.loading.messages = true;
         await this.$store.dispatch('chatbot/addMessage', {
           role: 'user',
           text: message,
@@ -62,7 +71,7 @@ export default {
           text: message,
           thread: this.thread,
         });
-        this.loading = false;
+        this.loading.messages = false;
         this.scrollToLastMessage();
       }
     },
@@ -74,9 +83,9 @@ export default {
     },
     async loadData() {
       await this.$store.dispatch('chatbot/loadThreads');
-      // if (this.thread) {
-      //   await this.$store.dispatch('chatbot/loadMessages', this.thread);
-      // }
+      if (this.thread) {
+        await this.$store.dispatch('chatbot/loadMessages', this.thread);
+      }
       setTimeout(() => {
         this.scrollToLastMessage();
       }, 100);
@@ -85,8 +94,22 @@ export default {
       const messagesContainer = this.$refs.messages;
       this.showScrollDown = messagesContainer.scrollTop <= -10;
     },
-    setLoading(loading) {
-      this.loading = loading;
+    setLoadingMessages(loading) {
+      this.loading.messages = loading;
+    },
+    setLoadingThread(loading) {
+      this.loading.thread = loading;
+    },
+    selectFirstThread() {
+      const threadCookie = this.$cookies.get('selectedThread');
+      if (threadCookie) {
+        this.$store.dispatch('chatbot/selectThread', threadCookie);
+        return threadCookie;
+      }
+      const thread = this.threads[0];
+      this.$store.dispatch('chatbot/selectThread', thread);
+      this.$cookies.set('selectedThread', thread);
+      return thread;
     },
   },
   computed: {
@@ -97,11 +120,7 @@ export default {
       return this.$store.getters['chatbot/threads'];
     },
     thread() {
-      console.log(
-        'cookie of selectedThread:',
-        this.$cookies.get('selectedThread')
-      );
-      return this.$cookies.get('selectedThread');
+      return this.$store.getters['chatbot/thread'] || this.selectFirstThread();
     },
   },
   mounted() {

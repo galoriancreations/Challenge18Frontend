@@ -2,20 +2,24 @@
   <div class="chatbot-threads" v-if="show">
     <div class="chatbot-threads__header">
       <div class="chatbot-threads__header-title">ChatBots</div>
-      <div class="chatbot-threads__header-close" @click="show = !show">X</div>
+      <div class="chatbot-threads__header-close" @click="show = !show">
+        <i class="fas fa-times" />
+      </div>
     </div>
     <div class="chatbot-threads__content">
       <div class="chatbot-threads__content-thread">
         <ChatBotThread
-          :thread="thread"
           v-for="thread in threads"
+          :thread="thread"
           :key="thread.id"
+          :active="thread.id === activeThread.id"
           @selectThread="selectThread"
+          @selectFirstThread="$emit('selectFirstThread')"
         />
       </div>
     </div>
-    <div class="chatbot-threads__new-thread">
-      <div class="chatbot-threads__new-thread__title" @click="createThread">
+    <div class="chatbot-threads__new-thread" @click="createThread">
+      <div class="chatbot-threads__new-thread__title">
         New Thread
       </div>
       <div class="chatbot-threads__new-thread-description">
@@ -30,21 +34,25 @@
 
 <script>
 export default {
-  emits: ['loading'],
+  emits: ['loading', 'selectFirstThread'],
   props: {
     threads: {
       type: Array,
+      required: true,
+    },
+    activeThread: {
+      type: Object,
       required: true,
     },
   },
   data() {
     return {
       show: true,
+      saveTimeout: null,
     };
   },
   methods: {
     async selectThread(thread) {
-      console.log('selectThread', thread);
       this.$emit('loading', true);
       await this.$store.dispatch('chatbot/selectThread', thread);
       this.$cookies.set('selectedThread', thread);
@@ -56,12 +64,6 @@ export default {
       const thread = this.threads[this.threads.length - 1];
       await this.$store.dispatch('chatbot/selectThread', thread);
       this.$cookies.set('selectedThread', thread);
-      this.$emit('loading', false);
-    },
-    async deleteThread(threadId) {
-      this.$emit('loading', true);
-      await this.$store.dispatch('chatbot/deleteThread', threadId);
-      this.$cookies.remove('selectedThread');
       this.$emit('loading', false);
     },
   },
@@ -78,8 +80,7 @@ export default {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  z-index: 20;
-  
+
   @include respond(mobile) {
     width: 100%;
     height: 100%;
@@ -87,8 +88,7 @@ export default {
     top: 0;
     left: 0;
   }
-  
-  
+
   &__header {
     display: flex;
     justify-content: space-between;
