@@ -5,6 +5,7 @@
       v-model="message"
       @keydown.native.enter.exact.prevent="sendMessage()"
       :rows="1"
+      class="chatbot-input__textarea"
     />
     <button
       class="chatbot-input__button"

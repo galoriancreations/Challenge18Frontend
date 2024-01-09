@@ -8,7 +8,7 @@
 
 <style lang="scss">
 .loading-dots {
-  position: absolute;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;

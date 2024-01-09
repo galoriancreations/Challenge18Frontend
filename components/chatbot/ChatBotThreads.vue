@@ -28,7 +28,7 @@
     </div>
   </div>
   <div v-else class="chatbot-threads__minimize" @click="show = true">
-    <i class="fas fa-comment-alt" />
+    <i class="far fa-comments" />
   </div>
 </template>
 
@@ -77,7 +77,6 @@ export default {
   right: 0;
   width: 300px;
   background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
 
@@ -111,7 +110,6 @@ export default {
 
   &__new-thread {
     padding: 10px;
-    border-bottom: 1px solid #eee;
     cursor: pointer;
 
     &:hover {
@@ -131,14 +129,24 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    width: 50px;
-    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    z-index: 1;
+    background-color: #cccccc6c;
+    padding: 1rem;
+
     i {
-      font-size: 20px;
+      font-size: 30px;
+
+      @include respond(mobile) {
+        font-size: 20px;
+      }
+
+      @include respond(tablet) {
+        font-size: 20px;
+      }
     }
 
     &:hover {

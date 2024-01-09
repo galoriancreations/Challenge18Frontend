@@ -15,31 +15,41 @@
           @loading="setLoadingThread"
           @selectFirstThread="selectFirstThread"
         />
-        <div
-          class="chatbot__messages"
-          ref="messages"
-          @scroll="handleScrollDown"
-        >
-          <div v-if="thread && messages.length">
-            <ChatBotMessage
-              :message="message"
-              v-for="message in messages"
-              :key="message.id"
-            />
+        <div class="chatbot__messages">
+          <div
+            class="chatbot__messages-content"
+            ref="messages"
+            @scroll="handleScrollDown"
+          >
+            <div v-if="thread && messages.length">
+              <ChatBotMessage
+                :message="message"
+                v-for="message in messages"
+                :key="message.id"
+              />
+            </div>
+            <ChatBotNoMessages v-else />
           </div>
-          <ChatBotNoMessages />
+          <div class="chatbot__messages-input">
+            <ChatBotInput
+              @sendMessage="sendMessage"
+              :loading="loading.messages || !thread"
+            />
+            <div class="chatbot__loading-dots">
+              <LoadingDots v-if="loading.messages" />
+            </div>
+            <div
+              class="chatbot__loading-scroll-down"
+              v-if="showScrollDown"
+              @click="scrollToLastMessage()"
+            >
+              <ScrollDownButton />
+            </div>
+          </div>
         </div>
       </div>
-      <div v-if="showScrollDown" @click="scrollToLastMessage()">
-        <ScrollDownButton />
-      </div>
-      <LoadingDots v-if="loading.messages" />
-      <ChatBotInput
-        @sendMessage="sendMessage"
-        :loading="loading.messages || !thread"
-      />
     </div>
-    <BaseSpinner v-if="loading.thread" />
+    <BaseSpinner v-if="loading.thread" class="chatbot__loadingCircle" />
   </Page>
 </template>
 
@@ -130,6 +140,9 @@ export default {
     messages() {
       this.scrollToLastMessage();
     },
+    thread() {
+      this.$refs.page.$el.querySelector('.chatbot-input__textarea').value = '';
+    },
   },
 };
 </script>
@@ -158,18 +171,48 @@ export default {
   }
 
   &__messages {
+    position: relative;
     flex: 1;
     display: flex;
-    flex-direction: column-reverse;
-    padding: 2rem;
-    background-color: #f5f5f5;
-    border-radius: 0.5rem;
-    overflow-y: auto;
-    scroll-behavior: smooth;
+    flex-direction: column;
+    &-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column-reverse;
+      padding: 2rem;
+      background-color: #f5f5f5;
+      border-radius: 0.5rem;
+      overflow-y: auto;
+      scroll-behavior: smooth;
 
-    @include respond(mobile) {
-      padding: 1rem;
+      @include respond(mobile) {
+        padding: 1rem;
+      }
     }
+
+    &-input {
+      border-left: 1px solid #eee;
+    }
+  }
+
+  &__loading-dots {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0.5rem;
+  }
+
+  &__loading-scroll-down {
+    position: relative;
+    bottom: 15rem;
+    left: 1rem;
+  }
+
+  &__loadingCircle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 </style>
