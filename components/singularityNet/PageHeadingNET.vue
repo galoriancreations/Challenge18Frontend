@@ -4,16 +4,16 @@
       <button @click="popup" class="exitButton">X</button>
 
       <h4><a class="links" href="https://t.me/+5oYug7mEHxhjMGFk ">BGI Challenge on Telegram</a></h4>
-      <div @click="sendtolink('https://t.me/+5oYug7mEHxhjMGFk')" class="CLICKHERE">CLICK HERE</div>
+      <div @click="sendToLink('https://t.me/+5oYug7mEHxhjMGFk')" class="CLICKHERE">CLICK HERE</div>
       <br>
       <h4><a class="links" href="https://t.me/+3wl_XlXXIl4zMmQ0 ">BGI Academy a Telegram Silent Group</a></h4> 
-      <div @click="sendtolink('https://t.me/+3wl_XlXXIl4zMmQ0 ')" class="CLICKHERE">CLICK HERE</div>
+      <div @click="sendToLink('https://t.me/+3wl_XlXXIl4zMmQ0 ')" class="CLICKHERE">CLICK HERE</div>
       <br>
       <!-- <h4>      <a class="links" href="https://chat.whatsapp.com/HQIxHIv8n1NJ1IEhIRtWry ">BGI Challenge on Whatsapp for AI Developers</a> </h4>
-      <div @click="sendtolink('https://chat.whatsapp.com/HQIxHIv8n1NJ1IEhIRtWry')"  class="CLICKHERE">CLICK HERE</div>
+      <div @click="sendToLink('https://chat.whatsapp.com/HQIxHIv8n1NJ1IEhIRtWry')"  class="CLICKHERE">CLICK HERE</div>
       <br> -->
       <h4>      <a class="links" href="https://chat.whatsapp.com/INWXWVZhZrPCfENR6sAYiu">BGI Challenge on Whatsapp for AI</a> </h4>
-      <div @click="sendtolink('https://chat.whatsapp.com/INWXWVZhZrPCfENR6sAYiu')" class="CLICKHERE">CLICK HERE</div>
+      <div @click="sendToLink('https://chat.whatsapp.com/INWXWVZhZrPCfENR6sAYiu')" class="CLICKHERE">CLICK HERE</div>
       <!-- <BaseButton variant="blue" @click="popup" >close</BaseButton> -->
   </popupNET>
     <!-- <h1 > -->
@@ -33,8 +33,6 @@
 </template>
 
 <script>
-import BaseButton from '../UI/BaseButton.vue';
-
 export default {
     inject: ["title"],
     data() {
@@ -52,7 +50,7 @@ export default {
                     text: 'See Some mAGIc? Join the BGI Challenge Groups!',
                     id: 'id2',
                     buttontext: 'join',
-                    link: 'popup'
+                    link: 'https://forms.gle/5HSgxPjnvwcvCqyd6'
                 },
                 { title: 'Action 3.\n  Attend the Beneficial AGI Summit & Online Unconference',
                     text: 'Envision a Radically Better Future at a Critical Moment!',
@@ -67,8 +65,15 @@ export default {
         popup() {
             this.active = !this.active;
         },
-        sendtolink(link){
-          window.location.href = link
+        sendToLink(link) {
+          if (this.isExternalLink(link)) {
+              window.open(link, '_blank').focus();
+          } else {
+              this.$router.push(link);
+          }
+        },
+        isExternalLink(link) {
+            return link.startsWith('http://') || link.startsWith('https://');
         }
     },
     provide() {
@@ -76,7 +81,6 @@ export default {
             popup: this.popup
         };
     },
-    components: { BaseButton }
 };
 </script>
 

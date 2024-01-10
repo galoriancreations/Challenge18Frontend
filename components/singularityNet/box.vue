@@ -49,19 +49,15 @@ export default {
     padding-top: 168px;
     background-size: 150px;
     background-position: center;
+    
     &#id1{
     background-image: url(../../assets/images/brain.png);
-    
-}
+    }
     &#id2{
-    background-image: url(../../assets/images/e-learning.png);
-}
+        background-image: url(../../assets/images/e-learning.png);
+    }
     &#id3{
-    background-image: url(../../assets/images/online-class.png);
+        background-image: url(../../assets/images/online-class.png);
+    }
 }
-}
-
-
-
-    
 </style>
