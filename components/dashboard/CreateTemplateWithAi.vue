@@ -169,12 +169,6 @@ import languageOptions from '../../assets/data/languages';
 import voiceOptions from '../../assets/data/voices';
 
 export default {
-  props: {
-    active: {
-      type: Boolean,
-      required: true,
-    },
-  },
   inject: ['closeModal', 'addNotification'],
   components: {
     NumberInput: () =>
@@ -231,7 +225,6 @@ export default {
 
       // go to top of modal by going to topDiv
       this.$refs.topDiv.scrollIntoView();
-
       const { template } = await this.$axios.$post('/xapi', {
         createTemplateWithAi: {
           topic: this.template.topic,
@@ -242,7 +235,7 @@ export default {
           preDays: this.template.preDays,
           preMessagesPerDay: this.template.preMessagesPerDay,
           targetAudience: this.template.targetAudience,
-          creator: this.user._id,
+          // creator: this.user._id,
           voice: this.template.voice,
         },
       });
@@ -303,5 +296,8 @@ export default {
 .topDiv {
   position: absolute;
   top: 0;
+}
+button {
+  margin: 1rem;
 }
 </style>
