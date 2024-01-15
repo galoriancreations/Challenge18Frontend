@@ -24,7 +24,7 @@
     </div>
     <!-- </h1> -->
       <div class="steps__container" >
-        <box :titleAndText=info text="lol" v-for="info in titleAndTexts">
+        <box :titleAndText=info text="lol" v-for="(info,index) in titleAndTexts" :key="index">
           
         </box>
       </div>
@@ -94,20 +94,18 @@ export default {
   // text-decoration: underline;
 }
 .page-headingNET {
-  height: 45rem;
   position: relative;
   background-color: #4c9cd4;
   background-position: center;
   background-size: cover;
-  // padding: 0 2vw;
+  height: 100vh;
+
+  @include respond(tablet) {
+    height: auto;
+  }
 
   @media (hover: hover) {
     background-attachment: fixed;
-  }
-
-  @include respond(mobile) {
-    height: 35rem;
-    padding: 0 ;
   }
 
   &#singularityNet {
@@ -118,7 +116,6 @@ export default {
         rgba(#4189bd, 0.3)
       ),
       url(../../assets/images/backgrounds/bgi3.png);
-      padding-bottom: 923px;
   }
 
 
@@ -126,34 +123,23 @@ export default {
     font-size: 6rem;
     color: #fff;
     font-weight: 800;
-    position: absolute;
-    top: 20%;
-    // top: 33%;
+    position: relative;
     display: flex;
-    left: 50%;
-    width: calc(100% - 2 * #{$padding-sides-mobile});
-    max-width: 70rem;
-    transform: translate(-50%, -50%);
     text-align: center;
-    z-index: 5;
-    justify-content: space-between;
+    justify-content: space-around;
+    top: 15rem;
 
     @include respond(mobile) {
       flex-direction: column;
-      font-size: 4rem;
-      top: 20%;
-      max-width: 40rem;
       align-items: center;
-      // left: 0px;
     }
   }
   &__Logo1{
         // scale: 150%;
         width: 300px;
         @include respond(mobile) {
-
+          width: 70vw;
         // scale: 100%;
-
     }
   }
   &__Logo2{
@@ -162,13 +148,8 @@ export default {
         // resize: 10%;
         width: 100px;
         @include respond(mobile) {
-
-
-
-
         // margin-left: 0%;
         // scale: 15%;
-
     }
   }
 }
@@ -176,18 +157,18 @@ export default {
     &__container{
       display: flex;
       justify-content: space-between;
-      margin-top: 300px;
+      margin-top: 20rem;
       position: relative;
-      z-index: 20;
-      padding: 0px 2%;
-      gap: 20px;
+      margin-inline: 5rem;
+      
+      @include respond(tablet) {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
       @include respond(mobile) {
-        scale: 50%;
-      margin-top: 200px;
-      width: 30%;
-
-
-    }
+        font-size: 1.25rem;
+      }
 
     }
     &__box{
@@ -199,14 +180,12 @@ export default {
       box-shadow: 5px 6px 5px 2px #656565;
       text-align: center;
       white-space: break-spaces;
-      @include respond(mobile) {
-        // scale: 60%;
-      // top: 20%;
-      height: 550px;
-            min-width: 16rem;
-      max-width: 20rem;
+      margin: 1rem;
 
-    }
+      @include respond(mobile) {
+        height: 400px;
+        width: 250px;
+      }
     }
     &__box:hover{
       scale: 105%;
@@ -230,6 +209,10 @@ export default {
     margin: auto;
     background-color: #0000ff;
     color: #fff;
+    
+    @include respond(tablet) {
+      font-size: 1.25rem;
+    }
     }
     &__bbutton:hover{
       background-color: #fff;

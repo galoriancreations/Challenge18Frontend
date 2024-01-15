@@ -22,12 +22,15 @@ export default {
     methods: {
         goToLink() {
             if (this.titleAndText.link === 'popup') {
-                this.popup()
-                
-            }else{
-                window.location.href = this.titleAndText.link;
+                this.popup();
+            } if (this.isExternalLink(this.titleAndText.link)) {
+                window.open(this.titleAndText.link, '_blank').focus();
+            } else {
+                this.$router.push(this.titleAndText.link);
             }
-            
+        },
+        isExternalLink(link) {
+            return link.startsWith('http://') || link.startsWith('https://');
         }
     },
     props: {
