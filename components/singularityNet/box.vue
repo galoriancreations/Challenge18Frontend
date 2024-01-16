@@ -22,12 +22,15 @@ export default {
     methods: {
         goToLink() {
             if (this.titleAndText.link === 'popup') {
-                this.popup()
-                
-            }else{
-                window.location.href = this.titleAndText.link;
+                this.popup();
+            } if (this.isExternalLink(this.titleAndText.link)) {
+                window.open(this.titleAndText.link, '_blank').focus();
+            } else {
+                this.$router.push(this.titleAndText.link);
             }
-            
+        },
+        isExternalLink(link) {
+            return link.startsWith('http://') || link.startsWith('https://');
         }
     },
     props: {
@@ -49,19 +52,15 @@ export default {
     padding-top: 168px;
     background-size: 150px;
     background-position: center;
+    
     &#id1{
     background-image: url(../../assets/images/brain.png);
-    
-}
+    }
     &#id2{
-    background-image: url(../../assets/images/e-learning.png);
-}
+        background-image: url(../../assets/images/e-learning.png);
+    }
     &#id3{
-    background-image: url(../../assets/images/online-class.png);
+        background-image: url(../../assets/images/online-class.png);
+    }
 }
-}
-
-
-
-    
 </style>
