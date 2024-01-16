@@ -187,11 +187,9 @@ export default {
       if (!this.templateOnlyMode) return;
 
       console.log(`picture: ${this.data.image}`);
-      const { draftId } = await this.$axios.$post("/xapi", {
-        saveDraft: {
-          draftId: this.draftId,
-          draftData: this.draftData
-        }
+      const { draftId } = await this.$axios.$post("/editor/saveDraft", {
+        draftId: this.draftId,
+        draftData: this.draftData
       });
       this.draftId = draftId;
     },
@@ -200,11 +198,9 @@ export default {
       console.log(`templateId: ${this.templateId}`);
       console.log(`templateData:`, this.templateData);
       if (!this.isTemplateEditable) return;
-      const { templateId } = await this.$axios.$post("/xapi", {
-        saveTemplate: {
-          templateId: this.templateId,
-          templateData: this.templateData
-        }
+      const { templateId } = await this.$axios.$post("/editor/saveTemplate", {
+        templateId: this.templateId,
+        templateData: this.templateData
       });
       this.templateId = templateId;
     },

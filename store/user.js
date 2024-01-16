@@ -91,13 +91,14 @@ export const actions = {
       data = { editProfile: {} };
     }
     console.log(`updateUser request: data now is: `, data);
-    const { user } = await this.$axios.$post("/xapi", data);
+    // const { user } = await this.$axios.$post("/xapi", data);
+    // connect post with data path
+    const { user } = await this.$axios.$post("/users/editProfile", data);
     context.commit("updateUser", user);
   },
   async loadTemplates(context, isAuth = true) {
-    const endpoint = isAuth ? "/xapi" : "/api";
-    const key = isAuth ? "getAvailableTemplates" : "getPublicTemplates";
-    const { templates } = await this.$axios.$post(endpoint, { [key]: true });
+    const endpoint = isAuth ? "/users/loadAvailableTemplates" : "/users/loadPublicTemplates";
+    const { templates } = await this.$axios.$get(endpoint);
     context.commit("setTemplates", templates);
   }
 };
@@ -116,6 +117,6 @@ export const getters = {
     return user?.accountType === "admin" || user?.isAdmin;
   },
   templates(state) {
-    return state.templates;
+    return state.templates || [];
   }
 };

@@ -115,21 +115,19 @@ export default {
       // clone  template, but not like in "templates-table" component:
       // it gets all data of the template, clones it here, in client
       // and saves cloned templte in DB
-      const template = await this.$axios.$post("/xapi", {
-        getTemplateData: templateId
+      const template = await this.$axios.$post("/editor/getTemplateData", {
+        templateId
       });
       const newTemplate = {
         ...template,
         name: `${template.name || "Unnamed"} (copy)`,
         isPublic: template.isPublic && this.user.isAdmin === true
       };
-      const { templateId: newId } = await this.$axios.$post("/xapi", {
-        saveTemplate: {
-          templateId: null,
-          templateData: newTemplate,
-          draftId: null,
-          finishEditing: false
-        }
+      const { templateId: newId } = await this.$axios.$post("/editor/saveTemplate", {
+        templateId: null,
+        templateData: newTemplate,
+        draftId: null,
+        finishEditing: false
       });
       return newId;
     },
