@@ -319,11 +319,9 @@ export default {
       // why delete template you cant create
       // also you cant create a challnge without having the template
       /////////////////////////////////////////////////////////////////
-      await this.$axios.$post("/xapi", {
-        deleteTemplate: {
-          templateId: this.templateId,
-          isPublic: this.isPublic
-        }
+      await this.$axios.$post("/editor/deleteTemplate", {
+        templateId: this.templateId,
+        isPublic: this.isPublic
       });
     };
     // eraseTemplate();

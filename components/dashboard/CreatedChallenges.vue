@@ -75,8 +75,8 @@ export default {
         "Are you sure you want to delete this challenge? This action is irreversible.",
         async () => {
           this.loading = true;
-          await this.$axios.$post("/xapi", {
-            deleteChallenge: challenge._id
+          await this.$axios.$post("/editor/deleteChallenge", {
+            challengeId: challenge._id
           });
           await this.$store.dispatch("updateUser");
           this.loading = false;
@@ -99,8 +99,8 @@ export default {
         async () => {
           this.loading = true;
           for (let challenge of selections) {
-            await this.$axios.$post("/xapi", {
-              deleteChallenge: challenge._id,
+            await this.$axios.$post("/editor/deleteChallenge", {
+              challengeId: challenge._id,
             });
           }
           await this.$store.dispatch("updateUser");

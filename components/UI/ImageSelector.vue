@@ -118,7 +118,7 @@ export default {
         console.log(`image to upload in imageSelector component: ${file}`);
         const data = new FormData();
         data.append("file", file);
-        const imageUrl = await this.$axios.$post("/upload", data);
+        const imageUrl = await this.$axios.$post("/uploads", data);
         this.$emit("end-upload");
         this.$emit("input", imageUrl);
         console.log(`image uploaded in imageSelector component: ${imageUrl}`);

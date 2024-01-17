@@ -102,11 +102,9 @@ export default {
         "Are you sure you want to delete this template? This action is irreversible.",
         async () => {
           this.loading = true;
-          await this.$axios.$post("/xapi", {
-            deleteTemplate: {
-              templateId: template._id,
-              isPublic: template.isPublic
-            }
+          await this.$axios.$post("/editor/deleteTemplate", {
+            templateId: template._id,
+            isPublic: template.isPublic
           });
           const filter = item => item._id !== template._id;
           this.filterTemplates(filter);
@@ -132,27 +130,11 @@ export default {
         async () => {
           this.loading = true;
 
-          // like in deleteTemplate method: delete template (delets in server and updates DB):
-
-          // new version:
-          for (let template of selections) {
-            await this.$axios.$post("/xapi", {
-              deleteTemplate: {
-                templateId: template._id,
-                isPublic: template.isPublic
-              }
-            });
-          }
-          // old version (server didnt handle the reqests good):
-          // const requests = selections.map(template =>
-          //   this.$axios.$post("/xapi", {
-          //     deleteTemplate: {
-          //       templateId: template._id,
-          //       isPublic: template.isPublic
-          //     }
-          //   })
-          // );
-          // await Promise.all(requests);
+          
+          await this.$axios.$post('/editor/deleteTemplate', {
+            templateIds: selections.map((selection) => selection._id),
+            isPublic: selections.map((selection) => selection.isPublic),
+          });
 
           // delete from store using filterTemplates method:
           const filter = item =>
