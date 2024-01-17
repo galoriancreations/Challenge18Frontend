@@ -64,15 +64,18 @@ export default {
         },
         async groupMessages() {
             const groupId = this.$cookies.get("groupId");
-            const res = await this.$axios.$post("/xapi", {
-                loadGroup: groupId
+            const res = await this.$axios.$post("/group/loadgroup", {
+                groupId
             });
+            console.log({res});
             // debugger
             this.botMessage = res.botMessage;
-            let emojis = res.emoji
-            emojis.forEach((val,ind)=>{
-                this.botMessage[ind]['emoji'] = Object.keys(val)[0]
-            })
+            let emojis = res.emoji;
+            if (emojis) {
+                emojis.forEach((val, ind) => {
+                    this.botMessage[ind]['emoji'] = Object.keys(val)[0];
+                })
+            }
             let myMessages = res.messages;
             myMessages.forEach((val, ind) => {
                 if (!val.nickname) {
@@ -95,7 +98,7 @@ export default {
             this.Messeges = myMessages;
         },
         async sendMessage() {
-            const groupid = this.groupId._id;
+            const groupid = this.groupId.groupChatInfo._id;
             let message = this.input;
             let longMessage = false;
             if (message.length <= 0) {
@@ -127,10 +130,10 @@ export default {
                 }
             }
             if (!longMessage) {
-                const response = await this.$axios.$post("/xapi", { sendMessage: {
-                        message: message,
-                        _id: groupid
-                    } });
+                const response = await this.$axios.$post("/group/sendMessage", {
+                    message: message,
+                    _id: groupid
+                });
                 this.input = '';
                 let myMessages = response;
                 myMessages.forEach((val, ind) => {
