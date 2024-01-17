@@ -49,7 +49,6 @@ export default {
     },
     challenges() {
       const userChallenges = dataArrayFromObject(this.user.createdChallenges);
-      // console.log("userChallenges are : " + userChallenges);
       return userChallenges;
     },
     items() { 

@@ -115,9 +115,7 @@ export default {
       // clone  template, but not like in "templates-table" component:
       // it gets all data of the template, clones it here, in client
       // and saves cloned templte in DB
-      const template = await this.$axios.$post("/editor/getTemplateData", {
-        templateId
-      });
+      const template = await this.$axios.$post("/editor/getTemplateData", { data: templateId });
       const newTemplate = {
         ...template,
         name: `${template.name || "Unnamed"} (copy)`,

@@ -38,7 +38,7 @@ export default {
       const { draftId, challengeId, selectedTemplate } = app.$cookies.getAll();
 
       const { user, isAdmin } = store.getters;
-      const endpoint = !draftId && challengeId ? "/api" : "/xapi";
+      const endpoint = !draftId && challengeId ? "/editor" : "/editor";
       const key = draftId
         ? "getDraftData"
         : challengeId
@@ -48,7 +48,7 @@ export default {
       const value = draftId || challengeId || selectedTemplate;
       console.log(`edit test, draftId xapi key: ${key} : ${value}`);
       const data = key
-        ? transformData(await $axios.$post(endpoint, { [key]: value }))
+        ? transformData(await $axios.$post(`${endpoint}/${key}`, { data: value }))
         : {};
       return {
         data: {
@@ -208,7 +208,10 @@ export default {
       const mode = this.editedChallengeId
         ? "updateChallenge"
         : "createChallenge";
-      const groupId = await this.$axios.$post("/xapi", { [mode]: this.challengeData });
+      const groupId = await this.$axios.$post(`/editor/${mode}`, {
+        challengeId: this.editedChallengeId,
+        challengeData: this.challengeData
+      });
 
       const successText = this.editedChallengeId
         ? "Successfully updated challenge"
@@ -269,7 +272,7 @@ export default {
           // delete draft (delets in server and updates DB):
           console.log(`this is draftId i deleting: ${this.draftId}`);
 
-          await this.$axios.$post("/xapi", {
+          await this.$axios.$post("/editor/deleteDraft", {
             deleteDraft: this.draftId
           });
 

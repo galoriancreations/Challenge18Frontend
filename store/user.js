@@ -97,8 +97,10 @@ export const actions = {
     context.commit("updateUser", user);
   },
   async loadTemplates(context, isAuth = true) {
-    const endpoint = isAuth ? "/users/loadAvailableTemplates" : "/users/loadPublicTemplates";
+    // const endpoint = isAuth ? "/users/getAvailableTemplates" : "/users/getPublicTemplates";
+    const endpoint = "/users/getAvailableTemplates";
     const { templates } = await this.$axios.$get(endpoint);
+    
     context.commit("setTemplates", templates);
   }
 };
@@ -117,6 +119,6 @@ export const getters = {
     return user?.accountType === "admin" || user?.isAdmin;
   },
   templates(state) {
-    return state.templates || [];
+    return state.templates;
   }
 };
