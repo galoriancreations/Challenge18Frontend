@@ -58,11 +58,12 @@ export const initialPreDays = days => {
 
 export const initialDays = days => {
   if (!days) {
-    days = emptyDays();
+    days = emtpyDays();
   }
   return days.map(day => ({
     ...day,
     id: day.id || uniqid(),
+    date: null,
     title: day.title.replace(" - ", " – "),
     image: day.image || null,
     error: false,

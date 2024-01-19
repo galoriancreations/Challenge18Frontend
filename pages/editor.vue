@@ -58,7 +58,6 @@ export default {
           image: data.image || null,
           date: new Date(data.date || defaultDate()),
           // dayMargin: data.dayMargin || 1,
-          dayDate: data.dayDate,
           preDays: initialPreDays(data.preDays),
           days: initialDays(data.days),
           isTemplatePublic: key ? data.isTemplatePublic : isAdmin,
@@ -136,20 +135,17 @@ export default {
     },
     selections() {
       const selections = {};
-      
-      let selectedDay = 1;
-      let dayIndex = selectedDay - 1;
+
       let dateid;
-      const date = ()=>{
+      const date = (index)=>{
         const date = moment(this.data.date);
-        date.add(dayIndex * this.data.dayMargin, "days");
+        date.add(index * 1 ,"days");
         dateid = date.format("L");
       }
       this.data.days.forEach((day,ind) => {
-        selectedDay = ind
-        dayIndex = selectedDay;
+        let dayIndex = ind;
         
-        date()
+        date( dayIndex, )
         selections[dateid] = {};
         day.tasks.forEach(task => {
           const time = task.time.slice(0,5)

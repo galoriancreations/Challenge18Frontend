@@ -46,7 +46,7 @@
                 <div />
               </div> -->
               <div>
-                <EachDayDate v-model="data.dayDate" />
+                <EachDayDate v-model="dayData.date" />
               </div>
             </div>
             <div
