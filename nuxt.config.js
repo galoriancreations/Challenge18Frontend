@@ -60,7 +60,8 @@ export default {
       "~/components/marketplace",
       "~/components/group-page",
       "~/components/legal_AI_Ethics",
-      "~/components/singularityNet"
+      "~/components/singularityNet",
+      "~/components/beneficialAgiAction",
     ]
   },
 

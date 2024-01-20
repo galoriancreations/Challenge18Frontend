@@ -31,7 +31,15 @@ export default {
   },
   methods: {
     openWhatsapp() {
-      window.open("https://wa.me/972559721123", "_blank");
+
+    if(this.$route.name === 'BeneficialAgiAction')
+    {
+        window.open("https://wa.me/", "_blank");
+    }
+    else
+    {
+        window.open("https://wa.me/972559721123", "_blank");
+    }
     }
   }
 };
