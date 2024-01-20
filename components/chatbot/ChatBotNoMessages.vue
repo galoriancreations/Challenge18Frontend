@@ -2,7 +2,7 @@
   <div class="chatbot-no-messages">
     <div class="chatbot-no-messages__icon">
       <img
-        src="../../assets/images/logos/chatbot-icon.png"
+        src="../../assets/images/chatbot/chatbot.png"
         alt="Chatbot icon"
       />
     </div>

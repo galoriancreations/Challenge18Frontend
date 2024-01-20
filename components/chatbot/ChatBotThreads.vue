@@ -5,7 +5,7 @@
   >
     <div class="chatbot-threads" :class="{ chatbotThreadsShow: show }">
       <div class="chatbot-threads__header">
-        <div class="chatbot-threads__header-title">ChatBots</div>
+        <div class="chatbot-threads__header-title">Chatbots</div>
         <div class="chatbot-threads__header-close" @click="show = !show">
           <i class="fas fa-times" />
         </div>
@@ -52,24 +52,35 @@ export default {
   },
   data() {
     return {
-      show: true,
+      show: false,
       saveTimeout: null,
     };
   },
   methods: {
     async selectThread(thread) {
       this.$emit('loading', true);
-      await this.$store.dispatch('chatbot/selectThread', thread);
+      await this.$store.dispatch('chatbot/selectThread', {
+        assistantId: this.council.id,
+        thread,
+      });
       this.$cookies.set('selectedThread', thread);
       this.$emit('loading', false);
     },
     async createThread() {
       this.$emit('loading', true);
-      await this.$store.dispatch('chatbot/createThread');
+      await this.$store.dispatch('chatbot/createThread', this.council.id);
       const thread = this.threads[this.threads.length - 1];
-      await this.$store.dispatch('chatbot/selectThread', thread);
+      await this.$store.dispatch('chatbot/selectThread', {
+        assistantId: this.council.id,
+        thread,
+      });
       this.$cookies.set('selectedThread', thread);
       this.$emit('loading', false);
+    },
+  },
+  computed: {
+    council() {
+      return this.$cookies.get('selectedCouncil');
     },
   },
 };

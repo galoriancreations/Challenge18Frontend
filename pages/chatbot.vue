@@ -1,11 +1,7 @@
 <template>
-  <Page title="Chat Bot With AI" name="chatbot" ref="page">
-    <SectionHeading class="chatbot__heading">
-      <h3>Chat Bot With AI</h3>
-    </SectionHeading>
-    <h3>
-      This is a chat bot with AI that can answer questions
-    </h3>
+  <Page title="Chatbot With AI" name="chatbot" ref="page">
+    <SectionHeading class="chatbot__heading">Chatbot</SectionHeading>
+    <ChatBotCouncils :councils="councils" :activeCouncil="council" />
     <SectionSeperator />
     <div class="chatbot__container">
       <div class="chatbot__container-threads-messages">
@@ -54,6 +50,8 @@
 </template>
 
 <script>
+import councils from 'assets/data/councils.json';
+
 export default {
   meta: {
     requiresAuth: true,
@@ -64,6 +62,10 @@ export default {
         thread: false,
         messages: false,
       },
+      councils: councils.map((council) => ({
+        ...council,
+        image: require(`assets/images/chatbot/${council.image}`),
+      })),
       showScrollDown: false,
     };
   },
@@ -79,6 +81,7 @@ export default {
         this.scrollToLastMessage();
         await this.$store.dispatch('chatbot/sendMessage', {
           text: message,
+          assistantId: this.council.id,
           thread: this.thread,
         });
         this.loading.messages = false;
@@ -92,9 +95,12 @@ export default {
       }
     },
     async loadData() {
-      await this.$store.dispatch('chatbot/loadThreads');
-      if (this.thread) {
-        await this.$store.dispatch('chatbot/loadMessages', this.thread);
+      await this.$store.dispatch('chatbot/loadThreads', this.council.id);
+      if (this.council.id && this.thread) {
+        await this.$store.dispatch('chatbot/loadMessages', {
+          assistantId: this.council.id,
+          thread: this.thread,
+        });
       }
       setTimeout(() => {
         this.scrollToLastMessage();
@@ -113,13 +119,29 @@ export default {
     selectFirstThread() {
       const threadCookie = this.$cookies.get('selectedThread');
       if (threadCookie) {
-        this.$store.dispatch('chatbot/selectThread', threadCookie);
+        this.$store.dispatch('chatbot/selectThread', {
+          assistantId: this.council.id,
+          thread: threadCookie,
+        });
         return threadCookie;
       }
       const thread = this.threads[0];
-      this.$store.dispatch('chatbot/selectThread', thread);
+      this.$store.dispatch('chatbot/selectThread', {
+        assistantId: this.council.id,
+        thread,
+      });
       this.$cookies.set('selectedThread', thread);
       return thread;
+    },
+    selectFirstCouncil() {
+      const councilCookie = this.$cookies.get('selectedCouncil');
+      if (councilCookie) {
+        return councilCookie;
+      }
+      const council = this.councils[0];
+      this.$cookies.set('selectedCouncil', council);
+      console.log('selectFirstCouncil', council);
+      return council;
     },
   },
   computed: {
@@ -128,6 +150,9 @@ export default {
     },
     threads() {
       return this.$store.getters['chatbot/threads'];
+    },
+    council() {
+      return this.$store.getters['chatbot/council'] || this.selectFirstCouncil();
     },
     thread() {
       return this.$store.getters['chatbot/thread'] || this.selectFirstThread();
@@ -142,6 +167,10 @@ export default {
     },
     thread() {
       this.$refs.page.$el.querySelector('.chatbot-input__textarea').value = '';
+    },
+    council() {
+      console.log('council changed', this.council.id);
+      // this.selectFirstThread();
     },
   },
 };

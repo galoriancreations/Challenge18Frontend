@@ -2,6 +2,7 @@ export const state = () => ({
   messages: [],
   threads: [],
   thread: null,
+  council: null,
 });
 
 export const mutations = {
@@ -9,6 +10,11 @@ export const mutations = {
     state.messages.push(message);
   },
   setMessages(state, messages) {
+    if (!messages.length) {
+      console.log('no messages found. from setMessages in store/chatbot.js');
+      state.messages = [];
+      return;
+    }
     state.messages = messages.reverse();
   },
   setThreads(state, threads) {
@@ -21,12 +27,15 @@ export const mutations = {
     const thread = state.threads.find((v) => v.id === payload.thread.id);
     thread.title = payload.title;
   },
+  setCouncil(state, council) {
+    state.council = council;
+  },
 };
 
 export const actions = {
-  async loadMessages(context, thread) {
+  async loadMessages(context, payload) {
     const { messages } = await this.$axios.$get(
-      `/chatbot/messages/${thread.id}`
+      `/chatbot/messages/${payload.assistantId}/${payload.thread.id}`
     );
     context.commit('setMessages', messages);
   },
@@ -35,26 +44,30 @@ export const actions = {
   },
   async sendMessage(context, payload) {
     const { message } = await this.$axios.$post(
-      `/chatbot/message/${payload.thread.id}`,
+      `/chatbot/message/${payload.assistantId}/${payload.thread.id}`,
       {
         message: payload.text,
       }
     );
     context.commit('addMessage', message);
   },
-  async loadThreads(context) {
-    const { threads } = await this.$axios.$get('/chatbot/threads');
+  async loadThreads(context, assistantId) {
+    const { threads } = await this.$axios.$get(
+      `/chatbot/${assistantId}/threads`
+    );
     context.commit('setThreads', threads);
   },
-  async selectThread(context, thread) {
-    context.commit('setThread', thread);
+  async selectThread(context, payload) {
+    context.commit('setThread', payload.thread);
     const { messages } = await this.$axios.$get(
-      `/chatbot/messages/${thread.id}`
+      `/chatbot/messages/${payload.assistantId}/${payload.thread.id}`
     );
     context.commit('setMessages', messages);
   },
-  async createThread(context) {
-    const { thread } = await this.$axios.$post('/chatbot/thread');
+  async createThread(context, assistantId) {
+    const { thread } = await this.$axios.$post('/chatbot/thread', {
+      assistantId,
+    });
     context.commit('setThreads', [...context.state.threads, thread]);
   },
   async deleteThread(context, thread) {
@@ -70,6 +83,11 @@ export const actions = {
     });
     context.commit('changeThreadTitle', payload);
   },
+  async selectCouncil(context, council) {
+    const { council: response } = await this.$axios.$get(`/chatbot/council/${council.id}`);
+    console.log(response);
+    context.commit('setCouncil', response);
+  },
 };
 
 export const getters = {
@@ -81,5 +99,8 @@ export const getters = {
   },
   thread(state) {
     return state.thread;
+  },
+  council(state) {
+    return state.council;
   },
 };
