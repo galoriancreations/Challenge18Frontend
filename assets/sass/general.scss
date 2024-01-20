@@ -97,6 +97,33 @@ ul.diamond-bullet-list {
   }
 }
 
+ul.circle-bullet-list {
+  // add tab space to parent list
+  list-style: none;
+  line-height-step: 1.6;
+
+  li {
+    position: relative;
+    padding-left: 2.5rem;
+
+    &:not(:last-child) {
+      margin-bottom: 1.5rem;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      background-color: #000;
+    }
+  }
+}
+
 .task-form {
   border-radius: 1rem;
   box-shadow: $boxshadow2;

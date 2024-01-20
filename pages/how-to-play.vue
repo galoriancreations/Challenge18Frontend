@@ -7,16 +7,19 @@
         :key="section.title"
         v-bind="section"
       />
+      <BaseButton variant="blue" @click="$router.push('/guidelines')">
+        Guidelines
+      </BaseButton>
     </div>
   </Page>
 </template>
 
 <script>
-import sections from "~/assets/data/how-to-play";
+import sections from '~/assets/data/how-to-play';
 
 export default {
   data() {
     return { sections };
-  }
+  },
 };
 </script>
