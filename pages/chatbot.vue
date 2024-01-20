@@ -39,7 +39,7 @@
               <LoadingDots v-if="loading.messages" />
             </div>
             <div
-              class="chatbot__loading-scroll-down"
+              class="chatbot__loading-scrolldown"
               v-if="showScrollDown"
               @click="scrollToLastMessage()"
             >
@@ -202,10 +202,16 @@ export default {
     bottom: 0.5rem;
   }
 
-  &__loading-scroll-down {
-    position: relative;
-    bottom: 15rem;
-    left: 1rem;
+  &__loading-scrolldown {
+    // place it on the right side of the messages container
+    position: absolute;
+    right: 8rem;
+    bottom: 12rem;
+
+    @include respond(mobile) {
+      right: 6rem;
+      bottom: 10rem;
+    }
   }
 
   &__loadingCircle {

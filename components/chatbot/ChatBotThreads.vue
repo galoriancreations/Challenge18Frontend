@@ -1,34 +1,39 @@
 <template>
-  <div class="chatbot-threads" v-if="show">
-    <div class="chatbot-threads__header">
-      <div class="chatbot-threads__header-title">ChatBots</div>
-      <div class="chatbot-threads__header-close" @click="show = !show">
-        <i class="fas fa-times" />
+  <div
+    class="chatbot-threads-container"
+    :class="{ chatbotThreadsContainerWidth: show }"
+  >
+    <div class="chatbot-threads" :class="{ chatbotThreadsShow: show }">
+      <div class="chatbot-threads__header">
+        <div class="chatbot-threads__header-title">ChatBots</div>
+        <div class="chatbot-threads__header-close" @click="show = !show">
+          <i class="fas fa-times" />
+        </div>
+      </div>
+      <div class="chatbot-threads__content">
+        <div class="chatbot-threads__content-thread">
+          <ChatBotThread
+            v-for="thread in threads"
+            :thread="thread"
+            :key="thread.id"
+            :active="thread.id === activeThread.id"
+            @selectThread="selectThread"
+            @selectFirstThread="$emit('selectFirstThread')"
+          />
+        </div>
+      </div>
+      <div class="chatbot-threads__new-thread" @click="createThread">
+        <div class="chatbot-threads__new-thread__title">
+          New Thread
+        </div>
+        <div class="chatbot-threads__new-thread-description">
+          Click here to create a new thread
+        </div>
       </div>
     </div>
-    <div class="chatbot-threads__content">
-      <div class="chatbot-threads__content-thread">
-        <ChatBotThread
-          v-for="thread in threads"
-          :thread="thread"
-          :key="thread.id"
-          :active="thread.id === activeThread.id"
-          @selectThread="selectThread"
-          @selectFirstThread="$emit('selectFirstThread')"
-        />
-      </div>
+    <div v-if="!show" class="chatbot-threads__minimize" @click="show = true">
+      <i class="far fa-comments" />
     </div>
-    <div class="chatbot-threads__new-thread" @click="createThread">
-      <div class="chatbot-threads__new-thread__title">
-        New Thread
-      </div>
-      <div class="chatbot-threads__new-thread-description">
-        Click here to create a new thread
-      </div>
-    </div>
-  </div>
-  <div v-else class="chatbot-threads__minimize" @click="show = true">
-    <i class="far fa-comments" />
   </div>
 </template>
 
@@ -71,21 +76,28 @@ export default {
 </script>
 
 <style lang="scss">
+$chatbotThreadsContainerWidth: 300px;
+
 .chatbot-threads {
   position: relative;
   top: 0;
   right: 0;
-  width: 300px;
+  width: $chatbotThreadsContainerWidth;
+  height: 100%;
   background-color: #fff;
   display: flex;
   flex-direction: column;
+  z-index: 1;
+  animation: slide-in-right 0.3s ease both;
+  overflow: hidden;
 
-  @include respond(mobile) {
-    width: 100%;
-    height: 100%;
+  @include respond(tablet) {
+    animation: slide-in-up 0.3s ease both;
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
   }
 
   &__header {
@@ -94,12 +106,25 @@ export default {
     align-items: center;
     padding: 10px;
     border-bottom: 1px solid #eee;
+
     &-title {
       font-size: 18px;
       font-weight: bold;
     }
+
     &-close {
       cursor: pointer;
+
+      i {
+        font-size: 20px;
+        @include respond(mobile) {
+          font-size: 16px;
+        }
+      }
+
+      &:hover {
+        color: #999;
+      }
     }
   }
 
@@ -152,6 +177,103 @@ export default {
     &:hover {
       background-color: #eee;
     }
+  }
+}
+
+// if chatbotThreadsContainerWidth is not 0, then hide the chatbot-threads-container with animation
+.chatbot-threads-container:not(.chatbotThreadsContainerWidth) {
+  animation: to-zero-width 0.3s ease both;
+  // position: absolute;
+  overflow: hidden;
+
+  @include respond(tablet) {
+    animation: none;
+    height: 0;
+  }
+}
+
+.chatbot-threads-container.chatbotThreadsContainerWidth {
+  animation: to-normal-width 0.3s ease both;
+  width: $chatbotThreadsContainerWidth;
+  overflow: hidden;
+
+  @include respond(tablet) {
+    height: $chatbotThreadsContainerWidth;
+    width: 0;
+    animation: to-normal-height 0.3s ease both;
+  }
+}
+
+// if chatbotThreadsShow is not true, then hide the chatbot-threads with animation
+.chatbot-threads:not(.chatbotThreadsShow) {
+  animation: slide-out-right 0.3s ease both;
+
+  @include respond(tablet) {
+    animation: slide-down 0.3s ease both;
+  }
+}
+
+@keyframes slide-out-right {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-1000px);
+  }
+}
+
+@keyframes slide-in-right {
+  0% {
+    transform: translateX(-1000px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-up {
+  0% {
+    transform: translateY(1000px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-down {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(1000px);
+  }
+}
+
+@keyframes to-normal-height {
+  0% {
+    max-height: 0;
+  }
+  100% {
+    max-height: 100%;
+  }
+}
+
+@keyframes to-zero-width {
+  0% {
+    max-width: $chatbotThreadsContainerWidth;
+  }
+  100% {
+    max-width: 0;
+    overflow: visible;
+  }
+}
+
+@keyframes to-normal-width {
+  0% {
+    max-width: 0;
+  }
+  100% {
+    max-width: $chatbotThreadsContainerWidth;
   }
 }
 </style>

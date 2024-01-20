@@ -48,7 +48,7 @@ export default {
       const items = [
 
         { link: "/", text: "Home" },
-        ,
+        { link: '/chatbot', text: 'Chatbot' },
         // {
         //   text: "About",
         //   dropdown: [
