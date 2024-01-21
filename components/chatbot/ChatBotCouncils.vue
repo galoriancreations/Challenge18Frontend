@@ -33,6 +33,7 @@
 
 <script>
 export default {
+  emits: ['loading'],
   props: {
     councils: {
       type: Array,
@@ -45,14 +46,16 @@ export default {
   },
   methods: {
     async selectCouncil(council) {
-      console.log('selectCouncil', council.id);
+      this.$emit('loading', true);
+      this.$cookies.set('selectedCouncil', council);
       await this.$store.dispatch('chatbot/selectCouncil', council);
+      this.$emit('loading', false);
     },
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .chatbot__council {
   display: flex;
   flex-direction: column;
@@ -73,7 +76,6 @@ export default {
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 60rem;
     margin: 0 auto;
 
     @include respond(mobile) {
@@ -169,12 +171,14 @@ export default {
       }
 
       h4 {
+        text-align: center;
         font-size: 1.6rem;
         font-weight: 700;
         margin-bottom: 1rem;
       }
 
       p {
+        text-align: center;
         font-size: 1.4rem;
         font-weight: 400;
         color: $color-gray-5;

@@ -36,7 +36,7 @@
       >
         OR
       </h3>
-      <div class="buttons">
+      <div class="new-challenge-modal__section-buttons">
         <BaseButton variant="blue" @click="selectTemplate(null)">
           Create empty template
         </BaseButton>
@@ -159,8 +159,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.buttons {
+<style lang="scss">
+.new-challenge-modal__section-buttons {
   display: flex;
   justify-content: space-between;
   margin-top: 1rem;

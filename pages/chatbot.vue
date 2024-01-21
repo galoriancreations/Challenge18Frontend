@@ -1,51 +1,29 @@
 <template>
   <Page title="Chatbot With AI" name="chatbot" ref="page">
     <SectionHeading class="chatbot__heading">Chatbot</SectionHeading>
-    <ChatBotCouncils :councils="councils" :activeCouncil="council" />
-    <SectionSeperator />
+    <ChatBotCouncils
+      @loading="setLoadingCouncil"
+      :councils="councils"
+      :activeCouncil="this.council || this.councils[0]"
+    />
     <div class="chatbot__container">
       <div class="chatbot__container-threads-messages">
         <ChatBotThreads
-          :threads="threads"
           :activeThread="thread"
           @loading="setLoadingThread"
           @selectFirstThread="selectFirstThread"
         />
-        <div class="chatbot__messages">
-          <div
-            class="chatbot__messages-content"
-            ref="messages"
-            @scroll="handleScrollDown"
-          >
-            <div v-if="thread && messages.length">
-              <ChatBotMessage
-                :message="message"
-                v-for="message in messages"
-                :key="message.id"
-              />
-            </div>
-            <ChatBotNoMessages v-else />
-          </div>
-          <div class="chatbot__messages-input">
-            <ChatBotInput
-              @sendMessage="sendMessage"
-              :loading="loading.messages || !thread"
-            />
-            <div class="chatbot__loading-dots">
-              <LoadingDots v-if="loading.messages" />
-            </div>
-            <div
-              class="chatbot__loading-scrolldown"
-              v-if="showScrollDown"
-              @click="scrollToLastMessage()"
-            >
-              <ScrollDownButton />
-            </div>
-          </div>
-        </div>
       </div>
+      <ChatBotMessages
+        :councils="councils"
+        :loading="loading.messages || !thread"
+        @sendMessage="sendMessage"
+      />
     </div>
-    <BaseSpinner v-if="loading.thread" class="chatbot__loadingCircle" />
+    <BaseSpinner
+      v-if="loading.thread || loading.council"
+      class="chatbot__loadingCircle"
+    />
   </Page>
 </template>
 
@@ -61,6 +39,7 @@ export default {
       loading: {
         thread: false,
         messages: false,
+        council: false,
       },
       councils: councils.map((council) => ({
         ...council,
@@ -81,7 +60,7 @@ export default {
         this.scrollToLastMessage();
         await this.$store.dispatch('chatbot/sendMessage', {
           text: message,
-          assistantId: this.council.id,
+          assistant: this.council,
           thread: this.thread,
         });
         this.loading.messages = false;
@@ -95,52 +74,53 @@ export default {
       }
     },
     async loadData() {
-      await this.$store.dispatch('chatbot/loadThreads', this.council.id);
-      if (this.council.id && this.thread) {
-        await this.$store.dispatch('chatbot/loadMessages', {
-          assistantId: this.council.id,
-          thread: this.thread,
-        });
+      const council = this.selectFirstCouncil();
+      await this.$store.dispatch('chatbot/selectCouncil', council);
+      if (!this.thread) {
+        this.selectFirstThread();
       }
       setTimeout(() => {
         this.scrollToLastMessage();
       }, 100);
     },
-    handleScrollDown() {
-      const messagesContainer = this.$refs.messages;
-      this.showScrollDown = messagesContainer.scrollTop <= -10;
-    },
-    setLoadingMessages(loading) {
-      this.loading.messages = loading;
-    },
     setLoadingThread(loading) {
       this.loading.thread = loading;
     },
-    selectFirstThread() {
+    setLoadingCouncil(loading) {
+      this.loading.council = loading;
+    },
+    async selectFirstThread() {
       const threadCookie = this.$cookies.get('selectedThread');
-      if (threadCookie) {
+      if (
+        threadCookie &&
+        this.threads.find((thread) => thread.id === threadCookie.id)
+      ) {
         this.$store.dispatch('chatbot/selectThread', {
-          assistantId: this.council.id,
+          assistant: this.council,
           thread: threadCookie,
         });
         return threadCookie;
       }
       const thread = this.threads[0];
+      if (!thread) {
+        return await this.$store.dispatch('chatbot/createThread', this.council);
+      }
+      this.$cookies.set('selectedThread', thread);
       this.$store.dispatch('chatbot/selectThread', {
-        assistantId: this.council.id,
+        assistant: this.council,
         thread,
       });
-      this.$cookies.set('selectedThread', thread);
       return thread;
     },
     selectFirstCouncil() {
       const councilCookie = this.$cookies.get('selectedCouncil');
       if (councilCookie) {
+        this.$store.dispatch('chatbot/selectCouncil', councilCookie);
         return councilCookie;
       }
       const council = this.councils[0];
+      this.$store.dispatch('chatbot/selectCouncil', council);
       this.$cookies.set('selectedCouncil', council);
-      console.log('selectFirstCouncil', council);
       return council;
     },
   },
@@ -152,14 +132,17 @@ export default {
       return this.$store.getters['chatbot/threads'];
     },
     council() {
-      return this.$store.getters['chatbot/council'] || this.selectFirstCouncil();
+      return this.$store.getters['chatbot/council'];
     },
     thread() {
-      return this.$store.getters['chatbot/thread'] || this.selectFirstThread();
+      return this.$store.getters['chatbot/thread'];
     },
   },
-  mounted() {
-    this.loadData();
+  async mounted() {
+    if (!this.council) {
+      await this.selectFirstCouncil();
+    }
+    await this.loadData();
   },
   watch: {
     messages() {
@@ -167,10 +150,6 @@ export default {
     },
     thread() {
       this.$refs.page.$el.querySelector('.chatbot-input__textarea').value = '';
-    },
-    council() {
-      console.log('council changed', this.council.id);
-      // this.selectFirstThread();
     },
   },
 };
@@ -183,7 +162,7 @@ export default {
   &__container {
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     height: 80vh;
     width: 100%;
     box-shadow: $boxshadow2;
@@ -196,50 +175,6 @@ export default {
       display: flex;
       flex-direction: row;
       height: 100%;
-    }
-  }
-
-  &__messages {
-    position: relative;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    &-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column-reverse;
-      padding: 2rem;
-      background-color: #f5f5f5;
-      border-radius: 0.5rem;
-      overflow-y: auto;
-      scroll-behavior: smooth;
-
-      @include respond(mobile) {
-        padding: 1rem;
-      }
-    }
-
-    &-input {
-      border-left: 1px solid #eee;
-    }
-  }
-
-  &__loading-dots {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 0.5rem;
-  }
-
-  &__loading-scrolldown {
-    // place it on the right side of the messages container
-    position: absolute;
-    right: 8rem;
-    bottom: 12rem;
-
-    @include respond(mobile) {
-      right: 6rem;
-      bottom: 10rem;
     }
   }
 

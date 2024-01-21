@@ -1,8 +1,7 @@
 export const state = () => ({
   messages: [],
-  threads: [],
-  thread: null,
   council: null,
+  thread: null,
 });
 
 export const mutations = {
@@ -10,22 +9,17 @@ export const mutations = {
     state.messages.push(message);
   },
   setMessages(state, messages) {
-    if (!messages.length) {
-      console.log('no messages found. from setMessages in store/chatbot.js');
-      state.messages = [];
-      return;
-    }
     state.messages = messages.reverse();
   },
   setThreads(state, threads) {
-    state.threads = threads;
+    state.council.threads = threads;
   },
   setThread(state, thread) {
     state.thread = thread;
   },
-  changeThreadTitle(state, payload) {
-    const thread = state.threads.find((v) => v.id === payload.thread.id);
-    thread.title = payload.title;
+  changeThreadTitle(state, { thread, title }) {
+    const _thread = state.council.threads.find((v) => v.id === thread.id);
+    _thread.title = title;
   },
   setCouncil(state, council) {
     state.council = council;
@@ -33,60 +27,56 @@ export const mutations = {
 };
 
 export const actions = {
-  async loadMessages(context, payload) {
+  async loadMessages(context, { assistant, thread }) {
     const { messages } = await this.$axios.$get(
-      `/chatbot/messages/${payload.assistantId}/${payload.thread.id}`
+      `/chatbot/messages/${assistant.id}/${thread.id}`
     );
     context.commit('setMessages', messages);
   },
   async addMessage(context, message) {
     context.commit('addMessage', message);
   },
-  async sendMessage(context, payload) {
+  async sendMessage(context, { thread, assistant, text }) {
     const { message } = await this.$axios.$post(
-      `/chatbot/message/${payload.assistantId}/${payload.thread.id}`,
+      `/chatbot/message/${assistant.id}/${thread.id}`,
       {
-        message: payload.text,
+        message: text,
       }
     );
     context.commit('addMessage', message);
   },
-  async loadThreads(context, assistantId) {
-    const { threads } = await this.$axios.$get(
-      `/chatbot/${assistantId}/threads`
-    );
-    context.commit('setThreads', threads);
-  },
-  async selectThread(context, payload) {
-    context.commit('setThread', payload.thread);
+  async selectThread(context, { assistant, thread }) {
+    context.commit('setThread', thread);
     const { messages } = await this.$axios.$get(
-      `/chatbot/messages/${payload.assistantId}/${payload.thread.id}`
+      `/chatbot/messages/${assistant.id}/${thread.id}`
     );
     context.commit('setMessages', messages);
   },
-  async createThread(context, assistantId) {
+  async createThread(context, assistant) {
     const { thread } = await this.$axios.$post('/chatbot/thread', {
-      assistantId,
+      assistantId: assistant.id,
     });
-    context.commit('setThreads', [...context.state.threads, thread]);
+    context.commit('setThreads', [...context.state.council.threads, thread]);
   },
-  async deleteThread(context, thread) {
-    await this.$axios.$delete(`/chatbot/thread/${thread.id}`);
+  async deleteThread(context, { assistant, thread }) {
+    await this.$axios.$delete(`/chatbot/thread/${assistant.id}/${thread.id}`);
     context.commit(
       'setThreads',
-      context.state.threads.filter((v) => v.id !== thread.id)
+      context.state.council.threads.filter((v) => v.id !== thread.id)
     );
   },
-  async changeThreadTitle(context, payload) {
-    await this.$axios.$put(`/chatbot/thread/${payload.thread.id}`, {
-      title: payload.title,
+  async changeThreadTitle(context, { assistant, thread, title }) {
+    await this.$axios.$put(`/chatbot/thread/${assistant.id}/${thread.id}`, {
+      title: title,
     });
-    context.commit('changeThreadTitle', payload);
+    context.commit('changeThreadTitle', { thread, title });
   },
   async selectCouncil(context, council) {
-    const { council: response } = await this.$axios.$get(`/chatbot/council/${council.id}`);
-    console.log(response);
-    context.commit('setCouncil', response);
+    const { assistant } = await this.$axios.$get(
+      `/chatbot/assistant/${council.id}`
+    );
+    context.commit('setCouncil', assistant);
+    context.commit('setThreads', assistant.threads);
   },
 };
 
@@ -94,13 +84,13 @@ export const getters = {
   messages(state) {
     return state.messages;
   },
+  council(state) {
+    return state.council;
+  },
   threads(state) {
-    return state.threads;
+    return state.council?.threads;
   },
   thread(state) {
     return state.thread;
-  },
-  council(state) {
-    return state.council;
   },
 };

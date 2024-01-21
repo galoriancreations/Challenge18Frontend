@@ -16,7 +16,7 @@
             v-for="thread in threads"
             :thread="thread"
             :key="thread.id"
-            :active="thread.id === activeThread.id"
+            :active="activeThread && thread.id === activeThread.id"
             @selectThread="selectThread"
             @selectFirstThread="$emit('selectFirstThread')"
           />
@@ -41,14 +41,7 @@
 export default {
   emits: ['loading', 'selectFirstThread'],
   props: {
-    threads: {
-      type: Array,
-      required: true,
-    },
-    activeThread: {
-      type: Object,
-      required: true,
-    },
+    activeThread: null,
   },
   data() {
     return {
@@ -60,7 +53,7 @@ export default {
     async selectThread(thread) {
       this.$emit('loading', true);
       await this.$store.dispatch('chatbot/selectThread', {
-        assistantId: this.council.id,
+        assistant: this.council,
         thread,
       });
       this.$cookies.set('selectedThread', thread);
@@ -68,10 +61,10 @@ export default {
     },
     async createThread() {
       this.$emit('loading', true);
-      await this.$store.dispatch('chatbot/createThread', this.council.id);
+      await this.$store.dispatch('chatbot/createThread', this.council);
       const thread = this.threads[this.threads.length - 1];
       await this.$store.dispatch('chatbot/selectThread', {
-        assistantId: this.council.id,
+        assistant: this.council,
         thread,
       });
       this.$cookies.set('selectedThread', thread);
@@ -80,7 +73,15 @@ export default {
   },
   computed: {
     council() {
-      return this.$cookies.get('selectedCouncil');
+      return this.$store.getters['chatbot/council'];
+    },
+    threads() {
+      return this.$store.getters['chatbot/threads'];
+    },
+  },
+  watch: {
+    threads() {
+      this.$emit('selectFirstThread');
     },
   },
 };
@@ -257,6 +258,7 @@ $chatbotThreadsContainerWidth: 300px;
   }
   100% {
     transform: translateY(1000px);
+    display: none;
   }
 }
 

@@ -2,7 +2,7 @@
   <div
     class="chatbot-thread"
     @click="selectThread"
-    :class="active ? 'chatbot-thread__active' : ''"
+    :class="{ 'chatbot-thread__active': active }"
   >
     <div class="chatbot-thread__title">
       <div ref="threadTitle">
@@ -65,6 +65,7 @@ export default {
       this.saveTimeout = setTimeout(async () => {
         this.$emit('loading', true);
         await this.$store.dispatch('chatbot/changeThreadTitle', {
+          assistant: this.council,
           thread: this.thread,
           title,
         });
@@ -83,11 +84,19 @@ export default {
     },
     async deleteThread() {
       this.$emit('loading', true);
-      await this.$store.dispatch('chatbot/deleteThread', this.thread);
+      await this.$store.dispatch('chatbot/deleteThread', {
+        assistant: this.council,
+        thread: this.thread,
+      });
       if (this.active) {
         this.$emit('selectFirstThread');
       }
       this.$emit('loading', false);
+    },
+  },
+  computed: {
+    council() {
+      return this.$store.getters['chatbot/council'];
     },
   },
 };
