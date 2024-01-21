@@ -115,7 +115,6 @@ export default {
   }
 
   &-container-image {
-    z-index: 100;
     width: 10rem;
     height: 10rem;
     margin-right: 2rem;
@@ -186,6 +185,7 @@ export default {
         display: -webkit-box;
         -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
+        overflow: hidden;
       }
 
       &:hover {

@@ -1,11 +1,20 @@
 <template>
   <div class="message" :class="`message__${message.role}`">
     <div class="message__icon">
-      <i
+      <img
         v-if="message.role === 'assistant'"
-        class="fas fa-robot message__icon__assistant"
+        :src="activeCouncil.image"
+        class="message__icon__assistant"
+        :class="{ 'fas fa-robot': !activeCouncil.image }"
+        :alt="activeCouncil.name"
       />
-      <i v-else class="fas fa-user message__icon__user" />
+      <img
+        v-else-if="imageSrc"
+        :src="imageSrc"
+        class="message__icon__assistant"
+        :alt="$store.getters.user.name"
+      />
+      <i v-else class="message__icon__user fas fa-user" />
     </div>
     <div class="message__text" v-text="message.text" />
     <div class="message__timestamp">
@@ -23,11 +32,24 @@ export default {
       type: Object,
       required: true,
     },
+    activeCouncil: {
+      type: Object,
+      required: true,
+    },
   },
   computed: {
     formattedDate() {
       return formatTime(this.message.createdAt);
     },
+    imageSrc() {
+      const { image } = this.$store.getters.user;
+      return image ? this.$config.axios.baseURL + image : null;
+    },
+  },
+  mounted() {
+    if (!this.$store.getters.user.email && !this.$store.getters.user.image) {
+      this.$store.dispatch('updateUser');
+    }
   },
 };
 </script>
@@ -41,7 +63,6 @@ export default {
   width: 100%;
 
   @include respond(mobile) {
-    width: 100%;
     padding: 0;
   }
 
@@ -62,8 +83,8 @@ export default {
 
   &__icon {
     align-self: flex-start;
-    width: 3rem;
-    height: 3rem;
+    width: 30px;
+    height: 30px;
     background-color: #e8ecef;
     border-radius: 50%;
     display: flex;
@@ -71,8 +92,15 @@ export default {
     align-items: center;
     margin-right: 1rem;
 
+    img {
+      border-radius: 50%;
+      object-fit: cover;
+      width: 30px;
+      height: 30px;
+    }
+
     i {
-      font-size: 2rem;
+      font-size: 2.25rem;
       padding: 0.5rem;
       border-radius: 50%;
     }

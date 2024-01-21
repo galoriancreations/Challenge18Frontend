@@ -1,11 +1,13 @@
 <template>
   <section class="chatbot-no-messages">
-    <div class="chatbot-no-messages__icon">
-      <img :src="council.image" :alt="council.name" />
-    </div>
-    <div class="chatbot-no-messages__text">
-      <h5>{{ council.name || "Hi, I'm your personal assistant." }}</h5>
-      <p>{{ council.text || 'How can I help you?' }}</p>
+    <div class="chatbot-no-messages__description">
+      <div class="chatbot-no-messages__description-icon">
+        <img :src="council.image" :alt="council.name" />
+      </div>
+      <div class="chatbot-no-messages__description-text">
+        <h5>{{ council.name || "Hi, I'm your personal assistant." }}</h5>
+        <p>{{ council.text || 'How can I help you?' }}</p>
+      </div>
     </div>
     <div class="chatbot-no-messages-conversations">
       <div
@@ -40,75 +42,71 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 30rem;
-
-  &__icon {
-    width: 10rem;
-    height: 10rem;
-    background-color: #e8ecef;
-    border-radius: 50%;
+  justify-content: space-between;
+  height: 90%;
+  
+  &__description {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    margin-bottom: 4rem;
-
-    @include respond(mobile) {
-      width: 7rem;
-      height: 7rem;
-    }
-
-    img {
-      width: 15rem;
-      height: 15rem;
+    text-align: center;
+    
+    &-icon {
+      width: 10rem;
+      height: 10rem;
+      background-color: #e8ecef;
       border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 4rem;
 
       @include respond(mobile) {
-        width: 10rem;
-        height: 10rem;
+        width: 7rem;
+        height: 7rem;
+      }
+
+      img {
+        width: 15rem;
+        height: 15rem;
+        border-radius: 50%;
+
+        @include respond(mobile) {
+          width: 10rem;
+          height: 10rem;
+        }
+      }
+    }
+
+    &-text {
+      h5 {
+        font-size: 2rem;
+        font-weight: 500;
+        color: #495057;
+
+        @include respond(mobile) {
+          font-size: 1.75rem;
+        }
+      }
+
+      p {
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: #495057;
+
+        @include respond(mobile) {
+          font-size: 1.25rem;
+        }
       }
     }
   }
-
-  &__text {
-    h5 {
-      font-size: 2rem;
-      font-weight: 500;
-      color: #495057;
-
-      @include respond(mobile) {
-        font-size: 1.5rem;
-      }
-
-      @include respond(tablet) {
-        font-size: 1.5rem;
-      }
-    }
-
-    p {
-      font-size: 1.5rem;
-      font-weight: 400;
-      color: #495057;
-
-      @include respond(mobile) {
-        font-size: 1.2rem;
-      }
-
-      @include respond(tablet) {
-        font-size: 1.2rem;
-      }
-    }
-  }
-
   &-conversations {
     position: relative;
     display: flex;
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
-    top: 28rem;
     gap: 0.5rem;
 
     div {
@@ -118,9 +116,18 @@ export default {
       background-color: #e8ecef;
       cursor: pointer;
       transition: all 0.2s ease-in-out;
+      font-size: 1.25rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
 
       &:hover {
         background-color: #dee2e6;
+      }
+
+      @include respond(tablet) {
+        width: 100%;
       }
     }
   }

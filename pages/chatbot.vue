@@ -4,18 +4,18 @@
     <ChatBotCouncils
       @loading="setLoadingCouncil"
       :councils="councils"
-      :activeCouncil="this.council || this.councils[0]"
+      :activeCouncil="activeCouncil"
     />
     <div class="chatbot__container">
-      <div class="chatbot__container-threads-messages">
-        <ChatBotThreads
-          :activeThread="thread"
-          @loading="setLoadingThread"
-          @selectFirstThread="selectFirstThread"
-        />
-      </div>
+      <ChatBotThreads
+        :activeThread="thread"
+        @loading="setLoadingThread"
+        @selectFirstThread="selectFirstThread"
+        :activeCouncil="activeCouncil"
+      />
       <ChatBotMessages
         :councils="councils"
+        :activeCouncil="activeCouncil"
         :loading="loading.messages || !thread"
         @sendMessage="sendMessage"
       />
@@ -28,8 +28,6 @@
 </template>
 
 <script>
-import councils from 'assets/data/councils.json';
-
 export default {
   meta: {
     requiresAuth: true,
@@ -41,11 +39,6 @@ export default {
         messages: false,
         council: false,
       },
-      councils: councils.map((council) => ({
-        ...council,
-        image: require(`assets/images/chatbot/${council.image}`),
-      })),
-      showScrollDown: false,
     };
   },
   methods: {
@@ -57,20 +50,12 @@ export default {
           text: message,
           createdAt: Math.floor(Date.now() / 1000),
         });
-        this.scrollToLastMessage();
         await this.$store.dispatch('chatbot/sendMessage', {
           text: message,
           assistant: this.council,
           thread: this.thread,
         });
         this.loading.messages = false;
-        this.scrollToLastMessage();
-      }
-    },
-    scrollToLastMessage() {
-      const messagesContainer = this.$refs.messages;
-      if (messagesContainer) {
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
       }
     },
     async loadData() {
@@ -79,9 +64,6 @@ export default {
       if (!this.thread) {
         this.selectFirstThread();
       }
-      setTimeout(() => {
-        this.scrollToLastMessage();
-      }, 100);
     },
     setLoadingThread(loading) {
       this.loading.thread = loading;
@@ -125,32 +107,27 @@ export default {
     },
   },
   computed: {
-    messages() {
-      return this.$store.getters['chatbot/messages'];
-    },
-    threads() {
-      return this.$store.getters['chatbot/threads'];
+    councils() {
+      return this.$store.getters['chatbot/councils'];
     },
     council() {
       return this.$store.getters['chatbot/council'];
     },
+    threads() {
+      return this.$store.getters['chatbot/threads'];
+    },
     thread() {
       return this.$store.getters['chatbot/thread'];
     },
-  },
-  async mounted() {
-    if (!this.council) {
-      await this.selectFirstCouncil();
-    }
-    await this.loadData();
-  },
-  watch: {
-    messages() {
-      this.scrollToLastMessage();
+    activeCouncil() {
+      return (
+        this.councils.find((council) => council.id === this.council?.id) ||
+        this.selectFirstCouncil()
+      );
     },
-    thread() {
-      this.$refs.page.$el.querySelector('.chatbot-input__textarea').value = '';
-    },
+  },
+  mounted() {
+    this.loadData();
   },
 };
 </script>
@@ -169,12 +146,6 @@ export default {
 
     @include respond(mobile) {
       padding: 0;
-    }
-
-    &-threads-messages {
-      display: flex;
-      flex-direction: row;
-      height: 100%;
     }
   }
 

@@ -5,10 +5,10 @@
     "image": "bgi24.png",
     "text": "Informative guide on Beneficial AGI 24 event and SingularityNet community.",
     "conversations": [
-      "What are the ethical considerations in AI?",
-      "How can AI impact healthcare?",
-      "Can you explain deep learning in simple terms?",
-      "What are the latest advancements in AI technology?"
+      "Tell me about the Beneficial AGI 24 event.",
+      "I want to see some mAGIc?",
+      "What is SingularityNet?",
+      "How can I join the SingularityNet community?"
     ]
   },
   {
@@ -17,10 +17,10 @@
     "image": "ecosystem.png",
     "text": "A knowledgeable and approachable AI council for discussions on AI topics.",
     "conversations": [
-      "Tell me about the Beneficial AGI 24 event.",
-      "I want to see some mAGIc?",
-      "What is SingularityNet?",
-      "How can I join the SingularityNet community?"
+      "What are the ethical considerations in AI?",
+      "How can AI impact healthcare?",
+      "Can you explain deep learning in simple terms?",
+      "What are the latest advancements in AI technology?"
     ]
   },
   {
@@ -33,6 +33,18 @@
       "How can AGI impact global policy-making?",
       "Discuss the role of AGI in societal changes.",
       "Explain emerging technologies in AGI."
+    ]
+  },
+  {
+    "id": "asst_uMbznoz007xI5JxjKBicG0ZK",
+    "name": "Wise Rabbi Council",
+    "image": "wise-rabbi.png",
+    "text": "Provides thoughtful insights based on Jewish wisdom and tradition.",
+    "conversations": [
+      "What does Judaism say about charity?",
+      "How can I find balance in life according to Jewish teachings?",
+      "Tell me a story from Jewish tradition that teaches about kindness.",
+      "What is the Jewish perspective on dealing with adversity?"
     ]
   }
 ]

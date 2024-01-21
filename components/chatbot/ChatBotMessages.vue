@@ -7,6 +7,7 @@
     >
       <div v-if="thread && messages.length">
         <ChatBotMessage
+          :activeCouncil="activeCouncil"
           :message="message"
           v-for="message in messages"
           :key="message.id"
@@ -20,11 +21,11 @@
     </div>
     <div class="chatbot__messages-input">
       <ChatBotInput @sendMessage="sendMessage" :loading="loading || !thread" />
-      <div class="chatbot__loading-dots">
+      <div class="chatbot__messages-dots">
         <LoadingDots v-if="loading" />
       </div>
       <div
-        class="chatbot__loading-scrolldown"
+        class="chatbot__messages-scrolldown"
         v-if="showScrollDown"
         @click="scrollToLastMessage"
       >
@@ -36,6 +37,7 @@
 
 <script>
 export default {
+  emits: ['sendMessage'],
   data() {
     return {
       showScrollDown: false,
@@ -44,8 +46,8 @@ export default {
   props: {
     councils: [],
     loading: false,
+    activeCouncil: null,
   },
-  emits: ['sendMessage', 'scrollToLastMessage'],
   methods: {
     handleScrollDown() {
       const messagesContainer = this.$refs.messages;
@@ -54,6 +56,10 @@ export default {
     sendMessage(message) {
       this.$emit('sendMessage', message);
     },
+    scrollToLastMessage() {
+      const messagesContainer = this.$refs.messages;
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    },
   },
   computed: {
     messages() {
@@ -61,6 +67,13 @@ export default {
     },
     thread() {
       return this.$store.getters['chatbot/thread'];
+    },
+  },
+  watch: {
+    messages() {
+      this.$nextTick(() => {
+        this.scrollToLastMessage();
+      });
     },
   },
 };
@@ -72,6 +85,8 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
+  width: 100%;
+
   &-content {
     flex: 1;
     display: flex;
@@ -91,21 +106,21 @@ export default {
     border-left: 1px solid #eee;
   }
 
-  &__loading-dots {
+  &-dots {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 0.5rem;
+    bottom: 6rem;
   }
 
-  &__loading-scrolldown {
+  &-scrolldown {
     position: absolute;
     right: 8rem;
-    bottom: 12rem;
+    bottom: 14rem;
 
     @include respond(mobile) {
       right: 6rem;
-      bottom: 10rem;
+      bottom: 12rem;
     }
   }
 }

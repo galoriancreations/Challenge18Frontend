@@ -5,7 +5,9 @@
   >
     <div class="chatbot-threads" :class="{ chatbotThreadsShow: show }">
       <div class="chatbot-threads__header">
-        <div class="chatbot-threads__header-title">Chatbots</div>
+        <div class="chatbot-threads__header-title">
+          {{ activeCouncil.name }}
+        </div>
         <div class="chatbot-threads__header-close" @click="show = !show">
           <i class="fas fa-times" />
         </div>
@@ -42,9 +44,14 @@ export default {
   emits: ['loading', 'selectFirstThread'],
   props: {
     activeThread: null,
+    activeCouncil: {
+      type: Object,
+      required: true,
+    },
   },
   data() {
     return {
+      // if width is above 1000px, then show: false else show: true
       show: false,
       saveTimeout: null,
     };
@@ -78,6 +85,12 @@ export default {
     threads() {
       return this.$store.getters['chatbot/threads'];
     },
+    messages() {
+      return this.$store.getters['chatbot/messages'];
+    },
+  },
+  mounted() {
+    this.show = window.innerWidth > 1100;
   },
   watch: {
     threads() {

@@ -12,9 +12,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  bottom: 6rem;
-  left: 50%;
-  transform: translateX(-50%);
 
   &__dot {
     width: 1rem;

@@ -36,6 +36,16 @@ export default {
       }
     },
   },
+  computed: {
+    thread() {
+      return this.$store.getters['chatbot/thread'];
+    },
+  },
+  watch: {
+    thread() {
+      this.message = '';
+    },
+  },
 };
 </script>
 

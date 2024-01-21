@@ -1,4 +1,10 @@
+import councils from 'assets/data/councils.json';
+
 export const state = () => ({
+  councils: councils.map((council) => ({
+    ...council,
+    image: require(`assets/images/chatbot/${council.image}`),
+  })),
   messages: [],
   council: null,
   thread: null,
@@ -92,5 +98,8 @@ export const getters = {
   },
   thread(state) {
     return state.thread;
+  },
+  councils(state) {
+    return state.councils;
   },
 };
