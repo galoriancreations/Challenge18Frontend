@@ -155,6 +155,7 @@ export default {
       background-color: #fff;
       border-radius: 0.5rem;
       box-shadow: $boxshadow2;
+      transition: all 0.2s ease-in-out;
 
       @include respond(tablet) {
         width: 100%;
@@ -191,10 +192,12 @@ export default {
       &:hover {
         cursor: pointer;
         box-shadow: $boxshadow1;
+        background-color: $color-grey-1;
       }
 
       &.active {
         box-shadow: $boxshadow1;
+        background-color: $color-grey-2;
       }
     }
   }

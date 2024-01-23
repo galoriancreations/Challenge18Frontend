@@ -67,8 +67,7 @@ export default {
       }
     },
     async loadData() {
-      const council = this.selectFirstCouncil();
-      await this.$store.dispatch('chatbot/selectCouncil', council);
+      await this.selectFirstCouncil();
       if (!this.thread) {
         await this.selectFirstThread();
       }
@@ -81,23 +80,13 @@ export default {
     },
     async selectFirstThread() {
       this.loading.thread = true;
-      const threadCookie = this.$cookies.get('selectedThread');
-      if (
-        threadCookie &&
-        this.threads.find((thread) => thread.id === threadCookie.id)
-      ) {
-        await this.$store.dispatch('chatbot/selectThread', {
-          assistant: this.council,
-          thread: threadCookie,
-        });
-        this.loading.thread = false;
-        return threadCookie;
+      let thread = this.$cookies.get('selectedThread');
+      if (!thread || !this.threads.find((t) => t.id === thread.id)) {
+        thread =
+          this.threads[0] ||
+          (await this.$store.dispatch('chatbot/createThread', this.council));
+        this.$cookies.set('selectedThread', thread);
       }
-      const thread = this.threads[0];
-      if (!thread) {
-        return await this.$store.dispatch('chatbot/createThread', this.council);
-      }
-      this.$cookies.set('selectedThread', thread);
       await this.$store.dispatch('chatbot/selectThread', {
         assistant: this.council,
         thread,
@@ -105,15 +94,13 @@ export default {
       this.loading.thread = false;
       return thread;
     },
-    selectFirstCouncil() {
-      const councilCookie = this.$cookies.get('selectedCouncil');
-      if (councilCookie) {
-        this.$store.dispatch('chatbot/selectCouncil', councilCookie);
-        return councilCookie;
+    async selectFirstCouncil() {
+      let council = this.$cookies.get('selectedCouncil');
+      if (!council) {
+        council = this.councils[0];
+        this.$cookies.set('selectedCouncil', council);
       }
-      const council = this.councils[0];
-      this.$store.dispatch('chatbot/selectCouncil', council);
-      this.$cookies.set('selectedCouncil', council);
+      await this.$store.dispatch('chatbot/selectCouncil', council);
       return council;
     },
   },
@@ -132,8 +119,7 @@ export default {
     },
     activeCouncil() {
       return (
-        this.councils.find((council) => council.id === this.council?.id) ||
-        this.selectFirstCouncil()
+        this.councils.find((council) => council.id === this.council?.id) || {}
       );
     },
   },
