@@ -6,19 +6,19 @@
         :src="activeCouncil.image"
         class="message__icon__assistant"
         :class="{ 'fas fa-robot': !activeCouncil.image }"
-        :alt="activeCouncil.name"
+        :alt="`${activeCouncil.name} image`"
       />
       <img
         v-else-if="imageSrc"
         :src="imageSrc"
         class="message__icon__assistant"
-        :alt="$store.getters.user.name"
+        alt="User image"
       />
       <i v-else class="message__icon__user fas fa-user" />
     </div>
     <div class="message__text" v-text="message.text" />
-    <div class="message__timestamp">
-      {{ formattedDate }}
+    <div class="message__time">
+      {{ formattedTime }}
     </div>
   </div>
 </template>
@@ -38,18 +38,13 @@ export default {
     },
   },
   computed: {
-    formattedDate() {
+    formattedTime() {
       return formatTime(this.message.createdAt);
     },
     imageSrc() {
       const { image } = this.$store.getters.user;
       return image ? this.$config.axios.baseURL + image : null;
     },
-  },
-  mounted() {
-    if (!this.$store.getters.user.email && !this.$store.getters.user.image) {
-      this.$store.dispatch('updateUser');
-    }
   },
 };
 </script>
@@ -114,7 +109,7 @@ export default {
     }
   }
 
-  &__timestamp {
+  &__time {
     font-size: 1rem;
     color: #999;
     bottom: -1.5rem;

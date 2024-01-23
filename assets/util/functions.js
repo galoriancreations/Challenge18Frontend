@@ -239,6 +239,12 @@ export const isTouchDevice = () =>
   navigator.maxTouchPoints > 0 ||
   navigator.msMaxTouchPoints > 0;
 
+/**
+ * Formats the given time into a string representation.
+ * @param {number} time - The time to format.
+ * @param {boolean} [inSeconds=true] - Indicates whether the time is in seconds or milliseconds. Default is true.
+ * @returns {string} The formatted time string.
+ */
 export const formatTime = (time, inSeconds = true) => {
   const date = new Date(inSeconds ? time * 1000 : time);
   const isDifferentDate = date.toDateString() !== new Date().toDateString();

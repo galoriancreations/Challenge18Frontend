@@ -31,7 +31,7 @@
 import { formatTime } from '~/assets/util/functions';
 
 export default {
-  inject: ['addNotification'],
+  inject: ['addNotification', 'setConfirmModal'],
   emits: ['selectThread', 'selectFirstThread', 'loading'],
   data() {
     return {
@@ -83,15 +83,20 @@ export default {
       }
     },
     async deleteThread() {
-      this.$emit('loading', true);
-      await this.$store.dispatch('chatbot/deleteThread', {
-        assistant: this.council,
-        thread: this.thread,
-      });
-      if (this.active) {
-        this.$emit('selectFirstThread');
-      }
-      this.$emit('loading', false);
+      this.setConfirmModal(
+        'Are you sure you want to delete this thread?',
+        async () => {
+          this.$emit('loading', true);
+          await this.$store.dispatch('chatbot/deleteThread', {
+            assistant: this.council,
+            thread: this.thread,
+          });
+          if (this.active) {
+            this.$emit('selectFirstThread');
+          }
+          this.$emit('loading', false);
+        }
+      );
     },
   },
   computed: {

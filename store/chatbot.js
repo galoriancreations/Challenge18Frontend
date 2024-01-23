@@ -33,12 +33,12 @@ export const mutations = {
 };
 
 export const actions = {
-  async loadMessages(context, { assistant, thread }) {
-    const { messages } = await this.$axios.$get(
-      `/chatbot/messages/${assistant.id}/${thread.id}`
-    );
-    context.commit('setMessages', messages);
-  },
+  // async loadMessages(context, { assistant, thread }) {
+  //   const { messages } = await this.$axios.$get(
+  //     `/chatbot/messages/${assistant.id}/${thread.id}`
+  //   );
+  //   context.commit('setMessages', messages);
+  // },
   async addMessage(context, message) {
     context.commit('addMessage', message);
   },

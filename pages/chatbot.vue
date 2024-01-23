@@ -24,14 +24,22 @@
       v-if="loading.thread || loading.council"
       class="chatbot__loadingCircle"
     />
+    <ConfirmModal
+      :active="showConfirmModal"
+      :text="confirmText"
+      @confirm="confirmAction"
+    />
   </Page>
 </template>
 
 <script>
+import confirmModal from '~/mixins/confirm-modal';
+
 export default {
   meta: {
     requiresAuth: true,
   },
+  mixins: [confirmModal],
   data() {
     return {
       loading: {
@@ -43,7 +51,7 @@ export default {
   },
   methods: {
     async sendMessage(message) {
-      if (message.trim().length > 1 && !this.loading.messages) {
+      if (message.length && !this.loading.messages) {
         this.loading.messages = true;
         await this.$store.dispatch('chatbot/addMessage', {
           role: 'user',
@@ -62,7 +70,7 @@ export default {
       const council = this.selectFirstCouncil();
       await this.$store.dispatch('chatbot/selectCouncil', council);
       if (!this.thread) {
-        this.selectFirstThread();
+        await this.selectFirstThread();
       }
     },
     setLoadingThread(loading) {
@@ -72,15 +80,17 @@ export default {
       this.loading.council = loading;
     },
     async selectFirstThread() {
+      this.loading.thread = true;
       const threadCookie = this.$cookies.get('selectedThread');
       if (
         threadCookie &&
         this.threads.find((thread) => thread.id === threadCookie.id)
       ) {
-        this.$store.dispatch('chatbot/selectThread', {
+        await this.$store.dispatch('chatbot/selectThread', {
           assistant: this.council,
           thread: threadCookie,
         });
+        this.loading.thread = false;
         return threadCookie;
       }
       const thread = this.threads[0];
@@ -88,10 +98,11 @@ export default {
         return await this.$store.dispatch('chatbot/createThread', this.council);
       }
       this.$cookies.set('selectedThread', thread);
-      this.$store.dispatch('chatbot/selectThread', {
+      await this.$store.dispatch('chatbot/selectThread', {
         assistant: this.council,
         thread,
       });
+      this.loading.thread = false;
       return thread;
     },
     selectFirstCouncil() {
@@ -128,6 +139,9 @@ export default {
   },
   mounted() {
     this.loadData();
+    if (!this.$store.getters.user.email && !this.$store.getters.user.image) {
+      this.$store.dispatch('updateUser');
+    }
   },
 };
 </script>
@@ -150,10 +164,11 @@ export default {
   }
 
   &__loadingCircle {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 20;
   }
 }
 </style>

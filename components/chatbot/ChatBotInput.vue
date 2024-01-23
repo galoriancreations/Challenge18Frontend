@@ -30,8 +30,9 @@ export default {
   },
   methods: {
     sendMessage() {
-      if (this.message.trim().length > 1) {
-        this.$emit('sendMessage', this.message);
+      const message = this.message.trim();
+      if (message.length) {
+        this.$emit('sendMessage', message);
         this.message = '';
       }
     },
