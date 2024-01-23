@@ -3,28 +3,36 @@
     <BaseButton variant="blue" @click="getQuestion">Pop a random question</BaseButton>
     <PopupModal :active="active" height="400px" class="popupQuestion">
       <h1 class="popupQuestion__title">{{ this.question.text }}</h1>
-      <NuxtLink :to="{
-        name: 'QuestionPage',
-        params: { question: question }
-      }">
-        q-{{ this.question.id }} TO answer
-      </NuxtLink>
-      <BaseButton variant="blue" @click="shareQuestion">share WhatsApp</BaseButton>
-      <BaseButton variant="blue" @click="getQuestion">change question</BaseButton>
+      <div class="popupQuestion__body">
+        <BaseButton variant="blue">
+          <NuxtLink :to="{
+            name: 'QuestionPage',
+            params: { question: question, checkPage: checkPage }
+          }">
+            q-{{ this.question.id }} TO answer
+          </NuxtLink>
+        </BaseButton>
+        <img width="100px" height="100px" :src="image" @click="shareQuestion">
+        <BaseButton variant="blue" @click="getQuestion">change question</BaseButton>
+      </div>
     </PopupModal>
   </Page>
 </template>
 
 <script>
+import BaseButton from "~/components/UI/BaseButton.vue";
 import Page from "~/components/layout/Page.vue";
 import popupModal from "~/mixins/popup-modal";
+import image from "~/assets/images/whatsapp.jpg";
 
 export default {
   mixins: [popupModal],
   data() {
     return {
+      checkPage: false,
       question: {},
-      qId:false
+      qId: false,
+      image:image,
     }
   },
   props: {
@@ -52,13 +60,14 @@ export default {
       }
     },
     shareQuestion() {
-      const shareUrl = window.location.href +`?qId=${this.question.id}`
+      const shareUrl = window.location.href + `?qId=${this.question.id}`
+      const shareText = 'Want to see some mAGIc? 🪄✨';
       // Create the WhatsApp share URL
-      const whatsappUrl = `https://wa.me?text=${encodeURIComponent(shareUrl)}`;
+      const whatsappUrl = `https://wa.me?text=${encodeURIComponent(shareText)}%20${encodeURIComponent(shareUrl)}`;
       window.open(whatsappUrl)
     }
   },
-  components: { Page }
+  components: { Page, BaseButton }
 }
 </script>
 
@@ -76,21 +85,13 @@ export default {
     margin-bottom: 1rem;
   }
 
-  a {
-    padding: 5px;
-    border-radius: 5px;
-    background-color: #25D366;
-    color: white;
-    transition: background-color 0.5s;
-
-    &:hover {
-      background-color: #128C7E;
-    }
-  }
+  // &__body {
+  //     margin: 1rem 3rem;
+  // }
 
   .button {
     width: 20rem;
-    margin-top: 3rem;
+   
   }
 }
 </style>

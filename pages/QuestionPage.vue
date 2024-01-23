@@ -3,7 +3,10 @@
         <AddAnswer :question="this.question" :active="showModal" @publish-answer="publishAnswer" />
         <div v-if="!showModal" >
             <AllAnswers :id="this.question.id" :answers="this.question.answers" />
-            <NuxtLink to='/shareonmagic' class="btn">share another question</NuxtLink>
+            <div>
+              <NuxtLink v-if="!checkPage" to='/ShareOnMagic' class="btn">share another question</NuxtLink>
+              <NuxtLink v-if="checkPage" to='/SingularityMagic' class="btn">share another question</NuxtLink>
+            </div>
         </div>
     </Page>
 </template>
@@ -20,6 +23,7 @@ export default {
         return {
             showModal: true,
             question: this.$route.params.question,
+            checkPage:this.$route.params.checkPage
         }
     },
     methods:{
