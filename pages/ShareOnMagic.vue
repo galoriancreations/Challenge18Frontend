@@ -54,6 +54,7 @@ export default {
         getQuestion: true
       })
       this.question = {
+        questionId:res._id,
         text: res.text,
         id: res.qnum,
         answers: res.answers
