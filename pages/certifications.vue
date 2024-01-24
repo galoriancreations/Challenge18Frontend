@@ -17,24 +17,29 @@
         :reduce="(cert) => cert.name"
         class="certifications__content-select"
       />
-      <CertificationForm
-        v-if="certification"
-        :certification="certification"
-        @sendCertifications="sendCertifications"
-        @update:certificationTemplate="certificationTemplate = $event"
-        ref="certificationForm"
-      />
-      <div v-if="certificationTemplate">
-        <CertificationSignature
-          @update:certificationSignature="certificationSignature = $event"
+      <Transition name="list">
+        <CertificationForm
+          v-if="certification"
+          :certification="certification"
+          @sendCertifications="sendCertifications"
+          @update:certificationTemplate="certificationTemplate = $event"
+          ref="certificationForm"
         />
-        <CertificationPdf
-          :certification="certificationTemplate"
-          :certificationSignature="certificationSignature"
-          ref="certificationPdf"
-        />
-      </div>
+      </Transition>
+      <Transition name="list">
+        <div v-if="certificationTemplate">
+          <CertificationSignature
+            @update:certificationSignature="certificationSignature = $event"
+          />
+          <CertificationPdf
+            :certification="certificationTemplate"
+            :certificationSignature="certificationSignature"
+            ref="certificationPdf"
+          />
+        </div>
+      </Transition>
     </div>
+
     <CertificationStatus
       :members="members().length"
       :certificationTemplate="certificationTemplate"
@@ -191,5 +196,15 @@ export default {
     text-align: center;
     margin-top: 1rem;
   }
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(100vh);
 }
 </style>

@@ -4,7 +4,7 @@
     <div class="certifications__status-content">
       <div class="certifications__status-content__item" :class="membersClass">
         <h4>Members</h4>
-        <p>{{ members }}</p>
+        <p>{{ isMembersValid ? members : 'INVALID' }}</p>
       </div>
       <div class="certifications__status-content__item" :class="templateClass">
         <h4>Template</h4>
