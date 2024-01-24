@@ -9,7 +9,7 @@
       class="certification__select"
     />
     <div v-if="selectedCertificationTemplate" class="certification__members">
-      <h3>Members:</h3>
+      <h3 class="certification__members-title">Members:</h3>
       <h4 v-if="!members.length">Add members to send them the certification</h4>
       <div class="certification__members-content">
         <CertificationMember
@@ -18,11 +18,14 @@
           :member="member"
           class="certification__members-content__member"
           @removeMember="members.splice(members.indexOf(member), 1)"
+          @addMember="addMember"
+          ref="memberInputs"
         />
         <BaseButton
           variant="blue"
           @click="addMember"
           class="certification__members-add"
+          :disabled="!isMembersValid"
         >
           <i class="fas fa-plus" />
         </BaseButton>
@@ -32,12 +35,20 @@
 </template>
 
 <script>
+import { isValidEmail } from '~/assets/util/functions';
+
 export default {
   emits: ['sendCertifications', 'update:certificationTemplate'],
   data() {
     return {
       selectedCertificationTemplate: null,
-      members: [],
+      members: [
+        {
+          id: 0,
+          name: '',
+          email: '',
+        },
+      ],
     };
   },
   props: {
@@ -48,11 +59,24 @@ export default {
   },
   methods: {
     addMember() {
+      if (!this.isMembersValid) return;
       this.members.push({
-        id: this.members.length + 1,
+        id: this.members.length,
         name: '',
         email: '',
       });
+      this.$nextTick(() => {
+        this.$refs.memberInputs[
+          this.members.length - 1
+        ].$refs.memberNameInput.focus();
+      });
+    },
+  },
+  computed: {
+    isMembersValid() {
+      return this.members.every(
+        (member) => member.name.trim() && isValidEmail(member.email)
+      );
     },
   },
   watch: {
@@ -80,7 +104,7 @@ export default {
   &__text {
     margin-bottom: 1rem;
   }
-  
+
   &__select {
     width: 100%;
   }
@@ -92,8 +116,9 @@ export default {
     margin-top: 5rem;
     width: 100%;
 
-    h4 {
-      margin: 1rem;
+    &-title {
+      margin: 0;
+      padding: 0;
     }
 
     &-content {
@@ -102,7 +127,7 @@ export default {
       overflow-y: auto;
       border: 2px solid #adc8cc;
       border-radius: 5px;
-      margin: 2rem;
+      margin-bottom: 2rem;
       justify-content: flex-start;
 
       &__member {

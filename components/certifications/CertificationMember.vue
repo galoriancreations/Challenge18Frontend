@@ -3,11 +3,26 @@
     <div class="certification-member__info">
       <div class="certification-member__info__input">
         <label class="form__label">Name:</label>
-        <input class="form__input" placeholder="Name" v-model="member.name" />
+        <input
+          class="form__input"
+          placeholder="Name"
+          v-model="member.name"
+          ref="memberNameInput"
+          required
+          @keyup.enter="$refs.memberEmailInput.focus()"
+        />
       </div>
       <div class="certification-member__info__input">
         <label>Email:</label>
-        <input class="form__input" placeholder="Email" v-model="member.email" />
+        <input
+          class="form__input"
+          placeholder="Email"
+          v-model="member.email"
+          type="email"
+          required
+          @keyup.enter="$emit('addMember')"
+          ref="memberEmailInput"
+        />
       </div>
     </div>
     <button class="certification-member__remove" @click="$emit('removeMember')">
@@ -18,7 +33,7 @@
 
 <script>
 export default {
-  emits: ['removeMember'],
+  emits: ['removeMember', 'addMember'],
   props: {
     member: {
       type: Object,
@@ -57,16 +72,15 @@ export default {
 
   &__remove {
     font-size: 2rem;
-    color: #544e4e;
-    width: 3rem 2rem;
+    color: $color-danger;
+    padding: 0.5rem 1rem;
     margin: auto;
     border-radius: 50%;
-    background-color: $color-grey-1;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.2s ease-in-out;
 
     &:hover {
       background-color: $color-danger;
-      color: $color-grey-1;
+      color: #fff;
     }
   }
 }

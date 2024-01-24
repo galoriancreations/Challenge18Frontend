@@ -1,6 +1,6 @@
 <template>
   <div class="certification-signature form">
-    <label class="form__label certification-signature__label">Signature:</label>
+    <h3 class="certification-signature__text">Signature:</h3>
     <input
       @input="$emit('update:certificationSignature', $event.target.value)"
       placeholder="Enter signature name"
@@ -22,8 +22,9 @@ export default {
   align-items: center;
   width: 100%;
 
-  &__label {
-    margin-bottom: 0.5rem;
+  &__text {
+    margin-top: 2rem;
+    font-size: 2rem;
   }
 
   &__input {
