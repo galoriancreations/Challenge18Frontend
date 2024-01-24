@@ -12,22 +12,43 @@
     <div class="certifications__content">
       <h3>Choose a certification</h3>
       <VueSelect
-        v-model="selectedCertificationType"
+        v-model="certificationType"
         :options="certificationsTypes"
         :reduce="(cert) => cert.name"
         class="certifications__content-select"
       />
       <CertificationForm
-        v-if="selectedCertificationType"
+        v-if="certificationType"
         :certification="certification"
         @sendCertifications="sendCertifications"
-        @update:certification="selectedCertificationTemplate = $event"
+        @update:certificationTemplate="certificationTemplate = $event"
+        ref="certificationForm"
       />
-      <CertificationPdf
-        v-if="selectedCertificationType"
-        :certification="selectedCertificationType"
-      />
+      <div v-if="certificationTemplate">
+        <CertificationSignature
+          @update:certificationSignature="certificationSignature = $event"
+        />
+        <CertificationPdf
+          :certification="certificationTemplate"
+          :certificationSignature="certificationSignature"
+          ref="certificationPdf"
+        />
+      </div>
     </div>
+    <BaseButton
+      variant="blue"
+      class="certifications__send-button"
+      v-if="certificationTemplate"
+      :disabled="
+        !certificationSignature.trim() ||
+          !certificationTemplate ||
+          !$refs.certificationForm.members.length
+      "
+      @click="sendCertifications($refs.certificationForm.members)"
+    >
+      Send
+    </BaseButton>
+    <BaseSpinner v-if="loading" class="certifications__spinner" />
   </Page>
 </template>
 
@@ -41,23 +62,40 @@ export default {
   data() {
     return {
       certificationsTypes: certifications,
-      selectedCertificationType: null,
-      selectedCertificationTemplate: null,
+      certificationType: null,
+      certificationTemplate: null,
+      certificationSignature: '',
+      loading: false,
     };
   },
   computed: {
     certification() {
-      return certifications.find(
-        (cert) => cert.name === this.selectedCertificationType
+      const certification = certifications.find(
+        (cert) => cert.name === this.certificationType
       );
+      return certification;
     },
   },
   methods: {
-    sendCertifications(members) {
-      console.log(this.selectedCertificationTemplate);
-      members.forEach((member) => {
-        console.log('Sending certification to:', member.name);
-      });
+    async sendCertifications(members) {
+      this.loading = true;
+      const certifications = [];
+      for (const member of members) {
+        const pdfBlob = await this.$refs.certificationPdf.generatePdf(member.name);
+        const pdfBase64 = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(pdfBlob);
+        });
+        const certification = { pdf: pdfBase64, member };
+        await this.$axios.post('/certifications/sendCertification', {
+          certification,
+        });
+        certifications.push(certification);
+      }
+      // console.log(certifications);
+      this.loading = false;
     },
   },
 };
@@ -65,6 +103,9 @@ export default {
 
 <style lang="scss">
 .certifications {
+  display: flex;
+  flex-direction: column;
+
   &__logo {
     margin: 2rem auto;
     width: 200px;
@@ -87,6 +128,14 @@ export default {
       width: 100%;
       max-width: 400px;
     }
+
+    h3 {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__send-button {
+    margin: 2rem;
   }
 }
 </style>

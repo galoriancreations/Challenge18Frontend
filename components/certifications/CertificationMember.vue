@@ -30,13 +30,9 @@ export default {
 
 <style lang="scss">
 .certification-member {
-  border: 1px solid $color-gray-1;
   padding: 1rem;
 
   &__info {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
     border-radius: 0.25rem;
 
     &__input {
@@ -60,11 +56,18 @@ export default {
   }
 
   &__remove {
-    background-color: transparent;
-    border: none;
-    color: $color-danger;
     font-size: 2rem;
-    cursor: pointer;
+    color: #544e4e;
+    width: 3rem 2rem;
+    margin: auto;
+    border-radius: 50%;
+    background-color: $color-grey-1;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background-color: $color-danger;
+      color: $color-grey-1;
+    }
   }
 }
 </style>

@@ -3,12 +3,12 @@
     <h2 class="certification__title">{{ certification.name }}</h2>
     <h3 class="certification__text">Choose a certification type</h3>
     <VueSelect
-      v-model="selectedCertificationType"
+      v-model="selectedCertificationTemplate"
       :options="certification.certifications"
       :reduce="(cert) => cert.name"
       class="certification__select"
     />
-    <div v-if="selectedCertificationType" class="certification__members">
+    <div v-if="selectedCertificationTemplate" class="certification__members">
       <h3>Members:</h3>
       <h4 v-if="!members.length">Add members to send them the certification</h4>
       <div class="certification__members-content">
@@ -28,22 +28,15 @@
         </BaseButton>
       </div>
     </div>
-    <BaseButton
-      variant="blue"
-      @click="$emit('sendCertifications', members)"
-      class="certification__send-button"
-    >
-      Send
-    </BaseButton>
   </section>
 </template>
 
 <script>
 export default {
-  emits: ['sendCertifications', 'update:certification'],
+  emits: ['sendCertifications', 'update:certificationTemplate'],
   data() {
     return {
-      selectedCertificationType: null,
+      selectedCertificationTemplate: null,
       members: [],
     };
   },
@@ -63,8 +56,11 @@ export default {
     },
   },
   watch: {
-    selectedCertificationType() {
-      this.$emit('update:certification', this.selectedCertificationType);
+    selectedCertificationTemplate() {
+      const template = this.certification.certifications.find(
+        (cert) => cert.name === this.selectedCertificationTemplate
+      );
+      this.$emit('update:certificationTemplate', template);
     },
   },
 };
@@ -75,9 +71,16 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
   margin-top: 5rem;
 
+  &__title {
+    margin-bottom: 1rem;
+  }
+
+  &__text {
+    margin-bottom: 1rem;
+  }
+  
   &__select {
     width: 100%;
   }

@@ -41,8 +41,7 @@ export default {
     "~/plugins/core-components",
     "~/plugins/v-waypoint.client.js",
     "~/plugins/vue-plyr.client.js",
-    "~/plugins/axios",
-    { src: '~/plugins/vue-html2pdf', mode: 'client' }
+    "~/plugins/axios"
   ],
 
   components: {
@@ -64,6 +63,7 @@ export default {
       "~/components/singularityNet",
       "~/components/chatbot",
       "~/components/certifications",
+      "~/components/certifications/templates"
     ]
   },
 

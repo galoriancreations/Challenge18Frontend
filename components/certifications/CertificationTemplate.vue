@@ -1,12 +1,16 @@
 <template>
-  <section class="cert-template">
+  <section class="cert-templates">
     <CertificationTemplateAppreciation
       v-if="certification.type === 'appreciation'"
-      :certification="certification"
+      :date="date"
+      :certificationSignature="certificationSignature"
+      :name="name"
     />
     <CertificationTemplateCommitment
       v-else-if="certification.type === 'commitment'"
-      :certification="certification"
+      :date="date"
+      :certificationSignature="certificationSignature"
+      :name="name"
     />
   </section>
 </template>
@@ -18,60 +22,79 @@ export default {
       type: Object,
       required: true,
     },
+    date: {
+      type: Object,
+      required: true,
+    },
+    certificationSignature: {
+      type: String,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
   },
   computed: {
     date() {
       const date = new Date();
-      return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+      return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     },
   },
 };
 </script>
 
 <style lang="scss">
+.cert-templates {
+  display: flex;
+  justify-content: center;
+  border: 1px solid #544e4e;
+  width: 100%;
+}
+
 .cert-template {
-  background-color: white;
-  border: 5px solid #ddd;
-  padding: 20px;
-  width: 70%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  text-align: center;
+  padding: 5rem;
+  margin: 2rem;
+  width: 800px;
 
   &__title {
-    font-size: 24px;
+    font-size: 4rem;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
   }
 
   &__event-name {
-    font-size: 20px;
-    margin-bottom: 15px;
+    font-size: 4rem;
+    margin-bottom: 2rem;
   }
 
   &__recipient {
-    font-size: 18px;
-    margin-bottom: 15px;
+    font-size: 2rem;
+    margin-bottom: 2rem;
   }
 
   &__body-text {
-    margin-bottom: 30px;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    max-width: 600px;
   }
 
   &__date-signature {
-    margin-top: 30px;
+    font-size: 1.5rem;
+    margin-top: 2rem;
     display: flex;
     justify-content: space-between;
     width: 100%;
   }
 
   &__title-signatory {
-    font-size: 18px;
-    margin-top: 20px;
+    font-size: 2rem;
+    margin-top: 1rem;
   }
 }
 </style>
