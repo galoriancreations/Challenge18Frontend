@@ -1,0 +1,20 @@
+[
+  {
+    "name": "BGI",
+    "label": "BGI",
+    "certifications": [
+      {
+        "name": "Certificate of Appreciation",
+        "label": "Certificate of Appreciation",
+        "file": "bgi/certificate_of_appreciation.pdf",
+        "type": "appreciation"
+      },
+      {
+        "name": "Certificate of Commitment",
+        "label": "Certificate of Commitment",
+        "file": "bgi/certificate_of_commitment.pdf",
+        "type": "commitment"
+      }
+    ]
+  }
+]
