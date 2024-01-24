@@ -10,17 +10,18 @@
     />
     <div v-if="selectedCertificationTemplate" class="certification__members">
       <h3 class="certification__members-title">Members:</h3>
-      <h4 v-if="!members.length">Add members to send them the certification</h4>
       <div class="certification__members-content">
-        <CertificationMember
-          v-for="member in members"
-          :key="member.id"
-          :member="member"
-          class="certification__members-content__member"
-          @removeMember="members.splice(members.indexOf(member), 1)"
-          @addMember="addMember"
-          ref="memberInputs"
-        />
+        <TransitionGroup name="list" tag="div">
+          <CertificationMember
+            v-for="member in members"
+            :key="member.id"
+            :member="member"
+            class="certification__members-content__member"
+            @removeMember="members.splice(members.indexOf(member), 1)"
+            @addMember="addMember"
+            ref="memberInputs"
+          />
+        </TransitionGroup>
         <BaseButton
           variant="blue"
           @click="addMember"
@@ -30,6 +31,9 @@
           <i class="fas fa-plus" />
         </BaseButton>
       </div>
+      <h4 v-if="!members.length" class="certification__members-warn">
+        Add members to send them the certification
+      </h4>
     </div>
   </section>
 </template>
@@ -107,6 +111,7 @@ export default {
 
   &__select {
     width: 100%;
+    box-shadow: $boxshadow2;
   }
 
   &__members {
@@ -115,6 +120,7 @@ export default {
     align-items: center;
     margin-top: 5rem;
     width: 100%;
+    min-width: 400px;
 
     &-title {
       margin: 0;
@@ -128,7 +134,10 @@ export default {
       border: 2px solid #adc8cc;
       border-radius: 5px;
       margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
       justify-content: flex-start;
+      box-shadow: $boxshadow2;
 
       &__member {
         width: 100%;
@@ -142,10 +151,29 @@ export default {
       }
     }
 
+    &-warn {
+      margin: 0;
+      padding: 0;
+      color: $color-danger;
+    }
+
     &-add {
+      margin-top: auto;
+      margin-bottom: 0;
       width: 100%;
       border-radius: 0;
+      border: none !important;
+      border-top: 2px solid #adc8cc !important;
     }
   }
+}
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.3s ease;
+}
+.list-enter,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
 }
 </style>

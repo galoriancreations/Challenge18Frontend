@@ -35,15 +35,21 @@
         />
       </div>
     </div>
+    <CertificationStatus
+      :members="members().length"
+      :certificationTemplate="certificationTemplate"
+      :certificationSignature="certificationSignature"
+      :isMembersValid="isMembersValid()"
+    />
     <BaseButton
       variant="blue"
       class="certifications__send-button"
       v-if="certificationTemplate"
       :disabled="
         loading ||
-          !certificationSignature.trim() ||
+          !certificationSignature ||
           !certificationTemplate ||
-          !$refs.certificationForm.isMembersValid
+          !isMembersValid()
       "
       @click="sendCertifications(members())"
     >
@@ -124,6 +130,11 @@ export default {
         ? this.$refs.certificationForm.members
         : [];
     },
+    isMembersValid() {
+      return this.$refs.certificationForm
+        ? this.$refs.certificationForm.isMembersValid
+        : false;
+    },
   },
   computed: {
     certification() {
@@ -162,6 +173,7 @@ export default {
     &-select {
       width: 100%;
       max-width: 400px;
+      box-shadow: $boxshadow2;
     }
 
     h3 {
