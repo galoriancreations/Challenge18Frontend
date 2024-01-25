@@ -18,12 +18,12 @@
         class="certifications__content-select"
       />
       <Transition name="list">
-        <CertificationForm
+        <CertificationMembers
           v-if="certification"
           :certification="certification"
           @sendCertifications="sendCertifications"
           @update:certificationTemplate="certificationTemplate = $event"
-          ref="certificationForm"
+          ref="certificationMembers"
         />
       </Transition>
       <Transition name="list">
@@ -137,7 +137,7 @@ export default {
                 .map((member) => member.name)
                 .join(', ')}. Do you want to resend them?`,
               () => {
-                this.$refs.certificationForm.members = errorMembers;
+                this.$refs.certificationMembers.members = errorMembers;
                 setTimeout(() => {
                   this.sendCertifications(errorMembers);
                 }, 100);
@@ -152,13 +152,13 @@ export default {
       );
     },
     members() {
-      return this.$refs.certificationForm
-        ? this.$refs.certificationForm.members
+      return this.$refs.certificationMembers
+        ? this.$refs.certificationMembers.members
         : [];
     },
     isMembersValid() {
-      return this.$refs.certificationForm
-        ? this.$refs.certificationForm.isMembersValid
+      return this.$refs.certificationMembers
+        ? this.$refs.certificationMembers.isMembersValid
         : false;
     },
   },

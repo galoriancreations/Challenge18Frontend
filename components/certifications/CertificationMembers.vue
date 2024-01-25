@@ -96,9 +96,7 @@ export default {
 
 <style lang="scss">
 .certification {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
   margin-top: 5rem;
 
   &__title {
@@ -117,15 +115,10 @@ export default {
   &__members {
     text-align: center;
     margin-top: 5rem;
-    width: 50vw;
+    width: 380px;
 
     @include respond(mobile) {
       width: 100%;
-    }
-
-    &-title {
-      margin: 0;
-      padding: 0;
     }
 
     &-content {
@@ -139,7 +132,6 @@ export default {
       flex-direction: column;
       justify-content: flex-start;
       box-shadow: $boxshadow2;
-      padding: 0.5rem;
 
       &__member {
         width: 100%;
@@ -155,7 +147,6 @@ export default {
 
     &-warn {
       color: $color-danger;
-      font-size: 1.5rem;
     }
 
     &-add {
