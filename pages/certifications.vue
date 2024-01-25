@@ -31,15 +31,16 @@
           <CertificationSignature
             @update:certificationSignature="certificationSignature = $event"
           />
-          <CertificationPdf
-            :certification="certificationTemplate"
-            :certificationSignature="certificationSignature"
-            ref="certificationPdf"
-          />
         </div>
       </Transition>
     </div>
-
+    <SectionSeperator />
+    <CertificationPdf
+      v-if="certificationTemplate"
+      :certification="certificationTemplate"
+      :certificationSignature="certificationSignature"
+      ref="certificationPdf"
+    />
     <CertificationStatus
       :members="members().length"
       :certificationTemplate="certificationTemplate"
@@ -101,17 +102,22 @@ export default {
   },
   methods: {
     async sendCertifications(members) {
-      this.completed = false;
-      this.showPopup = false;
       this.setConfirmModal(
         'Are you sure you want to send the certifications? This action cannot be undone and will send an email to each member with their certification attached.',
         async () => {
+          this.completed = false;
+          this.showPopup = false;
           this.progress = 0;
           this.loading = true;
+          const errorMembers = [];
           for (const member of members) {
             const pdfBlob = await this.$refs.certificationPdf.generatePdf(
               member.name
             );
+            if (!pdfBlob) {
+              errorMembers.push(member);
+              continue;
+            }
             const pdfBase64 = await new Promise((resolve, reject) => {
               const reader = new FileReader();
               reader.onloadend = () => resolve(reader.result);
@@ -124,6 +130,21 @@ export default {
             });
             this.progress++;
           }
+
+          if (errorMembers.length) {
+            this.setConfirmModal(
+              `Some certifications could not be sent. Please check the following members: ${this.errorMembers
+                .map((member) => member.name)
+                .join(', ')}. Do you want to resend them?`,
+              () => {
+                this.$refs.certificationForm.members = errorMembers;
+                setTimeout(() => {
+                  this.sendCertifications(errorMembers);
+                }, 100);
+              }
+            );
+          }
+
           this.loading = false;
           this.completed = true;
           this.showPopup = true;
@@ -184,10 +205,6 @@ export default {
     h3 {
       margin-bottom: 1rem;
     }
-  }
-
-  &__send-button {
-    margin: 2rem;
   }
 
   &__progress {

@@ -1,6 +1,5 @@
 <template>
   <div class="certification-pdf">
-    <SectionSeperator />
     <div class="certification-pdf__preview">Preview:</div>
     <section class="certification-pdf__content">
       <CertificationTemplate
@@ -39,31 +38,34 @@ export default {
 
       const opt = {
         margin: 1,
-        filename: 'myfile.pdf',
+        filename: 'certification.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
       };
 
-      // New Promise is necessary to make function wait for pdf output
-      const pdfString = await new Promise((resolve, reject) => {
-        html2pdf()
+      try {
+        // wait 3 seconds to simulate generating PDF
+        // await new Promise((resolve) => setTimeout(resolve, 3000));
+        // throw new Error('Test error');
+        const pdfString = await html2pdf()
           .set(opt)
           .from(element)
-          .outputPdf()
-          .then(function(pdf) {
-            resolve(pdf);
-          });
-      });
+          .outputPdf();
 
-      // Convert PDF string to Blob
-      const pdfBytes = new Uint8Array(pdfString.length);
-      for (let i = 0; i < pdfString.length; i++) {
-        pdfBytes[i] = pdfString.charCodeAt(i);
+        // Convert PDF string to Blob
+        const pdfBytes = new Uint8Array(pdfString.length);
+        for (let i = 0; i < pdfString.length; i++) {
+          pdfBytes[i] = pdfString.charCodeAt(i);
+        }
+        const pdfBlob = new Blob([pdfBytes], { type: 'application/pdf' });
+
+        return pdfBlob;
+      } catch (error) {
+        // Handle any errors that occur while generating the PDF
+        console.error('Error generating PDF:', error);
+        return null;
       }
-      const pdfBlob = new Blob([pdfBytes], { type: 'application/pdf' });
-
-      return pdfBlob;
     },
   },
 };
@@ -76,6 +78,10 @@ export default {
     font-weight: bold;
     text-align: center;
     margin: 1rem;
+  }
+
+  &__content {
+    margin: auto;
   }
 }
 </style>

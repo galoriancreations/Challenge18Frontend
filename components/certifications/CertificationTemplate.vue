@@ -49,7 +49,8 @@ export default {
   display: flex;
   justify-content: center;
   border: 1px solid #544e4e;
-  width: 100%;
+  width: 800px;
+  margin: auto;
 }
 
 .cert-template {

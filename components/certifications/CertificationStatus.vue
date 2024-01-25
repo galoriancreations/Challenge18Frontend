@@ -50,7 +50,9 @@ export default {
   &-content {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
     width: 100%;
     max-width: 400px;
     margin-top: 1rem;
@@ -64,7 +66,7 @@ export default {
       border: 2px solid #adc8cc;
       border-radius: 5px;
       padding: 1rem;
-      margin: 0 1rem;
+      margin: 1rem;
       box-shadow: $boxshadow2;
 
       h4 {

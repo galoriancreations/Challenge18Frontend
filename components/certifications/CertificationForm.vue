@@ -115,12 +115,13 @@ export default {
   }
 
   &__members {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    text-align: center;
     margin-top: 5rem;
-    width: 100%;
-    min-width: 400px;
+    width: 50vw;
+
+    @include respond(mobile) {
+      width: 100%;
+    }
 
     &-title {
       margin: 0;
@@ -138,6 +139,7 @@ export default {
       flex-direction: column;
       justify-content: flex-start;
       box-shadow: $boxshadow2;
+      padding: 0.5rem;
 
       &__member {
         width: 100%;
@@ -152,9 +154,8 @@ export default {
     }
 
     &-warn {
-      margin: 0;
-      padding: 0;
       color: $color-danger;
+      font-size: 1.5rem;
     }
 
     &-add {
