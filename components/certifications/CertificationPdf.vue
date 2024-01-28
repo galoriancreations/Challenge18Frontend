@@ -12,8 +12,6 @@
 </template>
 
 <script>
-import html2pdf from 'html2pdf.js';
-
 export default {
   data() {
     return {
@@ -32,6 +30,8 @@ export default {
   },
   methods: {
     async generatePdf(name) {
+      // Dynamically import html2pdf.js to reduce bundle size
+      const html2pdf = (await import('html2pdf.js')).default;
       this.name = name;
 
       const element = document.querySelector('.certification-pdf__content');
