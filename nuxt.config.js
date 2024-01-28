@@ -61,6 +61,7 @@ export default {
       "~/components/shareonmagic",
       "~/components/questionpage",
       "~/components/singularitymagic",
+      "~/components/magic",
     ]
   },
 
