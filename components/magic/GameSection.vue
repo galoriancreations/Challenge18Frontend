@@ -3,8 +3,8 @@
     <SectionHeading small>Magic Boom</SectionHeading>
     <div class="game-section__grid">
       <div class="game-section__img" v-for="image in images" :key="image">
-        <NuxtLink to="">
-          <img :src="image">
+        <NuxtLink :to=image.link>
+          <img :src="image.src" @click="location.href=image.link">
         </NuxtLink>
       </div>
     </div>
@@ -20,7 +20,7 @@ export default {
             images: [
                 {
                     src: require("~/assets/images/photo-magic/BGI-mAGIc.png"),
-                    link: { to: '/BGI-mAGIc' }
+                    link: 'magic/BGI-mAGIc' 
                 },
                 require("~/assets/images/photo-magic/Environment.png"),
                 require("~/assets/images/photo-magic/Global-Goals.png"),
