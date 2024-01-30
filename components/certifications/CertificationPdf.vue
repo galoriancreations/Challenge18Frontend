@@ -1,7 +1,7 @@
 <template>
   <div class="certification-pdf">
     <div class="certification-pdf__preview">Preview:</div>
-    <section class="certification-pdf__content">
+    <section ref="pdfContent" class="certification-pdf__content">
       <CertificationTemplate
         :certification="certification"
         :certificationSignature="certificationSignature"
@@ -13,6 +13,14 @@
 
 <script>
 import html2pdf from 'html2pdf.js';
+
+const html2pdfOptions = {
+  margin: 0,
+  filename: 'certification.pdf',
+  image: { type: 'jpeg', quality: 0.98 },
+  html2canvas: { scale: 2 },
+  jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+};
 
 export default {
   data() {
@@ -34,22 +42,14 @@ export default {
     async generatePdf(name) {
       this.name = name;
 
-      const element = document.querySelector('.certification-pdf__content');
-
-      const opt = {
-        margin: 1,
-        filename: 'certification.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
-      };
+      const element = this.$refs.pdfContent;
 
       try {
         // wait 3 seconds to simulate generating PDF
         // await new Promise((resolve) => setTimeout(resolve, 3000));
         // throw new Error('Test error');
         const pdfString = await html2pdf()
-          .set(opt)
+          .set(html2pdfOptions)
           .from(element)
           .outputPdf();
 
