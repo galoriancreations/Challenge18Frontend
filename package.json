@@ -11,6 +11,8 @@
   "dependencies": {
     "@chenfengyuan/vue-number-input": "^1.2.1",
     "@nuxtjs/axios": "^5.13.6",
+    "@vue/runtime-dom": "^3.4.4",
+    "chart.js": "^4.3.0",
     "clone-deep": "^4.0.1",
     "cookie-universal-nuxt": "^2.1.5",
     "core-js": "^3.9.1",
@@ -49,3 +51,4 @@
     "sass-loader": "^10.2.0"
   }
 }
+
