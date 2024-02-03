@@ -95,7 +95,10 @@ export default {
 
   publicRuntimeConfig: {
     axios: {
-      baseURL: "http://localhost:3000"
+      baseURL:
+        process.env.NODE_ENV === 'production'
+          ? 'https://back.ting.global'
+          : 'http://localhost:3000',
     },
     emailjsKey: process.env.EMAILJS_KEY,
     emailjsTemplate: process.env.EMAILJS_TEMPLATE,
