@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import challenges from "~/assets/data/top-challenges";
+import challenges from "~/assets/data/challenges_v2";
 
 export default {
   computed: {
@@ -40,7 +40,7 @@ export default {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 4rem;
-    max-width: 80rem;
+    max-width: 120rem;
     margin: auto;
     padding: 0;
 
@@ -54,11 +54,11 @@ export default {
 
     @include respond(mobile) {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: center;
       flex-wrap: wrap;
       gap: initial;
-      margin: -1rem;
+      margin: -3.5rem;
 
       & > * {
         width: calc((100% - 2rem * 2) / 2);
