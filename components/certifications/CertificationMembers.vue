@@ -53,6 +53,7 @@ export default {
           email: '',
         },
       ],
+      certifications: [],
     };
   },
   props: {
@@ -64,6 +65,11 @@ export default {
   methods: {
     addMember() {
       if (!this.isMembersValid) return;
+
+      if (!this.certifications.length) {
+        this.certifications = this.$axios.$get('/certifications');
+      }
+
       this.members.push({
         id: this.members.length,
         name: '',
