@@ -124,9 +124,12 @@ export default {
               reader.onerror = reject;
               reader.readAsDataURL(pdfBlob);
             });
+            
             const data = { pdf: pdfBase64, member };
             await this.$axios.post('/certifications/send', {
               certification: data,
+              type: this.certificationType,
+              template: this.certificationTemplate,
             });
             this.progress++;
           }
