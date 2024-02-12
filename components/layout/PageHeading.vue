@@ -190,6 +190,40 @@ export default {
       url(../../assets/images/backgrounds/404-bg.jpg);
   }
 
+  &#game-page {
+    background-image:
+      url(../../assets/images/backgrounds/photo.png);
+  }
+  &#BGI-page {
+    background-image:
+      url(../../assets/images/photo-magic/BGI-mAGIc.png);
+  }
+  &#environment-page {
+    background-image:
+      url(../../assets/images/photo-magic/Environment.png);
+  }
+  &#global-page {
+    background-image:
+      url(../../assets/images/photo-magic/Global-Goals.png);
+  }
+  &#imagination-page {
+    background-image:
+      url(../../assets/images/photo-magic/Imagination.png);
+  }
+  &#rainbow-page {
+    background-image:
+      url(../../assets/images/photo-magic/Rainbow.png);
+  }
+  &#relationships-page {
+    background-image:
+      url(../../assets/images/photo-magic/relationships.png);
+  }
+  &#values-page {
+    background-image:
+      url(../../assets/images/photo-magic/Values.png);
+  }
+
+
   &__heading {
     font-size: 6rem;
     color: #fff;

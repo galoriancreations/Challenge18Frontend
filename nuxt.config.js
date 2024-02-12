@@ -62,6 +62,8 @@ export default {
       "~/components/questionpage",
       "~/components/singularitymagic",
       "~/components/magic",
+      // "~/components/BGI-mAGIc",
+      // "~/components/magic/Environment",
     ]
   },
 

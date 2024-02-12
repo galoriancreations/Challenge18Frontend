@@ -3,10 +3,13 @@
     <SectionHeading small>Magic Boom</SectionHeading>
     <div class="game-section__grid">
       <div class="game-section__img" v-for="image in images" :key="image">
-        <NuxtLink :to=image.link>
-          <img :src="image.src" @click="location.href=image.link">
+        <NuxtLink :to="{
+          name: image.link}">
+          <img :src="image.src">
+          <!-- @click="location.href=image.link" -->
         </NuxtLink>
       </div>
+    
     </div>
 </section>
 </template>
@@ -20,14 +23,32 @@ export default {
             images: [
                 {
                     src: require("~/assets/images/photo-magic/BGI-mAGIc.png"),
-                    link: 'magic/BGI-mAGIc' 
+                    link: 'BGI-mAGIc' 
                 },
-                require("~/assets/images/photo-magic/Environment.png"),
-                require("~/assets/images/photo-magic/Global-Goals.png"),
-                require("~/assets/images/photo-magic/Imagination.png"),
-                require("~/assets/images/photo-magic/Rainbow.png"),
-                require("~/assets/images/photo-magic/relationships.png"),
-                require("~/assets/images/photo-magic/Values.png"),
+                {
+                    src: require("~/assets/images/photo-magic/Environment.png"),
+                    link: 'Environment' 
+                },
+                {
+                    src: require("~/assets/images/photo-magic/Global-Goals.png"),
+                    link: 'Global-Goals' 
+                },
+                {
+                    src: require("~/assets/images/photo-magic/Imagination.png"),
+                    link: 'Imagination' 
+                },
+                {
+                    src: require("~/assets/images/photo-magic/Rainbow.png"),
+                    link: 'Rainbow' 
+                },
+                {
+                    src: require("~/assets/images/photo-magic/relationships.png"),
+                    link: 'relationships' 
+                },
+                {
+                    src: require("~/assets/images/photo-magic/Values.png"),
+                    link: 'Values' 
+                },
             ]
         };
     },

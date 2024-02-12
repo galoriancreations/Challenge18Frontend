@@ -1,5 +1,5 @@
 <template>
-  <Page title="Share On Magic" name="share-on-magic">
+  <Page title="Share On Magic" name="game-page">
     <BaseButton variant="blue" @click="getQuestion">Pop a random question</BaseButton>
     <PopupModal :active="active" height="400px" class="popupQuestion">
       <h1 class="popupQuestion__title">{{ this.question.text }}</h1>
