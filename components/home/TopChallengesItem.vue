@@ -1,10 +1,10 @@
 <template>
     <div class="top-challenges__item">
         <button class="top-challenges__img" @click="showModal = true">
-            <div class="cart-container">
+            <div  class="cart-container">
                 <img :src="image" :alt="challenge.title" />
                 <p v-for="paragraph in text" :key="paragraph" style="font-size: 14px;">{{ paragraph }}</p>
-                <div class="btns_container">
+                <div v-if="modalHeight" class="btns_container">
                     <BaseButton v-if="!exapnd" :variant="link ? 'blue' : 'darkblue'" @click="buttonClickHandler"
                         class="btns-style">
                         <i v-if="loading" />
