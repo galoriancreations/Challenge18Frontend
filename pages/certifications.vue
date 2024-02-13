@@ -24,6 +24,7 @@
           @sendCertifications="sendCertifications"
           @update:certificationTemplate="certificationTemplate = $event"
           ref="certificationMembers"
+          :type="certificationType"
         />
       </Transition>
       <Transition name="list">
@@ -151,6 +152,7 @@ export default {
           this.loading = false;
           this.completed = true;
           this.showPopup = true;
+          this.$refs.certificationMembers.getCertifications();
         }
       );
     },
