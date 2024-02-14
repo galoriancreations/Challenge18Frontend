@@ -1,14 +1,13 @@
 <template>
-   <div>
-    <v-radar :stats="stats" :polycolor="polycolor" :radar="radar" :scale="scale">
-    </v-radar>
-    <radarInstruction/>
-   </div>
-    <!-- test -->
-
+    <div class="center-container">
+        <v-radar :stats="stats" :polycolor="polycolor" :radar="radar" :scale="scale">
+        </v-radar>
+        <radarInstruction />
+    </div>
 </template>
-
-
+  
+ 
+ 
 <script>
 import Radar from 'vue-radar'
 import radarInstruction from './radarInstruction.vue';
@@ -46,11 +45,11 @@ export default {
                 understanding: 200,
                 dilegence: 200
             },
-            stats: this.item.item.stats.map(stat => ({
+            stats: this.item.stats.map(stat => ({
                 name: stat.type,
                 value: stat.score,
                 level: stat.level,
-                
+
             })),
 
             polycolor: 'rgba(255, 0, 0, 0.2)' // color (any css format is usable (hexa, rgb, rgba...))
@@ -61,13 +60,17 @@ export default {
         radarInstruction
     },
     props: ['item'],
-    created() {
-        console.log(
-            this.item['item'].stats[0].level
-        );
-    }
 }
 
 </script>
-
-<style></style>
+ 
+<style>
+.center-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+</style>
+ 

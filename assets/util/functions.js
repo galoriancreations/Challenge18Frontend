@@ -184,7 +184,7 @@ export const textInputKeys = labels => {
   }
   return keys;
 };
-
+// create formData without image field
 export const initialData = labels => {
   const formData = {};
   for (let key in labels) {
@@ -202,8 +202,10 @@ export const initialsImg = user => {
 
 export const numbersArray = n => Array.from({ length: n }, (_, i) => i + 1);
 
-export const dataArrayFromObject = data =>
-  Object.keys(data).map(id => ({ id, ...data[id] }));
+export const dataArrayFromObject = data => {
+  // why do i need to add "id" in each draft?
+  return Object.keys(data).map(id => ({ id, ...data[id] }));
+};
 
 export const getEndDate = challenge => {
   const margin = challenge.dayMargin || 1;
@@ -236,3 +238,26 @@ export const isTouchDevice = () =>
   "ontouchstart" in window ||
   navigator.maxTouchPoints > 0 ||
   navigator.msMaxTouchPoints > 0;
+
+/**
+ * Formats the given time into a string representation.
+ * @param {number} time - The time to format.
+ * @param {boolean} [inSeconds=true] - Indicates whether the time is in seconds or milliseconds. Default is true.
+ * @returns {string} The formatted time string.
+ */
+export const formatTime = (time, inSeconds = true) => {
+  const date = new Date(inSeconds ? time * 1000 : time);
+  const isDifferentDate = date.toDateString() !== new Date().toDateString();
+  const formatDate = `${date.getDate()}/${date.getMonth() +
+    1}/${date.getFullYear()}`;
+
+  return `${date.getHours()}:${date.getMinutes()}${
+    date.getMinutes() < 10 ? '0' : ''
+  }
+  ${isDifferentDate ? ` - ${formatDate}` : ''}`;
+};
+
+export const isValidEmail = (email) => {
+  const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return re.test(email);
+};

@@ -1,0 +1,26 @@
+[
+    {
+        "voice": "alloy",
+        "label": "Alloy"
+    },
+    {
+        "voice": "echo",
+        "label": "Echo"
+    },
+    {
+        "voice": "fable",
+        "label": "Fable"
+    },
+    {
+        "voice": "onyx",
+        "label": "Onyx"
+    },
+    {
+        "voice": "nova",
+        "label": "Nova"
+    },
+    {
+        "voice": "shimer",
+        "label": "Shimer"
+    }
+]

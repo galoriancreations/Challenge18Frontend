@@ -64,14 +64,14 @@ export default {
     infoLinks() {
       return [
         { to: "/about", text: "About Us" },
-        {
-          href: "https://www.jgive.com/new/en/ils/charity-organizations/1285",
-          text: "Donate",
-          target: "_blank"
-        },
+        // {
+        //   href: "https://www.jgive.com/new/en/ils/charity-organizations/1285",
+        //   text: "Donate",
+        //   target: "_blank"
+        // },
         { to: "/contact", text: "Contact Us" },
-        { href: "/terms.pdf", text: "Terms of Service", target: "_blank" },
-        { href: "/privacy.pdf", text: "Privacy Policy", target: "_blank" }
+        // { href: "/terms.pdf", text: "Terms of Service", target: "_blank" },
+        // { href: "/privacy.pdf", text: "Privacy Policy", target: "_blank" }
       ];
     }
   }
