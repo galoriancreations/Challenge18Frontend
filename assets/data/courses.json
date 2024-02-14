@@ -1,0 +1,243 @@
+{
+  "category": {
+    "Develop Your Personal Resilience": [
+      {
+        "popupLessView": {
+          "image": "The factors parents.png",
+          "title": "The factors parents with fears and anxieties in children",
+          "text": "Ministry of Health of Israel...",
+          "buttonText": "Less Then Two Hours"
+        },
+        "popupView": {
+          "image": "The factors parents.png",
+          "title": "The factors parents with fears and anxieties in children",
+          "text": "Long Description 1"
+        }
+      },
+      {
+        "popupLessView": {
+          "image": "life-saving knowledge.png",
+          "title": "First aid: life-saving knowledge",
+          "text": "Ministry of Health of Israel..."
+        },
+        "popupView": {
+          "image": "life-saving knowledge.png",
+          "title": "First aid: life-saving knowledge",
+          "text": "Long Description 2"
+        }
+      },
+      {
+        "popupLessView": {
+          "image": "Mindfulness.jpg",
+          "title": "Mindfulness: The art of developing inner attention",
+          "text": "Ministry of Health of Israel...",
+          "buttonText": "Over 10k Learners",
+          "buttonText2": "Less Then Two Hours"
+        },
+        "popupView": {
+          "image": "Mindfulness.jpg",
+          "title": "Mindfulness: The art of developing inner attention",
+          "text": "Long Description"
+        }
+      },
+      {
+        "popupLessView": {
+          "image": "To a world of resilience.jpg",
+          "title": "To a world of resilience: from theory to practice first mental aid in emergency situations",
+          "text": "Ministry of Health of Israel..."
+        },
+        "popupView": {
+          "image": "To a world of resilience.jpg",
+          "title": "To a world of resilience: from theory to practice first mental aid in emergency situations",
+          "text": "Long Description"
+        }
+      },
+      {
+        "popupLessView": {
+          "image": "From crisis to vegetation.jpg",
+          "title": "From crisis to vegetation: tools for dealing with anxiety in stressful situations",
+          "text": "Ministry of Health of Israel...",
+          "buttonText": "Less Then Two Hours"
+        },
+        "popupView": {
+          "image": "From crisis to vegetation.jpg",
+          "title": "From crisis to vegetation: tools for dealing with anxiety in stressful situations",
+          "text": "Long Description"
+        }
+      },
+      {
+        "popupLessView": {
+          "image": "Providing first aid.png",
+          "title": "Providing first aid to children and babies",
+          "text": "Pedagogy of Freedom promotes...",
+          "buttonText": "New"
+        },
+        "popupView": {
+          "image": "Providing first aid.png",
+          "title": "Providing first aid to children and babies",
+          "text": "Pedagogy of Freedom promotes..."
+        }
+      },
+      {
+        "popupLessView": {
+          "image": "Pedagogy-of-freedom.png",
+          "title": "Pedagogy of freedom",
+          "text": "Hemdat Hadarom Academic College...",
+          "buttonText": "Certificate"
+        },
+        "popupView": {
+          "image": "Pedagogy-of-freedom.png",
+          "title": "Pedagogy of freedom",
+          "text": "Long Description"
+        }
+      },
+      {
+        "popupLessView": {
+          "image": "Behavior in emergency situations.png",
+          "title": "Behavior in emergency situations",
+          "text": "Ministry for Social Equality",
+          "buttonText": "Enrichment Courses",
+          "buttonText2": "Personal Development"
+        },
+        "popupView": {
+          "image": "Behavior in emergency situations.png",
+          "title": "Behavior in emergency situations",
+          "text": "Ministry for Social Equality"
+        }
+      },
+      {
+        "popupLessView": {
+          "image": "Cognitive leadership.jpg",
+          "title": "Cognitive leadership: how to become leaders and creators of our lives",
+          "text": "Israel Air Force"
+        },
+        "popupView": {
+          "image": "Cognitive leadership.jpg",
+          "title": "Cognitive leadership: how to become leaders and creators of our lives",
+          "text": "Israel Air Force"
+        }
+      },
+      {
+        "popupLessView": {
+          "image": "Resilience.jpeg",
+          "title": "Resilience - The Art of Coping with Disasters",
+          "text": "Ben-Gurion University of the Negev",
+          "buttonText": "New"
+        },
+        "popupView": {
+          "image": "Cognitive leadership.jpg",
+          "title": "Cognitive leadership: how to become leaders and creators of our lives",
+          "text": "Israel Air Force"
+        }
+      }
+    ],
+    "Studying together also from home": [
+      {
+        "popupLessView": {
+          "image": "Learn How To Learn.png",
+          "title": "Learn How To Learn",
+          "text": "Tel Aviv University",
+          "buttonText": "20-40 Hours"
+        },
+        "popupView": {
+          "image": "Learn How To Learn.png",
+          "title": "Learn How To Learn",
+          "text": "Tel Aviv University"
+        }
+      },
+      {
+        "popupLessView": {
+          "image": "programming in Python.jpg",
+          "title": "First steps in computer science and programming in Python",
+          "text": "Tel Aviv University",
+          "buttonText": "Over 50k Learners",
+          "buttonText2": "Academic Credit"
+        },
+        "popupView": {
+          "image": "programming in Python.jpg",
+          "title": "First steps in computer science and programming in Python",
+          "text": "Tel Aviv University"
+        }
+      },
+      {
+        "popupLessView": {
+          "image": "Excel for beginners.png",
+          "title": "Excel for beginners",
+          "text": "National Digital Affairs Directorate",
+          "buttonText": "Over 10k Learners",
+          "buttonText2": "Certificate"
+        },
+        "popupView": {
+          "image": "Excel for beginners.png",
+          "title": "Excel for beginners",
+          "text": "National Digital Affairs Directorate"
+        }
+      },
+      {
+        "popupLessView": {
+          "image": "Excel for advanced students.png",
+          "title": "Excel for advanced students",
+          "text": "National Digital Affairs Directorate",
+          "buttonText": "Certificate"
+        },
+        "popupView": {
+          "image": "Excel for advanced students.png",
+          "title": "Excel for advanced students",
+          "text": "National Digital Affairs Directorate"
+        }
+      },
+      {
+        "popupLessView": {
+          "image": "Biophilia.png",
+          "title": "Biophilia: knowledge of nature and the environment",
+          "text": "Academic and Technology College"
+        },
+        "popupView": {
+          "image": "Biophilia.png",
+          "title": "Biophilia: knowledge of nature and the environment",
+          "text": "Academic and Technology College"
+        }
+      },
+      {
+        "popupLessView": {
+          "image": "What is the world made of.jpg",
+          "title": "What is the world made of: an introduction to general chemistry",
+          "text": "Tel Aviv University",
+          "buttonText": "Over 10k Learners",
+          "buttonText2": "Academic Credit"
+        },
+        "popupView": {
+          "image": "What is the world made of.jpg",
+          "title": "What is the world made of: an introduction to general chemistry",
+          "text": "Tel Aviv University"
+        }
+      },
+      {
+        "popupLessView": {
+          "image": "Central ideas in physics.jpg",
+          "title": "Central ideas in physics",
+          "text": "Tel Aviv University",
+          "buttonText": "Over 10k Learners"
+        },
+        "popupView": {
+          "image": "Central ideas in physics.jpg",
+          "title": "Central ideas in physics",
+          "text": "Tel Aviv University"
+        }
+      },
+      {
+        "popupLessView": {
+          "image": "WebSec.jpg",
+          "title": "WebSec to discover weaknesses and build defenses",
+          "text": "Israel National Cyber Directorate",
+          "buttonText": "Certificate"
+        },
+        "popupView": {
+          "image": "WebSec.jpg",
+          "title": "WebSec to discover weaknesses and build defenses",
+          "text": "Israel National Cyber Directorate"
+        }
+      }
+    ]
+  }
+}

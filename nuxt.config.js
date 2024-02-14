@@ -61,6 +61,7 @@ export default {
       "~/components/group-page",
       "~/components/legal_AI_Ethics",
       "~/components/singularityNet",
+      "~/components/beneficialAgiAction",,
       "~/components/chatbot",
       "~/components/certifications",
       "~/components/certifications/templates"
