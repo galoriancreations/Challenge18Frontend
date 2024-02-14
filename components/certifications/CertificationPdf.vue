@@ -2,8 +2,9 @@
   <div class="certification-pdf">
     <div class="certification-pdf__preview">Preview:</div>
     <section ref="pdfContent" class="certification-pdf__content">
-      <CertificationTemplate
-        :certification="certification"
+      <CertificationBGITemplate
+        v-if="certification.name === 'BGI'"
+        :certificationTemplate="certificationTemplate"
         :certificationSignature="certificationSignature"
         :name="name"
       />
@@ -17,9 +18,9 @@ import html2pdf from 'html2pdf.js';
 const html2pdfOptions = {
   margin: 0,
   filename: 'certification.pdf',
-  image: { type: 'jpeg', quality: 0.98 },
-  html2canvas: { scale: 2 },
-  jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+  image: { type: 'jpg', quality: 1 },
+  html2canvas: { scale: 1 },
+  jsPDF: { unit: 'in', format: [12, 9], orientation: 'landscape' },
 };
 
 export default {
@@ -33,6 +34,10 @@ export default {
       type: Object,
       required: true,
     },
+    certificationTemplate: {
+      type: Object,
+      required: true,
+    },
     certificationSignature: {
       type: String,
       required: true,
@@ -41,7 +46,6 @@ export default {
   methods: {
     async generatePdf(name) {
       this.name = name;
-
       const element = this.$refs.pdfContent;
 
       try {
@@ -62,7 +66,6 @@ export default {
 
         return pdfBlob;
       } catch (error) {
-        // Handle any errors that occur while generating the PDF
         console.error('Error generating PDF:', error);
         return null;
       }

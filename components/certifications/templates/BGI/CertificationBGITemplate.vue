@@ -1,13 +1,13 @@
 <template>
   <section class="cert-templates">
     <CertificationTemplateAppreciation
-      v-if="certification.type === 'appreciation'"
+      v-if="certificationTemplate.type === 'appreciation'"
       :date="date"
       :certificationSignature="certificationSignature"
       :name="name"
     />
     <CertificationTemplateCommitment
-      v-else-if="certification.type === 'commitment'"
+      v-else-if="certificationTemplate.type === 'commitment'"
       :date="date"
       :certificationSignature="certificationSignature"
       :name="name"
@@ -18,7 +18,7 @@
 <script>
 export default {
   props: {
-    certification: {
+    certificationTemplate: {
       type: Object,
       required: true,
     },
@@ -48,9 +48,6 @@ export default {
 .cert-templates {
   display: flex;
   justify-content: center;
-  border: 1px solid #544e4e;
-  width: 800px;
-  margin: auto;
 }
 
 .cert-template {
@@ -58,44 +55,52 @@ export default {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 5rem;
-  margin: 2rem;
-  width: 800px;
 
-  &__title {
-    font-size: 4rem;
-    font-weight: bold;
-    margin-bottom: 2rem;
+  &__image {
+    position: relative;
+    pointer-events: none;
+
+    img {
+      width: 1200px;
+      height: 800px;
+      z-index: 1;
+    }
   }
 
-  &__event-name {
-    font-size: 4rem;
-    margin-bottom: 2rem;
+  span {
+    position: absolute;
+    font-size: 2rem;
+    z-index: 1;
+    color: #a0216e;
+    font-weight: 800;
+  }
+
+  &__blank {
+    bottom: 428px;
+    width: 35%;
+    height: 23px;
+    background-color: #ffff;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   &__recipient {
-    font-size: 2rem;
-    margin-bottom: 2rem;
+    font-size: 2.25rem !important;
+    bottom: 428px;
+    left: 150px;
+    width: 75%;
   }
 
-  &__body-text {
-    text-align: center;
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-    max-width: 600px;
+  &__date {
+    bottom: 290px;
+    left: 215px;
   }
 
-  &__date-signature {
-    font-size: 1.5rem;
-    margin-top: 2rem;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  &__title-signatory {
-    font-size: 2rem;
-    margin-top: 1rem;
+  &__signature {
+    top: 490px;
+    left: 965px;
+    word-wrap: break-word;
+    max-width: 150px;
   }
 }
 </style>

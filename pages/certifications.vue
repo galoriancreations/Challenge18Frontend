@@ -38,7 +38,8 @@
     <SectionSeperator />
     <CertificationPdf
       v-if="certificationTemplate"
-      :certification="certificationTemplate"
+      :certificationTemplate="certificationTemplate"
+      :certification="certification"
       :certificationSignature="certificationSignature"
       ref="certificationPdf"
     />
