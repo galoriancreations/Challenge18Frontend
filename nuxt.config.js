@@ -64,7 +64,7 @@ export default {
       "~/components/beneficialAgiAction",,
       "~/components/chatbot",
       "~/components/certifications",
-      "~/components/certifications/templates"
+      "~/components/certifications/templates/BGI"
     ]
   },
 

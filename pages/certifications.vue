@@ -24,6 +24,7 @@
           @sendCertifications="sendCertifications"
           @update:certificationTemplate="certificationTemplate = $event"
           ref="certificationMembers"
+          :type="certificationType"
         />
       </Transition>
       <Transition name="list">
@@ -37,7 +38,8 @@
     <SectionSeperator />
     <CertificationPdf
       v-if="certificationTemplate"
-      :certification="certificationTemplate"
+      :certificationTemplate="certificationTemplate"
+      :certification="certification"
       :certificationSignature="certificationSignature"
       ref="certificationPdf"
     />
@@ -124,9 +126,12 @@ export default {
               reader.onerror = reject;
               reader.readAsDataURL(pdfBlob);
             });
-            const data = { pdf: pdfBase64, member };
+
             await this.$axios.post('/certifications/send', {
-              certification: data,
+              pdfBase64,
+              member,
+              type: this.certificationType,
+              template: this.certificationTemplate,
             });
             this.progress++;
           }
@@ -148,6 +153,7 @@ export default {
           this.loading = false;
           this.completed = true;
           this.showPopup = true;
+          this.$refs.certificationMembers.getCertifications();
         }
       );
     },
@@ -194,7 +200,6 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem 0 10rem;
 
     &-select {
       width: 100%;
