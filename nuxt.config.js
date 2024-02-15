@@ -68,9 +68,18 @@ export default {
 
   modules: ["@nuxtjs/axios", "cookie-universal-nuxt", "nuxt-route-meta"],
 
-  build: {
-    transpile: ["vue-agile"]
-  },
+   build: {
+    transpile: ["vue-agile"],
+    extend(config) {
+      config.module.rules.push({
+        test: /\.(md|pdf|ico)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]'
+        }
+      });
+    }
+  },  
 
   pageTransition: {
     name: "page",
