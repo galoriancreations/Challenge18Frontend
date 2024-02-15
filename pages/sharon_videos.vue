@@ -110,6 +110,11 @@ p {
   margin-bottom: 15px;
 }
 
+.v-label--active {
+  display: none;
+}
+
+
 .videos {
   &__grid {
     display: grid;
