@@ -26,11 +26,7 @@
     border-radius: 0.5rem;
     ">join</button>
       </div>
-      <div v-if="!hasGroups" class="my-challenges__empty">
-        <p>
-          the groups you join will appear here.
-        </p>
-        <div>
+      <div>
               <action-button
               @click="toggleInfoModel" 
               type="info"
@@ -42,6 +38,11 @@
               @toggleInfoModel="toggleInfoModel" 
             />
         </div>
+      <div v-if="!hasGroups" class="my-challenges__empty">
+        <p>
+          the groups you join will appear here.
+        </p>
+        
       </div>
       <v-data-table v-else
         :value="selected"
@@ -129,6 +130,7 @@ export default {
             max-height: 60px;
             position: absolute;
             right: 0px;
+            top: 70px;
     }
 
     .search-field {
