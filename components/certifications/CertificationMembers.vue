@@ -20,6 +20,10 @@
             @removeMember="members.splice(members.indexOf(member), 1)"
             @addMember="addMember"
             ref="memberInputs"
+            :class="{
+              'certification__members-content__member--invalid': !member.valid,
+            }"
+            @input="checkCertificationValidity(member)"
           />
         </TransitionGroup>
         <BaseButton
@@ -51,8 +55,11 @@ export default {
           id: 0,
           name: '',
           email: '',
+          valid: true,
         },
       ],
+      certifications: [],
+      template: '',
     };
   },
   props: {
@@ -60,14 +67,23 @@ export default {
       type: Object,
       required: true,
     },
+    type: {
+      type: String,
+      required: true,
+    },
+  },
+  async created() {
+    this.getCertifications();
   },
   methods: {
-    addMember() {
+    async addMember() {
       if (!this.isMembersValid) return;
+
       this.members.push({
         id: this.members.length,
         name: '',
         email: '',
+        valid: true,
       });
       this.$nextTick(() => {
         this.$refs.memberInputs[
@@ -75,11 +91,37 @@ export default {
         ].$refs.memberNameInput.focus();
       });
     },
+    checkCertificationValidity(member) {
+      if (
+        member.email &&
+        this.members.filter((m) => m.email === member.email).length > 1
+      ) {
+        member.valid = false;
+        return;
+      }
+
+      const certification = this.certifications.find(
+        (cert) =>
+          cert.email === member.email &&
+          Object.keys(cert.types).includes(this.type) &&
+          Object.keys(cert.types[this.type]).includes(this.template)
+      );
+
+      member.valid = !certification;
+    },
+    async getCertifications() {
+      this.certifications = await this.$axios.$get(
+        `/certifications/type/${this.type}`
+      );
+    },
   },
   computed: {
     isMembersValid() {
       return this.members.every(
-        (member) => member.name.trim() && isValidEmail(member.email)
+        (member) =>
+          member.name.trim() &&
+          isValidEmail(member.email) &&
+          member.valid
       );
     },
   },
@@ -89,6 +131,30 @@ export default {
         (cert) => cert.name === this.selectedCertificationTemplate
       );
       this.$emit('update:certificationTemplate', template);
+      this.template = template.type;
+    },
+    members: {
+      deep: true,
+      handler() {
+        this.members.forEach((member) => {
+          this.checkCertificationValidity(member);
+        });
+      },
+    },
+    type() {
+      this.members.forEach((member) => {
+        this.checkCertificationValidity(member);
+      });
+    },
+    template() {
+      this.members.forEach((member) => {
+        this.checkCertificationValidity(member);
+      });
+    },
+    certifications() {
+      this.members.forEach((member) => {
+        this.checkCertificationValidity(member);
+      });
     },
   },
 };
@@ -141,6 +207,10 @@ export default {
         }
         &:nth-child(2n) {
           background-color: $color-grey-2;
+        }
+
+        &--invalid {
+        background-color: #f8d7da !important;
         }
       }
     }
