@@ -82,9 +82,12 @@ export default {
       this.loading.thread = true;
       let thread = this.$cookies.get('selectedThread');
       if (!thread || !this.threads.find((t) => t.id === thread.id)) {
-        thread =
-          this.threads[0] ||
-          (await this.$store.dispatch('chatbot/createThread', this.council));
+        thread = this.threads[0];
+        if (!thread) {
+          await this.$store.dispatch('chatbot/createThread', this.council);
+          thread = this.threads[0];
+        }
+
         this.$cookies.set('selectedThread', thread);
       }
       await this.$store.dispatch('chatbot/selectThread', {
