@@ -1,6 +1,5 @@
 <template>
-    <div id="api_steps_container">
-
+    <div id="bgi_steps_warper">
         <div id="content_container">
             <div id="content_inner_cont">
                 <h2>{{ header }}</h2>
@@ -56,48 +55,55 @@ export default {
 }
 </script>
   
-<style>
-#api_steps_container {
+<style lang="scss">
+#bgi_steps_warper {
     display: flex;
     flex-direction: column;
     gap: 20px;
-}
 
 
-#content_container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
+    #content_container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
 
-#content_inner_cont {
-    width: 30%;
-    line-height: 4rem;
-    text-align: center;
-    color: #00459e;
-}
+    #content_inner_cont {
+        width: 30%;
+        line-height: 4rem;
+        text-align: center;
+        color: #00459e;
 
-#btns-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-}
 
-.arrow_btns {
-    display: flex;
-    color: #00459E;
-    border: 1px solid #00459E;
-    border-radius: 12px;
-    padding: 27px 30px;
-}
+        @include respond(mobile) {
+            width: 100%;
+        }
 
-#skip_btn {
-    color: #00459e;
-    padding: 27px 60px;
-    align-items: center;
-    font-weight: 600;
-    border-radius: 12px;
-    border: 1px solid #00459E;
+    }
+
+    #btns-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+
+        .arrow_btns {
+            display: flex;
+            color: #00459E;
+            border: 1px solid #00459E;
+            border-radius: 12px;
+            padding: 27px 30px;
+        }
+
+        #skip_btn {
+            color: #00459e;
+            padding: 27px 60px;
+            align-items: center;
+            font-weight: 600;
+            border-radius: 12px;
+            border: 1px solid #00459E;
+        }
+    }
+
 }
 </style>
