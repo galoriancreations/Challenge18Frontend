@@ -19,7 +19,8 @@ export default {
     data(){
         return{
             answer: '',
-            id: this.question.id
+            id: this.question.questionId,
+            qnumber: this.question.id
         }
     },
     props: {
@@ -32,6 +33,7 @@ export default {
         const res= await this.$axios.$post("/xapi",{
           getAnswer:{
             question: this.id,
+            qnum: this.qnumber,
             answer: this.answer
           }
         })
@@ -40,6 +42,8 @@ export default {
           alert('Please add a answer')
           return;
         }
+        console.log(res);
+        console.log(res.answers);
         this.$emit('publish-answer' , res.answers);
         }
     },

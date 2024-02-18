@@ -3,7 +3,7 @@
         <AddAnswer :question="this.question" :active="showModal" @publish-answer="publishAnswer" />
         <div v-if="!showModal" >
             <AllAnswers :id="this.question.id" :answers="this.question.answers" />
-            <NuxtLink to='/shareonmagic' class="btn">share another question</NuxtLink>
+            <NuxtLink to='/magic' class="btn">share another question</NuxtLink>
         </div>
     </Page>
 </template>
@@ -26,7 +26,6 @@ export default {
       publishAnswer(answers){
         this.question.answers = answers
         this.showModal = false;
-        console.log(answers);
       }
   },
   components: { Page }
