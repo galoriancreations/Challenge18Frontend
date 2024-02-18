@@ -114,7 +114,8 @@ export default {
     emailjsTemplate: process.env.EMAILJS_TEMPLATE,
     emailjsService: process.env.EMAILJS_SERVICE,
     paypalSandbox: process.env.PAYPAL_SANDBOX,
-    paypalLive: process.env.PAYPAL_LIVE
+    paypalLive: process.env.PAYPAL_LIVE,
+    s3AssetsUrl: 'https://ting-frontend-assets.s3.amazonaws.com/'
   },
 
   server: {
