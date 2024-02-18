@@ -26,6 +26,7 @@ export default {
       publishAnswer(answers){
         this.question.answers = answers
         this.showModal = false;
+        console.log(answers);
       }
   },
   components: { Page }
