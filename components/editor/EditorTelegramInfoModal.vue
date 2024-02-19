@@ -84,7 +84,7 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-left: 7px;
+    margin-right: 100px;
 }
 
 #container {
@@ -103,28 +103,37 @@ export default {
 
 
 .items {
-    min-width: 500px;
-    max-width: 500px;
-    margin-right: 30px;
+    min-width: 100%; 
+    max-width: none; 
+    margin-right: 0; 
+    text-align: center; 
+    display: flex; 
+    align-items: center; 
 }
+
+.items h3 {
+    margin: 0; 
+    width: 100%; 
+}
+
 
 .base-button-info {
     width: 15px;
     height: 50px;
     text-transform: none;
     display: inline-block;
+    
+}
+@include respond(mobile) {
+    .base-button-info {
+        padding: 0 10px;
+        margin-right: 50px;
+    }   
 }
 
 li {
     margin-bottom: 20px;
 }
 </style>
-
-
-
-
-
-
-
 
 
