@@ -20,6 +20,7 @@ export default {
         return {
             showModal: true,
             question: this.$route.params.question,
+            checkPage:this.$route.params.checkPage
         }
     },
     methods:{

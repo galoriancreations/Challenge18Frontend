@@ -34,14 +34,16 @@ export default {
           getAnswer:{
             question: this.id,
             qnum: this.qnumber,
+            qnum: this.qnumber,
             answer: this.answer
           }
         })
-        
         if(!this.answer){
           alert('Please add a answer')
           return;
         }
+        console.log(res);
+        console.log(res.answers);
         console.log(res);
         console.log(res.answers);
         this.$emit('publish-answer' , res.answers);

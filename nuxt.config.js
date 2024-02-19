@@ -60,6 +60,10 @@ export default {
       "~/components/marketplace",
       "~/components/magic",
       "~/components/questionpage",
+      "~/components/singularitymagic",
+      "~/components/magic",
+      // "~/components/BGI-mAGIc",
+      // "~/components/magic/Environment",
     ]
   },
 
