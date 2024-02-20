@@ -1,21 +1,20 @@
 <template>
-  <section class="intro">
+  <section class="intro" :style="{ backgroundImage: 
+      `linear-gradient(to right, rgba(65, 137, 189, 0.75), rgba(65, 137, 189, 0.75)), url(${currentImage})`
+    }">
+
     <div class="intro__top">
-      <h1 class="intro__heading">Challenge Yourself to Change</h1>
+      <h1 class="intro__heading">Ting Global: AI-Powered Education </h1>
       <p class="intro__subheading">
-        Connect and inspire the world through play – Challenge 18: a WhatsApp
-        based social platform.
+        Transforming Education Through AI and DAO Collaboration
       </p>
     </div>
     <div class="intro__content">
-      <img
-        class="intro__img"
-        src="../../assets/images/challenge-intro.gif"
-        alt="Challenge 18"
-      />
+      <!-- <img class="intro__img" src="../../assets/images/challenge-intro.gif" alt="Challenge 18" /> -->
       <p class="intro__text">
-        TING.global provides unique and engaging daily tasks to develop global
-        awareness through collaboration and friendly competition.
+        Discover the future of education at Ting Global, where we blend cutting-edge AI technology with the power of
+        decentralized autonomous organization (DAO) principles. Join us in revolutionizing the way you learn, collaborate,
+        and grow.
       </p>
     </div>
     <div class="intro__links">
@@ -32,23 +31,54 @@
 
 <script>
 export default {
+  data(){
+    return{
+      images:[
+        '1.png',
+        '2.png',
+        '3.png',
+        '4.png',
+        '5.png',
+        '6.png',
+        '7.png',
+        '8.png',
+        '9.png',
+        '10.png',
+        '11.png',
+        '12.png',
+        '13.png',
+        '14.png',
+        '15.png',
+        '16.png',
+        '17.png',
+        '18.png',
+        '19.png',
+        '20.png',
+      ],
+      currentImage :'',
+    }
+  },
   computed: {
     isLoggedIn() {
       return this.$store.getters.isAuth;
-    }
-  }
+    },
+    
+  },
+  mounted() {
+    this.changeBackground();
+  },
+  methods: {
+    changeBackground() {
+      const randomIndex = Math.floor(Math.random() * this.images.length);
+      this.currentImage = require(`~/static/${this.images[randomIndex]}`);
+    },
+  },
 };
 </script>
 
 <style lang="scss">
 .intro {
   padding: 18rem $padding-sides-desktop;
-  background-image: linear-gradient(
-      to right,
-      rgba(#4189bd, 0.75),
-      rgba(#4189bd, 0.75)
-    ),
-    url(../../assets/images/backgrounds/join-bg.jpg);
   background-position: center;
   background-size: cover;
   color: #fff;
@@ -100,6 +130,7 @@ export default {
     align-items: center;
     max-width: 90rem;
     margin: 0 auto 6rem;
+    flex-direction: column;
 
     @include respond(tablet) {
       flex-direction: column;
@@ -179,6 +210,7 @@ export default {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }

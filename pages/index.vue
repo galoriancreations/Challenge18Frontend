@@ -1,5 +1,6 @@
 <template>
   <Page name="home" :showHeading="false" :mainSection="false">
+    <PageHeadingNET />
     <Intro />
     <main class="home">
       <TopChallenges />
@@ -7,7 +8,7 @@
       <TryItYourself />
       <Testimonials />
       <LatestNews />
-      <Partners class="section-white" />
+    <Partners class="section-white" />
     </main>
   </Page>
 </template>

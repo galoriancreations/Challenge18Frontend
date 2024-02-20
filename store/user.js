@@ -33,8 +33,8 @@ export const mutations = {
 
 export const actions = {
   async auth(context, { mode, data }) {
-    const authData = await this.$axios.$post("/api", { [mode]: data });
-    // console.log(authData);
+    const authData = await this.$axios.$post(`/users/${mode}`,data);
+    console.log(authData);
     const { access_token: token, user, exp } = authData;
     // console.log(JSON.stringify(user));
     this.$axios.setToken(token, "Bearer");
@@ -79,14 +79,28 @@ export const actions = {
       clearTimeout(logoutTimer);
     }
   },
-  async updateUser(context, data = {}) {
-    const { user } = await this.$axios.$post("/xapi", { editProfile: data });
+
+  // updateUser and loadTemplates runs together when i enter dashboard
+  async updateUser(context, data) {
+    // this is old version:
+    // const { user } = await this.$axios.$post("/xapi", { editProfile: data });
+    // this is new:
+    // when entering dashboard data object must hold a editProfile key
+    if (data == null) {
+      console.log("updateUser request: data is {}");
+      data = { editProfile: {} };
+    }
+    console.log(`updateUser request: data now is: `, data);
+    // const { user } = await this.$axios.$post("/xapi", data);
+    // connect post with data path
+    const { user } = await this.$axios.$post("/users/editProfile", data);
     context.commit("updateUser", user);
   },
   async loadTemplates(context, isAuth = true) {
-    const endpoint = isAuth ? "/xapi" : "/api";
-    const key = isAuth ? "getAvailableTemplates" : "getPublicTemplates";
-    const { templates } = await this.$axios.$post(endpoint, { [key]: true });
+    // const endpoint = isAuth ? "/users/getAvailableTemplates" : "/users/getPublicTemplates";
+    const endpoint = "/users/getAvailableTemplates";
+    const { templates } = await this.$axios.$get(endpoint);
+    
     context.commit("setTemplates", templates);
   }
 };

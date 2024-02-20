@@ -75,10 +75,10 @@ export default {
     imageSrc() {
       // return this.$config.axios.baseURL + this.user.image
       const { image } = this.user || {};
-      // return image ? this.$config.axios.baseURL + image : this.placeholderImg;
-      image ? this.$config.axios.baseURL + image : this.placeholderImg;
-      const img = `http://localhost:3000/` + image;
-      return img
+      return image ? this.$config.axios.baseURL + image : this.placeholderImg;
+      // image ? this.$config.axios.baseURL + image : this.placeholderImg;
+      // const img = `http://localhost:3000/` + image;
+      // return img
     },
     languageText() {
       const matchingLanguage = languageOptions.find(

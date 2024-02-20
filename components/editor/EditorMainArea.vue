@@ -4,12 +4,21 @@
       <div key="content" class="editor__content" :style="{ direction }">
         <section class="editor__tabs">
           <SideTabs v-model="selectedDay" :tabs="days" />
-          <ActionButton
-            v-if="isTemplateEditable"
-            type="add"
-            color="white"
-            @click="addDay"
-          />
+          <div class="editor__flex-row">
+            <ActionButton
+              v-if="isTemplateEditable"
+              type="add"
+              color="white"
+              @click="addDay"
+            />
+            <ActionButton
+              v-if="isTemplateEditable"
+              color="white"
+              @click="addDayWithAi"
+            >
+            <img src="@/assets/images/microchip-ai.svg" alt="generate day with ai">
+          </ActionButton>
+          </div>
         </section>
         <section class="editor__day" ref="container">
           <DayTitleField
@@ -92,6 +101,17 @@
         >
           {{ submitButtonText }}
         </BaseButton>
+
+        <!-- button save into drafts -->
+        <!-- <BaseButton
+        variant="blue"
+        @click="saveToDraf"
+          :disabled="submit.loading || uploading.length > 0"
+        >
+        {{ saveToDraftsText }} -->
+        <!-- </BaseButton> -->
+        <!-- button save into drafts // end -->
+
         <BaseSpinner v-if="submit.loading" />
         <ErrorMessage v-else-if="submit.error" :error="submit.error" />
       </div>
@@ -182,6 +202,16 @@ export default {
         ? "Update challenge"
         : "Publish challenge";
     }
+    // <!-- button save to drafts -->
+    // saveToDraftsText(){
+    //   return this.uploading.length
+    //     ? "Uploading files"
+    //     : this.templateOnlyMode
+    //     ? "save to drafts"
+    //     : this.editedChallengeId
+
+    // }
+    //}
   },
   methods: {
     addDay() {
@@ -194,6 +224,30 @@ export default {
       });
       this.selectedDay = this.data.days.length;
       this.setTransition("task");
+    },
+    async addDayWithAi() {
+      this.submit.loading = true;
+      // get selected template by selectedTemplate cookie
+      const selectedTemplate = this.$cookies.get('selectedTemplate');
+      // create axios request to backend to generate day with ai
+      const { day } = await this.$axios.$post('/xapi', {
+        generateDayWithAi: {
+          templateId: selectedTemplate,
+        },
+      });
+      
+      // add to tasks and messages ids
+      day.tasks.forEach((task) => (task.id = uniqid()));
+      day.messages.forEach((message) => (message.id = uniqid()));
+
+      // add the day to the challenge
+      this.data.days.push(day);
+      this.selectedDay = this.data.days.length;
+      
+      // send transition to task
+      this.setTransition('task');
+
+      this.submit.loading = false;
     },
     deleteDay() {
       this.setConfirmModal(
@@ -211,7 +265,12 @@ export default {
       this.closeModal();
       this.setTransition("task");
       this.dayData.messages.push(newMessage(isAudio));
+    },
+    // <!-- button save to drafts // function -->
+    saveToDraf() {
+      console.log("save to drafts");
     }
+    // ===================================================
   },
   watch: {
     selectedDay() {
@@ -255,6 +314,16 @@ export default {
     }
   }
 
+  &__flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    
+    @include respond(mobile) {
+      margin-bottom: 2rem;
+    }
+  }
+  
   &__day {
     position: relative;
   }

@@ -1,20 +1,26 @@
 <template>
   <Page title="Player" name="players">
     <SectionHeading small>{{ item.userName }}</SectionHeading>
-    <!-- <h1>{{ title.players[0] }}</h1> -->
-    <radarChart :item="{ item }" />
+    <div class="container">
+      <playerDetails :item="item" />
+      <radarChart :item="item" />
+    </div>
   </Page>
 </template>
 <script>
 
 import radarChart from "../../../components/player/radarChart.vue"
+import playerDetails from "../../../components/player/playerDetails.vue"
+
 export default {
+
   components: {
-    radarChart
+    radarChart,
+    playerDetails
   },
   computed: {
     item() {
-      const { item } = this.$route.query;
+      const item = this.$route.query;
       if (item) {
         return item
       }
@@ -22,5 +28,13 @@ export default {
     },
   },
 
+
 }
 </script>
+<style>
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+</style>

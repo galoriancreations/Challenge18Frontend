@@ -1,6 +1,6 @@
 <template>
   <section class="partners">
-    <SectionHeading>In Partnership With</SectionHeading>
+    <SectionHeading>Brought to you by:</SectionHeading>
     <agile :options="sliderOptions" class="partners__slider">
       <div v-for="image in images" :key="image.src" class="partners__slide">
         <div class="partners__img">
@@ -17,28 +17,20 @@ export default {
     return {
       images: [
         {
-          src: require("../../assets/images/partners/reshet-big.png"),
-          alt: "HaReshet Hayeruka - הרשת הירוקה"
+          src: require("../../assets/images/logos/sponsers/HC/Dark-vertical.png"),
+          alt: "HyperCircle"
         },
         {
-          src: require("../../assets/images/partners/ifers-big.jpg"),
-          alt: "IFERS"
+          src: require("../../assets/images/logos/sponsers/SingularityNET/black-vertical.jpg"),
+          alt: "HyperCircle"
         },
         {
-          src: require("../../assets/images/partners/hanson-big.jpg"),
-          alt: "Hanson Robotics"
+          src: require("../../assets/images/logos/sponsers/TrueAGI/Black-on-White.png"),
+          alt: "TrueAGI"
         },
-        {
-          src: require("../../assets/images/partners/h+-big.png"),
-          alt: "H+"
-        },
-        {
-          src: require("../../assets/images/partners/tlvseed-big.jpg"),
-          alt: "TLVSeed"
-        }
       ],
       sliderOptions: {
-        autoplay: true,
+        autoplay: false,
         autoplaySpeed: 2000,
         slidesToShow: 2,
         navButtons: false,
@@ -53,7 +45,7 @@ export default {
           {
             breakpoint: 1000,
             settings: {
-              slidesToShow: 5
+              slidesToShow: 3
             }
           }
         ]

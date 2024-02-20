@@ -9,3 +9,24 @@
     transform: scale(1);
   }
 }
+
+@keyframes goRight {
+  0% {
+      transform: translateX(530px);
+  }
+
+  100% {
+      transform: translateX(0);
+  }
+}
+
+@keyframes goLeft {
+  0% {
+      transform: translateX(-530px);
+  }
+
+  100% {
+      transform: translateX(0);
+  }
+}
+

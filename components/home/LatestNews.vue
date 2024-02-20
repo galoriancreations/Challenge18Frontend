@@ -64,6 +64,12 @@ export default {
 
 <style lang="scss">
 .latest-news {
+
+  &__wrapper {
+    z-index: 2;
+    position: relative;
+  }
+  
   &__slider {
     margin: 0 -3rem;
   }

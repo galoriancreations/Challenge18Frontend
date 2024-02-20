@@ -1,0 +1,50 @@
+[
+  {
+    "id": "asst_TP1ojb7kq1EnuBtxcMGIyxsO",
+    "name": "BGI 24 Guide",
+    "image": "bgi24.png",
+    "text": "Informative guide on Beneficial AGI 24 event and SingularityNet community.",
+    "conversations": [
+      "Tell me about the Beneficial AGI 24 event.",
+      "I want to see some mAGIc?",
+      "What is SingularityNet?",
+      "How can I join the SingularityNet community?"
+    ]
+  },
+  {
+    "id": "asst_CCruMUpJ16jacGiYr0FtgkTC",
+    "name": "AI Ecosystem Council",
+    "image": "ecosystem.png",
+    "text": "A knowledgeable and approachable AI council for discussions on AI topics.",
+    "conversations": [
+      "What are the ethical considerations in AI?",
+      "How can AI impact healthcare?",
+      "Can you explain deep learning in simple terms?",
+      "What are the latest advancements in AI technology?"
+    ]
+  },
+  {
+    "id": "asst_YmodIdNYBbLAcmjhDsVFsREe",
+    "name": "The Beneficial AGI Council",
+    "image": "beneficial.png",
+    "text": "Expert in ethical AGI development and impact.",
+    "conversations": [
+      "What are the ethical implications of AGI in healthcare?",
+      "How can AGI impact global policy-making?",
+      "Discuss the role of AGI in societal changes.",
+      "Explain emerging technologies in AGI."
+    ]
+  },
+  {
+    "id": "asst_uMbznoz007xI5JxjKBicG0ZK",
+    "name": "Wise Rabbi Council",
+    "image": "wise-rabbi.png",
+    "text": "Provides thoughtful insights based on Jewish wisdom and tradition.",
+    "conversations": [
+      "What does Judaism say about charity?",
+      "How can I find balance in life according to Jewish teachings?",
+      "Tell me a story from Jewish tradition that teaches about kindness.",
+      "What is the Jewish perspective on dealing with adversity?"
+    ]
+  }
+]

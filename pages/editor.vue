@@ -36,18 +36,20 @@ export default {
   async asyncData({ app, store, $axios, error }) {
     try {
       const { draftId, challengeId, selectedTemplate } = app.$cookies.getAll();
+
       const { user, isAdmin } = store.getters;
-      const endpoint = !draftId && challengeId ? "/api" : "/xapi";
+      const endpoint = !draftId && challengeId ? "/editor" : "/editor";
       const key = draftId
         ? "getDraftData"
         : challengeId
         ? "getChallengeData"
         : selectedTemplate && "getTemplateData";
+
       const value = draftId || challengeId || selectedTemplate;
+      console.log(`edit test, draftId xapi key: ${key} : ${value}`);
       const data = key
-        ? transformData(await $axios.$post(endpoint, { [key]: value }))
+        ? transformData(await $axios.$post(`${endpoint}/${key}`, { data: value }))
         : {};
-        
       return {
         data: {
           name: data.name || "",
@@ -80,15 +82,18 @@ export default {
       submit: {
         loading: false,
         error: null
-      }
+      },
+      base64: ""
     };
   },
   computed: {
     editedChallengeId() {
       return this.$cookies.get("challengeId");
     },
+
     templateOnlyMode() {
       const { templateOnly } = this.$route.query;
+
       return templateOnly === "true" && !this.editedChallengeId;
     },
     title() {
@@ -121,10 +126,24 @@ export default {
     },
     selections() {
       const selections = {};
-      this.data.days.forEach(day => {
-        selections[day.id] = {};
+      
+      let selectedDay = 1;
+      let dayIndex = selectedDay - 1;
+      let dateid;
+      const date = ()=>{
+        const date = moment(this.data.date);
+        date.add(dayIndex * this.data.dayMargin, "days");
+        dateid = date.format("L");
+      }
+      this.data.days.forEach((day,ind) => {
+        selectedDay = ind
+        dayIndex = selectedDay;
+        
+        date()
+        selections[dateid] = {};
         day.tasks.forEach(task => {
-          selections[day.id][task.id] = task.selection;
+          const time = task.time.slice(0,5)
+          selections[dateid][task.id] = {message:task.selection,points:task.points,emoji:task.emoji,time:time};
         });
       });
       return selections;
@@ -136,7 +155,8 @@ export default {
         templateId: this.templateId,
         selections: this.selections,
         date: moment(this.data.date).format("L"),
-        name: this.data.name
+        name: this.data.name,
+        image: this.data.image,
       };
     }
   },
@@ -149,6 +169,7 @@ export default {
       this.autoSave.timeout = setTimeout(async () => {
         this.autoSave.loading = true;
         try {
+          //if drafts are working do we need it here?:
           await this.saveTemplate();
           await this.saveDraft();
           this.autoSave.date = new Date();
@@ -157,25 +178,29 @@ export default {
           this.autoSave.error = true;
         }
         this.autoSave.loading = false;
-      }, 5000);
+      }, 5000); 
     },
+
     async saveDraft() {
-      if (this.templateOnlyMode) return;
-      const { draftId } = await this.$axios.$post("/xapi", {
-        saveDraft: {
-          draftId: this.draftId,
-          draftData: this.draftData
-        }
+      console.log();
+      // i changed it to false:
+      if (!this.templateOnlyMode) return;
+
+      console.log(`picture: ${this.data.image}`);
+      const { draftId } = await this.$axios.$post("/editor/saveDraft", {
+        draftId: this.draftId,
+        draftData: this.draftData
       });
       this.draftId = draftId;
     },
     async saveTemplate() {
+      console.log(`saveTemplate start`);
+      console.log(`templateId: ${this.templateId}`);
+      console.log(`templateData:`, this.templateData);
       if (!this.isTemplateEditable) return;
-      const { templateId } = await this.$axios.$post("/xapi", {
-        saveTemplate: {
-          templateId: this.templateId,
-          templateData: this.templateData
-        }
+      const { templateId } = await this.$axios.$post("/editor/saveTemplate", {
+        templateId: this.templateId,
+        templateData: this.templateData
       });
       this.templateId = templateId;
     },
@@ -183,7 +208,11 @@ export default {
       const mode = this.editedChallengeId
         ? "updateChallenge"
         : "createChallenge";
-      await this.$axios.$post("/xapi", { [mode]: this.challengeData });
+      const groupId = await this.$axios.$post(`/editor/${mode}`, {
+        challengeId: this.editedChallengeId,
+        challengeData: this.challengeData
+      });
+
       const successText = this.editedChallengeId
         ? "Successfully updated challenge"
         : "Created new challenge from template";
@@ -191,7 +220,8 @@ export default {
         `${successText}: <strong>${this.data.name}</strong>.`
       );
       this.$cookies.remove("draftId");
-      this.$router.replace("/dashboard");
+      this.$cookies.set("groupId", groupId);
+      this.$router.replace("/group-page");
     },
     validateData() {
       try {
@@ -232,12 +262,26 @@ export default {
       }
     },
     async submitHandler() {
-      if (this.templateOnlyMode) {
-        return this.$router.replace("/dashboard");
-      }
+      // temporarily commented:
       if (!this.validateData()) return;
       this.submit.loading = true;
       try {
+        if (this.templateOnlyMode) {
+          // -- my coding: erase draft, save template
+          // find what draft it is and delete
+          // delete draft (delets in server and updates DB):
+          console.log(`this is draftId i deleting: ${this.draftId}`);
+
+          await this.$axios.$post("/editor/deleteDraft", {
+            deleteDraft: this.draftId
+          });
+
+          await this.saveTemplate();
+          // --
+          console.log(`i am going to dashboard`);
+          return this.$router.replace("/dashboard");
+        }
+
         await this.saveChallenge();
       } catch (error) {
         this.submit.error = error;
@@ -266,6 +310,21 @@ export default {
         this.showIntroModal = true;
       }, 1500);
     }
+    // when opening page create draft and erase template:
+    const eraseTemplate = async () => {
+      // immediatly create draft when opening
+      await this.saveDraft();
+      // if i editing template- erase it from data-base
+      /////////////////////////////////////////////////////////////////
+      // why delete template you cant create
+      // also you cant create a challnge without having the template
+      /////////////////////////////////////////////////////////////////
+      await this.$axios.$post("/editor/deleteTemplate", {
+        templateId: this.templateId,
+        isPublic: this.isPublic
+      });
+    };
+    // eraseTemplate();
   },
   provide() {
     return {
