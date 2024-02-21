@@ -1,7 +1,7 @@
 <template>
   <PopupModal
     title="Certifications Sent"
-    :active="active"
+    :active="active && showModal"
     class="certification-popup-modal"
   >
     <h3>Sent {{ sent }} out of {{ outOf }} certifications</h3>
@@ -9,7 +9,7 @@
       The certifications was sent to the members successfully.
     </p>
     <div class="certification-popup-modal__buttons">
-      <BaseButton variant="blue" @click="close">
+      <BaseButton variant="blue" @click="closeModal">
         Close
       </BaseButton>
     </div>
@@ -19,34 +19,13 @@
 <script>
 export default {
   inject: ['closeModal'],
-  emits: ['close'],
-  data() {
-    return {
-      clickHandler: null,
-    };
-  },
   props: {
-    active: true,
     sent: 0,
     outOf: 0,
+    active: Boolean,
   },
-  methods: {
-    close() {
-      this.closeModal();
-      this.active = false;
-      this.$emit('close');
-    },
-  },
-  mounted() {
-    this.clickHandler = (e) => {
-      if (e.target.classList.contains('modal__backdrop')) {
-        this.close();
-      }
-    };
-    window.addEventListener('click', this.clickHandler);
-  },
-  unmounted() {
-    window.removeEventListener('click', this.clickHandler);
+  created() {
+    this.showModal = true;
   },
 };
 </script>
