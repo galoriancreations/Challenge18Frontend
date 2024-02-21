@@ -1,135 +1,94 @@
 <template>
-    <popup-modal title="Integration Steps" :active="active" :scrollbar="false" class="editor-telegram-info-modal"
-        style="display: flex; justify-content: center; align-items: center">
-        <div class="editor-telegram-info-modal__container">
-            <div class="editor-telegram-info-modal__container__contain" :class="{
-                'editor-telegram-info-modal__container__right': disableRight,
-                'editor-telegram-info-modal__container__left': disableLeft,
-            }">
-                <div class="editor-telegram-info-modal__container__contain__items" v-if="page > 0">
-                    <h3>{{ steps[page - 1] }}</h3>
-                </div>
-                <div class="editor-telegram-info-modal__container__contain__items">
-                    <h3>{{ steps[page] }}</h3>
-                </div>
-                <div class="editor-telegram-info-modal__container__contain__items" v-if="page < 5">
-                    <h3>{{ steps[page + 1] }}</h3>
-                </div>
-            </div>
-        </div>
+  <PopupModal
+    title="Integration Steps"
+    :active="active"
+    class="editor-telegram-info-modal new-challenge-modal create-challenge"
+    :scrollbar="false"
+  >
+    <agile
+      :options="sliderOptions"
+      class="editor-telegram-info-modal__slider"
+      ref="carousel"
+    >
+      <div
+        class="editor-telegram-info-modal__slider__item"
+        v-for="(slide, index) in sliders"
+        :key="index"
+      >
+        <h3>{{ `${index + 1}: ${slide}` }}</h3>
+      </div>
+    </agile>
 
-        <base-button v-if="page > 0" variant="blue" @click="previousPage" title="Back"
-            class="editor-telegram-info-modal__base-button-info">Previous page</base-button>
-        <base-button v-if="page < 5" variant="blue" @click="nextPage" title="Next"
-            class="editor-telegram-info-modal__base-button-info">Next page</base-button>
-        <base-button v-else variant="blue" @click="closeInfoModal" title="Close"
-            class="editor-telegram-info-modal__base-button-info">Close</base-button>
-    </popup-modal>
+    <base-button
+      variant="blue"
+      @click="$refs.carousel.goToPrev()"
+      title="Back"
+      class="editor-telegram-info-modal__base-button-info"
+      >Previous</base-button
+    >
+    <base-button
+      variant="blue"
+      @click="$refs.carousel.goToNext()"
+      title="Next"
+      class="editor-telegram-info-modal__base-button-info"
+      >Next</base-button
+    >
+  </PopupModal>
 </template>
 
 <script>
-import PopupModal from '../layout/PopupModal.vue';
-// import ActionButton from '../UI/ActionButton.vue'
-import BaseButton from '../UI/BaseButton.vue';
-// import SectionHeading from '../layout/SectionHeading.vue'
-
 export default {
-    components: { PopupModal },
-    props: {
-        active: Boolean,
-    },
-    data() {
-        return {
-            page: 0,
-            steps: [
-                'Generate an invite link for your group on Ting Global.',
-                'Create a group on Telegram.',
-                'Add the Ting Global bot to the Telegram group.',
-                'In the Telegram group, send the command `/connect` followed by the invite link for Ting Global.',
-                'Go to the Ting Global group and confirm the connection with Telegram using the command `/telegram followed by the link to the Telegram group.`',
-                'Return to the Telegram group and finish the process using the command `/activate` with links for Ting Global and Telegram groups.',
-            ],
-            disableRight: false,
-            disableLeft: false,
-        };
-    },
-    methods: {
-        closeInfoModal() {
-            this.page = 0;
-            this.$emit('toggleInfoModel');
-        },
-        nextPage() {
-            if (!this.disableRight) {
-                this.page++;
-                this.disableRight = true;
-                setTimeout(() => {
-                    this.disableRight = false;
-                }, 750);
-            }
-            // items.style.marginLeft = '300px'
-        },
-        previousPage() {
-            if (!this.disableLeft) {
-                this.page--;
-                this.disableLeft = true;
-                setTimeout(() => {
-                    this.disableLeft = false;
-                }, 750);
-            }
-        },
-    },
+  emits: ['toggleInfoModel'],
+  props: {
+    active: Boolean,
+  },
+  inject: ['closeModal'],
+  data() {
+    return {
+      sliders: [
+        'Generate an invite link for your group on Ting Global.',
+        'Create a group on Telegram.',
+        'Add the Ting Global bot to the Telegram group.',
+        'In the Telegram group, send the command `/connect` followed by the invite link for Ting Global.',
+        'Go to the Ting Global group and confirm the connection with Telegram using the command `/telegram followed by the link to the Telegram group.`',
+        'Return to the Telegram group and finish the process using the command `/activate` with links for Ting Global and Telegram groups.',
+      ],
+      sliderOptions: {
+        autoplay: false,
+        autoplaySpeed: 2000,
+        slidesToShow: 1,
+        navButtons: false,
+        dots: true,
+      },
+    };
+  },
+  // this is a workaround for the modal not closing when clicking outside of it
+  //   mounted() {
+  //     this.clickHandler = (e) => {
+  //       if (e.target.classList.contains('modal__backdrop')) {
+  //         if (this.active) {
+  //           this.$emit('toggleInfoModel');
+  //         } else {
+  //             console.log('not active');
+  //         }
+  //       }
+  //     };
+  //     window.addEventListener('click', this.clickHandler);
+  //   },
+  //   unmounted() {
+  //     window.removeEventListener('click', this.clickHandler);
+  //   },
 };
 </script>
 
 <style lang="scss">
 .editor-telegram-info-modal {
-    &__container {
-        overflow: hidden;
-        margin-bottom: 50px;
+  &__slider {
+    margin: 1rem 0;
+  }
 
-        &__contain {
-            position: relative;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            margin-right: 100px;
-
-            &__items {
-                min-width: 100%;
-                max-width: none;
-                margin-right: 0;
-                text-align: center;
-                display: flex;
-                align-items: center;
-
-                h3 {
-                    margin: 0;
-                    width: 100%;
-                }
-            }
-        }
-
-        &__right {
-            animation: goRight 750ms both;
-        }
-
-        &__left {
-            animation: goLeft 750ms both;
-        }
-    }
-
-    &__base-button-info {
-        width: 15px;
-        height: 50px;
-        text-transform: none;
-        display: inline-block;
-    }
-
-    @include respond(mobile) {
-        &__base-button-info {
-            padding: 0 10px;
-            margin-right: 50px;
-        }
-    }
+  &__base-button-info {
+    display: inline-block;
+  }
 }
 </style>
