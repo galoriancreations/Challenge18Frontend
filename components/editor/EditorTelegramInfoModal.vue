@@ -62,22 +62,6 @@ export default {
       },
     };
   },
-  // this is a workaround for the modal not closing when clicking outside of it
-  //   mounted() {
-  //     this.clickHandler = (e) => {
-  //       if (e.target.classList.contains('modal__backdrop')) {
-  //         if (this.active) {
-  //           this.$emit('toggleInfoModel');
-  //         } else {
-  //             console.log('not active');
-  //         }
-  //       }
-  //     };
-  //     window.addEventListener('click', this.clickHandler);
-  //   },
-  //   unmounted() {
-  //     window.removeEventListener('click', this.clickHandler);
-  //   },
 };
 </script>
 
