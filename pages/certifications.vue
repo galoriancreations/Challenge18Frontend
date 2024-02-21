@@ -76,7 +76,6 @@
       :active="showPopup"
       :sent="progress"
       :outOf="members() ? members().length : 1"
-      @close="showPopup = false"
     />
   </Page>
 </template>
