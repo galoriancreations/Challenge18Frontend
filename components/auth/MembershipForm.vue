@@ -38,6 +38,7 @@
         required
         class="form__input"
         placeholder="Password"
+        type="password"
       />
     </div>
     <div class="form__field">
@@ -48,6 +49,7 @@
         required
         class="form__input"
         placeholder="Confirm password"
+        type="password"
       />
     </div>
     <div class="form__field" v-if="isOrganization">
@@ -111,9 +113,11 @@
     <div class="form__field">
       <label for="email" class="form__label">
         Email address
+        <CheckIcon :status="availability.email" />
       </label>
       <input
-        v-model="formData.email"
+        v-model="emailInput.value"
+        @input="updateEmail"
         id="email"
         type="email"
         class="form__input"
@@ -162,7 +166,12 @@ export default {
   inject: ["getSelectedPlan"],
   data() {
     return {
-      confirmed: false
+      confirmed: false,
+      availability: { 
+      username: null,
+      phone: null,
+      email: null
+    },
     };
   },
   computed: {

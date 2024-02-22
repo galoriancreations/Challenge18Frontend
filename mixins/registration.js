@@ -1,6 +1,7 @@
 import VuePhoneNumberInput from "vue-phone-number-input";
 import countryOptions from "../assets/data/countries";
 import languageOptions from "../assets/data/languages";
+import {isValidEmail} from "../assets/util/functions"
 import _ from "lodash";
 
 export default {
@@ -25,9 +26,9 @@ export default {
         value: null,
         isValid: false
       },
-      availability: {
-        username: null,
-        phone: null
+      emailInput: {
+        value: null,
+        isValid: false,
       },
       countryOptions,
       languageOptions,
@@ -41,6 +42,9 @@ export default {
     },
     phone() {
       return this.formData.phone;
+    },
+    email(){
+      return this.formData.email;
     }
   },
   methods: {
@@ -49,6 +53,10 @@ export default {
       this.phoneInput.isValid = data.isValid;
       this.formData.country = data.countryCode;
     },
+    updateEmail(){
+      this.formData.email = this.emailInput.value; 
+      isValidEmail(this.emailInput.value)? this.emailInput.isValid = true : this.emailInput.isValid = false ;
+    },
     checkAvailability(key, value, apiKey) {
       clearTimeout(this.timeout);
       if (!value.trim()) {
@@ -56,8 +64,8 @@ export default {
       } else {
         this.timeout = setTimeout(async () => {
           this.availability[key] = "loading";
-          const { result } = await this.$axios.$post("/api", {
-            [apiKey]: value
+          const { result } = await this.$axios.$post(`/register/${apiKey}`, {
+            data: value
           });
           this.availability[key] = result ? "available" : "taken";
         }, 500);
@@ -73,6 +81,9 @@ export default {
         }
         if (!this.phoneInput.isValid) {
           throw "The phone number you entered is invalid. Please enter a valid number.";
+        }
+        if (!this.emailInput.isValid) {
+          throw "Please enter a valid email address.";
         }
         this.error = null;
         return true;
@@ -107,6 +118,14 @@ export default {
         this.checkAvailability("phone", value, "checkPhone");
       } else {
         this.availability.phone = null;
+        clearTimeout(this.timeout);
+      }
+    },
+    email(value) {
+      if(this.emailInput.isValid){
+        this.checkAvailability("email", value, "checkEmail");
+      } else {
+        this.availability.email=null;
         clearTimeout(this.timeout);
       }
     }
