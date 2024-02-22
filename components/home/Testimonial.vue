@@ -1,6 +1,6 @@
 <template>
   <article class="testimonial">
-    <img class="testimonial__icon" src="../../assets/images/icon-quotes.svg" />
+    <img class="testimonial__icon" :src="this.s3AssetsGenerator('images/icon-quotes.svg')" />
     <div
       class="testimonial__scroll-area"
       ref="textWrapper"
@@ -22,8 +22,10 @@
 
 <script>
 import Scrollbar from "smooth-scrollbar";
+import s3AssetsMixin from "~/mixins/s3AssetsMixin";
 
 export default {
+    mixins: [ s3AssetsMixin ],
   props: {
     testimonial: Object
   },

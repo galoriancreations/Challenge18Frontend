@@ -2,14 +2,17 @@
   <NuxtLink to="/">
     <img
       class="logo"
-      src="../../assets/images/new-logo.png"
+      :src="this.s3AssetsGenerator('images/new-logo.png')"
       @click="closeNav"
     />
   </NuxtLink>
 </template>
 
 <script>
+import s3AssetsMixin from '~/mixins/s3AssetsMixin';
+
 export default {
+  mixins: [ s3AssetsMixin ],
   inject: ["closeNav"]
 };
 </script>

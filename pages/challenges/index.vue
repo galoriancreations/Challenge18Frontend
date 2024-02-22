@@ -1,12 +1,14 @@
 <template>
     <Page title="Challenges" name="challenges">
+        
         <section class="challenges-intro">
             <p>
                 Join or create any community below to receive daily tasks that will lead
                 you on your journey to change!
             </p>
         </section>
-        <h2 style="text-align: center;">Top Challenges</h2>
+        <h1 id="section_header">Coming Soon</h1>
+        <!-- <h2 style="text-align: center;">Top Challenges</h2> -->
         <div class="challenges_container">
             <button @click="scrollLeft('challengesGrid')" class="scroll_btns">
                 &larr;
@@ -25,7 +27,6 @@
             </button>
         </div>
         <!-- Rendering Scroller With Courses Base On Categories Name -->
-        <h1 id="section_header">Coming Soon</h1>
 
         <div v-for="(item, index) in categories" :key="item.categoryName">
             <!-- <h2 style="text-align: center;">{{ item.categoryName }}</h2> -->
@@ -131,7 +132,7 @@ export default {
    padding: 10px;
    background: linear-gradient(to right, #007bff, #ff7e5f, #ffd166);
    box-shadow: 2px 2px 2px 2px lightgray;
-   // margin-bottom: 30px;
+   margin-bottom: 30px;
    transition: all 0.4s;
    color: white;
    user-select: none;

@@ -28,14 +28,17 @@
 </template>
 
 <script>
+import s3AssetsMixin from '~/mixins/s3AssetsMixin';
+
 export default {
+    mixins: [ s3AssetsMixin ],
   props: {
     member: Object
   },
   computed: {
     image() {
       const { image } = this.member;
-      return image && require(`../../assets/images/teams/${image}`);
+      return image && this.s3AssetsGenerator(`images/teams/${image}`);
     }
   }
 };

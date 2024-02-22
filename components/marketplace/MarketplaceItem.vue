@@ -13,13 +13,16 @@
 </template>
 
 <script>
+import s3AssetsMixin from '~/mixins/s3AssetsMixin';
+
 export default {
+    mixins: [ s3AssetsMixin ],
   props: {
     item: Object
   },
   computed: {
     image() {
-      return require(`~/assets/images/marketplace/${this.item.image}`);
+      return this.s3AssetsGenerator(`images/marketplace/${this.item.image}`);
     },
     cost() {
       let { cost } = this.item;

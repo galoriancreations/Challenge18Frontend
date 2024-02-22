@@ -4,7 +4,7 @@
     <agile :options="sliderOptions" class="partners__slider">
       <div v-for="image in images" :key="image.src" class="partners__slide">
         <div class="partners__img">
-          <img v-bind="image" />
+          <img :src="imageGenerator(image.src)" />
         </div>
       </div>
     </agile>
@@ -12,23 +12,27 @@
 </template>
 
 <script>
+import s3AssetsMixin from '~/mixins/s3AssetsMixin';
+
 export default {
+    mixins: [ s3AssetsMixin ],
   data() {
     return {
       images: [
         {
-          src: require("../../assets/images/logos/sponsers/HC/Dark-vertical.png"),
+          src: "images/logos/sponsers/HC/Dark-vertical.png",
           alt: "HyperCircle"
         },
         {
-          src: require("../../assets/images/logos/sponsers/SingularityNET/black-vertical.jpg"),
+          src: "images/logos/sponsers/SingularityNET/black-vertical.jpg",
           alt: "HyperCircle"
         },
         {
-          src: require("../../assets/images/logos/sponsers/TrueAGI/Black-on-White.png"),
+          src: "images/logos/sponsers/TrueAGI/Black-on-White.png",
           alt: "TrueAGI"
         },
       ],
+      
       sliderOptions: {
         autoplay: false,
         autoplaySpeed: 2000,
@@ -51,6 +55,14 @@ export default {
         ]
       }
     };
+  },
+
+  computed: {
+    imageGenerator() {
+        return (image) => {
+            return this.s3AssetsGenerator(image);
+        }
+    }
   }
 };
 </script>

@@ -12,21 +12,24 @@
 </template>
 
 <script>
+import s3AssetsMixin from '~/mixins/s3AssetsMixin';
+
 export default {
+    mixins: [ s3AssetsMixin ],
   data() {
     return {
       images: [
-        require("~/assets/images/clubs/shazar.jpeg"),
-        require("~/assets/images/clubs/adamimolam.jpeg"),
-        require("~/assets/images/clubs/aklim.jpeg"),
-        require("~/assets/images/clubs/benguryon.jpeg"),
-        require("~/assets/images/clubs/emekhefer.jpeg"),
-        require("~/assets/images/clubs/ironiyudbeit.jpeg"),
-        require("~/assets/images/clubs/premiernepal.jpeg"),
-        require("~/assets/images/clubs/raziel.jpeg"),
-        require("~/assets/images/clubs/reshetyeruka.jpeg"),
-        require("~/assets/images/clubs/shevachmofet.jpeg"),
-        require("~/assets/images/clubs/ycl.jpeg")
+        this.s3AssetsGenerator("images/clubs/shazar.jpeg"),
+        this.s3AssetsGenerator("images/clubs/adamimolam.jpeg"),
+        this.s3AssetsGenerator("images/clubs/aklim.jpeg"),
+        this.s3AssetsGenerator("images/clubs/benguryon.jpeg"),
+        this.s3AssetsGenerator("images/clubs/emekhefer.jpeg"),
+        this.s3AssetsGenerator("images/clubs/ironiyudbeit.jpeg"),
+        this.s3AssetsGenerator("images/clubs/premiernepal.jpeg"),
+        this.s3AssetsGenerator("images/clubs/raziel.jpeg"),
+        this.s3AssetsGenerator("images/clubs/reshetyeruka.jpeg"),
+        this.s3AssetsGenerator("images/clubs/shevachmofet.jpeg"),
+        this.s3AssetsGenerator("images/clubs/ycl.jpeg")
       ]
     };
   }

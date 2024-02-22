@@ -3,7 +3,7 @@
       <p class="legal_Ai__text">Welcome to the Beneficial AI Challenge! Before you begin, we require all participants to agree to the following terms and conditions. Please read them carefully and tick the box at the end to indicate your agreement.
 </p>
     <Popup class="confirm-modal" :active="active" :scrollbar="true">
-        <img class="img" src="../assets/images/gameOver.png" alt="Challenge 18" />
+        <img class="img" :src="this.s3AssetsGenerator('images/gameOver.png')" alt="Challenge 18" />
         <div class="legalAi-modal__text2" >
           <p class="legal_Ai__text" style="margin: 0%;">
             {{ afterText05 }}
@@ -54,8 +54,11 @@
   </template>
   
 <script>
+import s3AssetsMixin from '~/mixins/s3AssetsMixin';
+
 
 export default {
+    mixins: [ s3AssetsMixin ],
   data() {
     return {
         active:false,

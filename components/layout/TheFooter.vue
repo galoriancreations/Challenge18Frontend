@@ -40,7 +40,7 @@
         </div>
         <img
           class="footer__logo"
-          src="../../assets/images/cropped-new-logo-with-300x122.png"
+          :src="this.s3AssetsGenerator('images/cropped-new-logo-with-300x122.png')"
           alt="Ting Global"
         />
       </div>
@@ -52,9 +52,11 @@
 </template>
 
 <script>
+import s3AssetsMixin from "~/mixins/s3AssetsMixin";
 import articles from "../../assets/data/articles";
 
 export default {
+    mixins: [ s3AssetsMixin ],
   computed: {
     recentPosts() {
       return articles
