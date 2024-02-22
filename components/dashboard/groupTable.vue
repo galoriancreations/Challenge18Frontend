@@ -21,8 +21,8 @@
     ">join</button>
       </div>
       <div>
-        <action-button @click="toggleInfoModel" type="info" color="white" class="action-button-info" />
-        <editor-telegram-info-modal :active="showInfoModal" @toggleInfoModel="toggleInfoModel" />
+        <action-button @click="showModal = true" type="info" color="white" class="action-button-info" />
+        <EditorTelegramInfoModal :active="showModal" />
       </div>
       <div v-if="!hasGroups" class="my-challenges__empty">
         <p>
@@ -41,12 +41,11 @@
 </template>
 
 <script>
-import EditorIntroModal from '../editor/EditorIntroModal.vue';
-import EditorTelegramInfoModel from '../editor/EditorTelegramInfoModal.vue';
-import PopupModal from '../layout/PopupModal.vue';
-import ActionButton from '../UI/ActionButton.vue';
+import popupModal from "~/mixins/popup-modal";
+
 export default {
-  components: { ActionButton, PopupModal, EditorIntroModal, EditorTelegramInfoModel },
+  mixins: [popupModal],
+  inject: ["setConfirmModal", "addNotification"],
   model: {
     prop: "selected",
     event: "input"
@@ -60,7 +59,6 @@ export default {
     return {
       search: "",
       id: '',
-      showInfoModal: false,
     };
   },
   computed: {
@@ -80,9 +78,6 @@ export default {
 
       console.log(res);
 
-    },
-    toggleInfoModel() {
-      this.showInfoModal = !this.showInfoModal
     },
   }
 };

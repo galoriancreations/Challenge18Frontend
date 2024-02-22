@@ -1,9 +1,8 @@
 <template>
   <CertificationPopup
-    :active="active"
+    :active="active && showModal"
     :sent="sent"
     :outOf="outOf"
-    @close="$emit('close')"
   />
 </template>
 
@@ -11,12 +10,17 @@
 import popupModal from '~/mixins/popup-modal';
 
 export default {
-  emits: ['close'],
   mixins: [popupModal],
+  inject: ['setConfirmModal'],
   props: {
-    active: false,
     sent: 0,
     outOf: 0,
+    active: Boolean,
+  },
+  watch: {
+    active() {
+      this.showModal = this.active;
+    },
   },
 };
 </script>
