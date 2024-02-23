@@ -62,6 +62,7 @@ export default {
 
 <style lang="scss">
 #video_container {
+    position: relative;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -70,6 +71,11 @@ export default {
     height: 94vh;
     width: 100%;
     background-color: rgb(231, 229, 229);
+    padding: 0 20px; 
+
+    @include respond(mobile) {
+        height: 100vh;
+    }
 
     #btns_container {
         height: fit-content;
@@ -96,7 +102,6 @@ export default {
         font-size: 20px;
         background-color: #00459E;
 
-
         .facebook_btn_icon {
             height: fit-content;
             color: white;
@@ -111,15 +116,12 @@ export default {
         font-weight: 600;
         font-size: 26px;
         position: absolute;
-        right: 10%;
-        bottom: 39%;
+        right: 20px; 
+        bottom: 20px;
 
-        @include respond(tablet) {
-            bottom: 43.5%;
-        }
-
-        @include respond(tablet-land) {
-            bottom: 48.5%;
+        @media (min-width: 768px) {
+            right: 20px;
+            bottom: 20px;
         }
     }
 }
