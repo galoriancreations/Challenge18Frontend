@@ -24,7 +24,7 @@
     </div>
     <!-- </h1> -->
       <div class="steps__container" >
-        <box :titleAndText=info text="lol" v-for="(info, index) in titleAndTexts" :key="index">
+        <box :titleAndText=info text="lol" v-for="info in titleAndTexts" :key="info.id">
           
         </box>
       </div>

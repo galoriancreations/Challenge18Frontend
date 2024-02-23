@@ -47,7 +47,13 @@ export default {
     navigationItems() {
       const items = [
 
+
         { link: "/", text: "Home" },
+        {
+          link: "/certifications",
+          text: "Certifications",
+          hide: !this.isLoggedIn
+        },
         { link: '/chatbot', text: 'Chatbot' },
         // {
         //   text: "About",
@@ -71,7 +77,8 @@ export default {
             // { link: "/players", text: "Players" },
             { link: "/protocol", text: "Protocol" },
             { link: "/articles", text: "Articles" },//belongs in about
-            { link: "/legal_AI_Ethics", text: "Terms & Conditions"}
+            { link: "/legal_AI_Ethics", text: "Terms & Conditions"},
+            { link: "/beneficialAgiAction", text: "BGI Action"}
           ]
         },
         // { link: "/marketplace", text: "Marketplace" },
@@ -80,7 +87,7 @@ export default {
           external:
             'https://bgi24.ai/#sponsor',
             // "https://www.jgive.com/new/en/ils/charity-organizations/1285",
-          text: "Sponser"
+          text: "Sponsor"
         },
         { link: "/login", text: "Login", button: true, hide: this.isLoggedIn },
         { action: this.logout, text: "Logout", hide: !this.isLoggedIn },
