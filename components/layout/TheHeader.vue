@@ -47,7 +47,13 @@ export default {
     navigationItems() {
       const items = [
 
+
         { link: "/", text: "Home" },
+        {
+          link: "/certifications",
+          text: "Certifications",
+          hide: !this.isLoggedIn
+        },
         { link: '/chatbot', text: 'Chatbot' },
         // {
         //   text: "About",
