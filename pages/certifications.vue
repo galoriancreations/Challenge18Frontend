@@ -126,7 +126,7 @@ export default {
               reader.readAsDataURL(pdfBlob);
             });
 
-            await this.$axios.post('/certifications/send', {
+            await this.$axios.$post('/certifications/send', {
               pdfBase64,
               member,
               type: this.certificationType,
