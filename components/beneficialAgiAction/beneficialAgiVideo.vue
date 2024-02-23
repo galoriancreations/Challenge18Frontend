@@ -76,6 +76,9 @@ export default {
     @include respond(mobile) {
         height: 100vh;
     }
+    @media (min-width: 360px) {
+        height: 120vh;
+        }
 
     #btns_container {
         height: fit-content;
