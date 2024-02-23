@@ -22,12 +22,10 @@ export default {
         async updateLikes(updateAnswer){
             console.log(updateAnswer);
             
-            const res= await this.$axios.$post("/xapi",{
-                updateLikes:{
+            await this.$axios.$post("/magicgame/updateLikes",{
                     qnum: this.id,
                     id: updateAnswer.id,
                     likes: updateAnswer.likes
-                }
             })
       }
     }

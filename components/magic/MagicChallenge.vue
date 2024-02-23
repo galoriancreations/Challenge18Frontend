@@ -43,21 +43,19 @@ export default {
   methods: {
     async getQuestion() {
       const queryString = window.location.search;
-      console.log(queryString);
+      // console.log(queryString);
       const urlParams = new URLSearchParams(queryString);
       this.qId = urlParams.get('qId')
       if (!this.qId) {
         this.qId = false
       }
-      console.log(this.qId);
+      this.active = true
       console.log(this.challenge);
-      this.active = true;
-
-      const res = await this.$axios.$post("/xapi", {
+      const res = await this.$axios.$post("/magicgame/getQuestion", {
         qId: this.qId,
-        getQuestion: true,
         challenge: this.challenge
       })
+      console.log(res);
 
       this.question = {
         questionId:res._id,
