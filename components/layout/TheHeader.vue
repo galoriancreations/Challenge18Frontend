@@ -81,7 +81,7 @@ export default {
           external:
             'https://bgi24.ai/#sponsor',
             // "https://www.jgive.com/new/en/ils/charity-organizations/1285",
-          text: "Sponser"
+          text: "Sponsor"
         },
         { link: "/login", text: "Login", button: true, hide: this.isLoggedIn },
         { action: this.logout, text: "Logout", hide: !this.isLoggedIn },
