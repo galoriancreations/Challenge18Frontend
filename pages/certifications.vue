@@ -5,7 +5,7 @@
     </SectionHeading>
     <div class="certifications__logo">
       <img
-        :src="this.s3AssetsGenerator('images/certifications/certifications-logo.png')"
+        src="../assets/images/certifications/certifications-logo.png"
         alt="logo"
       />
     </div>
@@ -81,7 +81,6 @@
 </template>
 
 <script>
-import s3AssetsMixin from '~/mixins/s3AssetsMixin';
 import certifications from '../assets/data/certifications/certifications.json';
 import confirmModal from '~/mixins/confirm-modal';
 
@@ -89,7 +88,7 @@ export default {
   meta: {
     requiresAuth: true,
   },
-  mixins: [confirmModal, s3AssetsMixin],
+  mixins: [confirmModal],
   data() {
     return {
       certificationsTypes: certifications,
