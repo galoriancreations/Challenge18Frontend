@@ -68,7 +68,7 @@ export default {
 <style lang="scss">
 .editor-telegram-info-modal {
   &__slider {
-    margin: 2rem 0;
+    margin: 1rem 0;
   }
 
   &__base-button-info {

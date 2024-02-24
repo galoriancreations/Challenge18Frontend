@@ -97,8 +97,7 @@ export const actions = {
     context.commit("updateUser", user);
   },
   async loadTemplates(context, isAuth = true) {
-    // const endpoint = isAuth ? "/users/getAvailableTemplates" : "/users/getPublicTemplates";
-    const endpoint = "/users/getAvailableTemplates";
+    const endpoint = isAuth ? "/users/getAvailableTemplates" : "/users/getPublicTemplates";
     const { templates } = await this.$axios.$get(endpoint);
     
     context.commit("setTemplates", templates);
