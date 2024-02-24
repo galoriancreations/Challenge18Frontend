@@ -45,8 +45,6 @@ export default {
   },
   methods: {
     async generatePdf(name) {
-      // Dynamically import html2pdf.js to reduce bundle size
-      const html2pdf = (await import('html2pdf.js')).default;
       this.name = name;
       const element = this.$refs.pdfContent;
 
