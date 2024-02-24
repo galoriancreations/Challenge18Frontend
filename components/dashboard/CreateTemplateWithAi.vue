@@ -180,7 +180,7 @@ export default {
       template: {
         language: 'English',
         topic: '',
-        days: 3,
+        days: 1,
         tasks: 1,
         messages: 1,
         preDays: 1,
