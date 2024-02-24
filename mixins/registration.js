@@ -1,7 +1,7 @@
 import VuePhoneNumberInput from "vue-phone-number-input";
 import countryOptions from "../assets/data/countries";
 import languageOptions from "../assets/data/languages";
-import {isValidEmail} from "../assets/util/functions"
+import { isValidEmail } from '../assets/util/functions';
 import _ from "lodash";
 
 export default {
@@ -29,6 +29,11 @@ export default {
       emailInput: {
         value: null,
         isValid: false,
+      },
+      availability: { 
+        username: null,
+        phone: null,
+        email: null
       },
       countryOptions,
       languageOptions,

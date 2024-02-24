@@ -167,11 +167,6 @@ export default {
   data() {
     return {
       confirmed: false,
-      availability: { 
-      username: null,
-      phone: null,
-      email: null
-    },
     };
   },
   computed: {
