@@ -62,7 +62,5 @@ export default {
       this.$store.dispatch("loadTemplates");
     }, 500);
   },
-  created() {
-  }
 };
 </script>
