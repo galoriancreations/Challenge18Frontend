@@ -231,10 +231,8 @@ export default {
       // get selected template by selectedTemplate cookie
       const selectedTemplate = this.$cookies.get('selectedTemplate');
       // create axios request to backend to generate day with ai
-      const { day } = await this.$axios.$post('/xapi', {
-        generateDayWithAi: {
+      const { day } = await this.$axios.$post('/generate/day', {
           templateId: selectedTemplate,
-        },
       });
       
       // add to tasks and messages ids
