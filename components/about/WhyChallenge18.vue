@@ -7,7 +7,7 @@
       </div>
       <div class="why-challenge-18__content">
         <div class="why-challenge-18__text">
-          <img src="../../assets/images/icon-quotes.svg" />
+          <img :src="this.s3AssetsGenerator('images/icon-quotes.svg')" />
           <div class="why-challenge-18__text-content">
             <p>
               The problem is that there is a global crisis for all of humanity
@@ -32,6 +32,7 @@
     </div>
   </section>
 </template>
+
 
 <style lang="scss">
 .why-challenge-18 {

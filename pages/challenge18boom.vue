@@ -14,7 +14,7 @@
           <p>Donate a sum of 18 dollars or more.</p>
           <img
             class="boom18__img"
-            src="~/assets/images/einstein-tongue.jpeg"
+            :src="this.s3AssetsGenerator('images/einstein-tongue.jpeg')"
             alt="18 Boom - Prof. Einstein - tongue out"
           />
           <p>
@@ -84,7 +84,10 @@
 </template>
 
 <script>
+import s3AssetsMixin from '~/mixins/s3AssetsMixin';
+
 export default {
+    mixins: [ s3AssetsMixin ],
   components: {
     NumberInput: () =>
       process.client ? import("@chenfengyuan/vue-number-input") : null,

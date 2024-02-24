@@ -1,7 +1,7 @@
 <template>
     <div id="qa_list_container">
         <div id="qa_header_container">
-            <img :src="beneficialAgiQAImg" alt="QA-Image" draggable="false" id="qaImage">
+            <img :src="imageGenerator" alt="QA-Image" draggable="false" id="qaImage">
             <h2>{{ qaContent.header }}</h2>
         </div>
         <template>
@@ -31,17 +31,23 @@
   
 <script>
 import Page from '../layout/Page.vue';
+import s3AssetsMixin from '~/mixins/s3AssetsMixin';
 import ActionButton from '../UI/ActionButton.vue';
 import qaContent from '~/assets/data/beneficialAgiQA';
 
 export default {
+    mixins: [ s3AssetsMixin ],
     components: { Page, ActionButton },
     data() {
         return {
             showParagraph: [],
-            beneficialAgiQAImg: require("~/assets/images/beneficialAgiQA.png"),
             qaContent
         }
+    },
+    computed: {
+        imageGenerator() {
+            return this.s3AssetsGenerator('images/beneficialAgiQA.png')
+        },
     },
     methods: {
         prevPage() {

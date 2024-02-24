@@ -2,7 +2,7 @@
   <div class="cert-template">
     <div class="cert-template__image">
       <img
-        src="../../../../assets/images/certifications/AGI/Certificates-AGI-Commitment.jpg"
+        :src="this.s3AssetsGenerator('images/certifications/AGI/Certificates-AGI-Commitment.jpg')"
         alt="Certificates-AGI-Commitment"
       />
       <span class="cert-template__blank" />
@@ -14,7 +14,10 @@
 </template>
 
 <script>
+import s3AssetsMixin from '~/mixins/s3AssetsMixin';
+
 export default {
+    mixins: [ s3AssetsMixin ],
   props: {
     date: {
       type: String,
