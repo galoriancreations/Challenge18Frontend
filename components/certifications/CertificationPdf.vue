@@ -1,9 +1,10 @@
 <template>
   <div class="certification-pdf">
     <div class="certification-pdf__preview">Preview:</div>
-    <section class="certification-pdf__content">
-      <CertificationTemplate
-        :certification="certification"
+    <section ref="pdfContent" class="certification-pdf__content">
+      <CertificationBGITemplate
+        v-if="certification.name === 'BGI'"
+        :certificationTemplate="certificationTemplate"
         :certificationSignature="certificationSignature"
         :name="name"
       />
@@ -12,14 +13,27 @@
 </template>
 
 <script>
+const html2pdfOptions = {
+  margin: 0,
+  filename: 'certification.pdf',
+  image: { type: 'jpg', quality: 1 },
+  html2canvas: { scale: 1 },
+  jsPDF: { unit: 'in', format: [12, 9], orientation: 'landscape' },
+};
+
 export default {
   data() {
     return {
+      html2pdf: null,
       name: '[NAME]',
     };
   },
   props: {
     certification: {
+      type: Object,
+      required: true,
+    },
+    certificationTemplate: {
       type: Object,
       required: true,
     },
@@ -30,26 +44,15 @@ export default {
   },
   methods: {
     async generatePdf(name) {
-      // Dynamically import html2pdf.js to reduce bundle size
-      const html2pdf = (await import('html2pdf.js')).default;
+      if (!this.html2pdf) {
+        return null;
+      }
       this.name = name;
-
-      const element = document.querySelector('.certification-pdf__content');
-
-      const opt = {
-        margin: 1,
-        filename: 'certification.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
-      };
-
+      const element = this.$refs.pdfContent;
+      
       try {
-        // wait 3 seconds to simulate generating PDF
-        // await new Promise((resolve) => setTimeout(resolve, 3000));
-        // throw new Error('Test error');
         const pdfString = await html2pdf()
-          .set(opt)
+          .set(html2pdfOptions)
           .from(element)
           .outputPdf();
 
@@ -62,11 +65,17 @@ export default {
 
         return pdfBlob;
       } catch (error) {
-        // Handle any errors that occur while generating the PDF
         console.error('Error generating PDF:', error);
         return null;
       }
     },
+  },
+  mounted() {
+    if (process.browser) {
+      import('html2pdf.js').then((module) => {
+        this.html2pdf = module.default;
+      });
+    }
   },
 };
 </script>

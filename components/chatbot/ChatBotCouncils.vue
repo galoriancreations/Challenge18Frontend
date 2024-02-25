@@ -3,7 +3,7 @@
     <div class="chatbot__council-container">
       <div class="chatbot__council-container-image">
         <img
-          :src="require('assets/images/chatbot/chatbot.png')"
+          :src="this.s3AssetsGenerator('images/chatbot/chatbot.png')"
           alt="Chatbot"
         />
       </div>
@@ -32,8 +32,11 @@
 </template>
 
 <script>
+import s3AssetsMixin from '~/mixins/s3AssetsMixin';
+
 export default {
   emits: ['loading'],
+  mixins: [ s3AssetsMixin ],
   props: {
     councils: {
       type: Array,
@@ -43,6 +46,12 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  computed: {
+    imageGenerator() {
+        return (council) => 
+        this.s3AssetsGenerator(council.image);
+    }
   },
   methods: {
     async selectCouncil(council) {

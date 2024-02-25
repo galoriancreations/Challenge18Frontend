@@ -29,9 +29,7 @@ export default {
   async asyncData({ store: { dispatch }, from, error }) {
     if (!from?.meta[0]?.forLoggingIn) {
       try {
-        // await Promise.all([dispatch("updateUser"), dispatch("loadTemplates")]);
-        await dispatch("updateUser");
-        await dispatch("loadTemplates");
+        await Promise.all([dispatch("updateUser"), dispatch("loadTemplates")]);
       } catch (err) {
         error(err);
       }
@@ -60,8 +58,9 @@ export default {
         this.showWelcomeModal = true;
         this.$cookies.remove("newRegistration");
       }
+      this.$store.dispatch("updateUser");
+      this.$store.dispatch("loadTemplates");
     }, 500);
-    // console.log(`dashboard template: all cookies: ${this.$cookies.getAll()}`);
-  }
+  },
 };
 </script>

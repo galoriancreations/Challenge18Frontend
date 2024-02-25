@@ -18,13 +18,13 @@
   </popupNET>
     <!-- <h1 > -->
       <div class="page-headingNET__headingNET">
-      <img src="../../assets/images/backgrounds/Logo.svg" alt="" class="page-headingNET__Logo1">
-      <img src="../../assets/images/bgi.png" alt="" class="page-headingNET__Logo2">
+      <img :src="this.s3AssetsGenerator('images/backgrounds/Logo.svg')" alt="" class="page-headingNET__Logo1">
+      <img :src="this.s3AssetsGenerator('images/bgi.png')" alt="" class="page-headingNET__Logo2">
       <!-- {{ title }} -->
     </div>
     <!-- </h1> -->
       <div class="steps__container" >
-        <box :titleAndText=info text="lol" v-for="(info, index) in titleAndTexts" :key="index">
+        <box :titleAndText=info text="lol" v-for="info in titleAndTexts" :key="info.id">
           
         </box>
       </div>
@@ -33,7 +33,10 @@
 </template>
 
 <script>
+import s3AssetsMixin from '~/mixins/s3AssetsMixin';
+
 export default {
+    mixins: [ s3AssetsMixin ],
     inject: ["title"],
     data() {
         return {

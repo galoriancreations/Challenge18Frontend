@@ -5,7 +5,7 @@
 <script>
 
 
-import AnimationSteps from '../../utilities/animations';
+import BgiAnimations from '~/assets/util/animations';
 
 
 export default {
@@ -15,34 +15,34 @@ export default {
     },
 
     methods: {
-        loadAnimation() {
-            const animationContainerRef = this.$refs.lottieContainer1;
-            const animationSteps = new AnimationSteps(animationContainerRef);
+    loadAnimation() {
+      const animationContainerRef = this.$refs.lottieContainer1;
+      const animationSteps = new BgiAnimations(animationContainerRef);
 
-            switch (this.currentIndexAnimation) {
-                case 0:
-                    animationSteps.stepOne();
-                    break;
-                case 1:
-                    animationSteps.stepTwo();
-                    break;
-                case 2:
-                    animationSteps.stepThree();
-                    break;
-                case 3:
-                    animationSteps.stepFour();
-                    break;
-                case 4:
-                    animationSteps.stepFive();
-                    break;
-                case 5:
-                    animationSteps.stepSix();
-                    break;
-                default:
-                    break;
-            }
-        },
+      switch (this.currentIndexAnimation) {
+        case 0:
+          animationSteps.stepOne();
+          break;
+        case 1:
+          animationSteps.stepTwo();
+          break;
+        case 2:
+          animationSteps.stepThree();
+          break;
+        case 3:
+          animationSteps.stepFour();
+          break;
+        case 4:
+          animationSteps.stepFive();
+          break;
+        case 5:
+          animationSteps.stepSix();
+          break;
+        default:
+          break;
+      }
     },
+  },
 
     mounted() {
         this.loadAnimation();

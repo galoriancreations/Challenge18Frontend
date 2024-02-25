@@ -75,9 +75,10 @@
 <script>
 import moment from "moment";
 import popupModal from "~/mixins/popup-modal";
+import s3AssetsMixin from "~/mixins/s3AssetsMixin";
 
 export default {
-    mixins: [popupModal],
+    mixins: [popupModal, s3AssetsMixin],
     props: {
         courses: Object
     },
@@ -95,7 +96,7 @@ export default {
 
     computed: {
         image() {
-            return require(`~/assets/images/Courses/${this.courses.popupLessView?.image}`)
+            return this.s3AssetsGenerator(`images/Courses/${this.courses.popupLessView?.image}`);
         },
         text() {
             return this.courses.popupLessView?.text.split("\n");

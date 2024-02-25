@@ -11,7 +11,7 @@
     </div>
     <div class="chatbot-no-messages-conversations">
       <div
-        v-for="conversation in council.conversations"
+        v-for="conversation in council.conversations" :key="conversation"
         @click="$emit('sendMessage', conversation)"
       >
         {{ conversation }}
@@ -21,16 +21,23 @@
 </template>
 
 <script>
+import s3AssetsMixin from '~/mixins/s3AssetsMixin';
+
 export default {
   emits: ['sendMessage'],
+  mixins: [ s3AssetsMixin ],
   props: {
     councils: [],
   },
   computed: {
+    imageGenerator() {
+        return (imagePath) => this.s3AssetsGenerator(imagePath);
+    },
     council() {
       const council = this.$store.getters['chatbot/council'];
       return (
         this.councils.find((c) => c.id === council?.id) || this.councils[0]
+
       );
     },
   },

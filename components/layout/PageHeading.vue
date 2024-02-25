@@ -190,6 +190,21 @@ export default {
       url(../../assets/images/backgrounds/chatbot-bg.jpg);
   }
 
+  &#certifications {
+    background-image: linear-gradient(
+        to right,
+        rgba(#4189bd, 0.8),
+        rgba(#4189bd, 0.8)
+      ),
+      url(../../assets/images/backgrounds/certifications-bg.webp);
+    background-position-y: bottom;
+    background-position-y: 10%;
+
+    @include respond(tablet-sm) {
+      background-position-y: 30%;
+    }
+  }
+
   &#error-page {
     background-image: linear-gradient(
         to right,

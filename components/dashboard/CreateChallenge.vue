@@ -4,7 +4,7 @@
     :active="active"
     class="new-challenge-modal create-challenge"
   >
-    <div class="new-challenge-modal__section">
+    <div class="new-challenge-modal__section" v-if="!templateWithAi">
       <h3 class="new-challenge-modal__subheading">Choose a language</h3>
       <VueSelect
         v-model="selectedLanguage"
@@ -13,7 +13,7 @@
         class="language-selector"
       />
     </div>
-    <div class="new-challenge-modal__section">
+    <div class="new-challenge-modal__section" v-if="!templateWithAi">
       <h3 class="new-challenge-modal__subheading">
         Choose challenge template
       </h3>
@@ -29,15 +29,29 @@
         </div>
       </div>
     </div>
+    <CreateTemplateWithAi v-else />
+
     <div class="new-challenge-modal__section">
       <h3
         class="new-challenge-modal__subheading new-challenge-modal__subheading--big"
       >
         OR
       </h3>
-      <BaseButton variant="blue" @click="selectTemplate(null)">
-        Create new template
-      </BaseButton>
+      <div class="new-challenge-modal__section-buttons">
+        <BaseButton variant="blue" @click="selectTemplate(null)">
+          Create new template
+        </BaseButton>
+        <BaseButton
+          variant="blue"
+          @click="templateWithAi = true"
+          v-if="!templateWithAi"
+        >
+          Create template with AI
+        </BaseButton>
+        <BaseButton variant="blue" @click="templateWithAi = false" v-else>
+          Clone existing template
+        </BaseButton>
+      </div>
     </div>
   </PopupModal>
 </template>
@@ -52,7 +66,8 @@ export default {
   inject: ["closeModal"],
   data() {
     return {
-      selectedLanguage: "English"
+      selectedLanguage: "English",
+      templateWithAi: false
     };
   },
   computed: {

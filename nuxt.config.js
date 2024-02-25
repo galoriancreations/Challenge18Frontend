@@ -64,7 +64,7 @@ export default {
       "~/components/beneficialAgiAction",,
       "~/components/chatbot",
       "~/components/certifications",
-      "~/components/certifications/templates"
+      "~/components/certifications/templates/BGI"
     ]
   },
 
@@ -72,9 +72,18 @@ export default {
 
   modules: ["@nuxtjs/axios", "cookie-universal-nuxt", "nuxt-route-meta"],
 
-  build: {
-    transpile: ["vue-agile"]
-  },
+   build: {
+    transpile: ["vue-agile"],
+    extend(config) {
+      config.module.rules.push({
+        test: /\.(md|pdf|ico)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]'
+        }
+      });
+    }
+  },  
 
   pageTransition: {
     name: "page",
@@ -105,7 +114,8 @@ export default {
     emailjsTemplate: process.env.EMAILJS_TEMPLATE,
     emailjsService: process.env.EMAILJS_SERVICE,
     paypalSandbox: process.env.PAYPAL_SANDBOX,
-    paypalLive: process.env.PAYPAL_LIVE
+    paypalLive: process.env.PAYPAL_LIVE,
+    s3AssetsUrl: 'https://ting-frontend-assets.s3.amazonaws.com/'
   },
 
   server: {

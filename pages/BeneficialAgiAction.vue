@@ -1,91 +1,25 @@
 <template>
     <page title="Beneficial AGI Action">
         <div id="commandos_container">
-            <section v-if="currentPageIndex === 0" :key="currentPageIndex">
+            <section v-for="(step, index) in filteredSections" :key="index">
                 <div id="track_pages_container">
-                    <div id="current_page"></div>
-                    <div class="pages"></div>
-                    <div class="pages"></div>
+                    <div v-for="(page, i) in trackPages" :key="i"
+                        :class="['pages', { 'current_page': i === currentPageIndex}]"></div>
                 </div>
 
                 <div class="animation_container">
-                    <beneficial-agi-animations :currentIndexAnimation="currentPageIndex" />
+                    <beneficial-agi-animations :key="currentPageIndex" :currentIndexAnimation="currentPageIndex" />
                 </div>
 
-                <beneficial-agi-steps @next-page="nextPage" @prev-page="prevPage"
-                    :currentPageIndex="currentPageIndex" header="Welcome to BGI Action"
-                    paragraph="Our mission is to support the strength of the Singularity Network students community by publishing real life facts and events, thereby promoting empathy and sympathy towards Beneficial BGI."
-                    skipButtonText="Page" />
+                <beneficial-agi-steps v-if="index < 6" @next-page="nextPage" @prev-page="prevPage"
+                    :currentPageIndex="currentPageIndex" :header="step.header" :paragraph="step.paragraph"
+                    :skipButtonText="step.skipButtonText" :displayButton="step.displayButton" @skip-steps="skipButton" />
 
-            </section>
-            <section v-if="currentPageIndex === 1" :key="currentPageIndex">
-                <div id="track_pages_container">
-                    <div class="pages "></div>
-                    <div id="current_page"></div>
-                    <div class="pages"></div>
-                </div>
+                <beneficial-agi-video v-else-if="index === 6" @next-page="nextPage" :currentPageIndex="currentPageIndex" />
 
-                <div class="animation_container">
-                    <beneficial-agi-animations :currentIndexAnimation="currentPageIndex" />
-                </div>
+                <beneficial-agi-qa v-else @prev-page="prevPage" />
+            </section>
 
-                <beneficial-agi-steps @next-page="nextPage" @prev-page="prevPage" :currentPageIndex="currentPageIndex"
-                    header="Building international bridges"
-                    paragraph="Our vision is creating an approachable publicity platform, to allow anyone to take part in the development of Decentralized Open-Source AGI." />
-            </section>
-            <section v-if="currentPageIndex === 2" :key="currentPageIndex">
-                <div id="track_pages_container">
-                    <div class="pages "></div>
-                    <div class="pages"></div>
-                    <div id="current_page"></div>
-                </div>
-                <div class="animation_container">
-                    <beneficial-agi-animations :currentIndexAnimation="currentPageIndex" />
-                </div>
-                <beneficial-agi-steps @next-page="nextPage" @prev-page="prevPage" :currentPageIndex="currentPageIndex"
-                    header="Your voice is important"
-                    paragraph="Internationally, any voice is valuable and helps make an impact. The world is filled with fake news and biased propaganda, which leads to ignorance. Join us, help spread the word, every click and share count." />
-            </section>
-            <section v-if="currentPageIndex === 3" :key="currentPageIndex">
-                <div id="track_pages_container">
-                    <div id="current_page"></div>
-                    <div class="pages"></div>
-                    <div class="pages"></div>
-                </div>
-                <div class="animation_container">
-                    <beneficial-agi-animations :currentIndexAnimation="currentPageIndex" />
-                </div>
-                <beneficial-agi-steps @next-page="nextPage" @prev-page="prevPage" :currentPageIndex="currentPageIndex"
-                    @skip-steps="skipButton" header="First Step"
-                    paragraph="Click the Share button - which will copy the post and redirect you to a Facebook group."
-                    skipButtonText="Skip" :displayButton="true" />
-            </section>
-            <section v-if="currentPageIndex === 4" :key="currentPageIndex">
-                <div id="track_pages_container">
-                    <div class="pages "></div>
-                    <div id="current_page"></div>
-                    <div class="pages"></div>
-                </div>
-                <div class="animation_container">
-                    <beneficial-agi-animations :currentIndexAnimation="currentPageIndex" />
-                </div>
-                <beneficial-agi-steps @next-page="nextPage" @prev-page="prevPage" :currentPageIndex="currentPageIndex"
-                    header="Second Step"
-                    paragraph="On the Facebook group page, join the group and paste the copied post from the first step" />
-            </section>
-            <section v-if="currentPageIndex === 5" :key="currentPageIndex">
-                <div id="track_pages_container">
-                    <div class="pages "></div>
-                    <div class="pages"></div>
-                    <div id="current_page"></div>
-                </div>
-                <div class="animation_container">
-                    <beneficial-agi-animations :currentIndexAnimation="currentPageIndex" />
-                </div>
-                <beneficial-agi-steps @next-page="nextPage" @prev-page="prevPage" :currentPageIndex="currentPageIndex"
-                    header="Third Step"
-                    paragraph="Hit the share button and that's it! The video will have been posted, and you'll have taken an active part in global propaganda." />
-            </section>
             <section v-if="currentPageIndex === 6" :key="currentPageIndex">
                 <beneficial-agi-video @next-page="nextPage" :currentPageIndex="currentPageIndex" />
             </section>
@@ -99,10 +33,11 @@
 
 <script>
 import Page from '../components/layout/Page.vue';
-import BeneficialAgiAnimations from '../components/beneficialAgiAction/beneficialAgiAnimations.vue';
-import BeneficialAgiQA from '../components/beneficialAgiAction/beneficialAgiQA.vue';
+import steps from '~/assets/data/beneficialAgiAction';
 import BeneficialAgiSteps from '../components/beneficialAgiAction/beneficialAgiSteps.vue';
+import BeneficialAgiAnimations from '../components/beneficialAgiAction/beneficialAgiAnimations.vue';
 import BeneficialAgiVideo from '../components/beneficialAgiAction/beneficialAgiVideo.vue';
+import BeneficialAgiQA from '../components/beneficialAgiAction/beneficialAgiQA.vue';
 
 export default {
     components: {
@@ -117,6 +52,7 @@ export default {
         return {
             maxIndex: 7,
             currentPageIndex: 0,
+            steps,
         }
     },
 
@@ -129,6 +65,15 @@ export default {
         },
         skipButton() {
             this.currentPageIndex = 6;
+        },
+    },
+
+    computed: {
+        filteredSections() {
+            return this.steps.filter((_, index) => index === this.currentPageIndex);
+        },
+        trackPages() {
+            return Array.from({ length: this.maxIndex + 1 - 2 }, (_, i) => i);
         },
     },
 }
@@ -153,14 +98,14 @@ export default {
     gap: 15px;
 }
 
-.pages {
+.pages  {
     height: 18px;
     width: 18px;
     border-radius: 20px;
     background-color: #C7D5E6;
 }
 
-#current_page {
+.current_page {
     height: 20px;
     width: 36px;
     background-color: #00459E;

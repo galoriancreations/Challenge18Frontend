@@ -19,13 +19,16 @@
           <strong>Note:</strong> {{ note }}
         </p>
       </div>
-      <img class="how-to-play__img" :src="imageSrc" :alt="title" />
+      <img class="how-to-play__img" :src="imageGenerator" :alt="title" />
     </div>
   </section>
 </template>
 
 <script>
+import s3AssetsMixin from '~/mixins/s3AssetsMixin';
+
 export default {
+    mixins: [ s3AssetsMixin ],
   props: {
     title: String,
     items: Array,
@@ -33,8 +36,8 @@ export default {
     image: String
   },
   computed: {
-    imageSrc() {
-      return require(`~/assets/images/how-to-play/${this.image}`);
+    imageGenerator() {
+      return this.s3AssetsGenerator(`images/how-to-play/${this.image}`);
     }
   }
 };
