@@ -16,7 +16,7 @@
               color="white"
               @click="addDayWithAi"
             >
-            <img src="@/assets/images/microchip-ai.svg" alt="generate day with ai">
+            <img :src="this.s3AssetsGenerator('images/microchip-ai.svg')" alt="generate day with ai">
           </ActionButton>
           </div>
         </section>
@@ -128,9 +128,10 @@ import { rtlLanguages, dayTranslations } from "~/assets/util/options";
 import moment from "moment";
 import uniqid from "uniqid";
 import popupModal from "~/mixins/popup-modal";
+import s3AssetsMixin from "~/mixins/s3AssetsMixin";
 
 export default {
-  mixins: [popupModal],
+  mixins: [popupModal, s3AssetsMixin],
   inject: [
     "data",
     "templateOnlyMode",
@@ -230,10 +231,8 @@ export default {
       // get selected template by selectedTemplate cookie
       const selectedTemplate = this.$cookies.get('selectedTemplate');
       // create axios request to backend to generate day with ai
-      const { day } = await this.$axios.$post('/xapi', {
-        generateDayWithAi: {
+      const { day } = await this.$axios.$post('/generate/day', {
           templateId: selectedTemplate,
-        },
       });
       
       // add to tasks and messages ids

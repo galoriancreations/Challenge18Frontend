@@ -180,7 +180,7 @@ export default {
       template: {
         language: 'English',
         topic: '',
-        days: 3,
+        days: 1,
         tasks: 1,
         messages: 1,
         preDays: 1,
@@ -225,19 +225,20 @@ export default {
 
       // go to top of modal by going to topDiv
       this.$refs.topDiv.scrollIntoView();
-      const { template } = await this.$axios.$post('/xapi', {
-        createTemplateWithAi: {
-          topic: this.template.topic,
-          language: this.template.language,
-          days: this.template.days,
-          tasks: this.template.tasks,
-          messages: this.template.messages,
-          preDays: this.template.preDays,
-          preMessagesPerDay: this.template.preMessagesPerDay,
-          targetAudience: this.template.targetAudience,
-          // creator: this.user._id,
-          voice: this.template.voice,
-        },
+
+      const { user } = this.$store.getters;
+
+      const { template } = await this.$axios.$post('/generate/template', {
+        topic: this.template.topic,
+        language: this.template.language,
+        days: this.template.days,
+        tasks: this.template.tasks,
+        messages: this.template.messages,
+        preDays: this.template.preDays,
+        preMessagesPerDay: this.template.preMessagesPerDay,
+        targetAudience: this.template.targetAudience,
+        creator: user._id,
+        voice: this.template.voice,
       });
 
       if (!template?._id) {

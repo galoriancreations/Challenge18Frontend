@@ -1,35 +1,43 @@
 <template>
-  <div class="logo-bg">
-    <img src="../../assets/images/new-logo.png" alt="Challenge 18" />
-  </div>
+    <div class="logo-bg">
+        <img :src="this.s3AssetsGenerator('images/new-logo.png')" alt="Challenge 18" />
+    </div>
 </template>
+
+<script>
+import s3AssetsMixin from '~/mixins/s3AssetsMixin';
+
+export default {
+    mixins: [ s3AssetsMixin ]
+}
+</script>
 
 <style lang="scss">
 .logo-bg {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-  img {
-    height: 16rem;
-    opacity: 0.4;
-    animation: spin 2s infinite linear;
+    img {
+        height: 16rem;
+        opacity: 0.4;
+        animation: spin 2s infinite linear;
 
-    @include respond(mobile) {
-      height: auto;
-      width: 20rem;
+        @include respond(mobile) {
+            height: auto;
+            width: 20rem;
+        }
     }
-  }
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
+    0% {
+        transform: rotate(0deg);
+    }
 
-  100% {
-    transform: rotate(360deg);
-  }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 </style>
