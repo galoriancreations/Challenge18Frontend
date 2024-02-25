@@ -199,6 +199,40 @@ export default {
       url(../../assets/images/backgrounds/404-bg.jpg);
   }
 
+  &#magic-page {
+    background-image:
+      url(../../assets/images/backgrounds/photo.png);
+  }
+  &#BGI-page {
+    background-image:
+      url(../../assets/images/photo-magic/BGI-mAGIc.png);
+  }
+  &#environmagic-page {
+    background-image:
+      url(../../assets/images/photo-magic/Environmagic.png);
+  }
+  &#SDG-Magic-page {
+    background-image:
+      url(../../assets/images/photo-magic/SDG-Magic.png);
+  }
+  &#imagic-page {
+    background-image:
+      url(../../assets/images/photo-magic/Imagic.png);
+  }
+  &#Kids-Magic-page {
+    background-image:
+      url(../../assets/images/photo-magic/Kids-Magic.png);
+  }
+  &#YouAndI-Magic-page {
+    background-image:
+      url(../../assets/images/photo-magic/You&I-Magic.png);
+  }
+  &#Moral-Magic-page {
+    background-image:
+      url(../../assets/images/photo-magic/Moral-Magic.png);
+  }
+
+
   &__heading {
     font-size: 6rem;
     color: #fff;

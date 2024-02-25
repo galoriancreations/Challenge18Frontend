@@ -34,9 +34,7 @@ export const mutations = {
 export const actions = {
   async auth(context, { mode, data }) {
     const authData = await this.$axios.$post(`/users/${mode}`,data);
-    console.log(authData);
     const { access_token: token, user, exp } = authData;
-    // console.log(JSON.stringify(user));
     this.$axios.setToken(token, "Bearer");
 
     // const isAdmin = user.isAdmin || user.accountType === "admin";
@@ -87,10 +85,8 @@ export const actions = {
     // this is new:
     // when entering dashboard data object must hold a editProfile key
     if (data == null) {
-      console.log("updateUser request: data is {}");
       data = { editProfile: {} };
     }
-    console.log(`updateUser request: data now is: `, data);
     // const { user } = await this.$axios.$post("/xapi", data);
     // connect post with data path
     const { user } = await this.$axios.$post("/users/editProfile", data);

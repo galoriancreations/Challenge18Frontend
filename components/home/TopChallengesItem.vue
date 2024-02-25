@@ -66,9 +66,10 @@
 <script>
 import moment from "moment";
 import popupModal from "~/mixins/popup-modal";
+import s3AssetsMixin from "~/mixins/s3AssetsMixin";
 
 export default {
-    mixins: [popupModal],
+    mixins: [popupModal, s3AssetsMixin],
     props: {
         challenge: Object
     },
@@ -86,7 +87,7 @@ export default {
 
     computed: {
         image() {
-            return require(`~/assets/images/logos/${this.challenge.popupLessView?.image}`)
+            return this.s3AssetsGenerator(`images/logos/${this.challenge.popupLessView?.image}`);
         },
         text() {
             return this.challenge.popupLessView?.text.split("\n");

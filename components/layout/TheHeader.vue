@@ -48,7 +48,7 @@ export default {
       const items = [
 
         { link: "/", text: "Home" },
-        { link: '/chatbot', text: 'Chatbot' },
+        { link: '/chatbot', text: 'Chatbot', hide: !this.isLoggedIn },
         // {
         //   text: "About",
         //   dropdown: [
@@ -72,7 +72,8 @@ export default {
             { link: "/protocol", text: "Protocol" },
             { link: "/articles", text: "Articles" },//belongs in about
             { link: "/legal_AI_Ethics", text: "Terms & Conditions"},
-            { link: "/beneficialAgiAction", text: "BGI Action"}
+            { link: "/beneficialAgiAction", text: "BGI Action"},
+            { link: '/magic', text: 'Magic Game', hide: !this.isLoggedIn }
           ]
         },
         // { link: "/marketplace", text: "Marketplace" },
