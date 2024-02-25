@@ -2,7 +2,7 @@
     <div class="container">
         <div class="head">
             <h3>{{ answer.user}}</h3>
-            <button @click="toggleHeart" style="color: red" ><i :class="[is_fav ?  'fa-heart' : 'fa-heart-o', 'fa']" ></i> {{answer.likes}}</button>
+            <button @click="toggleHeart" style="color: red" ><i :class="[this.is_fav ?  'fa-heart' : 'fa-heart-o', 'fa']" ></i> {{this.answer.likes}}</button>
         </div>
         <p>{{ answer.text}}</p>
     </div>
@@ -33,12 +33,10 @@ export default {
             }
 
             const updateAnswer = {
-                id: this.answer.id,
+                id: this.answer._id,
                 likes: this.answer.likes
             }
-
             this.$emit('update-likes' , updateAnswer);
-
         }
     }
 }

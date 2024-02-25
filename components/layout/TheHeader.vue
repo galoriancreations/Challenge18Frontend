@@ -49,6 +49,7 @@ export default {
 
         { link: "/", text: "Home" },
         { link: '/chatbot', text: 'Chatbot' },
+        { link: '/magic', text: 'Magic Game' },
         // {
         //   text: "About",
         //   dropdown: [

@@ -30,18 +30,18 @@ export default {
     methods: {
       async onPublish(e){
         e.preventDefault()
-        const res= await this.$axios.$post("/magicgame/getAnswer",{
+        const response = await this.$axios.$post("/magicgame/updateAnswer",{
             question: this.id,
             qnum: this.qnumber,
             answer: this.answer
           })
-        if(!this.answer){
-          alert('Please add a answer')
-          return;
-        }
-        console.log(res);
-        console.log(res.answers);
-        this.$emit('publish-answer' , res.answers);
+          console.log(this.question)
+        if(!this.answer) return alert('Please add a answer');
+        
+        const { answers } = response.result;
+        this.$emit('publish-answer' , answers);
+        console.log(answers)
+        return response 
         }
     },
 

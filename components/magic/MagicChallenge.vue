@@ -10,7 +10,7 @@
               name: 'QuestionPage',
               params: { question: question }
             }">
-            click to answer {{this.question.id}}
+            click to answer {{this.question.answer}}
             </NuxtLink>
           </BaseButton>
           <BaseButton class="whatsapp-btn">Share on<img width="100px" height="100px" :src="image" @click="shareQuestion"></BaseButton>
@@ -29,6 +29,7 @@ import image from "~/assets/images/whatsapp.jpg";
 
 export default {
   mixins: [popupModal],
+  components: { Page, BaseButton },
   data() {
     return {
       question: {},
@@ -43,29 +44,26 @@ export default {
   methods: {
     async getQuestion() {
       const queryString = window.location.search;
-      // console.log(queryString);
       const urlParams = new URLSearchParams(queryString);
       this.qId = urlParams.get('qId')
       if (!this.qId) {
         this.qId = false
       }
       this.active = true
-      console.log(this.challenge);
-      const res = await this.$axios.$post("/magicgame/getQuestion", {
+      const response = await this.$axios.$post("/magicgame/getQuestion", {
         qId: this.qId,
         challenge: this.challenge
       })
-      console.log(res);
-
+      const {answers, qnum, text, _id} = response.result;
       this.question = {
-        questionId:res._id,
-        text: res.text,
-        id: res.qnum,
-        answers: res.answers
+          questionId: qnum,
+          id: _id,
+          answers,
+          text
       }
-      console.log(this.question);
-
+      return response
     },
+    
     shareQuestion() {
       const shareUrl = window.location.href + `?qId=${this.question.id}`
       const shareText = 'Want to see some mAGIc? 🪄✨';
@@ -74,7 +72,6 @@ export default {
       window.open(whatsappUrl)
     }
   },
-  components: { Page, BaseButton }
 }
 </script>
 
