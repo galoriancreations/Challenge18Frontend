@@ -31,6 +31,8 @@
     transform: translate(-50%, -50%) scale(0);
     width: calc(100% - 2 * #{$padding-sides-mobile});
     max-width: 45rem;
+    min-height: 40rem;
+    max-height: 65rem;
     background-color: #fff;
     padding: 3rem 3rem 4rem;
     text-align: center;
@@ -38,6 +40,13 @@
     border-radius: 1rem;
     transition: all 0.5s;
     z-index: 99999;
+
+    .top-challenges__text {
+      p{
+        width: 100%;
+        text-align: center;
+      }
+    }
   }
 
   &.active &__container {

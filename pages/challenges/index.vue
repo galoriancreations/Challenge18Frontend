@@ -80,11 +80,11 @@ export default {
 
             if (targetElement) 
             {
-                targetElement.scrollLeft += this.mobileMode ? 435 : 1408;
+                targetElement.scrollLeft += this.mobileMode ? 435 : 930;
             } 
             else if(containerRef)
             {
-                this.$refs[containerRef].scrollLeft += this.mobileMode ? 435 : 1408;
+                this.$refs[containerRef].scrollLeft += this.mobileMode ? 435 : 930;
             }
         },
         scrollLeft(containerRef) {
@@ -92,11 +92,11 @@ export default {
 
             if (targetElement) 
             {
-                targetElement.scrollLeft -= this.mobileMode ? 435 : 1408;
+                targetElement.scrollLeft -= this.mobileMode ? 435 : 930;
             } 
             else if(containerRef)
             {
-                this.$refs[containerRef].scrollLeft -= this.mobileMode ? 435 : 1408;
+                this.$refs[containerRef].scrollLeft -= this.mobileMode ? 435 : 930;
             }
         },
     },
@@ -148,7 +148,7 @@ export default {
     display: flex;
     width: fit-content;
     align-items: center;
-    padding: 50px;
+    padding: 50px 0;
     scroll-behavior: smooth;
     overflow: hidden;
 
@@ -161,6 +161,7 @@ export default {
 .challenges_container {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 20px;
 
 
