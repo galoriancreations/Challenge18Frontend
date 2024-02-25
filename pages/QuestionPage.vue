@@ -1,8 +1,8 @@
 <template>
     <Page v-bind:title="this.question.text" name="question-page">
-        <AddAnswer :question="this.question" :active="showModal" @publish-answer="publishAnswer" />
+        <AddAnswer :question="this.question" :active="showModal" :challenge="this.challenge" @publish-answer="publishAnswer" />
         <div v-if="!showModal">
-            <AllAnswers :id="this.question.id" :answers="this.question.answers" />
+            <AllAnswers :id="this.question.id" :answers="this.question.answers" :challenge="this.challenge" />
             <NuxtLink to='/magic' class="btn">share another question</NuxtLink>
         </div>
     </Page>
@@ -20,7 +20,7 @@ export default {
         return {
             showModal: true,
             question: this.$route.params.question,
-            checkPage: this.$route.params.checkPage
+            challenge: this.$route.params.challenge
         }
     },
     methods: {

@@ -8,7 +8,7 @@
           <BaseButton class="btn" >
             <NuxtLink :to="{
               name: 'QuestionPage',
-              params: { question: question }
+              params: { question: question, challenge: this.challenge }
             }">
             click to answer {{this.question.answer}}
             </NuxtLink>

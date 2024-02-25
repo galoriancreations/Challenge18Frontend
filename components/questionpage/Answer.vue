@@ -31,7 +31,7 @@ export default {
             else{
                 this.answer.likes++;
             }
-
+            console.log(this.answer.likes);
             const updateAnswer = {
                 id: this.answer._id,
                 likes: this.answer.likes

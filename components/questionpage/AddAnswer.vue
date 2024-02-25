@@ -25,14 +25,15 @@ export default {
     },
     props: {
         active: Boolean,
-        question: Object
+        question: Object,
+        challenge: String
     },
     methods: {
       async onPublish(e){
         e.preventDefault()
         const response = await this.$axios.$post("/magicgame/updateAnswer",{
+            challenge: this.challenge,
             question: this.id,
-            qnum: this.qnumber,
             answer: this.answer
           })
           console.log(this.question)

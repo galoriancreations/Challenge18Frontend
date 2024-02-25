@@ -8,7 +8,7 @@
 export default {
     data() {
         return {
-            challenge: "Kids-Magic"
+            challenge: "KidsMagic"
         }
     }
 }

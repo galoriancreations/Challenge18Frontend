@@ -9,14 +9,16 @@
 export default {
     props: {
         answers: Array,
-        id: String
+        id: String,
+        challenge: String
     },
     methods: {
         async updateLikes(updateAnswer) {
             try
             {
                 const response = await this.$axios.$put("/magicgame/updateLikes", {
-                    qnum: this.id,
+                    challenge: this.challenge,
+                    question: this.id,
                     id: updateAnswer.id,
                     likes: updateAnswer.likes
                 });

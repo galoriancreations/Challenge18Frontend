@@ -8,7 +8,7 @@
 export default {
     data() {
         return {
-            challenge: "Moral-Magic"
+            challenge: "MoralMagic"
         }
     }
 }
