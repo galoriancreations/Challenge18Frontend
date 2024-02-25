@@ -1,59 +1,58 @@
 <template>
-<section class="game-section">
+  <section class="game-section">
     <SectionHeading small>Share On Magic</SectionHeading>
     <div class="game-section__grid">
       <div class="game-section__img" v-for="image in images" :key="image.link">
-        <NuxtLink :to="{
-          name: image.link}">
-          <img :src="image.src">
-          <!-- @click="location.href=image.link" -->
+        <NuxtLink :to="{ name: image.link }">
+          <img :src="s3AssetsGenerator(image.src)" />
         </NuxtLink>
-        <h1 class="game-section__title">{{image.link}}</h1>
+        <h1 class="game-section__title">{{ image.link }}</h1>
       </div>
-    
     </div>
-</section>
+  </section>
 </template>
 
 <script>
 import nuxtConfig from '~/nuxt.config';
+import s3AssetsMixin from '~/mixins/s3AssetsMixin';
 
 export default {
-    data() {
-        return {
-            images: [
-                {
-                    src: require("~/assets/images/photo-magic/BGI-mAGIc.png"),
-                    link: 'BGI-mAGIc' ,
-                },
-                {
-                    src: require("~/assets/images/photo-magic/Environmagic.png"),
-                    link: 'Environmagic' 
-                },
-                {
-                    src: require("~/assets/images/photo-magic/SDG-Magic.png"),
-                    link: 'SDG-Magic' 
-                },
-                {
-                    src: require("~/assets/images/photo-magic/Imagic.png"),
-                    link: 'Imagic' 
-                },
-                {
-                    src: require("~/assets/images/photo-magic/Kids-Magic.png"),
-                    link: 'KidsMagic' 
-                },
-                {
-                    src: require("~/assets/images/photo-magic/You&I-Magic.png"),
-                    link: 'YouAndI-Magic' 
-                },
-                {
-                    src: require("~/assets/images/photo-magic/Moral-Magic.png"),
-                    link: 'MoralMagic' 
-                },
-            ]
-        };
-    },
-    components: { nuxtConfig }
+  mixins: [s3AssetsMixin],
+  data() {
+    return {
+      images: [
+        {
+          src: 'images/photo-magic/BGI-mAGIc.png',
+          link: 'BGI-mAGIc',
+        },
+        {
+          src: 'images/photo-magic/Environmagic.png',
+          link: 'Environmagic',
+        },
+        {
+          src: 'images/photo-magic/SDG-Magic.png',
+          link: 'SDG-Magic',
+        },
+        {
+          src: 'images/photo-magic/Imagic.png',
+          link: 'Imagic',
+        },
+        {
+          src: 'images/photo-magic/Kids-Magic.png',
+          link: 'KidsMagic',
+        },
+        {
+          src: 'images/photo-magic/You&I-Magic.png',
+          link: 'YouAndI-Magic',
+        },
+        {
+          src: 'images/photo-magic/Moral-Magic.png',
+          link: 'MoralMagic',
+        },
+      ],
+    };
+  },
+  components: { nuxtConfig },
 };
 </script>
 

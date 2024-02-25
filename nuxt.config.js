@@ -73,7 +73,7 @@ export default {
 
   buildModules: ["@nuxtjs/style-resources", "@nuxtjs/vuetify"],
 
-  modules: ["@nuxtjs/axios", "cookie-universal-nuxt", "nuxt-route-meta", 'vue-social-sharing/nuxt'],
+  modules: ["@nuxtjs/axios", "cookie-universal-nuxt", "nuxt-route-meta"],
 
    build: {
     transpile: ["vue-agile"],

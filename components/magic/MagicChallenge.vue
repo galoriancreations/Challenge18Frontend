@@ -1,16 +1,16 @@
 <template>
   <div>
     <BaseButton variant="blue" @click="getQuestion">Pop a random question</BaseButton>
-    <PopupModal :active="active" height="400px" class="popupQuestion">
-      <h1 class="popupQuestion__title">{{ this.question.text }}</h1>
+    <PopupModal :active="localActive" height="400px" class="popupQuestion">
+      <h1 class="popupQuestion__title">{{ question.text }}</h1>
       <div class="popupQuestion__body">
         <div class="btn-container">
           <BaseButton class="btn" >
             <NuxtLink :to="{
               name: 'QuestionPage',
-              params: { question: question, challenge: this.challenge }
+              params: { question: question, challenge: challenge }
             }">
-            click to answer {{this.question.answer}}
+            click to answer {{ question.answer }}
             </NuxtLink>
           </BaseButton>
           <BaseButton class="whatsapp-btn">Share on<img width="100px" height="100px" :src="image" @click="shareQuestion"></BaseButton>
@@ -34,37 +34,38 @@ export default {
     return {
       question: {},
       qId: false,
-      image:image,
-      active: false
+      image: image,
+      localActive: this.active
     }
   },
   props: {
+    active: Boolean,
     challenge: String
   },
   methods: {
     async getQuestion() {
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      this.qId = urlParams.get('qId')
-      if (!this.qId) {
-        this.qId = false
+      try {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        this.qId = urlParams.get('qId');
+
+        if (!this.qId) {
+          this.qId = false;
+        }
+
+        this.localActive = true;
+        const response = await this.$axios.$post("/magicgame/getQuestion", {
+          qId: this.qId,
+          challenge: this.challenge
+        });
+
+        const { answers, qnum, text, _id } = response.result;
+        this.question = { questionId: qnum, id: _id, answers: answers, text: text };
+        return response;
+      } catch (err) {
+        console.error('Failed To Get Question', err);
       }
-      this.active = true
-      console.log(this.challenge);
-      const response = await this.$axios.$post("/magicgame/getQuestion", {
-        qId: this.qId,
-        challenge: this.challenge
-      })
-      const {answers, qnum, text, _id} = response.result;
-      this.question = {
-          questionId: qnum,
-          id: _id,
-          answers: answers,
-          text: text
-      }
-      return response
-    },
-    
+      },
     shareQuestion() {
       const shareUrl = window.location.href + `?qId=${this.question.id}`
       const shareText = 'Want to see some mAGIc? 🪄✨';
@@ -89,11 +90,7 @@ export default {
     text-align: center;
     margin-bottom: 1rem;
   }
-
-  // &__body {
-  //     margin: 1rem 3rem;
-  // }
-
+  
   .button {
     width: 20rem;
    
