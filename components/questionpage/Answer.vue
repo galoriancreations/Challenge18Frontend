@@ -13,11 +13,11 @@
 export default {
     data() {
         return {
-            clicked: 0
+            clicked: 0,
+            is_fav: false
         }
     },
     props: {
-        is_fav: Boolean,
         answer: Object
     },
     methods:{

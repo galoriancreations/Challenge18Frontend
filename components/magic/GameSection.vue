@@ -2,12 +2,13 @@
 <section class="game-section">
     <SectionHeading small>Share On Magic</SectionHeading>
     <div class="game-section__grid">
-      <div class="game-section__img" v-for="image in images" :key="image">
+      <div class="game-section__img" v-for="image in images" :key="image.link">
         <NuxtLink :to="{
           name: image.link}">
           <img :src="image.src">
           <!-- @click="location.href=image.link" -->
         </NuxtLink>
+        <h1 class="game-section__title">{{image.link}}</h1>
       </div>
     
     </div>
@@ -23,7 +24,7 @@ export default {
             images: [
                 {
                     src: require("~/assets/images/photo-magic/BGI-mAGIc.png"),
-                    link: 'BGI-mAGIc' 
+                    link: 'BGI-mAGIc' ,
                 },
                 {
                     src: require("~/assets/images/photo-magic/Environmagic.png"),
@@ -75,6 +76,13 @@ export default {
     @include respond(mobile) {
       gap: 2rem;
     }
+  }
+
+  &__title {
+    color: $color-blue-2;
+    font-size: 2rem;
+    margin: 1rem 0rem;
+    text-align: center;
   }
 
   &__img {

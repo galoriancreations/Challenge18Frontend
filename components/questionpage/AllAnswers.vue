@@ -1,7 +1,7 @@
 <template>
     <DashboardSection title="All Answers">
         <div>
-            <Answer class="container" v-for="item in answers" :key="item.id" :answer="item" @update-likes="updateLikes" />
+            <Answer class="container" v-for="answer in answers" :key="answer.id" :answer="answer" @update-likes="updateLikes" />
         </div>
     </DashboardSection>
 </template>

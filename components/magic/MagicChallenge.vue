@@ -34,11 +34,11 @@ export default {
     return {
       question: {},
       qId: false,
-      image:image
+      image:image,
+      active: false
     }
   },
   props: {
-    active: Boolean,
     challenge: String
   },
   methods: {
