@@ -1,5 +1,5 @@
 <template>
-    <Page v-bind:title="this.question.text" name="question-page">
+    <Page  v-bind:title="this.question.text" name="question-page">
         <AddAnswer :question="this.question" :active="showModal" :challenge="this.challenge" @publish-answer="publishAnswer" />
         <div v-if="!showModal">
             <AllAnswers :id="this.question.id" :answers="this.question.answers" :challenge="this.challenge" />
@@ -23,28 +23,42 @@ export default {
             challenge: this.$route.params.challenge
         }
     },
+    
     methods: {
         publishAnswer(answers) {
             this.question.answers = answers
             this.showModal = false;
         },
-        async getAnswers() {
-            const response = await this.$axios.$post("/magicgame/getQuestion", {
-                qId: this.qId,
-                challenge: this.challenge
-            })
-            const { answers, qnum, text, _id } = response.result;
-
-            this.question = {
-                questionId: qnum,
-                id: _id,
-                answers,
-                text
+        async getQuestion() {
+            try 
+            {
+                const response = await this.$axios.$post("/magicgame/getQuestion", {
+                    qId: this.qId,
+                    challenge: this.challenge
+                })
+            
+                const { answers, qnum, text, _id } = response.result;
+                this.question = { questionId: qnum, id: _id, answers, text }
+                return response;
             }
-            console.log(response)
-            return response;
-        }
+            catch(err)
+            {
+                console.error('Failed To Get Questions', err);
+            }
+        },
     },
+    watch: {
+        '$route.params.question': {
+            immediate: true,
+            handler(newVal) {
+                this.question = newVal || {};
+                if (typeof this.question === 'object' && Object.keys(this.question).length === 0) 
+                {
+                    this.$router.push('/magic')
+                }
+            }
+        }
+    }
 }
 
 </script>

@@ -2,7 +2,7 @@
 <section class="game-section">
     <SectionHeading small>Share On Magic</SectionHeading>
     <div class="game-section__grid">
-      <div class="game-section__img" v-for="image in images" :key="image">
+      <div class="game-section__img" v-for="image in images" :key="image.link">
         <NuxtLink :to="{
           name: image.link}">
           <img :src="image.src">
