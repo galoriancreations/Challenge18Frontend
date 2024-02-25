@@ -14,7 +14,7 @@ import Page from "~/components/layout/Page.vue";
 export default {
     components: { Page },
     meta: {
-        requiresAuth: true
+        requiresAuth: true,
     },
     data() {
         return {

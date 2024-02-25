@@ -50,6 +50,7 @@ export default {
         this.qId = false
       }
       this.active = true
+      console.log(this.challenge);
       const response = await this.$axios.$post("/magicgame/getQuestion", {
         qId: this.qId,
         challenge: this.challenge
@@ -58,8 +59,8 @@ export default {
       this.question = {
           questionId: qnum,
           id: _id,
-          answers,
-          text
+          answers: answers,
+          text: text
       }
       return response
     },
