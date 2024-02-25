@@ -13,8 +13,6 @@
 </template>
 
 <script>
-import html2pdf from 'html2pdf.js';
-
 const html2pdfOptions = {
   margin: 0,
   filename: 'certification.pdf',
@@ -26,6 +24,7 @@ const html2pdfOptions = {
 export default {
   data() {
     return {
+      html2pdf: null,
       name: '[NAME]',
     };
   },
@@ -45,13 +44,13 @@ export default {
   },
   methods: {
     async generatePdf(name) {
+      if (!this.html2pdf) {
+        return null;
+      }
       this.name = name;
       const element = this.$refs.pdfContent;
-
+      
       try {
-        // wait 3 seconds to simulate generating PDF
-        // await new Promise((resolve) => setTimeout(resolve, 3000));
-        // throw new Error('Test error');
         const pdfString = await html2pdf()
           .set(html2pdfOptions)
           .from(element)
@@ -70,6 +69,13 @@ export default {
         return null;
       }
     },
+  },
+  mounted() {
+    if (process.browser) {
+      import('html2pdf.js').then((module) => {
+        this.html2pdf = module.default;
+      });
+    }
   },
 };
 </script>
