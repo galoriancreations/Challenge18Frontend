@@ -1,10 +1,10 @@
 <template>
     <div class="container">
-        <div class="head">
-            <h3>{{ answer.user}}</h3>
-            <button @click="toggleHeart" style="color: red" ><i :class="[this.is_fav ?  'fa-heart' : 'fa-heart-o', 'fa']" ></i> {{this.answer.likes}}</button>
-        </div>
-        <p>{{ answer.text}}</p>
+      <div class="head">
+        <h3>{{ answer.user }}</h3>
+        <button @click="toggleHeart" style="color: red"><i :class="[isFav ? 'fa-heart' : 'fa-heart-o', 'fa']"></i> {{ answer.likes }}</button>
+      </div>
+      <p>{{ answer.text }}</p>
     </div>
 </template>
 
@@ -20,26 +20,30 @@ export default {
     props: {
         answer: Object
     },
-    methods:{
-        async toggleHeart(){
-            this.clicked = this.clicked + 1;
-            this.is_fav = !this.is_fav;
-
-            if(this.clicked % 2 === 0){
-                this.answer.likes--;
-            }
-            else{
-                this.answer.likes++;
-            }
-            console.log(this.answer.likes);
-            const updateAnswer = {
-                id: this.answer._id,
-                likes: this.answer.likes
-            }
-            this.$emit('update-likes' , updateAnswer);
+    data() {
+      return {
+        isFav: this.is_fav,
+        clicked: 0
+      };
+    },
+    methods: {
+      toggleHeart() {
+        this.clicked++;
+        this.isFav = !this.isFav;
+  
+        if (this.clicked % 2 === 0) {
+          this.answer.likes--;
+        } else {
+          this.answer.likes++;
         }
+        const updateAnswer = {
+          id: this.answer._id,
+          likes: this.answer.likes
+        };
+        this.$emit('update-likes', updateAnswer);
+      }
     }
-}
+  };
 </script>
 
 <style  lang="scss"> 

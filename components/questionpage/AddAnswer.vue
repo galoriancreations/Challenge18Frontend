@@ -31,19 +31,26 @@ export default {
     methods: {
       async onPublish(e){
         e.preventDefault()
-        const response = await this.$axios.$post("/magicgame/updateAnswer",{
-            challenge: this.challenge,
-            question: this.id,
-            answer: this.answer
-          })
-          console.log(this.question)
-        if(!this.answer) return alert('Please add a answer');
-        
-        const { answers } = response.result;
-        this.$emit('publish-answer' , answers);
-        console.log(answers)
-        return response 
+            try
+            {
+                const response = await this.$axios.$post("/magicgame/updateAnswer",{
+                    challenge: this.challenge,
+                    question: this.id,
+                    answer: this.answer
+                  })    
+
+                if(!this.answer) return alert('Please add a answer');
+              
+                const { answers } = response.result;
+                this.$emit('publish-answer' , answers);
+                return response 
+            }
+            catch(err)
+            {
+                console.error('Cannot Update Answer', err);
+            }
         }
+
     },
 
 }
