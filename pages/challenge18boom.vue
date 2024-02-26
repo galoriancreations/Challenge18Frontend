@@ -1,3 +1,4 @@
+
 <template>
   <Page title="18 Boom Challenge!" name="boom18">
     <section class="boom18__intro">
