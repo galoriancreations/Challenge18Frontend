@@ -31,7 +31,7 @@
             </div>
         </button>
         
-        <PopupModal :active="showModal" class="top-challenges__modal" >
+        <PopupModal :active="showModal" class="top-challenges__modal" :height="modalHeight">
             <img :src="image" :alt="courses.title" width="30%" />
             <h2 class="top-challenges__title">
                 {{ courses.title }}
@@ -42,7 +42,7 @@
                 </p>
             </div>
             <div class="top-challenges__buttons">
-                <BaseButton v-if="!exapnd" :variant="link ? 'blue' : 'darkblue'" @click="buttonClickHandler">
+                <BaseButton v-if="!expand" :variant="link ? 'blue' : 'darkblue'" @click="buttonClickHandler">
                     <i v-if="loading" class="fas fa-circle-notch fa-spin" />
                     <span v-else>{{ courses.linkText || "Join a challenge" }}</span>
                 </BaseButton>
@@ -51,7 +51,7 @@
                     <span v-else>Create a challenge</span>
                 </BaseButton>
             </div>
-            <div v-if="exapnd" class="top-challenges__list-wrapper">
+            <div v-if="expand" class="top-challenges__list-wrapper">
                 <SectionSeperator />
                 <h3 v-if="!error" class="top-challenges__list-title">
                     Choose a challenge:
@@ -85,7 +85,7 @@ export default {
 
     data() {
         return {
-            exapnd: false,
+            expand: false,
             challenges: [],
             loading: false,
             creating: false,
@@ -149,7 +149,7 @@ export default {
                 } catch (error) {
                     this.error = error;
                 }
-                this.exapnd = true;
+                this.expand = true;
             }
         },
         joinChallenge(link) {
@@ -166,14 +166,14 @@ export default {
                 this.$cookies.remove("challengeId");
                 this.$router.push("/editor");
             } catch (error) {
-                this.exapnd = true;
+                this.expand = true;
                 this.error = error;
                 this.creating = false;
             }
         }
     },
     watch: {
-        exapnd(value) {
+        expand(value) {
             if (value) {
                 this.modalHeight = "85vh";
             }
@@ -184,6 +184,9 @@ export default {
         if (height) {
             this.modalHeight = `${height}px`;
         }
+        else{
+            this.modalHeight = '450px';
+        }
     }
 };
 </script>
@@ -191,20 +194,27 @@ export default {
 
  <style lang="scss">
 
+// .top-challenges__modal{
+//     overflow: auto;
+//     max-height: 85vh;
+// }
 .top-challenges {
     &__img {
-      
+        // background-color: red;
+        border-radius: 20px;
         &:hover {
             transform: scale(0.9);
             z-index: 1;
         }
-   
-      
         .campusIL_courses_container {
             display: flex;
+            min-height: 350px;
+            width: 280px;
+            align-items: center;
             flex-direction: column;
+            justify-content: space-around;
             gap: 10px;
-            margin: 10%;
+            margin: auto;
 
             img {
                 height: 150px;  
@@ -228,7 +238,6 @@ export default {
                 width: fit-content;
                 padding: 6px;
                 border-radius: 20px;
-                width: fit-content;
                 color: black;
                 background: #f2f2f2;
             }

@@ -5,7 +5,7 @@
                 <img :src="image" :alt="challenge.title" />
                 <p v-for="paragraph in text" :key="paragraph" style="font-size: 14px;">{{ paragraph }}</p>
                 <div v-if="modalHeight" class="btns_container">
-                    <BaseButton v-if="!exapnd" :variant="link ? 'blue' : 'darkblue'" @click="buttonClickHandler"
+                    <BaseButton v-if="!expand" :variant="link ? 'blue' : 'darkblue'" @click="buttonClickHandler"
                         class="btns-style">
                         <i v-if="loading" />
                         Join a Challenge
@@ -29,7 +29,7 @@
                 </p>
             </div>
             <div class="top-challenges__buttons">
-                <BaseButton v-if="!exapnd" :variant="link ? 'blue' : 'darkblue'" @click="buttonClickHandler">
+                <BaseButton v-if="!expand" :variant="link ? 'blue' : 'darkblue'" @click="buttonClickHandler">
                     <i v-if="loading" class="fas fa-circle-notch fa-spin" />
                     <span v-else>{{ challenge.linkText || "Join a challenge" }}</span>
                 </BaseButton>
@@ -38,7 +38,7 @@
                     <span v-else>Create a challenge</span>
                 </BaseButton>
             </div>
-            <div v-if="exapnd" class="top-challenges__list-wrapper">
+            <div v-if="expand" class="top-challenges__list-wrapper">
                 <SectionSeperator />
                 <h3 v-if="!error" class="top-challenges__list-title">
                     Choose a challenge:
@@ -72,7 +72,7 @@ export default {
 
     data() {
         return {
-            exapnd: false,
+            expand: false,
             challenges: [],
             loading: false,
             creating: false,
@@ -128,7 +128,7 @@ export default {
                 } catch (error) {
                     this.error = error;
                 }
-                this.exapnd = true;
+                this.expand = true;
             }
         },
         joinChallenge(link) {
@@ -145,14 +145,14 @@ export default {
                 this.$cookies.remove("challengeId");
                 this.$router.push("/editor");
             } catch (error) {
-                this.exapnd = true;
+                this.expand = true;
                 this.error = error;
                 this.creating = false;
             }
         }
     },
     watch: {
-        exapnd(value) {
+        expand(value) {
             if (value) {
                 this.modalHeight = "85vh";
             }
@@ -162,6 +162,9 @@ export default {
         const height = this.$el.querySelector(".modal__wrapper")?.offsetHeight;
         if (height) {
             this.modalHeight = `${height}px`;
+        }
+        else{
+            this.modalHeight = '450px';
         }
     }
 };
@@ -195,6 +198,8 @@ export default {
             flex-direction: column;
             gap: 20px;
             margin: 10%;
+            min-height: 350px;
+            position: relative;
 
             img {
                 height: fit-content;
@@ -208,6 +213,8 @@ export default {
                 width: 200px;
                 gap: 10px;
                 align-items: center;
+                position: absolute;
+                bottom: 0;
             }
 
             .btns-style {
