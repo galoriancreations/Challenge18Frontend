@@ -31,83 +31,75 @@ export default {
   }
 
   &#clubs {
-    background-image: linear-gradient(
-        to right,
+    background-image: linear-gradient(to right,
         rgba(#4189bd, 0.8),
-        rgba(#4189bd, 0.8)
-      ),
+        rgba(#4189bd, 0.8)),
       url(../../assets/images/backgrounds/clubs-bg.jpg);
   }
 
   &#what-we-do {
-    background-image: linear-gradient(
-        to right,
+    background-image: linear-gradient(to right,
         rgba(#4189bd, 0.8),
-        rgba(#4189bd, 0.8)
-      ),
-      url(../../assets/images/backgrounds/what-we-do-bg.jpg);
+        rgba(#4189bd, 0.8)),
+      url(../../assets/images/backgrounds/what-we-do-bg.jpg );
+
   }
 
   &#about {
-    background-image: linear-gradient(
-        to right,
+    background-image: linear-gradient(to right,
         rgba(#4189bd, 0.8),
-        rgba(#4189bd, 0.8)
-      ),
+        rgba(#4189bd, 0.8)),
       url(../../assets/images/backgrounds/about-bg.jpg);
   }
 
   &#how-to-play {
-    background-image: linear-gradient(
-        to right,
+    background-image: linear-gradient(to right,
         rgba(#4189bd, 0.8),
-        rgba(#4189bd, 0.8)
-      ),
+        rgba(#4189bd, 0.8)),
       url(../../assets/images/backgrounds/register-bg.jpg);
   }
 
   &#articles {
-    background-image: linear-gradient(
-        to right,
+    background-image: linear-gradient(to right,
         rgba(#4189bd, 0.85),
-        rgba(#4189bd, 0.85)
-      ),
+        rgba(#4189bd, 0.85)),
       url(../../assets/images/backgrounds/blog-2-bg.jpg);
   }
 
   &#videos {
-    background-image: linear-gradient(
-        to right,
+    background-image: linear-gradient(to right,
         rgba(#4189bd, 0.8),
-        rgba(#4189bd, 0.8)
-      ),
+        rgba(#4189bd, 0.8)),
       url(../../assets/images/backgrounds/videos-bg.jpg);
   }
 
+  &#sharon_videos {
+    background-position-y: -200px;
+    background-image: linear-gradient(to right,
+        rgba(#4189bd, 0.8),
+        rgba(#4189bd, 0.8)),
+      url(../../assets/images/backgrounds/sharon_videos-bg.jpg);
+
+  }
+
   &#players {
-    background-image: linear-gradient(
-        to right,
+    background-image: linear-gradient(to right,
         rgba(#4189bd, 0.85),
-        rgba(#4189bd, 0.85)
-      ),
+        rgba(#4189bd, 0.85)),
       url(../../assets/images/backgrounds/players-bg.jpg);
   }
 
   &#marketplace {
-    background-image: linear-gradient(
-        to right,
+    background-image: linear-gradient(to right,
         rgba(#4189bd, 0.75),
-        rgba(#4189bd, 0.75)
-      ),
+        rgba(#4189bd, 0.75)),
       url(../../assets/images/backgrounds/marketplace-bg.jpg);
   }
 
   &#contact {
-    background-image: linear-gradient(
-        to right,
+    background-image: linear-gradient(to right,
         rgba(#4189bd, 0.8),
-        rgba(#4189bd, 0.8)
-      ),
+        rgba(#4189bd, 0.8)),
       url(../../assets/images/backgrounds/contact-2-bg.jpg);
     background-position-y: bottom;
     background-position-x: 10%;
@@ -118,75 +110,59 @@ export default {
   }
 
   &#login {
-    background-image: linear-gradient(
-        to right,
+    background-image: linear-gradient(to right,
         rgba(#4189bd, 0.8),
-        rgba(#4189bd, 0.8)
-      ),
+        rgba(#4189bd, 0.8)),
       url(../../assets/images/backgrounds/login-bg.jpg);
   }
 
   &#register {
-    background-image: linear-gradient(
-        to right,
+    background-image: linear-gradient(to right,
         rgba(#4189bd, 0.8),
-        rgba(#4189bd, 0.8)
-      ),
+        rgba(#4189bd, 0.8)),
       url(../../assets/images/backgrounds/register-bg.jpg);
   }
 
   &#membership,
   &#protocol {
-    background-image: linear-gradient(
-        to right,
+    background-image: linear-gradient(to right,
         rgba(#4189bd, 0.8),
-        rgba(#4189bd, 0.8)
-      ),
+        rgba(#4189bd, 0.8)),
       url(../../assets/images/backgrounds/intro-2-bg.jpg);
   }
 
   &#dashboard {
-    background-image: linear-gradient(
-        to right,
+    background-image: linear-gradient(to right,
         rgba(#4189bd, 0.8),
-        rgba(#4189bd, 0.8)
-      ),
+        rgba(#4189bd, 0.8)),
       url(../../assets/images/backgrounds/dashboard-bg.jpeg);
   }
 
   &#editor {
-    background-image: linear-gradient(
-        to right,
+    background-image: linear-gradient(to right,
         rgba(#4189bd, 0.8),
-        rgba(#4189bd, 0.8)
-      ),
+        rgba(#4189bd, 0.8)),
       url(../../assets/images/backgrounds/challenge-editor-bg.jpeg);
   }
 
   &#boom18 {
-    background-image: linear-gradient(
-        to right,
+    background-image: linear-gradient(to right,
         rgba(#4189bd, 0.75),
-        rgba(#4189bd, 0.75)
-      ),
+        rgba(#4189bd, 0.75)),
       url(../../assets/images/backgrounds/18boom-bg.jpeg);
   }
 
   &#challenges {
-    background-image: linear-gradient(
-        to right,
+    background-image: linear-gradient(to right,
         rgba(#4189bd, 0.8),
-        rgba(#4189bd, 0.8)
-      ),
+        rgba(#4189bd, 0.8)),
       url(../../assets/images/backgrounds/what-we-do-bg.jpg);
   }
 
   &#error-page {
-    background-image: linear-gradient(
-        to right,
+    background-image: linear-gradient(to right,
         rgba(#4189bd, 0.6),
-        rgba(#4189bd, 0.6)
-      ),
+        rgba(#4189bd, 0.6)),
       url(../../assets/images/backgrounds/404-bg.jpg);
   }
 

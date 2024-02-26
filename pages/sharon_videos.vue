@@ -1,5 +1,5 @@
 <template>
-  <Page title="Videos" name="videos">
+  <Page title="Sharon's Videos" name="sharon_videos">
     <p class="videos__intro">
     <h2>Watch Sharon's latest Youtube videos at his Chanel: Galorian Creations</h2>
     <p>
@@ -9,11 +9,30 @@
       It is possible to change the world, it is possible to change our habits, it is possible to have a better life - for
       everyone!
     </p>
-    <h3>Plesase select a comment, paste it in your favorite videos to make a difference!</h3>
+    <h3>1. Plesase select a comment bellow to copy.
+      2. Please choose a video. That will open on Youtube.
+      3. Please paste your comment under the video to make a difference!</h3>
     <v-app>
-      <v-select :items="comments" label="Choose one comment to copy then You can paste it" @change="toClipboard"
-        v-model="selectedValue">
-      </v-select>
+      <v-container>
+        <v-row>
+          <v-col>
+            <v-select :items="comments" label="Choose a comment to copy" @change="toClipboard" v-model="selectedValue">
+              <!-- <template v-slot:append>
+           
+          </template> -->
+            </v-select>
+          </v-col>
+          <v-col class="copy_icon">
+            <v-tooltip right>Copy
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" v-on="on" text @click="toClipboard">
+                  <v-icon>mdi-content-copy</v-icon>
+                </v-btn>
+              </template>
+            </v-tooltip>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-app>
     </p>
     <section class="videos__grid">
@@ -105,15 +124,25 @@ export default {
 </script>
   
 <style lang="scss">
+.copy_icon {
+  max-width: 60px;
+  padding-top: 28px;
+}
+
 h2,
 p {
   margin-bottom: 15px;
+  text-align: center;
 }
 
 .v-label--active {
   display: none;
 }
 
+h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
 .videos {
   &__grid {
