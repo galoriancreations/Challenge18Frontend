@@ -138,11 +138,9 @@ export default {
    user-select: none;
    font-family: Verdana, Geneva, Tahoma, sans-serif;
    cursor: default;
-
-   &:hover {
-            transform: scale(0.9);
-            z-index: 1;
-        }
+   animation: zoomOutIn 1s infinite;
+    animation-duration: 2s;
+    animation-fill-mode: both;
  }
 
 .challenges-grid {

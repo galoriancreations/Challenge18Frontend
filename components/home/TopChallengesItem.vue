@@ -55,10 +55,6 @@
                     </v-app>
                 </div>
             </div>
-            <!-- <BaseButton v-if="!link" variant="blue" @click="createChallenge">
-        <i v-if="creating" class="fas fa-circle-notch fa-spin" />
-        <span v-else>Create a challenge</span>
-      </BaseButton> -->
         </PopupModal>
     </div>
 </template>
@@ -248,8 +244,6 @@ export default {
 
     &__modal {
         .section-seperator {
-            // margin: 5rem 0;
-
             @include respond(mobile) {
                 margin: 3.5rem 0;
             }
