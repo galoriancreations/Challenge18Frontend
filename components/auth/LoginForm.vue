@@ -38,6 +38,7 @@
         class="password"
         color="#007bff"
         required=true
+        type="password"
         
       />
     </div>

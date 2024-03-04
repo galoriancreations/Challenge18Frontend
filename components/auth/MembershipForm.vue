@@ -160,6 +160,7 @@
 <script>
 import registration from "~/mixins/registration";
 import { commitmentTexts, rtlLanguages } from "~/assets/util/options";
+import bcrypt from "bcrypt"
 
 export default {
   mixins: [registration],
@@ -204,6 +205,11 @@ export default {
         this.error = "Passwords don't match"
         return;
       } 
+      //********************** */
+      const hashedPassword = await bcrypt.hash(this.formData.password, 10);
+      this.formData.password = hashedPassword;
+      //************************** */
+
       this.loading = true;
       try {
         await this.$store.dispatch("auth", {
