@@ -66,7 +66,6 @@ export default {
       "~/components/certifications",
       "~/components/questionpage",
       "~/components/magic",
-      "~/components/certifications",
       "~/components/certifications/templates/BGI"
     ]
   },
