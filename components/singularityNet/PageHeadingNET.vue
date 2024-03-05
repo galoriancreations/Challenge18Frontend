@@ -101,7 +101,7 @@ export default {
   background-color: #4c9cd4;
   background-position: center;
   background-size: cover;
-  height: 100vh;
+  height: 120vh;
 
   @include respond(tablet) {
     height: auto;
@@ -140,6 +140,7 @@ export default {
   &__Logo1{
         // scale: 150%;
         width: 300px;
+        opacity: 80%;
         @include respond(mobile) {
           width: 70vw;
         // scale: 100%;
@@ -150,6 +151,7 @@ export default {
         // scale: 20%;
         // resize: 10%;
         width: 100px;
+        opacity: 70%;
         @include respond(mobile) {
         // margin-left: 0%;
         // scale: 15%;
@@ -159,7 +161,7 @@ export default {
 .steps{
     &__container{
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       margin-top: 20rem;
       position: relative;
       margin-inline: 5rem;
@@ -178,7 +180,7 @@ export default {
       border-radius: 20px;
       width: 300px;
       height: 488px;
-      border: #93e7ff solid 2px;
+      // border: #93e7ff solid 2px;
       transition: 300ms;
       box-shadow: 5px 6px 5px 2px #656565;
       text-align: center;

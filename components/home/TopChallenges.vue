@@ -43,6 +43,7 @@ export default {
     max-width: 120rem;
     margin: auto;
     padding: 0;
+    justify-content: center;
 
     @include respond(tablet-sm) {
       gap: 3rem;

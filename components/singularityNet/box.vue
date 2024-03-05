@@ -46,7 +46,12 @@ export default {
     flex-direction: column;
     justify-content: center;
     background-color: #cdf0f2;
-    padding-top: 30px;
+    opacity: 50%;
+    padding: 20px;
+
+    &:hover{
+    opacity: 75%;
+}
 }
 .images{
     padding-top: 168px;
