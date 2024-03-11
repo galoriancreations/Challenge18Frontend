@@ -121,8 +121,8 @@ export default {
             } else if (!this.loading) {
                 this.loading = true;
                 try {
-                    this.challenges = await this.$axios.$post("/api", {
-                        getChallengesByName: this.challenge.popupLessView.names || [this.challenge.popupLessView.title]
+                    this.challenges = await this.$axios.$post("/challenge/getChallengesByName", {
+                        data: this.challenge.popupLessView.names || [this.challenge.popupLessView.title]
                     });
                     this.error = null;
                 } catch (error) {
@@ -137,13 +137,9 @@ export default {
         async createChallenge() {
             this.creating = true;
             try {
-                const challengeData = {
-                    name: this.challenge.popupLessView.title,
-                    description: this.challenge.popupLessView.text, 
-                };
-                console.log({challengeData});
-                const response = await this.$axios.$post("/challenge", challengeData);
-                const templateId = response.challenge._id; 
+                const templateId = await this.$axios.$post("/challenge/getPublicTemplateID",
+                    this.challenge.popupLessView.names || [this.challenge.popupLessView.title]
+                );
                 this.$cookies.set("selectedTemplate", templateId);
                 this.$cookies.remove("draftId");
                 this.$cookies.remove("challengeId");

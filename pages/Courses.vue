@@ -142,8 +142,8 @@ export default {
             } else if (!this.loading) {
                 this.loading = true;
                 try {
-                    this.courses = await this.$axios.$post("/api", {
-                        getChallengesByName: this.courses.popupLessView.names || [this.courses.popupLessView.title]
+                    this.courses = await this.$axios.$post("/challenge/getChallengesByName", {
+                        data: this.courses.popupLessView.names || [this.courses.popupLessView.title]
                     });
                     this.error = null;
                 } catch (error) {
@@ -158,9 +158,9 @@ export default {
         async createChallenge() {
             this.creating = true;
             try {
-                const templateId = await this.$axios.$post("/api", {
-                    getPublicTemplateID: this.courses.popupLessView.names || [this.courses.popupLessView.title]
-                });
+                const templateId = await this.$axios.$post("/challenge/getPublicTemplateID",
+                    this.courses.popupLessView.names || [this.courses.popupLessView.title]
+                );
                 this.$cookies.set("selectedTemplate", templateId);
                 this.$cookies.remove("draftId");
                 this.$cookies.remove("challengeId");
