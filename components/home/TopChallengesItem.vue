@@ -137,9 +137,13 @@ export default {
         async createChallenge() {
             this.creating = true;
             try {
-                const templateId = await this.$axios.$post("/api", {
-                    getPublicTemplateID: this.challenge.popupLessView.names || [this.challenge.popupLessView.title]
-                });
+                const challengeData = {
+                    name: this.challenge.popupLessView.title,
+                    description: this.challenge.popupLessView.text, 
+                };
+                console.log({challengeData});
+                const response = await this.$axios.$post("/challenge", challengeData);
+                const templateId = response.challenge._id; 
                 this.$cookies.set("selectedTemplate", templateId);
                 this.$cookies.remove("draftId");
                 this.$cookies.remove("challengeId");
