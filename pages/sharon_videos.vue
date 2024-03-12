@@ -1,40 +1,43 @@
 <template>
   <Page title="Sharon's Videos" name="sharon_videos">
-    <p class="videos__intro">
-    <h2>Watch Sharon's latest Youtube videos at his Chanel: Galorian Creations</h2>
+    <h2 class="title">Watch Sharon's latest Youtube videos at his Chanel: <br /> Galorian Creations</h2>
     <p>
-      Can we change our habits of thinking, consumption and action as individuals and as a society? Can we lead a valuable
+      Can we change our habits of thinking, consumption and action as individuals and as a society? Can we lead a
+      valuable
       and sustainable lifestyle and even influence others to do like us?
       The answer to all these questions is absolutely yes!
-      It is possible to change the world, it is possible to change our habits, it is possible to have a better life - for
+      It is possible to change the world, it is possible to change our habits, it is possible to have a better life -
+      for
       everyone!
     </p>
-    <h3>1. Plesase select a comment bellow to copy.
-      2. Please choose a video. That will open on Youtube.
-      3. Please paste your comment under the video to make a difference!</h3>
+
+    <section class="how-to-add__section">
+      <h2 class="how-to-add-title title">How to add a comment to Sharon's Youtube video</h2>
+      <div class="how-to-add-container">
+        <ol class="how-to-add-steps">
+          <li>Plesase select a comment bellow to copy.</li>
+          <li>Choose a video, that will open on YouTube..</li>
+          <li>Paste the comment below the YouTube video's comment section.</li>
+        </ol>
+      </div>
+    </section>
+
     <v-app>
       <v-container>
         <v-row>
           <v-col>
-            <v-select :items="comments" label="Choose a comment to copy" @change="toClipboard" v-model="selectedValue">
-              <!-- <template v-slot:append>
-           
-          </template> -->
-            </v-select>
-          </v-col>
-          <v-col class="copy_icon">
-            <v-tooltip right>Copy
+            <v-tooltip right v-model="show_tooltip">Copied!
               <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on" text @click="toClipboard">
-                  <v-icon>mdi-content-copy</v-icon>
-                </v-btn>
+                <v-select :items="comments" label="Choose a comment to copy" @change="toClipboard"
+                  v-model="selectedValue">
+                </v-select>
               </template>
             </v-tooltip>
           </v-col>
         </v-row>
       </v-container>
     </v-app>
-    </p>
+
     <section class="videos__grid">
       <div v-for="videoId in getRandomIds(videos, 3)" :key="videoId" class="videos__item">
         <a :href="videoLink(videoId)" target="_blank"><img :src="videoThSrc(videoId)"></a>
@@ -57,6 +60,7 @@ export default {
   },
   data() {
     return {
+      show_tooltip: false,
       selectedValue: "",
       videos: [
         "mCOHZQfuiLs",
@@ -118,16 +122,25 @@ export default {
     },
     toClipboard() {
       navigator.clipboard.writeText(this.selectedValue);
+      this.show_tooltip = true;
+
+      setTimeout(() => {
+        this.show_tooltip = false
+      }, 5000)
     }
   }
 };
 </script>
-  
+
 <style lang="scss">
-.copy_icon {
-  max-width: 60px;
-  padding-top: 28px;
+.section-white.sharon_videos {
+  padding: 4rem;
+  font-size: 1.6rem;
+  line-height: 1.6;
+  font-weight: 500;
+  color: #666;
 }
+
 
 h2,
 p {
@@ -135,13 +148,58 @@ p {
   text-align: center;
 }
 
+h2.title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background-image: linear-gradient(135deg, #667eea, #764ba2, #6b8e23 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.how-to-add {
+  &-title {
+    font-size: 3rem;
+    color: $color-blue-2;
+    font-weight: 700;
+    margin-bottom: 0;
+
+    @include respond(mobile) {
+      font-size: 2.4rem;
+    }
+  }
+
+  &-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include respond(tablet) {
+      flex-direction: column;
+    }
+  }
+
+  &-steps {
+    margin-left: 2.25rem;
+    margin-top: 1rem;
+
+    @include respond(mobile) {
+      margin-left: 1.75rem;
+    }
+
+    li {
+      padding-bottom: 5px;
+    }
+  }
+}
+
 .v-label--active {
   display: none;
 }
 
-h3 {
-  text-align: center;
-  margin-bottom: 20px;
+.v-application .primary--text {
+  caret-color: #667eea !important;
+  color: #667eea !important;
 }
 
 .videos {
@@ -169,7 +227,6 @@ h3 {
       object-fit: cover;
       max-width: 100%;
       height: auto;
-      // display: block;
 
       @include respond(tablet) {
         height: 25vw;
@@ -182,4 +239,3 @@ h3 {
   }
 }
 </style>
-  
