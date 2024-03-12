@@ -53,7 +53,7 @@ export default {
       return {
         data: {
           name: data.name || "",
-          language: data.language || user?.language,
+          language:  user?.language,
           image: data.image || null,
           date: new Date(data.date || defaultDate()),
           dayMargin: data.dayMargin || 1,
