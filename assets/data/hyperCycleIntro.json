@@ -1,0 +1,20 @@
+{
+    "hyperCycle_intro": {
+        "title": "Regenerating The Future",
+        "description1": "HYPC DAO represents more than just a project; it is a symbol of innovation and community empowerment. Originating from the shared vision of a few founding nodes, HYPC DAO has become a leading force in the regenerative finance (ReFi) space. Our journey started with a dedication to making financial opportunities accessible to all and empowering individuals and communities across the globe. Join us on this HyperJourney and pioneer with us the AI Revolution.",
+        "description2": "We dream of a future where financial freedom isn't just a luxury but a basic right for all. Our mission at HYPC DAO is rooted in the principles of transparency, accessibility, and governance led by our community. We're not merely building a project; we're cultivating a movement toward an equitable, decentralized, and regenerative financial ecosystem. Join us on this HyperJourney and pioneer with us the AI Revolution.” ~ Mauricio F. Prieto Dávila & Sharon Gal Or",
+        "hyperCycle": {
+            "subtitle": "HyperCycle - How does the node work?",
+            "keyPoints": [
+                "💡 Key Insights",
+                "📜 A hyper-cycle node is a software that enables efficient and secure interaction between AI modules through cryptographic proofs and a true P2P design.",
+                "🕒 The hyper-cycle node is comprised of a virtual machine, a transaction machine, and an AI machine.",
+                "📥 The virtual machine receives input from a Sato server, data for AI computation, and smart contract instructions.",
+                "⚙️ The virtual machine acts as an interface between the network and components of the hyper-cycle node.",
+                "💻 The AI machine processes data using the AI algorithm and returns results to the network.",
+                "🔄 The hyper-cycle node aggregates results from all nodes and outputs them to the requester.",
+                "🌐 The collaboration of AI agents in the hyper-cycle node leads to the emergence of a new overall intelligence."
+            ]
+        }
+    }
+}
