@@ -133,6 +133,9 @@ export default {
                 start: moment(new Date(challenge.date)).format("ll"),
                 link: challenge.platforms.wa.invite
             }));
+        },
+        language() {
+            return this.$store.getters.user?.language || "English";
         }
     },
     methods: {
@@ -157,9 +160,14 @@ export default {
         },
         async createChallenge() {
             this.creating = true;
+            console.log('createChallenge');
+            console.log({data: this.$store.getters.user.language});
             try {
-                const templateId = await this.$axios.$post("/challenge/getPublicTemplateID",
-                    this.courses.popupLessView.names || [this.courses.popupLessView.title]
+                const templateId = await this.$axios.$post('/challenge/getPublicTemplateID',
+                    {
+                        data: this.courses.popupLessView.names || [this.courses.popupLessView.title],
+                        language: this.language,
+                    }
                 );
                 this.$cookies.set("selectedTemplate", templateId);
                 this.$cookies.remove("draftId");

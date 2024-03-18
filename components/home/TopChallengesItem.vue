@@ -112,6 +112,9 @@ export default {
                 start: moment(new Date(challenge.date)).format("ll"),
                 link: challenge.platforms.wa.invite
             }));
+        },
+        language() {
+            return this.$store.getters.user?.language || "English";
         }
     },
     methods: {
@@ -138,7 +141,10 @@ export default {
             this.creating = true;
             try {
                 const templateId = await this.$axios.$post("/challenge/getPublicTemplateID",
-                    this.challenge.popupLessView.names || [this.challenge.popupLessView.title]
+                    {
+                        data: this.challenge.popupLessView.names || [this.challenge.popupLessView.title],
+                        language: this.language,
+                    }
                 );
                 this.$cookies.set("selectedTemplate", templateId);
                 this.$cookies.remove("draftId");
@@ -166,7 +172,7 @@ export default {
         else{
             this.modalHeight = '450px';
         }
-    }
+    },
 };
 </script>
 
