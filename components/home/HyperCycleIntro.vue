@@ -26,7 +26,7 @@
         </div>
         <div class="hyperCycle_links">
             <BaseButton variant="blue"> Unlock a Special NFT    </BaseButton>
-            <BaseButton variant="blue"> Join Community Discord  </BaseButton>
+            <BaseButton variant="blue"> Join Discord Community  </BaseButton>
             <BaseButton variant="blue"> Learn More              </BaseButton>
         </div>
     </section>
@@ -153,12 +153,6 @@ section {
     position: relative;
     height: 120px;
     width: 50%;
-
-    @include respond(mobile) {
-        // display: flex;
-        // width: fit-content;
-        // justify-content: center;
-    }
 
     @include respond(tablet) {
         width: 90%;
