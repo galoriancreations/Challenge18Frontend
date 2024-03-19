@@ -51,9 +51,10 @@ export default {
     },
     async cloneTemplate(templateId) {
       this.loading = true;
-      const newTemplate = await this.$axios.$post("/xapi", {
+      const newTemplate = await this.$axios.$post("/clone", {
         cloneTemplate: templateId
       });
+      const { name: templateName } = newTemplate.newTemplate;
       this.$store.commit(
         "setTemplates",
         this.$store.getters.templates.concat(newTemplate)
@@ -66,7 +67,7 @@ export default {
       }
       await this.$store.dispatch("updateUser");
       this.addNotification(
-        `Created new template: <strong>${newTemplate.name}</strong>.`
+        `Created new template: <strong>${templateName}</strong>.`
       );
       this.loading = false;
     },
