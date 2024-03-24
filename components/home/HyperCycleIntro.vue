@@ -84,6 +84,13 @@ export default {
 </script>
 
 <style lang="scss">
+
+$color-primary: #6a11cb;
+$color-secondary: #4a90e2;
+$color-tertiary: #ff7e5f;
+$color-quinary: #ffd166;
+$color-quaternary: #8eedf7;
+
 section {
     background-size: cover;
     background-position: center;
@@ -105,7 +112,7 @@ section {
 
     h1,
     h2 {
-        background: linear-gradient(to left, #001bff, #ff7e5f, #ffd166, );
+        background: linear-gradient(to left, $color-primary, $color-secondary, $color-tertiary, $color-quinary, $color-quaternary);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -166,7 +173,6 @@ section {
         background-color: white;
         color: $color-azure;
         transition: 0.5s;
-
 
         @include respond(mobile) {
             margin: 5px;
