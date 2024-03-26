@@ -103,6 +103,7 @@ export default {
       }
     },
     async submitHandler() {
+      console.log(this.formData);
       if (this.loading) return;
       this.loading = true;
       this.error = null;

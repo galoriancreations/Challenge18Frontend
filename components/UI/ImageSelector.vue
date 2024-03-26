@@ -101,6 +101,7 @@ export default {
       console.log(
         `initial image value in imageSelector component: ${file}`
       );
+      console.log(file);
       // this.value = file // its leads to re-render error 
 
       // send selected image back to parent component (v-model gets it)
@@ -125,7 +126,6 @@ export default {
       } catch {
         this.$emit("update:error", true);
       }
-      // await this.$axios.$post("/xapi", {"updateProfileImage":imageUrl});
       this.$emit("end-upload");
     }
   }

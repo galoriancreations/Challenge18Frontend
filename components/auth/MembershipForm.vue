@@ -9,16 +9,19 @@
     <div class="formfield">
       <div class="formfield__avatar">
       <label for="image" id="file-style-label"  >
-      <img :src="prewiewFilePath" 
+      <img :src="prewiewFilePath"
       id="selectedImg" alt="Your avatar">
       <p id="preview-photo-text" >Nice To See Your Avatar</p>
-      <input
-        type="file"
-        accept="image/*"
-        @change="handleImageUpload"
-        id="image"
-        class=" file-style"
-      />
+      <ImageSelector
+          v-model="formData.image"
+          :placeholderImg="placeholderImg"
+          :buttonSize="30"
+          :loading="uploadingFile"
+          @start-upload="uploadingFile = true"
+          @end-upload="uploadingFile = false"
+          :hasSelectedImage.sync="hasSelectedImage"
+          :error.sync="errorUploading"
+        />
     </label>
 
     <!------------------ icon delete ---------------------->
@@ -190,6 +193,11 @@
 <script>
 import registration from "~/mixins/registration";
 import { commitmentTexts, rtlLanguages } from "~/assets/util/options";
+import {
+  initialData,
+  textInputKeys,
+  initialsImg
+} from "~/assets/util/functions";
 
 export default {
   mixins: [registration],
@@ -197,10 +205,19 @@ export default {
   data() {
     return {
       confirmed: false,
-      selectedImage: null
+      selectedImage: null,
+      uploadingFile: false,
+      hasSelectedImage: false,
+      errorUploading: false
     };
   },
   computed: {
+    user() {
+      return this.$store.getters.user;
+    },
+    placeholderImg() {
+      return initialsImg(this.user);
+    },    
     plan() {
       return this.getSelectedPlan();
     },
