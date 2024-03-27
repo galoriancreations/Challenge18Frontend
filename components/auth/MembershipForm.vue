@@ -9,9 +9,9 @@
     <div class="formfield">
       <div class="formfield__avatar">
       <label for="image" id="file-style-label"  >
-      <img :src="prewiewFilePath"
-      id="selectedImg" alt="Your avatar">
-      <p id="preview-photo-text" >Nice To See Your Avatar</p>
+      <img :src="prewiewFilePath" 
+      id="selectedImg" alt="Your avatar" v-show="selectedImage" >
+      <p id="preview-photo-text" v-show="!hasSelectedImage" >Nice To See Your Avatar</p>
       <ImageSelector
           v-model="formData.image"
           :placeholderImg="placeholderImg"
@@ -26,7 +26,7 @@
 
     <!------------------ icon delete ---------------------->
     <svg @click="deletePhoto" class="icons"
-    xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" 
+    v-show="hasSelectedImage" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" 
     d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
 
     </div>
@@ -193,11 +193,7 @@
 <script>
 import registration from "~/mixins/registration";
 import { commitmentTexts, rtlLanguages } from "~/assets/util/options";
-import {
-  initialData,
-  textInputKeys,
-  initialsImg
-} from "~/assets/util/functions";
+import { initialsImg } from "~/assets/util/functions";
 
 export default {
   mixins: [registration],
@@ -298,7 +294,8 @@ export default {
       const previewPhotoText = document.getElementById('preview-photo-text')
 
         previewPhoto.style.display = 'none'
-        previewPhotoText.style.display = 'block'
+        // previewPhotoText.style.display = 'block'
+        this.hasSelectedImage = false
         this.selectedImage = null
     }
   }
@@ -442,8 +439,12 @@ export default {
 .icons{
   cursor: pointer;
   color: #8f96a3;
+  transition: color 0.6s ease;
 }
 
+.icons:hover {
+  color:black; 
+}
   
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="image-selector">
     <div class="image-selector__wrapper">
-      <img v-if="imageUrl" class="image-selector__image" :src="imageUrl" />
+      <img v-if="imageUrl" v-show="hasSelectedImage" class="image-selector__image" :src="imageUrl" />
       <i
         v-if="loading && showStatusIcon"
         class="fas fa-circle-notch fa-spin image-selector__spinner"
@@ -239,4 +239,15 @@ export default {
     font-size: 1.4rem;
   }
 }
+
+.formfield__avatar .image-selector{  
+  &__image {
+    margin: 0.75rem auto ;
+  }
+
+  &__caption {
+    display: none;  
+  }
+}
+
 </style>
