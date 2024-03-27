@@ -411,15 +411,13 @@ export default {
   align-items: center;
   overflow: hidden;
   color: #545454cb;
-  
-
-
   background-color: #f5f4f4;
   cursor: pointer;
   text-align: center;
   padding: 15px 10px;
   border-radius: 15px;
   border: 2px dashed #cdc8c8;
+  transition:background-color 0.6s ease, border-color 0.6s ease;
 }
 
 #file-style-label:hover {
